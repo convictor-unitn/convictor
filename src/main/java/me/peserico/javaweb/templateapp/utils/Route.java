@@ -11,6 +11,7 @@ import java.util.Objects;
  */
 public class Route {
 
+	private final String method;
 	private final String url;
 	private final String controllerName;
 	private final String actionName;
@@ -18,11 +19,13 @@ public class Route {
 
 	/**
 	 * This constructs a route with default format as html
+	 * @param method is the http method to match
 	 * @param url is the url to map
 	 * @param controller is the controller to map to
 	 * @param action is the action to map
 	 */
-	public Route(String url, String controller, String action) {
+	public Route(String method, String url, String controller, String action) {
+		this.method = method;
 		this.url = url;
 		this.controllerName = controller;
 		this.actionName = action;
@@ -31,12 +34,14 @@ public class Route {
 	
 	/**
 	 * This constructs a route with custom format
+	 * @param method is the http method to match
 	 * @param url is the url to map
 	 * @param controllerName is the controller to map to
 	 * @param actionName is the action to map
 	 * @param format is the format of this route
 	 */
-	public Route(String url, String controllerName, String actionName, String format) {
+	public Route(String method, String url, String controllerName, String actionName, String format) {
+		this.method = method;
 		this.url = url;
 		this.controllerName = controllerName;
 		this.actionName = actionName;
@@ -51,6 +56,14 @@ public class Route {
 		return url;
 	}
 
+	/**
+	 * This method returns the http method of this route
+	 * @return
+	 */
+	public String getMethod() {
+		return method;
+	}
+	
 	/**
 	 * ControllerName getter
 	 * @return controllerName the name of the controller of this route
