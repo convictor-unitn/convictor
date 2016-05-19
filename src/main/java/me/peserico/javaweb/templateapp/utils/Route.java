@@ -11,11 +11,12 @@ import java.util.Objects;
  */
 public class Route {
 
+	private final RouteId id;
 	private final String method;
 	private final String url;
 	private final String controllerName;
 	private final String actionName;
-	private final String format;
+	private String format;
 
 	/**
 	 * This constructs a route with default format as html
@@ -30,6 +31,7 @@ public class Route {
 		this.controllerName = controller;
 		this.actionName = action;
 		this.format = "html";
+		this.id = new RouteId(url, method);
 	}
 	
 	/**
@@ -41,13 +43,18 @@ public class Route {
 	 * @param format is the format of this route
 	 */
 	public Route(String method, String url, String controllerName, String actionName, String format) {
-		this.method = method;
-		this.url = url;
-		this.controllerName = controllerName;
-		this.actionName = actionName;
+		this(method, url, controllerName, actionName);
 		this.format = format;
 	}
 
+	/**
+	 * This method returns the id of this route
+	 * @return id
+	 */
+	public RouteId getId() {
+		return id;
+	}
+	
 	/**
 	 * Url getter
 	 * @return url the url of this route
@@ -58,7 +65,7 @@ public class Route {
 
 	/**
 	 * This method returns the http method of this route
-	 * @return
+	 * @return id
 	 */
 	public String getMethod() {
 		return method;
@@ -87,19 +94,21 @@ public class Route {
 	public String getFormat() {
 		return format;
 	}
-	
-	@Override
-	public String toString() {
-		return "Route{" + "url=" + url + ", controller=" + controllerName + ", action=" + actionName + '}';
-	}
 
 	@Override
+	public String toString() {
+		return "Route{" + "id=" + id + ", method=" + method + ", url=" + url + ", controllerName=" + controllerName + ", actionName=" + actionName + ", format=" + format + '}';
+	}
+	
+	@Override
 	public int hashCode() {
-		int hash = 3;
-		hash = 53 * hash + Objects.hashCode(this.url);
-		hash = 53 * hash + Objects.hashCode(this.controllerName);
-		hash = 53 * hash + Objects.hashCode(this.actionName);
-		hash = 53 * hash + Objects.hashCode(this.format);
+		int hash = 5;
+		hash = 43 * hash + Objects.hashCode(this.id);
+		hash = 43 * hash + Objects.hashCode(this.method);
+		hash = 43 * hash + Objects.hashCode(this.url);
+		hash = 43 * hash + Objects.hashCode(this.controllerName);
+		hash = 43 * hash + Objects.hashCode(this.actionName);
+		hash = 43 * hash + Objects.hashCode(this.format);
 		return hash;
 	}
 
@@ -115,6 +124,9 @@ public class Route {
 			return false;
 		}
 		final Route other = (Route) obj;
+		if (!Objects.equals(this.method, other.method)) {
+			return false;
+		}
 		if (!Objects.equals(this.url, other.url)) {
 			return false;
 		}
@@ -127,8 +139,11 @@ public class Route {
 		if (!Objects.equals(this.format, other.format)) {
 			return false;
 		}
+		if (!Objects.equals(this.id, other.id)) {
+			return false;
+		}
 		return true;
 	}
-	
+
 	
 }
