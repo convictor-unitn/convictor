@@ -1,21 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
     Route file.
     In this XML file there are specified all the applications routes.
     Every route must have filled every tag below. 
     Author: Giovanni De Toni
 -->
-<?xml version="1.0" encoding="UTF-8"?>
 <routes>
     <route>
-        <method>GET</method>
         <url>/</url>
+        <method>GET</method>
         <controller>StaticPages</controller>
         <action>home</action>
         <format>html</format>            
     </route>
     <route>
-        <method>GET</method>
         <url>/protected</url>
+        <method>GET</method>
         <controller>StaticPages</controller>
         <action>protected_pages</action>
         <format>html</format>            
