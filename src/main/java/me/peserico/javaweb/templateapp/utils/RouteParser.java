@@ -107,9 +107,4 @@ public class RouteParser extends DefaultHandler {
         return this.tags;
     }
     
-    public static void main(String[] args) throws IOException {
-        RouteParser test = new RouteParser();
-        test.parse();
-    }
-    
 }

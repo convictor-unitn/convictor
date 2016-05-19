@@ -1,8 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE routes [
+<!ELEMENT route (url, method, controller, action, format)>
+<!ELEMENT url (#PCDATA)>
+<!ELEMENT method (#PCDATA)>
+<!ELEMENT controller (#PCDATA)>
+<!ELEMENT action (#PCDATA)>
+<!ELEMENT format (#PCDATA)>  
+]>
 <!--
     Route file.
     In this XML file there are specified all the applications routes.
-    Every route must have filled every tag below. 
+    There is also specified a small DTD requirements to ensure the
+    correctness of the file. 
     Author: Giovanni De Toni
 -->
 <routes>
