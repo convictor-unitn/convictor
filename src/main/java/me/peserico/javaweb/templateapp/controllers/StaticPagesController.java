@@ -7,6 +7,8 @@ package me.peserico.javaweb.templateapp.controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -31,7 +33,6 @@ public class StaticPagesController extends AbstractController {
 	 * @throws ServletException
 	 */
 	protected String home(HttpServletRequest request, HttpServletResponse response, String format) throws IOException, ServletException {
-	
 		return "/pages/index";
 	}
 	
@@ -45,7 +46,6 @@ public class StaticPagesController extends AbstractController {
 	 * @throws ServletException
 	 */
 	protected String protected_page(HttpServletRequest request, HttpServletResponse response, String format) throws ServletException, IOException {
-		
 		return "/pages/protected";
 	}
 	
