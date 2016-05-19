@@ -33,7 +33,6 @@ public class StaticPagesController extends AbstractController {
 	 * @throws ServletException
 	 */
 	protected String home(HttpServletRequest request, HttpServletResponse response, String format) throws IOException, ServletException {
-		Logger.getLogger(AbstractController.class.getName()).log(Level.SEVERE, null, "Sono in home");
 		return "/pages/index";
 	}
 	
