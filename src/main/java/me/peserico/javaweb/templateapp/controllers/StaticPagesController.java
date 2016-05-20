@@ -32,7 +32,7 @@ public class StaticPagesController extends AbstractController {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	protected String home(HttpServletRequest request, HttpServletResponse response, String format) throws IOException, ServletException {
+	protected String home(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		return "/pages/index";
 	}
 	

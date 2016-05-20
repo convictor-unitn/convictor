@@ -18,6 +18,10 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * This class implements the doAction method with reflection
  * It must be implemented in a real controller with specific action to be called
+ * When you inherits from this class all action methods must have this signature
+ * * <code>
+ *     protected String actionName(HttpServletRequest request, HttpServletResponse response, String format) throws IOException, ServletException {
+ * </code>
  * @author umberto
  */
 public abstract class AbstractController implements Controller {
@@ -25,8 +29,8 @@ public abstract class AbstractController implements Controller {
 	@Override
 	public void doAction(HttpServletRequest request, HttpServletResponse response, String action, String format) {		
 		try {
-			Class paramsTypes[] = new Class[]{HttpServletRequest.class, HttpServletResponse.class, String.class};
-			Object params[] = new Object[] { request, response, format };
+			Class paramsTypes[] = new Class[]{HttpServletRequest.class, HttpServletResponse.class};
+			Object params[] = new Object[] { request, response };
 			Method m = this.getClass().getDeclaredMethod(action, paramsTypes);
 			String view = (String) m.invoke(this, params);
 			request.getRequestDispatcher("/WEB-INF/"+view+"."+format.toLowerCase()+".jsp").forward(request, response);
