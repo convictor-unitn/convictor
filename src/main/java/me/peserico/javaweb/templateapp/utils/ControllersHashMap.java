@@ -6,11 +6,19 @@
 package me.peserico.javaweb.templateapp.utils;
 
 import java.util.HashMap;
+import me.peserico.javaweb.templateapp.controllers.Controller;
 
 /**
  *
  * @author Giovanni
  */
-public class ControllersHashMap extends HashMap<Object, Object>{
+public class ControllersHashMap extends HashMap<String, Controller>{
+    
+    @Override
+    public Controller get(Object key){
+        Controller result = null;
+        
+        return result;
+    }
     
 }
