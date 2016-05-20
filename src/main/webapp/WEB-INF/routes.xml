@@ -8,10 +8,9 @@
 <!ELEMENT format (#PCDATA)>  
 ]>
 <!--
-    Route file.
+    Route Configuration file.
     In this XML file there are specified all the applications routes.
-    There is also specified a small DTD requirements to ensure the
-    correctness of the file. 
+    There is also specified a small DTD to ensure the correctness of the file. 
     Author: Giovanni De Toni
 -->
 <routes>
