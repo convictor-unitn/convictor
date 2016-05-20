@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package me.peserico.javaweb.templateapp.controllers;
+package it.unitn.disi.webprog2016.convictor.framework.controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;

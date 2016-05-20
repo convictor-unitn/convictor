@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package me.peserico.javaweb.templateapp.servlets;
+package it.unitn.disi.webprog2016.convictor.framework.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,10 +13,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import me.peserico.javaweb.templateapp.controllers.Controller;
-import me.peserico.javaweb.templateapp.controllers.StaticPagesController;
-import me.peserico.javaweb.templateapp.utils.Route;
-import me.peserico.javaweb.templateapp.utils.RouteId;
+import it.unitn.disi.webprog2016.convictor.framework.controllers.Controller;
+import it.unitn.disi.webprog2016.convictor.app.controllers.StaticPagesController;
+import it.unitn.disi.webprog2016.convictor.framework.utils.Route;
+import it.unitn.disi.webprog2016.convictor.framework.utils.RouteId;
 
 /**
  * This servlet processes the url the user is surfing. It must be initialized
