@@ -6,6 +6,8 @@
 package me.peserico.javaweb.templateapp.utils;
 
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import me.peserico.javaweb.templateapp.controllers.Controller;
 
 /**
@@ -14,11 +16,11 @@ import me.peserico.javaweb.templateapp.controllers.Controller;
  */
 public class ControllersHashMap extends HashMap<String, Controller>{
     
-    @Override
-    public Controller get(Object key){
-        Controller result = null;
-        
-        return result;
-    }
     
+    public Controller getController(Object key) throws NotFoundControllersException {
+        Controller result = null;
+        result = super.get(key);
+        if (result == null) throw new NotFoundControllersException();
+        return result;
+    } 
 }

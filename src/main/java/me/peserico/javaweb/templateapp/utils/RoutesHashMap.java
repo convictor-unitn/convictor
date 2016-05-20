@@ -6,6 +6,9 @@
 package me.peserico.javaweb.templateapp.utils;
 
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import me.peserico.javaweb.templateapp.utils.NotFoundRoutesException;
 
 /**
  *
@@ -13,16 +16,12 @@ import java.util.HashMap;
  */
 public class RoutesHashMap extends HashMap<RouteId, Route> {
     
-    @Override
-    public Route get(Object key) {
+    public Route getRoute(Object key) throws NotFoundRoutesException {
         Route result = null;
-//        HashMap.Node<K,V> e;
-//        return (e = getNode(hash(key), key)) == null ? null : e.value;
+        result = super.get(key);
         
-        
+        if (result == null) throw new NotFoundRoutesException();
         
         return result;
-    }
-    
-    
+    }        
 }

@@ -9,6 +9,6 @@ package me.peserico.javaweb.templateapp.utils;
  *
  * @author Giovanni
  */
-public class RoutesException extends Exception {
+public class NotFoundRoutesException extends Exception {
     
 }

@@ -9,6 +9,6 @@ package me.peserico.javaweb.templateapp.utils;
  *
  * @author Giovanni
  */
-public class ControllersException {
+public class NotFoundControllersException extends Exception {
     
 }
