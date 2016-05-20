@@ -8,13 +8,18 @@ package me.peserico.javaweb.templateapp.utils;
 import java.util.Objects;
 
 /**
- *
+ * This route represents an id for a route.
  * @author umberto
  */
 public class RouteId {
 	private final String url;
 	private final String method;
 
+	/**
+	 * Gets a route Id composed by url and method
+	 * @param url
+	 * @param method 
+	 */
 	public RouteId(String url, String method) {
 		this.url = url;
 		this.method = method;
