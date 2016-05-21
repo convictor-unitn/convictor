@@ -1,5 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+	<context-param>
+        <param-name>dbUrl</param-name>
+        <param-value>jdbc:postgresql://localhost:5432/jdbctest1</param-value>
+    </context-param>
+	<context-param>
+        <param-name>dbUsername</param-name>
+        <param-value>webprog2016</param-value>
+    </context-param>
+	<context-param>
+        <param-name>dbPassword</param-name>
+        <param-value>webprog2016</param-value>
+    </context-param>
+	<context-param>
+        <param-name>dburl</param-name>
+        <param-value>jdbc:postgresql://localhost:5432/convictor</param-value>
+    </context-param>
+	
     <error-page>
         <error-code>500</error-code>
         <location>/WEB-INF/errorPages/500.jsp</location>
@@ -12,13 +29,14 @@
         <error-code>404</error-code>
         <location>/WEB-INF/errorPages/404.jsp</location>
     </error-page>
+	
     <filter>
         <filter-name>StaticFilesFilter</filter-name>
-        <filter-class>me.peserico.javaweb.templateapp.filters.StaticFilesFilter</filter-class>
+        <filter-class>it.unitn.disi.webprog2016.convictor.framework.filters.StaticFilesFilter</filter-class>
     </filter>
     <filter>
         <filter-name>RestrictedAccessFilter</filter-name>
-        <filter-class>me.peserico.javaweb.templateapp.filters.RestrictedAccessFilter</filter-class>
+        <filter-class>it.unitn.disi.webprog2016.convictor.app.filters.RestrictedAccessFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>RestrictedAccessFilter</filter-name>
@@ -28,9 +46,15 @@
         <filter-name>StaticFilesFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+	
+    <listener>
+        <description>ServletContextListener</description>
+        <listener-class>it.unitn.disi.webprog2016.convictor.framework.listeners.DatabaseListener</listener-class>
+    </listener>
+	
     <servlet>
         <servlet-name>RouterServlet</servlet-name>
-        <servlet-class>me.peserico.javaweb.templateapp.servlets.RouterServlet</servlet-class>
+        <servlet-class>it.unitn.disi.webprog2016.convictor.framework.servlets.RouterServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>RouterServlet</servlet-name>
