@@ -5,6 +5,7 @@
  */
 package it.unitn.disi.webprog2016.convictor.framework.beans;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +13,7 @@ import java.util.List;
  * This represents an abstract bean with common properties
  * @author umberto
  */
-public class AbstractBean {
+public class AbstractBean implements Serializable {
 	
 	private final List<String> errors;
 	
