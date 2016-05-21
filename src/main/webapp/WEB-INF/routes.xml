@@ -15,15 +15,15 @@
 -->
 <routes>
     <route>
-        <url>/</url>
         <method>GET</method>
+        <url>/</url>
         <controller>StaticPages</controller>
         <action>home</action>
         <format>html</format>            
     </route>
     <route>
-        <url>/protected</url>
         <method>GET</method>
+        <url>/protected</url>
         <controller>StaticPages</controller>
         <action>protected_pages</action>
         <format>html</format>            

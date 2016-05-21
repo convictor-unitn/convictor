@@ -20,6 +20,8 @@ import it.unitn.disi.webprog2016.convictor.framework.utils.RouteId;
 import it.unitn.disi.webprog2016.convictor.framework.utils.RouteXMLParser;
 import it.unitn.disi.webprog2016.convictor.framework.utils.ControllerXMLParser;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
 
@@ -34,8 +36,8 @@ import org.xml.sax.SAXException;
  */
 public class RouterServlet extends HttpServlet {
 
-        private final String route_config_file = "";
-        private final String controller_config_file = "";
+        private final String route_config_file = "WEB-INF/routes.xml";
+        private final String controller_config_file = "WEB-INF/controllers.xml";
 	private Map<RouteId, Route> routes;
 	private Map<String, Controller> controllers;
 	
@@ -51,6 +53,7 @@ public class RouterServlet extends HttpServlet {
 	private void initControllers() {
             try {
                 ControllerXMLParser result = new ControllerXMLParser(
+                            this.getServletContext().getRealPath("/")+
                                             controller_config_file,
                                             "/controllers/controller");
                 ArrayList<ArrayList> list = result.getControllers();
@@ -69,20 +72,23 @@ public class RouterServlet extends HttpServlet {
 	
 	private void initRoutes() {
             try {
-                RouteXMLParser result = new RouteXMLParser(route_config_file,
+                RouteXMLParser result = new RouteXMLParser(
+                                            getServletContext().getRealPath("/")+
+                                            route_config_file,
                                             "/routes/route");
                 ArrayList<ArrayList> list = result.getRoutes();
                 for (ArrayList elem : list) {
-                   Route route = new Route( (String) elem.get(0), 
+                    
+                    Route route = new Route( (String) elem.get(0), 
                                             (String) elem.get(1), 
                                             (String) elem.get(2), 
                                             (String) elem.get(3));
-                   RouteId routeId = new RouteId(route.getUrl(), 
+                    RouteId routeId = new RouteId(route.getUrl(), 
                                                 route.getMethod());
-                   routes.put(routeId, route);
+                    routes.put(routeId, route);
                 }
             } catch ( Exception e ) {
-                System.err.println(e.getMessage());
+                throw new RuntimeException(e.getMessage());
             }   
 	}
 	

@@ -2,6 +2,7 @@ package it.unitn.disi.webprog2016.convictor.framework.utils;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 import javax.xml.parsers.ParserConfigurationException;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -61,7 +62,10 @@ public class RouteXMLParser extends XMLParser{
             ArrayList<String> temp_list = new ArrayList<>();
             for (int j = 0; j < temp.getChildNodes().getLength(); j++) {
                 String elem = temp.getChildNodes().item(j).getTextContent().trim();
-                temp_list.add(elem);
+                String type = temp.getChildNodes().item(j).getNodeName();
+                if (!type.equals("#text")) {
+                    temp_list.add(elem);
+                }
             }
             route_list.add(temp_list);
         }
