@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package me.peserico.javaweb.templateapp.utils;
+package it.unitn.disi.webprog2016.convictor.framework.utils;
 
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import me.peserico.javaweb.templateapp.utils.NotFoundRoutesException;
+import it.unitn.disi.webprog2016.convictor.framework.utils.NotFoundRoutesException;
 
 /**
  *

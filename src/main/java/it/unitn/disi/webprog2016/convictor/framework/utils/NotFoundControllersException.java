@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package me.peserico.javaweb.templateapp.utils;
+package it.unitn.disi.webprog2016.convictor.framework.utils;
 
 /**
  *
  * @author Giovanni
  */
-public class NotFoundRoutesException extends Exception {
+public class NotFoundControllersException extends Exception {
     
 }
