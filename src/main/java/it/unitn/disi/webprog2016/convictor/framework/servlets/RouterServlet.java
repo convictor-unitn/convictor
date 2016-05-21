@@ -49,7 +49,17 @@ public class RouterServlet extends HttpServlet {
 	}
 	
 	private void initControllers() {
-		controllers.put("StaticPages", new StaticPagesController());
+            try {
+                ControllerXMLParser result = new ControllerXMLParser(
+                                            controller_config_file,
+                                            "/controllers/controller");
+                ArrayList<ArrayList> list = result.getControllers();
+                for (ArrayList elem : list) {
+                    
+                }
+            } catch (Exception e) {
+            }
+            controllers.put("StaticPages", new StaticPagesController());
 	}
 	
 	private void initRoutes() {

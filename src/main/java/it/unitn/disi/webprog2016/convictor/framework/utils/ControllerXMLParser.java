@@ -54,7 +54,7 @@ public class ControllerXMLParser extends XMLParser{
      * @param list NodeList of the XML file
      * @return An ArrayList of the XML file contents.
      */
-    private ArrayList generateRouteList(NodeList list) {
+    private ArrayList generateControllerList(NodeList list) {
         ArrayList<ArrayList<String>> route_list = new ArrayList<>();
         for (int i = 0; i < list.getLength(); i++) {
             Node temp = list.item(i);
@@ -75,10 +75,10 @@ public class ControllerXMLParser extends XMLParser{
      * @return An ArrayList with the XML file contents
      * @throws Exception If data inside XML file are wrong.
      */
-    public ArrayList getRoutes() throws Exception {
+    public ArrayList getControllers() throws Exception {
         NodeList routes = this.parse();
         if (checkSyntax(routes)) {
-           return generateRouteList(routes);
+           return generateControllerList(routes);
         }
         throw new Exception("Error on route file. Abort");
     }
