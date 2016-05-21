@@ -17,6 +17,13 @@ import it.unitn.disi.webprog2016.convictor.framework.controllers.Controller;
 import it.unitn.disi.webprog2016.convictor.app.controllers.StaticPagesController;
 import it.unitn.disi.webprog2016.convictor.framework.utils.Route;
 import it.unitn.disi.webprog2016.convictor.framework.utils.RouteId;
+import it.unitn.disi.webprog2016.convictor.framework.utils.RouteXMLParser;
+import it.unitn.disi.webprog2016.convictor.framework.utils.ControllerXMLParser;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.xml.parsers.ParserConfigurationException;
+import org.xml.sax.SAXException;
 
 /**
  * This servlet processes the url the user is surfing. It must be initialized
@@ -29,6 +36,8 @@ import it.unitn.disi.webprog2016.convictor.framework.utils.RouteId;
  */
 public class RouterServlet extends HttpServlet {
 
+        private final String route_config_file = "WEB-INF/routes.xml";
+        private final String controller_config_file = "WEB-INF/controllers.xml";
 	private Map<RouteId, Route> routes;
 	private Map<String, Controller> controllers;
 	
@@ -42,16 +51,45 @@ public class RouterServlet extends HttpServlet {
 	}
 	
 	private void initControllers() {
-		controllers.put("StaticPages", new StaticPagesController());
+            try {
+                ControllerXMLParser result = new ControllerXMLParser(
+                            this.getServletContext().getRealPath("/")+
+                                            controller_config_file,
+                                            "/controllers/controller");
+                ArrayList<ArrayList> list = result.getControllers();
+                for (ArrayList elem : list) {
+                    controllers.put(
+                        (String) elem.get(0), 
+                        (Controller) Class.forName(
+                            "it.unitn.disi.webprog2016.convictor.app.controllers."
+                            + (String) elem.get(0)
+                            + "Controller").newInstance());
+                }
+            } catch (Exception e) {
+                throw new RuntimeException(e.getMessage());
+            }
 	}
 	
 	private void initRoutes() {
-		Route route1 = new Route("GET","/", "StaticPages", "home");
-		RouteId routeId1 = new RouteId(route1.getUrl(), route1.getMethod());
-		routes.put(routeId1, route1);
-		Route route2 = new Route("GET","/protected", "StaticPages", "protected_page");
-		RouteId routeId2 = new RouteId(route2.getUrl(), route1.getMethod());
-		routes.put(routeId2, route2);
+            try {
+                RouteXMLParser result = new RouteXMLParser(
+                                            getServletContext().getRealPath("/")+
+                                            route_config_file,
+                                            "/routes/route");
+                ArrayList<ArrayList> list = result.getRoutes();
+                for (ArrayList elem : list) {
+                    
+                    Route route = new Route( (String) elem.get(0), 
+                                            (String) elem.get(1), 
+                                            (String) elem.get(2), 
+                                            (String) elem.get(3));
+                    RouteId routeId = new RouteId(route.getUrl(), 
+                                                route.getMethod());
+                    routes.put(routeId, route);
+                }
+            } catch ( Exception e ) {
+                throw new RuntimeException(e.getMessage());
+            }   
 	}
 	
 	/**

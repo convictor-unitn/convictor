@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE routes [
+<!ELEMENT route (url, method, controller, action, format)>
+<!ELEMENT url (#PCDATA)>
+<!ELEMENT method (#PCDATA)>
+<!ELEMENT controller (#PCDATA)>
+<!ELEMENT action (#PCDATA)>
+<!ELEMENT format (#PCDATA)>  
+]>
+<!--
+    Route Configuration file.
+    In this XML file there are specified all the applications routes.
+    There is also specified a small DTD to ensure the correctness of the file. 
+    Author: Giovanni De Toni
+-->
+<routes>
+    <route>
+        <method>GET</method>
+        <url>/</url>
+        <controller>StaticPages</controller>
+        <action>home</action>
+        <format>html</format>            
+    </route>
+    <route>
+        <method>GET</method>
+        <url>/protected</url>
+        <controller>StaticPages</controller>
+        <action>protected_pages</action>
+        <format>html</format>            
+    </route>
+</routes>
