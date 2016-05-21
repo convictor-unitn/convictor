@@ -1,4 +1,4 @@
-package me.peserico.javaweb.templateapp.utils;
+package it.unitn.disi.webprog2016.convictor.framework.utils;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -8,20 +8,20 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 /**
- * XML Parser dedicated to the controller.xml file.
+ * XML Parser dedicated to the route.xml file.
  * @author Giovanni De Toni
  */
-public class ControllerXMLParser extends XMLParser{
+public class RouteXMLParser extends XMLParser{
 
     /**
-     * ControllerXMLParser Constructor
-     * @param file_path path of the XML controller file.
+     * RouteXMLParser Constructor
+     * @param file_path path of the XML route file.
      * @param expression regex to parser the XML file.
      * @throws ParserConfigurationException
      * @throws SAXException
      * @throws IOException 
      */
-    public ControllerXMLParser(String file_path, String expression) 
+    public RouteXMLParser(String file_path, String expression) 
             throws ParserConfigurationException, SAXException, IOException {
         super(file_path, expression);
     }
@@ -50,7 +50,7 @@ public class ControllerXMLParser extends XMLParser{
     }
     
     /**
-     * Method to convert the Controller list from NodeList to ArrayList.
+     * Method to convert the Route list from NodeList to ArrayList.
      * @param list NodeList of the XML file
      * @return An ArrayList of the XML file contents.
      */
