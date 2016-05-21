@@ -80,7 +80,7 @@ public class ControllerXMLParser extends XMLParser{
         if (checkSyntax(routes)) {
            return generateControllerList(routes);
         }
-        throw new Exception("Error on route file. Abort");
+        throw new RuntimeException("Syntax error inside XML Controller file");
     }
     
 }

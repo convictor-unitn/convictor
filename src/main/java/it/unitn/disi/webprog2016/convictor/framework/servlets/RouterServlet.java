@@ -55,11 +55,16 @@ public class RouterServlet extends HttpServlet {
                                             "/controllers/controller");
                 ArrayList<ArrayList> list = result.getControllers();
                 for (ArrayList elem : list) {
-                    
+                    controllers.put(
+                        (String) elem.get(0), 
+                        (Controller) Class.forName(
+                            "it.unitn.disi.webprog2016.convictor.app.controllers."
+                            + (String) elem.get(0)
+                            + "Controller").newInstance());
                 }
             } catch (Exception e) {
+                throw new RuntimeException(e.getMessage());
             }
-            controllers.put("StaticPages", new StaticPagesController());
 	}
 	
 	private void initRoutes() {

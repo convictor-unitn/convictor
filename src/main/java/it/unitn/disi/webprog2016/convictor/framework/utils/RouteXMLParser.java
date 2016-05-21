@@ -80,7 +80,7 @@ public class RouteXMLParser extends XMLParser{
         if (checkSyntax(routes)) {
            return generateRouteList(routes);
         }
-        throw new Exception("Error on route file. Abort");
+        throw new RuntimeException("Syntax error inside XML Route file");
     }
     
 }
