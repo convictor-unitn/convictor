@@ -5,16 +5,17 @@
  */
 package it.unitn.disi.webprog2016.convictor.framework.dao;
 
-import java.sql.Connection;
+import it.unitn.disi.webprog2016.convictor.framework.utils.DatabaseConnectionManager;
+import java.io.Serializable;
 
 /**
  *
  * @author umberto
  */
-public abstract class DatabaseDAO {
-	private final Connection connection;
+public abstract class DatabaseDAO implements Serializable{
+	private transient final DatabaseConnectionManager dbManager;
 	
-	private DatabaseDAO(Connection c) {
-		this.connection = c;
+	public DatabaseDAO(DatabaseConnectionManager c) {
+		this.dbManager = c;
 	}
 }
