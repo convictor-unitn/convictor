@@ -36,6 +36,8 @@ public class DatabaseListener implements ServletContextListener {
 	@Override
 	public void contextDestroyed(ServletContextEvent sce) {
 		DatabaseConnectionManager manager = (DatabaseConnectionManager) sce.getServletContext().getAttribute("dbmanager");
-		manager.shutdown();
+		if(manager!=null) {
+			manager.shutdown();
+		}
 	}
 }
