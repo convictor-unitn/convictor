@@ -9,6 +9,6 @@ package it.unitn.disi.webprog2016.convictor.framework.utils;
  *
  * @author Giovanni
  */
-public class NotFoundRoutesException extends Exception {
+public class RouteNotFoundException extends Exception {
     
 }

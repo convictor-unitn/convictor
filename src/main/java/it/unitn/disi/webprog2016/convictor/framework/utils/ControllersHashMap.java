@@ -17,10 +17,10 @@ import java.util.logging.Logger;
 public class ControllersHashMap extends HashMap<String, Controller>{
     
     
-    public Controller getController(Object key) throws NotFoundControllersException {
+    public Controller getController(Object key) throws ControllerNotFoundException {
         Controller result = null;
         result = super.get(key);
-        if (result == null) throw new NotFoundControllersException();
+        if (result == null) throw new ControllerNotFoundException();
         return result;
     } 
 }
