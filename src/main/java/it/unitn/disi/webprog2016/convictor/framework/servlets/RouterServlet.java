@@ -37,8 +37,6 @@ public class RouterServlet extends HttpServlet {
 
         private final String route_config_file = "WEB-INF/routes.xml";
         private final String controller_config_file = "WEB-INF/controllers.xml";
-	//private Map<RouteId, Route> routes;
-	//private Map<String, Controller> controllers;
 	private RoutesHashMap<RouteId, Route> routes;
 	private ControllersHashMap<String, Controller> controllers;
         
@@ -107,14 +105,11 @@ public class RouterServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		
 		RouteId routeId = new RouteId(request.getPathInfo(), request.getMethod());
-//		Route route = routes.get(routeId);
 		Route route = null;
                 try {
                     route = routes.getRoute(routeId);
                     Controller controller = null;
-		
                     try {
-                        System.err.println("getting controller");
                         controller = controllers.getController(route.getControllerName());
                         controller.doAction(request, response, route.getActionName(), route.getFormat());
                     } catch (ControllerNotFoundException e) {
