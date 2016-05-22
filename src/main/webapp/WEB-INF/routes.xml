@@ -25,7 +25,7 @@
         <method>GET</method>
         <url>/protected</url>
         <controller>StaticPages</controller>
-        <action>protected_pages</action>
+        <action>protected_page</action>
         <format>html</format>            
     </route>
 </routes>
