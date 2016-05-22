@@ -14,12 +14,12 @@ import java.util.logging.Logger;
  *
  * @author Giovanni
  */
-public class ControllersHashMap extends HashMap<String, Controller>{
+public class ControllersHashMap <String, Controller> extends HashMap{
     
     
-    public Controller getController(Object key) throws ControllerNotFoundException {
+    public Controller getController(String key) throws ControllerNotFoundException {
         Controller result = null;
-        result = super.get(key);
+        result = (Controller) super.get(key);
         if (result == null) throw new ControllerNotFoundException();
         return result;
     } 
