@@ -6,21 +6,20 @@
 package it.unitn.disi.webprog2016.convictor.framework.utils;
 
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import it.unitn.disi.webprog2016.convictor.framework.utils.NotFoundRoutesException;
 
 /**
  *
  * @author Giovanni
  */
-public class RoutesHashMap extends HashMap<RouteId, Route> {
+    public class RoutesHashMap <RouteId, Route> extends HashMap {
     
-    public Route getRoute(Object key) throws NotFoundRoutesException {
+    public RoutesHashMap () {};
+    
+    public Route getRoute(RouteId key) throws RouteNotFoundException {
         Route result = null;
-        result = super.get(key);
+        result = (Route) super.get(key);
         
-        if (result == null) throw new NotFoundRoutesException();
+        if (result == null) throw new RouteNotFoundException();
         
         return result;
     }        

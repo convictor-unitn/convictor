@@ -7,23 +7,22 @@ package it.unitn.disi.webprog2016.convictor.framework.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import it.unitn.disi.webprog2016.convictor.framework.controllers.Controller;
-import it.unitn.disi.webprog2016.convictor.app.controllers.StaticPagesController;
+import it.unitn.disi.webprog2016.convictor.framework.utils.ControllerNotFoundException;
 import it.unitn.disi.webprog2016.convictor.framework.utils.Route;
 import it.unitn.disi.webprog2016.convictor.framework.utils.RouteId;
 import it.unitn.disi.webprog2016.convictor.framework.utils.RouteXMLParser;
 import it.unitn.disi.webprog2016.convictor.framework.utils.ControllerXMLParser;
+import it.unitn.disi.webprog2016.convictor.framework.utils.ControllersHashMap;
+import it.unitn.disi.webprog2016.convictor.framework.utils.RouteNotFoundException;
+import it.unitn.disi.webprog2016.convictor.framework.utils.RoutesHashMap;
 import java.util.ArrayList;
-import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.xml.parsers.ParserConfigurationException;
-import org.xml.sax.SAXException;
 
 /**
  * This servlet processes the url the user is surfing. It must be initialized
@@ -38,13 +37,13 @@ public class RouterServlet extends HttpServlet {
 
         private final String route_config_file = "WEB-INF/routes.xml";
         private final String controller_config_file = "WEB-INF/controllers.xml";
-	private Map<RouteId, Route> routes;
-	private Map<String, Controller> controllers;
-	
+	private RoutesHashMap<RouteId, Route> routes;
+	private ControllersHashMap<String, Controller> controllers;
+        
 	@Override
 	public void init() throws ServletException {
-		routes = new HashMap<>();
-		controllers = new HashMap<>();
+		routes = new RoutesHashMap();
+		controllers = new ControllersHashMap();
                 		
 		initRoutes();
 		initControllers();
@@ -106,24 +105,24 @@ public class RouterServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		
 		RouteId routeId = new RouteId(request.getPathInfo(), request.getMethod());
-		Route route = routes.get(routeId);
+		Route route = null;
+                try {
+                    route = routes.getRoute(routeId);
+                    Controller controller = null;
+                    try {
+                        controller = controllers.getController(route.getControllerName());
+                        controller.doAction(request, response, route.getActionName(), route.getFormat());
+                    } catch (ControllerNotFoundException e) {
+                        Logger.getLogger(getClass().getName()).severe(e.toString());
+                        response.sendError(404, "Controller Not Found");
+                    }
+                    
+                } catch (RouteNotFoundException e) {
+                    Logger.getLogger(getClass().getName()).severe(e.toString());
+                    response.sendError(404, "Route Not Found");
+                }
+
 		
-		Controller controller;
-		
-		if(route!=null){
-			controller = controllers.get(route.getControllerName());
-			if(controller!=null) {
-				controller.doAction(request, response, route.getActionName(), route.getFormat());
-			}
-			else
-			{
-				response.sendError(404);
-			}
-		}
-		else
-		{
-			response.sendError(404);
-		}
 	}
 
 	// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
