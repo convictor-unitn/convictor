@@ -19,11 +19,13 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<title>${title}</title>
 		<link rel="stylesheet" type="text/css" href="${context}/css/semantic.css" media="all" />
+                <link rel="stylesheet" type="text/css" href="${context}/css/topNavbar.css" media="all" />
 	</head>
 	<body>
 		<partials:topNavbar />
 		<jsp:invoke fragment="body" />
 		<script type="text/javascript" src="${context}/js/jquery-2.2.4.js"></script>
 		<script type="text/javascript" src="${context}/js/semantic.js"></script>
+                <script type="text/javascript" src="${context}/js/topNavbar.js"></script>
 	</body>
 </html>
