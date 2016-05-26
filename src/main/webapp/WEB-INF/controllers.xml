@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE controllers [
+<!ELEMENT controller (#PCDATA)>
+]>
+<!--
+    Controller Configuration file.
+    In this XML file there are specified all the applications controllers.
+    There is also specified a small DTD to ensure the correctness of the file. 
+    Author: Giovanni De Toni
+-->
+<controllers>
+    <controller>StaticPages</controller>
+</controllers>
