@@ -42,8 +42,8 @@ public class RouterServlet extends HttpServlet {
         
 	@Override
 	public void init() throws ServletException {
-		routes = new RoutesHashMap();
-		controllers = new ControllersHashMap();
+		routes = new RoutesHashMap<>();
+		controllers = new ControllersHashMap<>();
                 		
 		initRoutes();
 		initControllers();
