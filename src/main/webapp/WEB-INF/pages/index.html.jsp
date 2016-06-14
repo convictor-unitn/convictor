@@ -13,7 +13,6 @@
 	<jsp:attribute name="title">Index Page</jsp:attribute>
 	
 	<jsp:attribute name="body">
-            <div class="ui hidden divider"></div>
 		<h1>Index Page</h1>
                 <nav>
                     <ul>

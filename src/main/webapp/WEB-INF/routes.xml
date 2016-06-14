@@ -28,4 +28,14 @@
         <action>protected_page</action>
         <format>html</format>            
     </route>
+    <!-- TEST routes for INTEGRATION   -->
+    
+    <!-- Restaurant profile's page   -->
+   <route>
+        <method>GET</method>
+        <url>/restaurant_profile</url>
+        <controller>StaticPages</controller>
+        <action>restaurant_profile</action>
+        <format>html</format>            
+    </route>
 </routes>

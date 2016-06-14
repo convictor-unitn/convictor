@@ -15,7 +15,7 @@
 
 <div class="ui grid">
   <div class="computer tablet only row">
-    <div class="ui borderless inverted fixed menu navbar page grid">
+    <div class="ui borderless inverted fixed menu navbar page ">
 
       <!-- Left -->
       <!-- Logo  -->
@@ -98,10 +98,6 @@
 
 
     <div class="ui vertical navbar menu">
-
-      <!-- "padding" -->
-      <a href="" class="item"></a>
-      <a href="" class="item"></a>
 
       <!-- Right -->
       <!-- Notification Dropdown -->

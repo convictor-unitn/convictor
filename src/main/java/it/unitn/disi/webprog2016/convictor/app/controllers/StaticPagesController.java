@@ -48,4 +48,16 @@ public class StaticPagesController extends AbstractController {
 		return "/pages/protected";
 	}
 	
+	/**
+	 * The restaurant_profile action
+	 * @param request the httpRequest
+	 * @param response the httpResponse
+	 * @return view the path of the view to call
+	 * @throws IOException
+	 * @throws ServletException
+	 */
+	public String restaurant_profile(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		return "/pages/restaurant_profile";
+	}
+	
 }
