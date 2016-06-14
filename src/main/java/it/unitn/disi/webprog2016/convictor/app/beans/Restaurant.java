@@ -20,10 +20,10 @@ public class Restaurant extends AbstractBean {
     private String province;
     private String fullAddress;
     private String address;
-    private Integer slotPrice;
-    private Integer rating;
-    private Integer mainPhotoId;
-    private Integer restaurantOwnerId;
+    private int slotPrice;
+    private int rating;
+    private int mainPhotoId;
+    private int restaurantOwnerId;
 
     /**
      * @return the name
@@ -140,14 +140,14 @@ public class Restaurant extends AbstractBean {
     /**
      * @return the slotPrice
      */
-    public Integer getSlotPrice() {
+    public int getSlotPrice() {
         return slotPrice;
     }
 
     /**
      * @param slotPrice the slotPrice to set
      */
-    public void setSlotPrice(Integer slotPrice) {
+    public void setSlotPrice(int slotPrice) {
         this.slotPrice = slotPrice;
     }
     
@@ -162,14 +162,14 @@ public class Restaurant extends AbstractBean {
     /**
      * @return the rating
      */
-    public Integer getRating() {
+    public int getRating() {
         return rating;
     }
 
     /**
      * @param rating the rating to set
      */
-    public void setRating(Integer rating) {
+    public void setRating(int rating) {
         this.rating = rating;
     }
     
@@ -185,14 +185,14 @@ public class Restaurant extends AbstractBean {
     /**
      * @return the mainPhotoId
      */
-    public Integer getMainPhotoId() {
+    public int getMainPhotoId() {
         return mainPhotoId;
     }
 
     /**
      * @param mainPhotoId the mainPhotoId to set
      */
-    public void setMainPhotoId(Integer mainPhotoId) {
+    public void setMainPhotoId(int mainPhotoId) {
         this.mainPhotoId = mainPhotoId;
     }
     
@@ -207,14 +207,14 @@ public class Restaurant extends AbstractBean {
     /**
      * @return the restaurantOwnerId
      */
-    public Integer getRestaurantOwnerId() {
+    public int getRestaurantOwnerId() {
         return restaurantOwnerId;
     }
 
     /**
      * @param restaurantOwnerId the restaurantOwnerId to set
      */
-    public void setRestaurantOwnerId(Integer restaurantOwnerId) {
+    public void setRestaurantOwnerId(int restaurantOwnerId) {
         this.restaurantOwnerId = restaurantOwnerId;
     }
     

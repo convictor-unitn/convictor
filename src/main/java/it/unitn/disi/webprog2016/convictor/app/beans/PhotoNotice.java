@@ -12,21 +12,21 @@ import it.unitn.disi.webprog2016.convictor.framework.beans.AbstractBean;
  */
 public class PhotoNotice extends AbstractBean {
     
-    private Integer registeredUserId;
-    private Integer photo;
+    private int registeredUserId;
+    private int photoId;
     private Boolean remove;
 
     /**
      * @return the registeredUserId
      */
-    public Integer getRegisteredUserId() {
+    public int getRegisteredUserId() {
         return registeredUserId;
     }
 
     /**
      * @param registeredUserId the registeredUserId to set
      */
-    public void setRegisteredUserId(Integer registeredUserId) {
+    public void setRegisteredUserId(int registeredUserId) {
         this.registeredUserId = registeredUserId;
     }
     
@@ -39,18 +39,27 @@ public class PhotoNotice extends AbstractBean {
     }
 
     /**
-     * @return the photo
+     * @return the photoId
      */
-    public Integer getPhoto() {
-        return photo;
+    public int getPhotoId() {
+        return photoId;
     }
 
     /**
-     * @param photo the photo to set
+     * @param photoId the photoId to set
      */
-    public void setPhoto(Integer photo) {
-        this.photo = photo;
+    public void setPhotoId(int photoId) {
+        this.photoId = photoId;
     }
+    
+    /**
+     * Overloading to cast a string to an integer
+     * @param photoId the photoId to set
+     */
+    public void setPhotoId(String photoId) {
+        this.photoId = Integer.parseInt(photoId);
+    }
+
 
     /**
      * CHECK IF JSTL WORK WITH isRemove METHOD
@@ -67,7 +76,7 @@ public class PhotoNotice extends AbstractBean {
         this.remove = remove;
     }
     /**
-     * Overloading to cast a string to an integer
+     * Overloading to cast a string to a boolean 
      * @param remove the remove to set
      */
     public void setRemove(String remove) {

@@ -12,20 +12,20 @@ import it.unitn.disi.webprog2016.convictor.framework.beans.AbstractBean;
  */
 public class ReviewNotice extends AbstractBean {
     
-    private Integer registeredUserId;
-    private Integer reviewId;
+    private int registeredUserId;
+    private int reviewId;
 
     /**
      * @return the registeredUserId
      */
-    public Integer getRegisteredUserId() {
+    public int getRegisteredUserId() {
         return registeredUserId;
     }
 
     /**
      * @param registeredUserId the registeredUserId to set
      */
-    public void setRegisteredUserId(Integer registeredUserId) {
+    public void setRegisteredUserId(int registeredUserId) {
         this.registeredUserId = registeredUserId;
     }
     
@@ -40,14 +40,14 @@ public class ReviewNotice extends AbstractBean {
     /**
      * @return the reviewId
      */
-    public Integer getReviewId() {
+    public int getReviewId() {
         return reviewId;
     }
 
     /**
      * @param reviewId the reviewId to set
      */
-    public void setReviewId(Integer reviewId) {
+    public void setReviewId(int reviewId) {
         this.reviewId = reviewId;
     }
     

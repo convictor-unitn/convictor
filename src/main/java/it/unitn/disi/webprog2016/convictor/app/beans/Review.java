@@ -12,22 +12,22 @@ import it.unitn.disi.webprog2016.convictor.framework.beans.AbstractBean;
  */
 public class Review extends AbstractBean {
     
-    private Integer registeredUserId;
-    private Integer restaurantId;
+    private int registeredUserId;
+    private int restaurantId;
     private String description;
-    private Integer rating;
+    private int rating;
 
     /**
      * @return the registeredUserId
      */
-    public Integer getRegisteredUserId() {
+    public int getRegisteredUserId() {
         return registeredUserId;
     }
 
     /**
      * @param registeredUserId the registeredUserId to set
      */
-    public void setRegisteredUserId(Integer registeredUserId) {
+    public void setRegisteredUserId(int registeredUserId) {
         this.registeredUserId = registeredUserId;
     }
     
@@ -42,14 +42,14 @@ public class Review extends AbstractBean {
     /**
      * @return the restaurantId
      */
-    public Integer getRestaurantId() {
+    public int getRestaurantId() {
         return restaurantId;
     }
 
     /**
      * @param restaurantId the restaurantId to set
      */
-    public void setRestaurantId(Integer restaurantId) {
+    public void setRestaurantId(int restaurantId) {
         this.restaurantId = restaurantId;
     }
     
@@ -79,14 +79,14 @@ public class Review extends AbstractBean {
     /**
      * @return the rating
      */
-    public Integer getRating() {
+    public int getRating() {
         return rating;
     }
 
     /**
      * @param rating the rating to set
      */
-    public void setRating(Integer rating) {
+    public void setRating(int rating) {
         this.rating = rating;
     }
     
