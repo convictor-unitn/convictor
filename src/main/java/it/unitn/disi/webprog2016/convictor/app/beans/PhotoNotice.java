@@ -10,7 +10,7 @@ import it.unitn.disi.webprog2016.convictor.framework.beans.AbstractBean;
  * Photo Notice bean. 
  * @author Giovanni De Toni
  */
-public class PhotoNotice extends AbstractBean {
+public class PhotoNotice extends AbstractBean implements Notice {
     
     private int registeredUserId;
     private int photoId;
@@ -82,5 +82,10 @@ public class PhotoNotice extends AbstractBean {
     public void setRemove(String remove) {
         this.remove = Boolean.valueOf(remove);
     }
+
+	@Override
+	public String getDescription() {
+		return "DA IMPLEMENTARE";
+	}
     
 }

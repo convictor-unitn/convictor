@@ -10,7 +10,7 @@ import it.unitn.disi.webprog2016.convictor.framework.beans.AbstractBean;
  * Ownership Notice bean.
  * @author Giovanni De Toni
  */
-public class OwnershipNotice extends AbstractBean {
+public class OwnershipNotice extends AbstractBean implements Notice {
     
     private Integer registeredUserId;
     private Integer restaurantId;
@@ -58,6 +58,11 @@ public class OwnershipNotice extends AbstractBean {
     public void setRestaurantId(String restaurantId) {
         this.restaurantId = Integer.parseInt(restaurantId);
     }
+
+	@Override
+	public String getDescription() {
+		return "DA IMPLEMENTARE";
+	}
     
     
 }

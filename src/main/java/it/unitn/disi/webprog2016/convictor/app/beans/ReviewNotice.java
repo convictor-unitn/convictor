@@ -10,7 +10,7 @@ import it.unitn.disi.webprog2016.convictor.framework.beans.AbstractBean;
  * Review Notice bean.
  * @author Giovanni De Toni
  */
-public class ReviewNotice extends AbstractBean {
+public class ReviewNotice extends AbstractBean implements Notice {
     
     private int registeredUserId;
     private int reviewId;
@@ -56,9 +56,13 @@ public class ReviewNotice extends AbstractBean {
      * @param reviewId the reviewId to set
      */
     public void setReviewId(String reviewId) {
-        this.reviewId = Integer.parseInt(reviewId);
+		this.reviewId = Integer.parseInt(reviewId);
     }
-    
-    
-    
+
+	@Override
+	public String getDescription() {
+		//TODO: Implementare la stringa della notifica
+		return "DA IMPLEMENTARE!!!";
+	}
+	
 }
