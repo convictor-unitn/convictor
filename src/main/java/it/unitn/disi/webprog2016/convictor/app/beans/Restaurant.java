@@ -7,7 +7,7 @@ package it.unitn.disi.webprog2016.convictor.app.beans;
 import it.unitn.disi.webprog2016.convictor.framework.beans.AbstractBean;
 
 /**
- *
+ * Restaurant bean class. 
  * @author Giovanni De Toni
  */
 public class Restaurant extends AbstractBean {
@@ -16,14 +16,14 @@ public class Restaurant extends AbstractBean {
     private String description;
     private String street;
     private String city;
-    private String zip_code;
+    private String zipCode;
     private String province;
-    private String full_address;
+    private String fullAddress;
     private String address;
-    private Integer slot_price;
+    private Integer slotPrice;
     private Integer rating;
-    private Integer main_photo_id;
-    private Integer restaurant_owner_id;
+    private Integer mainPhotoId;
+    private Integer restaurantOwnerId;
 
     /**
      * @return the name
@@ -82,17 +82,17 @@ public class Restaurant extends AbstractBean {
     }
 
     /**
-     * @return the zip_code
+     * @return the zipCode
      */
-    public String getZip_code() {
-        return zip_code;
+    public String getZipCode() {
+        return zipCode;
     }
 
     /**
-     * @param zip_code the zip_code to set
+     * @param zipCode the zipCode to set
      */
-    public void setZip_code(String zip_code) {
-        this.zip_code = zip_code;
+    public void setZipCode(String zipCode) {
+        this.zipCode = zipCode;
     }
 
     /**
@@ -110,17 +110,17 @@ public class Restaurant extends AbstractBean {
     }
 
     /**
-     * @return the full_address
+     * @return the fullAddress
      */
-    public String getFull_address() {
-        return full_address;
+    public String getFullAddress() {
+        return fullAddress;
     }
 
     /**
-     * @param full_address the full_address to set
+     * @param fullAddress the fullAddress to set
      */
-    public void setFull_address(String full_address) {
-        this.full_address = full_address;
+    public void setFullAddress(String fullAddress) {
+        this.fullAddress = fullAddress;
     }
 
     /**
@@ -138,17 +138,17 @@ public class Restaurant extends AbstractBean {
     }
 
     /**
-     * @return the slot_price
+     * @return the slotPrice
      */
-    public Integer getSlot_price() {
-        return slot_price;
+    public Integer getSlotPrice() {
+        return slotPrice;
     }
 
     /**
-     * @param slot_price the slot_price to set
+     * @param slotPrice the slotPrice to set
      */
-    public void setSlot_price(Integer slot_price) {
-        this.slot_price = slot_price;
+    public void setSlotPrice(Integer slotPrice) {
+        this.slotPrice = slotPrice;
     }
     
     /**
@@ -156,7 +156,7 @@ public class Restaurant extends AbstractBean {
      * @param slot_price 
      */
     public void setSlot_price(String slot_price) {
-        this.slot_price = Integer.parseInt(slot_price);
+        this.slotPrice = Integer.parseInt(slot_price);
     } 
 
     /**
@@ -183,47 +183,47 @@ public class Restaurant extends AbstractBean {
 
 
     /**
-     * @return the main_photo_id
+     * @return the mainPhotoId
      */
-    public Integer getMain_photo_id() {
-        return main_photo_id;
+    public Integer getMainPhotoId() {
+        return mainPhotoId;
     }
 
     /**
-     * @param main_photo_id the main_photo_id to set
+     * @param mainPhotoId the mainPhotoId to set
      */
-    public void setMain_photo_id(Integer main_photo_id) {
-        this.main_photo_id = main_photo_id;
+    public void setMainPhotoId(Integer mainPhotoId) {
+        this.mainPhotoId = mainPhotoId;
     }
     
     /**
      * Overloading to cast a string value to an integer
-     * @param main_photo_id the main_photo_id to set
+     * @param main_photo_id the mainPhotoId to set
      */
     public void setMain_photo_id(String main_photo_id) {
-        this.main_photo_id = Integer.parseInt(main_photo_id);
+        this.mainPhotoId = Integer.parseInt(main_photo_id);
     }
 
     /**
-     * @return the restaurant_owner_id
+     * @return the restaurantOwnerId
      */
-    public Integer getRestaurant_owner_id() {
-        return restaurant_owner_id;
+    public Integer getRestaurantOwnerId() {
+        return restaurantOwnerId;
     }
 
     /**
-     * @param restaurant_owner_id the restaurant_owner_id to set
+     * @param restaurantOwnerId the restaurantOwnerId to set
      */
-    public void setRestaurant_owner_id(Integer restaurant_owner_id) {
-        this.restaurant_owner_id = restaurant_owner_id;
+    public void setRestaurantOwnerId(Integer restaurantOwnerId) {
+        this.restaurantOwnerId = restaurantOwnerId;
     }
     
     /**
      * Overloading to cast a string value to an integer
-     * @param restaurant_owner_id the restaurant_owner_id to set
+     * @param restaurant_owner_id the restaurantOwnerId to set
      */
     public void setRestaurant_owner_id(String restaurant_owner_id) {
-        this.restaurant_owner_id = Integer.parseInt(restaurant_owner_id);
+        this.restaurantOwnerId = Integer.parseInt(restaurant_owner_id);
     }
     
     
