@@ -47,6 +47,7 @@ public class StaticPagesController extends AbstractController {
 	public String protected_page(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		return "/pages/protected";
 	}
+	/* TEST FOR INTEGRATION *?
 	
 	/**
 	 * The restaurant_profile action

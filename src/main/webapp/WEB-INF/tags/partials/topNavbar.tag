@@ -19,7 +19,7 @@
 
       <!-- Left -->
       <!-- Logo  -->
-      <a href="#" class="brand item">
+      <a href="${pageContext.request.contextPath}/" class="brand item">
         <img class="logo" src="assets/images/logo.png">
         Project Name
       </a>

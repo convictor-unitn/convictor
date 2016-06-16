@@ -5,7 +5,7 @@
 --%>
 
 <%@tag description="This tag contains error pages layout" pageEncoding="UTF-8"%>
-<%@taglib prefix="blank" tagdir="/WEB-INF/tags/layouts/" %>
+<%@taglib prefix="partials" tagdir="/WEB-INF/tags/partials/" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%-- The list of normal or fragment attributes can be specified here: --%>
@@ -21,8 +21,10 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <title>${title}</title>
         <link rel="stylesheet" type="text/css" href="${context}/css/semantic.css" media="all" />
+        <link rel="stylesheet" type="text/css" href="${context}/css/main.css" media="all" />            
         <link rel="stylesheet" type="text/css" href="${context}/css/topNavbar.css" media="all" />
     </head>
+    <partials:topNavbar />
     <body>
         <!-- Page Contents -->
         <div class="ui hidden divider"></div>
