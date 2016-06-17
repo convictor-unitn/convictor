@@ -15,12 +15,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * This controller is used for Static Pages.
+ * This controller is used for Static Pages or pages that doesn't fit
+ * into other controller.
  * All actions must have this signature:
  * <code>
  *     public String home(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
  * </code>
- * @author umberto
+ * @author Umberto Peserico
  */
 public class StaticPagesController extends AbstractController {
 	
@@ -47,5 +48,17 @@ public class StaticPagesController extends AbstractController {
 	public String protected_page(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		return "/pages/protected";
 	}
+        
+        /**
+         * The landing page action
+         * @param request
+         * @param response
+         * @return view the path of the view to call
+         * @throws ServletException
+         * @throws IOException 
+         */
+        public String landingPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            return "/pages/landingPage";
+        }
 	
 }
