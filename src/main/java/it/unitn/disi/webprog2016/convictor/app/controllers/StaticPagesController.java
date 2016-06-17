@@ -24,16 +24,4 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class StaticPagesController extends AbstractController {
 	
-	/**
-	 * The home action
-	 * @param request the httpRequest
-	 * @param response the httpResponse
-	 * @return view the path of the view to call
-	 * @throws IOException
-	 * @throws ServletException
-	 */
-	public String home(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		return "/pages/index";
-	}
-	
 }
