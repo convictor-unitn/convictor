@@ -7,6 +7,7 @@ package it.unitn.disi.webprog2016.convictor.framework.beans;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -15,6 +16,9 @@ import java.util.List;
  */
 public class AbstractBean implements Serializable {
 	
+	private int id;
+	private Date createdAt;
+	private Date updatedAt;
 	private final List<String> errors;
 	
 	public AbstractBean() {
@@ -32,4 +36,17 @@ public class AbstractBean implements Serializable {
 	public boolean isValid(){
 		return errors.isEmpty();
 	}
+
+	public int getId() {
+		return id;
+	}
+
+	public Date getCreatedAt() {
+		return createdAt;
+	}
+
+	public Date getUpdatedAt() {
+		return updatedAt;
+	}
+	
 }
