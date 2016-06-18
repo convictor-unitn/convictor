@@ -31,7 +31,7 @@
                     <img class="ui rounded centered bordered image" src="images/restaurant.jpg"/>
                   </div>
                 </div>
-                
+
                 <div class="ui center aligned five column stackable grid">
                   <div class="column">
                     <div class="meta">
@@ -195,6 +195,14 @@
                                   <div class="actions">
                                     <a class="reply">Reply</a>
                                   </div>
+                                  <form class="ui reply form">
+                                    <div class="field">
+                                      <textarea></textarea>
+                                    </div>
+                                    <div class="ui basic submit labeled icon button">
+                                      <i class="icon edit"></i> Add Reply
+                                    </div>
+                                  </form>
                                 </div>
                               </div>
                               <div class="comment">
@@ -216,6 +224,14 @@
                                   <div class="actions">
                                     <a class="reply">Reply</a>
                                   </div>
+                                  <form class="ui reply form">
+                                    <div class="field">
+                                      <textarea></textarea>
+                                    </div>
+                                    <div class="ui basic submit labeled icon button">
+                                      <i class="icon edit"></i> Add Reply
+                                    </div>
+                                  </form>
                                 </div>
                               </div>
                               <div class="comment">
@@ -237,6 +253,14 @@
                                   <div class="actions">
                                     <a class="reply">Reply</a>
                                   </div>
+                                  <form class="ui reply form">
+                                    <div class="field">
+                                      <textarea></textarea>
+                                    </div>
+                                    <div class="ui basic submit labeled icon button">
+                                      <i class="icon edit"></i> Add Reply
+                                    </div>
+                                  </form>
                                 </div>
                               </div>
                             </div>
@@ -288,7 +312,7 @@
                     <!-- End Reclama Tab -->
                   </div>
                 </div>
-            </div>
+              </div>
 
 
 	</jsp:attribute>
