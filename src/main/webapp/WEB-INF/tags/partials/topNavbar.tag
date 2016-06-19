@@ -1,7 +1,7 @@
 <%-- 
     Document   : topNavbar
     Created on : May 15, 2016, 10:46:40 AM
-    Author     : umberto
+    Author     : Giovanni M Riva
 --%>
 
 <%@tag description="put the tag description here" pageEncoding="UTF-8"%>
