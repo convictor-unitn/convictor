@@ -18,14 +18,7 @@
         <method>GET</method>
         <url>/</url>
         <controller>StaticPages</controller>
-        <action>home</action>
-        <format>html</format>            
-    </route>
-    <route>
-        <method>GET</method>
-        <url>/protected</url>
-        <controller>StaticPages</controller>
-        <action>protected_page</action>
+        <action>landingPage</action>
         <format>html</format>            
     </route>
     
