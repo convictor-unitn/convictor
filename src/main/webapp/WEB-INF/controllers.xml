@@ -10,4 +10,5 @@
 -->
 <controllers>
     <controller>StaticPages</controller>
+    <controller>Restaurants</controller>
 </controllers>

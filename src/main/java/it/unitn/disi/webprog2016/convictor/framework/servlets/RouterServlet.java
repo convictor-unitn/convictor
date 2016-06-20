@@ -22,6 +22,7 @@ import it.unitn.disi.webprog2016.convictor.framework.utils.ControllersHashMap;
 import it.unitn.disi.webprog2016.convictor.framework.utils.RouteNotFoundException;
 import it.unitn.disi.webprog2016.convictor.framework.utils.RoutesHashMap;
 import java.util.ArrayList;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -103,7 +104,7 @@ public class RouterServlet extends HttpServlet {
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		PrintWriter out = response.getWriter();
-		
+        
 		RouteId routeId = new RouteId(request.getPathInfo(), request.getMethod());
 		Route route = null;
                 try {
@@ -113,12 +114,12 @@ public class RouterServlet extends HttpServlet {
                         controller = controllers.getController(route.getControllerName());
                         controller.doAction(request, response, route.getActionName(), route.getFormat());
                     } catch (ControllerNotFoundException e) {
-                        Logger.getLogger(getClass().getName()).severe(e.toString());
+                        Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, e);
                         response.sendError(404, "Controller Not Found");
                     }
                     
                 } catch (RouteNotFoundException e) {
-                    Logger.getLogger(getClass().getName()).severe(e.toString());
+                    Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, e);
                     response.sendError(404, "Route Not Found");
                 }
 

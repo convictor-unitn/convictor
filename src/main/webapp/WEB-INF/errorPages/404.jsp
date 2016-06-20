@@ -13,5 +13,8 @@
     </head>
     <body>
         <h1>404 Not Found</h1>
+        <pre>
+            ${exception.printStackTrace()}
+        </pre>
     </body>
 </html>

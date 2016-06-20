@@ -13,7 +13,7 @@
 	<jsp:attribute name="title">Index Page</jsp:attribute>
 	
 	<jsp:attribute name="body">
-		<h1>Landing Page</h1>
+		<h1>Restaurants edit page</h1>
 	</jsp:attribute>
 		
 </l:main>

@@ -21,4 +21,48 @@
         <action>landingPage</action>
         <format>html</format>            
     </route>
+    
+    <!-- Restaurant routes -->
+    <route>
+        <method>GET</method>
+        <url>/restaurants</url>
+        <controller>Restaurants</controller>
+        <action>index</action>
+        <format>html</format>            
+    </route>
+    <route>
+        <method>GET</method>
+        <url>/restaurants/show</url>
+        <controller>Restaurants</controller>
+        <action>show</action>
+        <format>html</format>            
+    </route>
+    <route>
+        <method>GET</method>
+        <url>/restaurants/new</url>
+        <controller>Restaurants</controller>
+        <action>new_</action>
+        <format>html</format>            
+    </route>
+    <route>
+        <method>POST</method>
+        <url>/restaurants/create</url>
+        <controller>Restaurants</controller>
+        <action>create</action>
+        <format>html</format>            
+    </route>
+    <route>
+        <method>GET</method>
+        <url>/restaurants/edit</url>
+        <controller>Restaurants</controller>
+        <action>edit</action>
+        <format>html</format>            
+    </route>
+    <route>
+        <method>POST</method>
+        <url>/restaurants/update</url>
+        <controller>Restaurants</controller>
+        <action>update</action>
+        <format>html</format>            
+    </route>
 </routes>
