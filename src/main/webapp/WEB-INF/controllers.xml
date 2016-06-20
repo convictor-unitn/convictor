@@ -11,4 +11,6 @@
 <controllers>
     <controller>StaticPages</controller>
     <controller>Restaurants</controller>
+    <controller>Sessions</controller>
+    <controller>Registrations</controller>
 </controllers>
