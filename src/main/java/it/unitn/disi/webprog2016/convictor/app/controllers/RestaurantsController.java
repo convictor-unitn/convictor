@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
  * In this controller there add all restaurant management pages
  * @author umberto
  */
-public class RestaurantController extends AbstractController {
+public class RestaurantsController extends AbstractController {
     
     public String index(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		return "/restaurants/index";

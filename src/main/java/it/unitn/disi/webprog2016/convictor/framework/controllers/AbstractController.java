@@ -33,7 +33,7 @@ public abstract class AbstractController implements Controller {
 			Object params[] = new Object[] { request, response };
 			Method m = this.getClass().getDeclaredMethod(action, paramsTypes);
 			String view = (String) m.invoke(this, params);
-			request.getRequestDispatcher("/WEB-INF/"+view+"."+format.toLowerCase()+".jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/pages/"+view+"."+format.toLowerCase()+".jsp").forward(request, response);
 		} catch (IllegalArgumentException | IllegalAccessException | InvocationTargetException | NoSuchMethodException | SecurityException ex) {
 			try {
 				response.sendError(500);

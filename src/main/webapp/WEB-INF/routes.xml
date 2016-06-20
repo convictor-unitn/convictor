@@ -25,43 +25,43 @@
     <!-- Restaurant routes -->
     <route>
         <method>GET</method>
-        <url>/restaurants/</url>
-        <controller>RestaurantsController</controller>
+        <url>/restaurants</url>
+        <controller>Restaurants</controller>
         <action>index</action>
         <format>html</format>            
     </route>
     <route>
         <method>GET</method>
-        <url>/restaurants/show/</url>
-        <controller>RestaurantsController</controller>
+        <url>/restaurants/show</url>
+        <controller>Restaurants</controller>
         <action>show</action>
         <format>html</format>            
     </route>
     <route>
         <method>GET</method>
         <url>/restaurants/new</url>
-        <controller>RestaurantsController</controller>
-        <action>new</action>
+        <controller>Restaurants</controller>
+        <action>new_</action>
         <format>html</format>            
     </route>
     <route>
         <method>POST</method>
         <url>/restaurants/create</url>
-        <controller>RestaurantsController</controller>
+        <controller>Restaurants</controller>
         <action>create</action>
         <format>html</format>            
     </route>
     <route>
         <method>GET</method>
         <url>/restaurants/edit</url>
-        <controller>RestaurantsController</controller>
+        <controller>Restaurants</controller>
         <action>edit</action>
         <format>html</format>            
     </route>
     <route>
         <method>POST</method>
         <url>/restaurants/update</url>
-        <controller>RestaurantsController</controller>
+        <controller>Restaurants</controller>
         <action>update</action>
         <format>html</format>            
     </route>
