@@ -65,4 +65,20 @@
         <action>update</action>
         <format>html</format>            
     </route>
+    
+    <!-- Session routes -->
+    <route>
+        <method>GET</method>
+        <url>/sign_in</url>
+        <controller>Sessions</controller>
+        <action>new_</action>
+        <format>html</format>            
+    </route>
+    <route>
+        <method>POST</method>
+        <url>/sessions/create</url>
+        <controller>Sessions</controller>
+        <action>create</action>
+        <format>html</format>            
+    </route>
 </routes>

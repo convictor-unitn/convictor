@@ -105,7 +105,12 @@ public class RouterServlet extends HttpServlet {
 			throws ServletException, IOException {
 		PrintWriter out = response.getWriter();
         
-		RouteId routeId = new RouteId(request.getPathInfo(), request.getMethod());
+        String pathInfo = request.getPathInfo();
+        if(pathInfo.endsWith("/") && !pathInfo.equals("/")) {
+            pathInfo= pathInfo.substring(0, pathInfo.length() - 1);
+        }
+        System.err.println(pathInfo);
+		RouteId routeId = new RouteId(pathInfo, request.getMethod());
 		Route route = null;
                 try {
                     route = routes.getRoute(routeId);
