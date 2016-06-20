@@ -28,4 +28,48 @@
         <action>protected_page</action>
         <format>html</format>            
     </route>
+    
+    <!-- Restaurant routes -->
+    <route>
+        <method>GET</method>
+        <url>/restaurants/</url>
+        <controller>RestaurantsController</controller>
+        <action>index</action>
+        <format>html</format>            
+    </route>
+    <route>
+        <method>GET</method>
+        <url>/restaurants/show/</url>
+        <controller>RestaurantsController</controller>
+        <action>show</action>
+        <format>html</format>            
+    </route>
+    <route>
+        <method>GET</method>
+        <url>/restaurants/new</url>
+        <controller>RestaurantsController</controller>
+        <action>new</action>
+        <format>html</format>            
+    </route>
+    <route>
+        <method>POST</method>
+        <url>/restaurants/create</url>
+        <controller>RestaurantsController</controller>
+        <action>create</action>
+        <format>html</format>            
+    </route>
+    <route>
+        <method>GET</method>
+        <url>/restaurants/edit</url>
+        <controller>RestaurantsController</controller>
+        <action>edit</action>
+        <format>html</format>            
+    </route>
+    <route>
+        <method>POST</method>
+        <url>/restaurants/update</url>
+        <controller>RestaurantsController</controller>
+        <action>update</action>
+        <format>html</format>            
+    </route>
 </routes>
