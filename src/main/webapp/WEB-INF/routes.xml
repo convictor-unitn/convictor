@@ -111,4 +111,13 @@
         <action>create</action>
         <format>html</format>            
     </route>
+    
+    <!-- Notices routes -->
+    <route>
+        <method>POST</method>
+        <url>/notices/set_approval</url>
+        <controller>Notices</controller>
+        <action>setApproval</action>
+        <format>html</format>     
+    </route>
 </routes>

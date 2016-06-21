@@ -15,4 +15,5 @@
     <controller>Registrations</controller>
     <controller>Passwords</controller>
     <controller>UserProfile</controller>
+    <controller>Notices</controller>
 </controllers>
