@@ -9,9 +9,11 @@ package it.unitn.disi.webprog2016.convictor.app.beans;
  *
  * @author umberto
  */
-public interface Notice {
+public interface Approvable {
 	
-	public int getId();
-	public String getDescription();
+	int getId();
+	void approve();
+	void decline();
+	boolean getApproved();
 	
 }
