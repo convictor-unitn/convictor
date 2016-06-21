@@ -64,5 +64,10 @@ public class ReviewNotice extends AbstractBean implements Notice {
 		//TODO: Implementare la stringa della notifica
 		return "DA IMPLEMENTARE!!!";
 	}
+
+	@Override
+	public String getNoticeType() {
+		return this.getClass().toString();
+	}
 	
 }
