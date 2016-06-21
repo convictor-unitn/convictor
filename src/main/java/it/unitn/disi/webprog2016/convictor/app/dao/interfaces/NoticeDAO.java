@@ -6,6 +6,10 @@
 package it.unitn.disi.webprog2016.convictor.app.dao.interfaces;
 
 import it.unitn.disi.webprog2016.convictor.app.beans.Notice;
+import it.unitn.disi.webprog2016.convictor.app.beans.OwnershipNotice;
+import it.unitn.disi.webprog2016.convictor.app.beans.PhotoNotice;
+import it.unitn.disi.webprog2016.convictor.app.beans.PhotoRemovalNotice;
+import it.unitn.disi.webprog2016.convictor.app.beans.ReviewNotice;
 import java.util.List;
 
 /**
@@ -16,5 +20,13 @@ public interface NoticeDAO {
     
     List<Notice> getAdministratorNotices(int id);
     List<Notice> getRestaurantOwnerNotices(int id);
+    
+    void insertPhotoNotice(PhotoNotice notice);
+    void insertPhotoRemovalNotice(PhotoRemovalNotice notice);
+    void insertReviewNotice(ReviewNotice notice);
+    void insertOwnershipNotice(OwnershipNotice notice);
+    
+    void approvePhotoRemovalNotice(boolean approved);
+    void approveOwershipNotice(boolean approved);
     
 }
