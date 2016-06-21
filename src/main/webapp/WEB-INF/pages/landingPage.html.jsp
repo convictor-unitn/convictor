@@ -13,7 +13,20 @@
 	<jsp:attribute name="title">Index Page</jsp:attribute>
 	
 	<jsp:attribute name="body">
-		<h1>Landing Page</h1>
+
+		<h1>Index Page</h1>
+                <nav>
+                    <ul>
+                        <li><a href="${pageContext.request.contextPath}/">Home</a></li>
+                        <li><a href="${pageContext.request.contextPath}/protected">Protected</a></li>
+                        <li><a href="${pageContext.request.contextPath}/restaurant_profile">Restaurant's Profile</a></li>
+                        <li><a href="#">Sign In</a></li>
+                        <li><a href="#">Sign Out</a></li>
+                    </ul>
+                </nav>
+
 	</jsp:attribute>
+                
+                
 		
 </l:main>

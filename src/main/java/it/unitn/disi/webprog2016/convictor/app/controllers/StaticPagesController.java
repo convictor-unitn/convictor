@@ -36,4 +36,5 @@ public class StaticPagesController extends AbstractController {
 	public String landingPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		return "/landingPage";
 	}
+
 }
