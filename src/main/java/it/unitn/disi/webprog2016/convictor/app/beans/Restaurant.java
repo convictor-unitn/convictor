@@ -19,7 +19,7 @@ public class Restaurant extends AbstractBean {
     private String zipCode;
     private String province;
     private String fullAddress;
-    private String address;
+    private String website;
     private int slotPrice;
     private int rating;
     private int mainPhotoId;
@@ -124,17 +124,17 @@ public class Restaurant extends AbstractBean {
     }
 
     /**
-     * @return the address
+     * @return the website
      */
-    public String getAddress() {
-        return address;
+    public String getWebsite() {
+        return website;
     }
 
     /**
-     * @param address the address to set
+     * @param website the website to set
      */
-    public void setAddress(String address) {
-        this.address = address;
+    public void setWebsite(String website) {
+        this.website = website;
     }
 
     /**
