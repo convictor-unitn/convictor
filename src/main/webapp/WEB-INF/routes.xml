@@ -111,14 +111,13 @@
         <action>create</action>
         <format>html</format>            
     </route>
-    <!-- TEST routes for INTEGRATION   -->
-    
-    <!-- Restaurant profile's page   -->
-   <route>
-        <method>GET</method>
-        <url>/restaurant_profile</url>
-        <controller>StaticPages</controller>
-        <action>restaurant_profile</action>
-        <format>html</format>            
+
+    <!-- Notices routes -->
+    <route>
+        <method>POST</method>
+        <url>/notices/set_approval</url>
+        <controller>Notices</controller>
+        <action>setApproval</action>
+        <format>html</format>     
     </route>
 </routes>
