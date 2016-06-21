@@ -13,5 +13,6 @@ public interface Notice {
 	
 	public int getId();
 	public String getDescription();
+	String getNoticeType();
 	
 }

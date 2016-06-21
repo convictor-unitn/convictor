@@ -63,5 +63,10 @@ public class PhotoNotice extends AbstractBean implements Notice {
 	public String getDescription() {
 		return "DA IMPLEMENTARE";
 	}
+
+	@Override
+	public String getNoticeType() {
+		return this.getClass().toString();
+	}
     
 }

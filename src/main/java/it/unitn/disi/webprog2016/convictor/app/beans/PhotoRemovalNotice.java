@@ -91,5 +91,10 @@ public class PhotoRemovalNotice extends AbstractBean implements Notice, Approvab
 	public boolean getApproved() {
 		return this.isApproved();
 	}
+
+	@Override
+	public String getNoticeType() {
+		return this.getClass().toString();
+	}
     
 }
