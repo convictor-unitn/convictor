@@ -19,7 +19,8 @@
                     <ul>
                         <li><a href="${pageContext.request.contextPath}/">Home</a></li>
                         <li><a href="${pageContext.request.contextPath}/protected">Protected</a></li>
-                        <li><a href="${pageContext.request.contextPath}/restaurant_profile">Restaurant's Profile</a></li>
+                        <li><a href="${pageContext.request.contextPath}/restaurants/show">Restaurant's Profile</a></li>
+                        <li><a href="${pageContext.request.contextPath}/restaurants/new">Nuovo Ristorante</a></li>
                         <li><a href="#">Sign In</a></li>
                         <li><a href="#">Sign Out</a></li>
                     </ul>
