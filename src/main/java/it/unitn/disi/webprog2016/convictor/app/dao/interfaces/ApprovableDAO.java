@@ -3,16 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package it.unitn.disi.webprog2016.convictor.app.beans;
+package it.unitn.disi.webprog2016.convictor.app.dao.interfaces;
+
+import it.unitn.disi.webprog2016.convictor.app.beans.Approvable;
 
 /**
  *
  * @author umberto
  */
-public interface Notice {
+public interface ApprovableDAO {
 	
-	public int getId();
-	public String getDescription();
-	String getNoticeType();
+	void setApproval(boolean status, Approvable notice);
 	
 }
