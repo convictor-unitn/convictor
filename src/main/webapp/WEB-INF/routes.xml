@@ -81,4 +81,34 @@
         <action>create</action>
         <format>html</format>            
     </route>
+    
+    <!-- Password routes -->
+    <route>
+        <method>GET</method>
+        <url>/passwords/request_new</url>
+        <controller>Passwords</controller>
+        <action>requestNewPassword</action>
+        <format>html</format>            
+    </route>
+    <route>
+        <method>POST</method>
+        <url>/passwords/get_reset_token</url>
+        <controller>Passwords</controller>
+        <action>getResetToken</action>
+        <format>html</format>            
+    </route>
+    <route>
+        <method>GET</method>
+        <url>/passwords/new</url>
+        <controller>Passwords</controller>
+        <action>new_</action>
+        <format>html</format>            
+    </route>
+    <route>
+        <method>POST</method>
+        <url>/passwords/create</url>
+        <controller>Passwords</controller>
+        <action>create</action>
+        <format>html</format>            
+    </route>
 </routes>
