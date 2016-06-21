@@ -10,10 +10,11 @@ import it.unitn.disi.webprog2016.convictor.framework.beans.AbstractBean;
  * Photo Notice bean. 
  * @author Giovanni De Toni
  */
-public class PhotoNotice extends AbstractBean implements Notice {
+public class PhotoRemovalNotice extends AbstractBean implements Notice, Approvable {
     
     private int registeredUserId;
     private int photoId;
+	private boolean approved;
 
     /**
      * @return the registeredUserId
@@ -59,9 +60,36 @@ public class PhotoNotice extends AbstractBean implements Notice {
         this.photoId = Integer.parseInt(photoId);
     }
 
+	public boolean isApproved() {
+		return approved;
+	}
+
+	public void setApproved(boolean approved) {
+		this.approved = approved;
+	}
+	
+	public void setApproved(String approved) {
+		this.approved = Boolean.valueOf(approved);;
+	}
+
 	@Override
 	public String getDescription() {
 		return "DA IMPLEMENTARE";
+	}
+
+	@Override
+	public void approve() {
+		this.setApproved(true);
+	}
+
+	@Override
+	public void decline() {
+		this.setApproved(true);
+	}
+
+	@Override
+	public boolean getApproved() {
+		return this.isApproved();
 	}
     
 }
