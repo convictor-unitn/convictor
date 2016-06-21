@@ -13,4 +13,6 @@
     <controller>Restaurants</controller>
     <controller>Sessions</controller>
     <controller>Registrations</controller>
+    <controller>Passwords</controller>
+    <controller>UserProfile</controller>
 </controllers>

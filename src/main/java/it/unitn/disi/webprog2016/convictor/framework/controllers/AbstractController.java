@@ -33,14 +33,16 @@ public abstract class AbstractController implements Controller {
 			Object params[] = new Object[] { request, response };
 			Method m = this.getClass().getDeclaredMethod(action, paramsTypes);
 			String view = (String) m.invoke(this, params);
+            if(view.equals("")) return;
 			request.getRequestDispatcher("/WEB-INF/pages/"+view+"."+format.toLowerCase()+".jsp").forward(request, response);
-		} catch (IllegalArgumentException | IllegalAccessException | InvocationTargetException | NoSuchMethodException | SecurityException ex) {
+
+		} catch (IllegalStateException | IllegalArgumentException | IllegalAccessException | InvocationTargetException | NoSuchMethodException | SecurityException ex) {
+			Logger.getLogger(AbstractController.class.getName()).log(Level.SEVERE, null, ex);
 			try {
 				response.sendError(500);
 			} catch (IOException e) {
 				Logger.getLogger(AbstractController.class.getName()).log(Level.SEVERE, null, e);
 			}
-			Logger.getLogger(AbstractController.class.getName()).log(Level.SEVERE, null, ex);
 		} catch (ServletException | IOException ex) {
 			Logger.getLogger(AbstractController.class.getName()).log(Level.SEVERE, null, ex);
 		}
