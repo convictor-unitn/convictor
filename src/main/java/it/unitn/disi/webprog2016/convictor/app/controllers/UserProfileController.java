@@ -26,7 +26,19 @@ public class UserProfileController extends AbstractController {
 	 * @throws IOException
 	 */
 	public String show(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		return "/landingPage";
+		return "/userProfle/show";
+	}
+	
+	/**
+	 *
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws ServletException
+	 * @throws IOException
+	 */
+	public String edit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		return "/userProfle/edit";
 	}
 	
 	/**

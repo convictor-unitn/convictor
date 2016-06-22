@@ -26,7 +26,7 @@ public class PasswordsController extends AbstractController  {
      * @throws IOException
      */
     public String requestNewPassword(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		return "/landingPage";
+		return "/passwords/requestNewPassword";
 	}
     
     /**
@@ -51,7 +51,7 @@ public class PasswordsController extends AbstractController  {
      * @throws IOException
      */
     public String new_(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		return "/landingPage";
+		return "/passwords/new";
 	}
     
     /**
