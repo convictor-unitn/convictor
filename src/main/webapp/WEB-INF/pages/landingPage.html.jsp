@@ -45,6 +45,42 @@
                 </div>
 
             </div>
+            
+            <div class="ui list">
+                <div class="item">
+                    
+                </div>
+                <div class="item">
+                    
+                </div>
+                <div class="item">
+                    
+                </div>
+                <div class="item">
+                    
+                </div>
+                <div class="item">
+                    
+                </div>
+                <div class="item">
+                    
+                </div>
+                <div class="item">
+                    
+                </div>
+                <div class="item">
+                    
+                </div>
+                <div class="item">
+                    
+                </div>
+                <div class="item">
+                    
+                </div>
+                <div class="item">
+                    
+                </div>
+            </div>
 
 
 	</jsp:attribute>

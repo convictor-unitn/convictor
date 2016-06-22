@@ -1,7 +1,7 @@
 <%-- 
     Document   : index
     Created on : May 15, 2016, 10:32:00 AM
-    Author     : Giovanni M Riva
+    Author     : Federica Balliana
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8" session="false" %>
@@ -10,7 +10,7 @@
 
 <l:main>
 	
-	<jsp:attribute name="title">Reimposta Profilo</jsp:attribute>
+	<jsp:attribute name="title">Reimposta Profilo Utente</jsp:attribute>
 	
 	<jsp:attribute name="body">
             <div class="ui middle aligned center aligned grid">
@@ -18,7 +18,7 @@
                     <h2 class="ui header">
 
                         <div id="s_text" class="content">
-                            Reimpostazione profilo
+                            Reimpostazione profilo utente
                         </div>
                     </h2>
                     <form class="ui large form">
