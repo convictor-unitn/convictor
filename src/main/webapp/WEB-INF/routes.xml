@@ -82,6 +82,21 @@
         <format>html</format>            
     </route>
     
+    <route>
+        <method>GET</method>
+        <url>/sign_up</url>
+        <controller>Registrations</controller>
+        <action>new_</action>
+        <format>html</format>            
+    </route>
+    <route>
+        <method>POST</method>
+        <url>/registrations/create</url>
+        <controller>Registrations</controller>
+        <action>create</action>
+        <format>html</format>            
+    </route>
+    
     <!-- Password routes -->
     <route>
         <method>GET</method>
