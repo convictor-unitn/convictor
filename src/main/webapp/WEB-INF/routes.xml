@@ -116,7 +116,7 @@
         <action>create</action>
         <format>html</format>            
     </route>
-    
+
     <!-- Notices routes -->
     <!--Protected access only admin-->
     <route>
