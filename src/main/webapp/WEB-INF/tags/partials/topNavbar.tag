@@ -21,7 +21,7 @@
       <!-- Logo  -->
       <a href="${pageContext.request.contextPath}/" class="brand item">
         <img class="logo" src="assets/images/logo.png">
-        Project Name
+        Convictor
       </a>
 
       <!-- Center -->
@@ -40,7 +40,7 @@
         <div class="menu">
           <a class="item" href="#">notify 1</a>
           <a class="item" href="#">notify 2</a>
-          <a class="item" href="#">Open</a>
+          <a class="item" href="${pageContext.request.contextPath}/user_profile/show">Open</a> 
         </div>
       </div>
       
@@ -48,22 +48,20 @@
       <div class="ui simple dropdown item">
         Name Surname <i class="dropdown icon"></i>
         <div class="menu">
-          <a class="item" href="#">Profile</a>
+          <a class="item" href="${pageContext.request.contextPath}/user_profile/show">Pagina Profilo</a> 
           <a class="item" href="#">Log Out</a>
         </div>
       </div>
       
       <!-- Owner User -->
-      <a href="#" class="item">
-        My Restaurant(s)
-      </a>
+      <a class="item" href="${pageContext.request.contextPath}/user_profile/show">My Restaurant(s)</a>
       
       <!-- Anonymous User -->
       <div class="item">
-        <div class="ui primary button right">Sign up</div>
+        <a class="ui basic button inverted right" href="${pageContext.request.contextPath}/sign_up">Registrati</a>
       </div>
       <div class="item">
-        <div class="ui button right">Log-in</div>
+        <a class="ui basic button inverted right" href="${pageContext.request.contextPath}/sign_in">Accedi</a>
       </div>
     </div>
   </div>
@@ -106,13 +104,13 @@
         <div class="menu">
           <a class="item" href="#">notify 1</a>
           <a class="item" href="#">notify 2</a>
-          <a class="item" href="#">Open</a>
+          <a class="item" href="${pageContext.request.contextPath}/user_profile/show">Open</a> 
         </div>
       </div>
 
       <!-- Registered User -->
       <div class="item">
-        <div class="ui text item">Name Surname </div>
+        <a href="${pageContext.request.contextPath}/user_profile/show">Name Surname </a> 
         <div class="menu">
           <a class="item" href="#">Profile</a>
           <a class="item" href="#">Log Out</a>
@@ -120,16 +118,16 @@
       </div>
 
       <!-- Owner User -->
-      <a href="#" class="item">
-        My Restaurant(s)
-      </a>
+      <div class="item">
+        <a href="${pageContext.request.contextPath}/user_profile/show">My Restaurant(s)</a>
+      </div>
 
       <!-- Anonymous User -->
       <div class="item">
-        <div class="ui primary button right">Sign up</div>
+        <a class="ui basic button right" href="${pageContext.request.contextPath}/sign_up">Registrati</a>
       </div>
       <div class="item">
-        <div class="ui button right">Log-in</div>
+          <a class="ui basic button right" href="${pageContext.request.contextPath}/sign_in">Accedi</a>
       </div>
     </div>
 

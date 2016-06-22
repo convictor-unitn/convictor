@@ -19,8 +19,8 @@
                 <div class="ui container">
                   <div class="ui menu" style="background-color:rgba(256,256,256,0.4)">   
                     <div class="right item">
-                      <a class="ui basic black button"><b>Accedi</b></a>
-                      <a class="ui basic black button"><b>Registrati</b></a>
+                      <a class="ui basic black button" href="${pageContext.request.contextPath}/sign_in"><b>Accedi</b></a>
+                      <a class="ui basic black button" href="${pageContext.request.contextPath}/sign_up"><b>Registrati</b></a>
                     </div> 
                   </div>
                 </div>
@@ -48,37 +48,28 @@
             
             <div class="ui list">
                 <div class="item">
-                    
+                <a href="${pageContext.request.contextPath}/passwords/request_new">Reimposta Password</a>
                 </div>
                 <div class="item">
-                    
+                <a href="${pageContext.request.contextPath}/passwords/get_reset_token">Recupera Password</a>
                 </div>
                 <div class="item">
-                    
+                <a href="${pageContext.request.contextPath}/sign_in/edit">Reimposta Profilo</a>
                 </div>
                 <div class="item">
-                    
+                <a href="${pageContext.request.contextPath}/restaurants/show">Pagina ristorante</a>
                 </div>
                 <div class="item">
-                    
+                <a href="${pageContext.request.contextPath}/restaurants/edit">Modifica ristorante</a>
                 </div>
                 <div class="item">
-                    
+                <a href="${pageContext.request.contextPath}/restaurants/">Ricerca Ristoranti</a>
                 </div>
                 <div class="item">
-                    
+                <a href="${pageContext.request.contextPath}/restaurants/new">Nuovo ristorante</a>
                 </div>
                 <div class="item">
-                    
-                </div>
-                <div class="item">
-                    
-                </div>
-                <div class="item">
-                    
-                </div>
-                <div class="item">
-                    
+                <a href="${pageContext.request.contextPath}/">Home</a>
                 </div>
             </div>
 
