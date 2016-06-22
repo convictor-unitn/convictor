@@ -101,6 +101,26 @@ public class OpeningTime extends AbstractBean {
 			Logger.getLogger(OpeningTime.class.getName()).log(Level.SEVERE, null, ex);
 		}
 	}
+
+    @Override
+    public boolean validate() {
+        boolean status = true;
+        if (this.getRestaurantId() <= 0)
+        {
+            status = false;
+            this.setError("restaurant_id", "The restaurant_id is not valid!");
+        }
+        
+        if (this.getCloseAt().toString().equals("")) {
+            status = false;
+            this.setError("close_at", "The close_at date is not valid!");
+        }
+        if (this.getOpenAt().toString().equals("")) {
+            status = false;
+            this.setError("open_at", "The open_at date is not valid!");
+        }
+        return status;
+    }
 	
 	
 }

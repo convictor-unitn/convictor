@@ -225,6 +225,49 @@ public class Restaurant extends AbstractBean {
     public void setRestaurant_owner_id(String restaurant_owner_id) {
         this.restaurantOwnerId = Integer.parseInt(restaurant_owner_id);
     }
+
+    @Override
+    public boolean validate() {
+        boolean status = true;
+        
+        
+        if (this.getName().equals("")) {
+            status=false;
+            this.setError("name", "The name is not valid!");
+        }
+        
+        if (this.getDescription().equals("")) {
+            status = false;
+            this.setError("description", "The description is not valid!");
+        }
+        
+        if (this.getStreet().equals("")) {
+            status = false;
+            this.setError("street", "The street is not valid!");
+        }
+        
+        if (this.getCity().equals("")) {
+            status = false;
+            this.setError("city", "The city is not valid!");
+        }
+        
+        if (this.getZipCode().equals("")) {
+            status = false;
+            this.setError("zip", "The zip is not valid!");
+        }
+        
+        if (this.getProvince().equals("")) {
+            status = false;
+            this.setError("province", "The province is not valid!");
+        } 
+        
+        if (this.getSlotPrice() == 0) {
+            status = false;
+            this.setError("slot_price", "The slot price is not valid!");
+        }
+        
+        return status;
+    }
     
     
     

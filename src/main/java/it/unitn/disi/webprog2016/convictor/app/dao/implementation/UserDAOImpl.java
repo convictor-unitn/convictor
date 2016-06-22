@@ -80,6 +80,10 @@ public class UserDAOImpl extends DatabaseDAO implements UserDAO{
 
     @Override
     public void updateUser(User user) throws SQLException {
+        
+        // Check if the update is permitted
+        if (!user.validate()) return;
+        
         String query = "UPDATE users SET name=?, surname=?, password=?, email=?, admin=? WHERE id = ?";
         PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
         try {
@@ -97,6 +101,10 @@ public class UserDAOImpl extends DatabaseDAO implements UserDAO{
 
     @Override
     public void insertUser(User user) throws SQLException {
+        
+        // Check if the user is valid
+        if (!user.validate()) return;
+        
         String query = "INSERT INTO users (name, surname, password, email, admin) VALUES (?, ?, ?, ? ?)";
         PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
         try {

@@ -119,6 +119,10 @@ public class NoticeDAOImpl extends DatabaseDAO implements NoticeDAO {
 
     @Override
     public void insertPhotoNotice(PhotoNotice notice) throws SQLException {
+        
+        // Check if valid
+        if (!notice.validate()) return;
+        
         String query = "INSERT INTO photo_notices VALUES(?, ?, ?, ?);";
         PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
         try {
@@ -132,6 +136,10 @@ public class NoticeDAOImpl extends DatabaseDAO implements NoticeDAO {
 
     @Override
     public void insertPhotoRemovalNotice(PhotoRemovalNotice notice) throws SQLException {
+        
+        // Check if valid
+        if (!notice.validate()) return;
+        
         String query = "INSERT INTO photo_removal_notices VALUES(?, ?, ?, ?, ?);";
         PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
         try {
@@ -146,6 +154,10 @@ public class NoticeDAOImpl extends DatabaseDAO implements NoticeDAO {
 
     @Override
     public void insertReviewNotice(ReviewNotice notice) throws SQLException {
+        
+        // Check if valid
+        if (!notice.validate()) return;
+        
         String query = "INSERT INTO review_notices VALUES(?, ?, ?, ?);";
         PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
         try {
@@ -159,6 +171,10 @@ public class NoticeDAOImpl extends DatabaseDAO implements NoticeDAO {
 
     @Override
     public void insertOwnershipNotice(OwnershipNotice notice) throws SQLException {
+        
+        // Check if valid
+        if (!notice.validate()) return;
+        
         String query = "INSERT INTO ownership_notices VALUES(?, ?, ?, ?, ?);";
         PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
         try {
@@ -173,6 +189,10 @@ public class NoticeDAOImpl extends DatabaseDAO implements NoticeDAO {
 
     @Override
     public void approvePhotoRemovalNotice(boolean approved, int id) throws SQLException {
+        
+        // Check if valid
+        if (id <= 0) return;
+        
         String query = "UPDATE photo_removal_notice SET approved = ? WHERE id = ? ";
         PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
         try {
@@ -186,6 +206,10 @@ public class NoticeDAOImpl extends DatabaseDAO implements NoticeDAO {
 
     @Override
     public void approveOwershipNotice(boolean approved, int id) throws SQLException {
+        
+        // Check if valid
+        if (id <= 0) return;
+        
         String query = "UPDATE ownership_notice SET approved = ? WHERE id = ? ";
         PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
         try {

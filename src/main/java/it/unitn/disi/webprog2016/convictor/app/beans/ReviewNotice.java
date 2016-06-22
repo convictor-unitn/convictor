@@ -69,5 +69,19 @@ public class ReviewNotice extends AbstractBean implements Notice {
 	public String getNoticeType() {
 		return this.getClass().toString();
 	}
+
+    @Override
+    public boolean validate() {
+        boolean status=true;
+        if (this.getRegisteredUserId() <= 0) {
+            status = false;
+            this.setError("user_id", "The user_id is equal or lessa than zero");
+        }
+        if (this.getReviewId() <=0) {
+            status = false;
+            this.setError("review_id", "The review_id is equal or less than zero");
+        }
+        return status;
+    }
 	
 }
