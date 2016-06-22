@@ -323,29 +323,29 @@
                   </div>
                   <!-- End Reclama Tab -->
                   <!-- Add Image Tab -->
-                  <div class="ui tab" data-tab="addimage">
-                    <div class="ui center aligned grid">
-                      <div class="column">
-                        <button class="ui button add_image">Aggiungi Immagine</button>
-                        <div class="ui modal">
-                          <div class="ui segment">
-                            <div class="ui header center">
-                              Aggiungi Nuova Immagine
-                            </div>
+                    <div class="ui tab" data-tab="addimage">
+                      <div class="ui center aligned grid">
+                        <div class="column">
+                          <button class="ui button add_image">Aggiungi Immagine</button>
+                          <div class="ui modal">
                             <div class="ui segment">
-                              <form>
-                                <input id="fileupload" type="file" name="files[]" data-url="server/php/" multiple >
-                                <div class="actions">
-                                  <div class="ui close button">Cancel</div>
-                                  <input class="ui button" type="submit"></input>
-                                </div>
-                              </form>
+                              <div class="ui header center">
+                                Aggiungi Nuova Immagine
+                              </div>
+                              <div class="ui segment">
+                                <form>
+                                  <input id="fileupload" type="file" name="files[]" data-url="server/php/" multiple >
+                                  <div class="actions">
+                                    <div class="ui close button">Cancel</div>
+                                    <input class="ui button" type="submit"></input>
+                                  </div>
+                                </form>
+                              </div>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
                   <!-- End Add Image Tab -->
                 </div>
               </div>
