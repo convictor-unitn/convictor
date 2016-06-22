@@ -49,6 +49,7 @@ public class NoticeDAOImpl extends DatabaseDAO implements NoticeDAO {
             try {
                 while(ownershipSet.next()) {
                     OwnershipNotice tmp = new OwnershipNotice();
+                    tmp.setId(ownershipSet.getString("id"));
                     tmp.setRegisteredUserId(ownershipSet.getString("registered_user_id"));
                     tmp.setRestaurantId(ownershipSet.getString("restaurant_id"));
                     notices.add(tmp);
@@ -56,6 +57,7 @@ public class NoticeDAOImpl extends DatabaseDAO implements NoticeDAO {
                 
                 while (removalSet.next()) {
                     PhotoRemovalNotice tmp = new PhotoRemovalNotice();
+                    tmp.setId(removalSet.getInt("id"));
                     tmp.setRegisteredUserId(removalSet.getInt("registered_user_id"));
                     tmp.setPhotoId(removalSet.getInt("photo_id"));
                     tmp.setApproved(removalSet.getBoolean("approved"));
@@ -90,12 +92,14 @@ public class NoticeDAOImpl extends DatabaseDAO implements NoticeDAO {
             try {
                 while(reviewSet.next()) {
                     ReviewNotice tmp = new ReviewNotice();
+                    tmp.setId(reviewSet.getString("id"));
                     tmp.setRegisteredUserId(reviewSet.getString("registered_user_id"));
                     tmp.setReviewId(reviewSet.getString("review_id"));
                     notices.add(tmp);
                 }
                 while(photoSet.next()) {
                     PhotoNotice tmp = new PhotoNotice();
+                    tmp.setId(photoSet.getString("id"));
                     tmp.setPhotoId(photoSet.getString("photo_id"));
                     tmp.setRegisteredUserId(photoSet.getString("registered_user_id"));
                     notices.add(tmp);

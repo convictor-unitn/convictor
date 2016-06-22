@@ -6,6 +6,7 @@
 package it.unitn.disi.webprog2016.convictor.app.dao.interfaces;
 
 import it.unitn.disi.webprog2016.convictor.app.beans.User;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -14,11 +15,11 @@ import java.util.List;
  */
 public interface UserDAO {
     
-    List<User> getAllUser();
-    User getUserById(int id);
-    void updateUser(User user);
-    void insertUser(User user);
+    List<User> getAllUser() throws SQLException;
+    User getUserById(int id) throws SQLException;
+    void updateUser(User user) throws SQLException;
+    void insertUser(User user) throws SQLException;
     
-    User authenticate(String email, String password);
+    User authenticate(String email, String password) throws SQLException;
     
 } 

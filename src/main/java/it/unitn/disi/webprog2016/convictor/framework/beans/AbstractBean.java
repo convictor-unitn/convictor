@@ -37,6 +37,14 @@ public class AbstractBean implements Serializable {
 		return errors.isEmpty();
 	}
 
+    public void setId(int id) {
+        this.id = id;
+    }
+    
+    public void setId(String id) {
+        this.id = Integer.parseInt(id);
+    }
+    
 	public int getId() {
 		return id;
 	}
