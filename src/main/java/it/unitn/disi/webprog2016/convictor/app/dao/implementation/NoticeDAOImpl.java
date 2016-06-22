@@ -33,10 +33,10 @@ public class NoticeDAOImpl extends DatabaseDAO implements NoticeDAO {
     public List<Notice> getAdministratorNotices(int id) throws SQLException {
         List<Notice> notices = new ArrayList<>();
         PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(
-                "(SELECT * FROM ownership_notices WHERE id=?)"
+                "SELECT * FROM ownership_notices"
             );
         PreparedStatement stm2 = this.getDbManager().getConnection().prepareStatement(
-                "(SELECT * FROM photo_removal_notices WHERE id=?)"
+                "SELECT * FROM photo_removal_notices"
             );
         try {   
             
@@ -75,37 +75,122 @@ public class NoticeDAOImpl extends DatabaseDAO implements NoticeDAO {
 
     @Override
     public List<Notice> getRestaurantOwnerNotices(int id) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Notice> notices = new ArrayList<>();
+        String queryReviewNotices = "";
+        String queryPhotoNotices = "";
+        
+        PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(queryReviewNotices);
+        PreparedStatement stm2 = this.getDbManager().getConnection().prepareStatement(queryPhotoNotices);
+        
+        try {
+            stm.setInt(1, id);
+            stm2.setInt(1, id);
+            ResultSet reviewSet = stm.executeQuery();
+            ResultSet photoSet = stm.executeQuery();
+            try {
+                while(reviewSet.next()) {
+                    ReviewNotice tmp = new ReviewNotice();
+                    tmp.setRegisteredUserId(reviewSet.getString("registered_user_id"));
+                    tmp.setReviewId(reviewSet.getString("review_id"));
+                    notices.add(tmp);
+                }
+                while(photoSet.next()) {
+                    PhotoNotice tmp = new PhotoNotice();
+                    tmp.setPhotoId(photoSet.getString("photo_id"));
+                    tmp.setRegisteredUserId(photoSet.getString("registered_user_id"));
+                    notices.add(tmp);
+                }
+            } finally {
+                reviewSet.close();
+                photoSet.close();
+            }
+            
+        } finally {
+            stm.close();
+            stm2.close();
+        }
+        
+        return notices;
     }
 
     @Override
     public void insertPhotoNotice(PhotoNotice notice) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String query = "INSERT INTO photo_notices VALUES(?, ?, ?, ?);";
+        PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
+        try {
+            stm.setInt(2, notice.getRegisteredUserId());
+            stm.setInt(3, notice.getPhotoId());
+            stm.executeQuery();
+        } finally {
+            stm.close();
+        }
     }
 
     @Override
     public void insertPhotoRemovalNotice(PhotoRemovalNotice notice) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String query = "INSERT INTO photo_removal_notices VALUES(?, ?, ?, ?, ?);";
+        PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
+        try {
+            stm.setInt(2, notice.getRegisteredUserId());
+            stm.setInt(3, notice.getPhotoId());
+            stm.setBoolean(4, false);
+            stm.executeQuery();
+        } finally {
+            stm.close();
+        }
     }
 
     @Override
     public void insertReviewNotice(ReviewNotice notice) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String query = "INSERT INTO review_notices VALUES(?, ?, ?, ?);";
+        PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
+        try {
+            stm.setInt(2, notice.getRegisteredUserId());
+            stm.setInt(3, notice.getReviewId());
+            stm.executeQuery();
+        } finally {
+            stm.close();
+        }
     }
 
     @Override
     public void insertOwnershipNotice(OwnershipNotice notice) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String query = "INSERT INTO ownership_notices VALUES(?, ?, ?, ?, ?);";
+        PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
+        try {
+            stm.setInt(2, notice.getRegisteredUserId());
+            stm.setInt(3, notice.getRestaurantId());
+            stm.setBoolean(4, false);
+            stm.executeQuery();
+        } finally {
+            stm.close();
+        }
     }
 
     @Override
-    public void approvePhotoRemovalNotice(boolean approved) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void approvePhotoRemovalNotice(boolean approved, int id) throws SQLException {
+        String query = "UPDATE photo_removal_notice SET approved = ? WHERE id = ? ";
+        PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
+        try {
+            stm.setBoolean(0, approved);
+            stm.setInt(1, id);
+            stm.executeQuery();
+        } finally {
+            stm.close();
+        }
     }
 
     @Override
-    public void approveOwershipNotice(boolean approved) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void approveOwershipNotice(boolean approved, int id) throws SQLException {
+        String query = "UPDATE ownership_notice SET approved = ? WHERE id = ? ";
+        PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
+        try {
+            stm.setBoolean(0, approved);
+            stm.setInt(1, id);
+            stm.executeQuery();
+        } finally {
+            stm.close();
+        }
     }
     
 }

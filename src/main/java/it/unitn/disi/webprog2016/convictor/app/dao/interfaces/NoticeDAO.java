@@ -27,7 +27,7 @@ public interface NoticeDAO {
     void insertReviewNotice(ReviewNotice notice)throws SQLException;
     void insertOwnershipNotice(OwnershipNotice notice)throws SQLException;
     
-    void approvePhotoRemovalNotice(boolean approved)throws SQLException;
-    void approveOwershipNotice(boolean approved)throws SQLException;
+    void approvePhotoRemovalNotice(boolean approved, int id) throws SQLException;
+    void approveOwershipNotice(boolean approved, int id) throws SQLException;
     
 }
