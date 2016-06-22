@@ -16,303 +16,340 @@
 	<jsp:attribute name="body">
             <div class="ui container">
 
-                <!-- Restaurant's Name -->
-                <div class="ui center aligned grid">
-                  <div class="column">
-                    <div class="ui header large">
-                      Trattoria Milanese
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Restaurant Image -->
-                <div class="ui  grid">
-                  <div class="column">
-                    <img class="ui rounded centered bordered image" src="../images/restaurant.jpg"/>
-                  </div>
-                </div>
-
-                <div class="ui center aligned five column stackable grid">
-                  <div class="column">
-                    <div class="meta">
-                      <span>Via Roma, 100</span>
-                      <span>1010</span>
-                      <span>Milano</span>
-                    </div>
-                  </div>
-                  <div class="column">
-                    <div class="meta">trattoria@milanese.me</div>
-                  </div>
-                  <div class="column">
-                    <div class="meta">0123 456789</div>
-                  </div>
-                </div>
-                <!-- Rating Infos & Reviews Infos & QR Code -->
-                <div class="ui center aligned middle aligned five column stackable grid">
-                  <div class="column">
-                    <div class="row">
-                      <div class="ui small statistic">
-                        <div class="value">
-                          5
-                        </div>
-                        <div class="label">
-                          position in Lombardia
-                        </div>
-                      </div>
-                    </div>
-                    <div class="ui statistic">
-                      <div class="ui huge center rating" data-rating="1" data-max-rating="5"></div>
-                    </div>
-                  </div>
-                  <div class="column">
-                    <img class="ui small centered image" src="../images/default_qrcode.png"/>
-                  </div>
-                </div>
-
-
-                <!-- Restaurant Infos -->
-                <div class="ui center aligned six column stackable grid">
-                  <div class="row">
-                    <div class="column">
-                      <div clas="ui grid">
-                        <div class="column">
-                          <div class="ui sub header">Cucina</div>
-                        </div>
-                        <div class="ui divider"></div>
-                        <div class="column">
-                          <div class="ui list">
-                            <div class="item">
-                              Cinese
-                            </div>
-                            <div class="item">
-                              Giapponese
-                            </div>
-                            <div class="item">
-                              Indiano
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="column">
-                      <div clas="ui center aligned grid">
-                        <div class="column">
-                          <div class="ui sub header">Orari di apertura</div>
-                        </div>
-                        <div class="ui divider"></div>
-                        <div class="column">
-                          <div class="ui list">
-                            <div class="item">
-                              7.30 - 12.30
-                            </div>
-                            <div class="item">
-                              18.30 - 1.30
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="column">
-                      <div clas="ui center aligned grid">
-                        <div class="column">
-                          <div class="ui sub header">Fascia di prezzo</div>
-                        </div>
-                        <div class="ui divider"></div>
-                        <div class="column">
-                          <div class="ui list">
-                            <div class="item">
-                              7.50 - 15.00
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="column">
-                      <div clas="ui center aligned grid">
-                        <div class="column">
-                          <div class="ui sub header">Giorno di chiusura</div>
-                        </div>
-                        <div class="ui divider"></div>
-                        <div class="column">
-                          <div class="ui list">
-                            <div class="item">
-                              LUN
-                            </div>
-                            <div class="item">
-                              MER
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="ui divider"></div>
-                </div>
-
-                <!-- Show Reviews/Map Buttons -->
-                <div class="ui stackable center aligned three columns grid ">
-
-                  <div class="row">
-                    <div class="column">
-                      <div class="ui three item tabular menu">
-                        <a class="item active" data-tab="recensioni">Recensioni</a>
-                        <a class="item " data-tab="mappa">Mappa</a>
-                        <a class="item" data-tab="reclama">Reclama</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="ui stackable grid">
-                  <div class="column">
-                    <!-- Recensioni Tab -->
-                    <div class="ui tab active" data-tab="recensioni">
-                      <div class="ui grid">
-                        <div class="row">
-                          <div class="column">
-
-                            <!-- Reviews List -->
-                            <div class="ui comments">
-                              <div class="comment">
-                                <a class="avatar">
-                                  <img src="/images/avatar/small/stevie.jpg">
-                                </a>
-                                <div class="content">
-                                  <a class="author">Stevie Feliciano</a>
-                                  <div class="metadata">
-                                    <div class="date">2 days ago</div>
-                                    <div class="rating">
-                                      <i class="star icon"></i>
-                                      5 Faves
-                                    </div>
-                                  </div>
-                                  <div class="text">
-                                    Hey guys, I hope this example comment is helping you read this documentation.
-                                  </div>
-                                  <div class="actions">
-                                    <a class="reply">Reply</a>
-                                  </div>
-                                  <form class="ui reply form">
-                                    <div class="field">
-                                      <textarea></textarea>
-                                    </div>
-                                    <div class="ui basic submit labeled icon button">
-                                      <i class="icon edit"></i> Add Reply
-                                    </div>
-                                  </form>
-                                </div>
-                              </div>
-                              <div class="comment">
-                                <a class="avatar">
-                                  <img src="/images/avatar/small/stevie.jpg">
-                                </a>
-                                <div class="content">
-                                  <a class="author">Mario Rossi</a>
-                                  <div class="metadata">
-                                    <div class="date">2 days ago</div>
-                                    <div class="rating">
-                                      <i class="star icon"></i>
-                                      1 Faves
-                                    </div>
-                                  </div>
-                                  <div class="text">
-                                    Hey guys, this place sucks
-                                  </div>
-                                  <div class="actions">
-                                    <a class="reply">Reply</a>
-                                  </div>
-                                  <form class="ui reply form">
-                                    <div class="field">
-                                      <textarea></textarea>
-                                    </div>
-                                    <div class="ui basic submit labeled icon button">
-                                      <i class="icon edit"></i> Add Reply
-                                    </div>
-                                  </form>
-                                </div>
-                              </div>
-                              <div class="comment">
-                                <a class="avatar">
-                                  <img src="/images/avatar/small/stevie.jpg">
-                                </a>
-                                <div class="content">
-                                  <a class="author">Luca Bianchi</a>
-                                  <div class="metadata">
-                                    <div class="date">2 days ago</div>
-                                    <div class="rating">
-                                      <i class="star icon"></i>
-                                      2 Faves
-                                    </div>
-                                  </div>
-                                  <div class="text">
-                                    Brilliant Rest
-                                  </div>
-                                  <div class="actions">
-                                    <a class="reply">Reply</a>
-                                  </div>
-                                  <form class="ui reply form">
-                                    <div class="field">
-                                      <textarea></textarea>
-                                    </div>
-                                    <div class="ui basic submit labeled icon button">
-                                      <i class="icon edit"></i> Add Reply
-                                    </div>
-                                  </form>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <!-- End Reviews List -->
-                        </div>
-
-                        <!-- Add a review textbox -->
-                        <div class="sixteen wide column">
-                          <div class="ui center aligned grid">
-                            <div class="column">
-                              <div class="ui segment">
-                                <div class="ui header">Write a review</div>
-                                <div class="ui large center rating" data-rating="1" data-max-rating="5"></div>
-                                <div class="ui center comment">
-                                  <form class="ui small reply form">
-                                    <div class="field">
-                                      <textarea></textarea>
-                                    </div>
-                                    <div class="ui basic submit labeled icon button">
-                                      <i class="icon edit"></i> Add new review
-                                    </div>
-                                  </form>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <!-- End Recensioni Tab -->
-                    <!-- Mappa Tab -->
-                    <div class="ui tab" data-tab="mappa">
-                      <div class="ui center aligned grid">
-                         <div id="map" class="column">
-                          Mappa
-                        </div>
-                      </div>
-                    </div>
-                    <!-- End Mappa Tab -->
-                    <!-- Reclama Tab -->
-                    <div class="ui tab" data-tab="reclama">
-                      <div class="ui center aligned grid">
-                        <div class="column">
-                          <button class="ui button">Conferma Reclamo</button>
-                        </div>
-                      </div>
-                    </div>
-                    <!-- End Reclama Tab -->
+              <!-- Restaurant's Name -->
+              <div class="ui center aligned grid">
+                <div class="column">
+                  <div class="ui header large">
+                    Trattoria Milanese
                   </div>
                 </div>
               </div>
+
+              <!-- Restaurant Image -->
+              <div class="ui two column centered grid">
+                <div class="column">
+                    <img class="ui centered image mySlides" src="../images/rest0.jpg">
+                    <img class="ui centered image mySlides" src="../images/rest1.jpg">
+                    <img class="ui centered image mySlides" src="../images/rest2.jpg">
+                    <img class="ui centered image mySlides" src="../images/rest3.jpg">
+                    <div class="w3-center w3-section w3-large w3-text-white w3-display-bottomleft" style="width:100%">
+                      <div class="w3-left w3-padding-left w3-hover-text-white w3-text-white" onclick="plusDivs(-1)">&#10094;</div>
+                      <div class="w3-right w3-padding-right w3-hover-text-white" onclick="plusDivs(1)">&#10095;</div>
+                      <span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(1)"></span>
+                      <span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(2)"></span>
+                      <span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(3)"></span>
+                      <span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(4)"></span>
+                    </div>
+                </div>
+              </div>
+
+              <div class="ui center aligned five column stackable grid">
+                <div class="column">
+                  <div class="meta">
+                    <span>Via Roma, 100</span>
+                    <span>1010</span>
+                    <span>Milano</span>
+                  </div>
+                </div>
+                <div class="column">
+                  <div class="meta">trattoria@milanese.me</div>
+                </div>
+                <div class="column">
+                  <div class="meta">0123 456789</div>
+                </div>
+              </div>
+              <!-- Rating Infos & Reviews Infos & QR Code -->
+              <div class="ui center aligned middle aligned five column stackable grid">
+                <div class="column">
+                  <div class="row">
+                    <div class="ui small statistic">
+                      <div class="value">
+                        5
+                      </div>
+                      <div class="label">
+                        position in Lombardia
+                      </div>
+                    </div>
+                  </div>
+                  <div class="ui statistic">
+                    <div class="ui huge center rating" data-rating="1" data-max-rating="5"></div>
+                  </div>
+                </div>
+                <div class="column">
+                  <img class="ui small centered image" src="../images/default_qrcode.png"/>
+                </div>
+              </div>
+
+
+              <!-- Restaurant Infos -->
+              <div class="ui center aligned six column stackable grid">
+                <div class="row">
+                  <div class="column">
+                    <div clas="ui grid">
+                      <div class="column">
+                        <div class="ui sub header">Cucina</div>
+                      </div>
+                      <div class="ui divider"></div>
+                      <div class="column">
+                        <div class="ui list">
+                          <div class="item">
+                            Cinese
+                          </div>
+                          <div class="item">
+                            Giapponese
+                          </div>
+                          <div class="item">
+                            Indiano
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="column">
+                    <div clas="ui center aligned grid">
+                      <div class="column">
+                        <div class="ui sub header">Orari di apertura</div>
+                      </div>
+                      <div class="ui divider"></div>
+                      <div class="column">
+                        <div class="ui list">
+                          <div class="item">
+                            7.30 - 12.30
+                          </div>
+                          <div class="item">
+                            18.30 - 1.30
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="column">
+                    <div clas="ui center aligned grid">
+                      <div class="column">
+                        <div class="ui sub header">Fascia di prezzo</div>
+                      </div>
+                      <div class="ui divider"></div>
+                      <div class="column">
+                        <div class="ui list">
+                          <div class="item">
+                            7.50 - 15.00
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="column">
+                    <div clas="ui center aligned grid">
+                      <div class="column">
+                        <div class="ui sub header">Giorno di chiusura</div>
+                      </div>
+                      <div class="ui divider"></div>
+                      <div class="column">
+                        <div class="ui list">
+                          <div class="item">
+                            LUN
+                          </div>
+                          <div class="item">
+                            MER
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="ui divider"></div>
+              </div>
+
+              <!-- Show Reviews/Map Buttons -->
+              <div class="ui stackable center aligned three columns grid ">
+
+                <div class="row">
+                  <div class="column">
+                    <div class="ui four item tabular menu">
+                      <a class="item active" data-tab="recensioni">Recensioni</a>
+                      <a class="item " data-tab="mappa">Mappa</a>
+                      <a class="item" data-tab="reclama">Reclama</a>
+                      <a class="item" data-tab="addimage">Carica Immagine</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div id ="tabs"class="ui stackable grid">
+                <div class="column">
+                  <!-- Recensioni Tab -->
+                  <div class="ui tab active" data-tab="recensioni">
+                    <div class="ui grid">
+                      <div class="row">
+                        <div class="column">
+
+                          <!-- Reviews List -->
+                          <div class="ui comments">
+                            <div class="comment">
+                              <a class="avatar">
+                                <img src="/images/avatar/small/stevie.jpg">
+                              </a>
+                              <div class="content">
+                                <a class="author">Stevie Feliciano</a>
+                                <div class="metadata">
+                                  <div class="date">2 days ago</div>
+                                  <div class="rating">
+                                    <i class="star icon"></i>
+                                    5 Faves
+                                  </div>
+                                </div>
+                                <div class="text">
+                                  Hey guys, I hope this example comment is helping you read this documentation.
+                                </div>
+                                <div class="actions">
+                                  <a class="reply">Reply</a>
+                                </div>
+                                <form class="ui reply form">
+                                  <div class="field">
+                                    <textarea></textarea>
+                                  </div>
+                                  <div class="ui basic submit labeled icon button">
+                                    <i class="icon edit"></i> Add Reply
+                                  </div>
+                                </form>
+                              </div>
+                            </div>
+                            <div class="comment">
+                              <a class="avatar">
+                                <img src="/images/avatar/small/stevie.jpg">
+                              </a>
+                              <div class="content">
+                                <a class="author">Mario Rossi</a>
+                                <div class="metadata">
+                                  <div class="date">2 days ago</div>
+                                  <div class="rating">
+                                    <i class="star icon"></i>
+                                    1 Faves
+                                  </div>
+                                </div>
+                                <div class="text">
+                                  Hey guys, this place sucks
+                                </div>
+                                <div class="actions">
+                                  <a class="reply">Reply</a>
+                                </div>
+                                <form class="ui reply form">
+                                  <div class="field">
+                                    <textarea></textarea>
+                                  </div>
+                                  <div class="ui basic submit labeled icon button">
+                                    <i class="icon edit"></i> Add Reply
+                                  </div>
+                                </form>
+                              </div>
+                            </div>
+                            <div class="comment">
+                              <a class="avatar">
+                                <img src="/images/avatar/small/stevie.jpg">
+                              </a>
+                              <div class="content">
+                                <a class="author">Luca Bianchi</a>
+                                <div class="metadata">
+                                  <div class="date">2 days ago</div>
+                                  <div class="rating">
+                                    <i class="star icon"></i>
+                                    2 Faves
+                                  </div>
+                                </div>
+                                <div class="text">
+                                  Brilliant Rest
+                                </div>
+                                <div class="actions">
+                                  <a class="reply">Reply</a>
+                                </div>
+                                <form class="ui reply form">
+                                  <div class="field">
+                                    <textarea></textarea>
+                                  </div>
+                                  <div class="ui basic submit labeled icon button">
+                                    <i class="icon edit"></i> Add Reply
+                                  </div>
+                                </form>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- End Reviews List -->
+                      </div>
+
+                      <!-- Add a review textbox -->
+                      <div class="sixteen wide column">
+                        <div class="ui center aligned grid">
+                          <div class="column">
+                            <div class="ui segment">
+                              <div class="ui header">Write a review</div>
+                              <div class="ui large center rating" data-rating="1" data-max-rating="5"></div>
+                              <div class="ui center comment">
+                                <form class="ui small reply form">
+                                  <div class="field">
+                                    <textarea></textarea>
+                                  </div>
+                                  <div class="ui basic submit labeled icon button">
+                                    <i class="icon edit"></i> Add new review
+                                  </div>
+                                </form>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- End Recensioni Tab -->
+                  <!-- Mappa Tab -->
+                  <div class="ui tab" data-tab="mappa">
+                    <div class="ui center aligned grid">
+                      <div id="map" class="column">
+                        Mappa
+                      </div>
+                    </div>
+                  </div>
+                  <!-- End Mappa Tab -->
+                  <!-- Reclama Tab -->
+                  <div class="ui tab" data-tab="reclama">
+                    <div class="ui center aligned grid">
+                      <div class="column">
+                        <button class="ui button">Conferma Reclamo</button>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- End Reclama Tab -->
+                  <!-- Add Image Tab -->
+                  <div class="ui tab" data-tab="addimage">
+                    <div class="ui center aligned grid">
+                      <div class="column">
+                        <button class="ui button add_image">Aggiungi Immagine</button>
+                        <div class="ui modal">
+                          <div class="ui segment">
+                            <div class="ui header center">
+                              Aggiungi Nuova Immagine
+                            </div>
+                            <div class="ui segment">
+                              <form>
+                                <input id="fileupload" type="file" name="files[]" data-url="server/php/" multiple >
+                                <div class="actions">
+                                  <div class="ui close button">Cancel</div>
+                                  <input class="ui button" type="submit"></input>
+                                </div>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- End Add Image Tab -->
+                </div>
+              </div>
+            </div>
             <script type="text/javascript">
                 function initMap() {
                     var myLatLng = {lat: -25.363, lng: 131.044};
