@@ -76,8 +76,8 @@ public class NoticeDAOImpl extends DatabaseDAO implements NoticeDAO {
     @Override
     public List<Notice> getRestaurantOwnerNotices(int id) throws SQLException {
         List<Notice> notices = new ArrayList<>();
-        String queryReviewNotices = "";
-        String queryPhotoNotices = "";
+        String queryReviewNotices = "SELECT * FROM review_notices RE INNER JOIN reviews R ON RE.review_id = R.id INNER JOIN restaurant RES ON RES.id = R.restaurant_id INNER JOIN users U ON U.id = RES.restaurant_owner_id WHERE U.id=?";
+        String queryPhotoNotices = "SELECT * FROM photo_notices PN INNER JOIN photos P ON PN.photo_id = P.id INNER JOIN restaurant RES ON RES.id = P.restaurant_id INNER JOIN users U ON U.id = RES.restaurant_owner_id WHERE U.id=?;";
         
         PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(queryReviewNotices);
         PreparedStatement stm2 = this.getDbManager().getConnection().prepareStatement(queryPhotoNotices);

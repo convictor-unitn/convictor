@@ -19,4 +19,6 @@ public interface UserDAO {
     void updateUser(User user);
     void insertUser(User user);
     
+    User authenticate(String email, String password);
+    
 } 
