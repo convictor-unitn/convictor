@@ -6,7 +6,6 @@
 package it.unitn.disi.webprog2016.convictor.app.dao.interfaces;
 
 import it.unitn.disi.webprog2016.convictor.app.beans.User;
-import java.util.HashMap;
 import java.util.List;
 
 /**
