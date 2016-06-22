@@ -111,7 +111,7 @@
         <action>create</action>
         <format>html</format>            
     </route>
-    
+
     <!-- Notices routes -->
     <route>
         <method>POST</method>

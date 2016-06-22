@@ -5,16 +5,14 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8" isErrorPage="true" session="false" %>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
-        <h1>404 Not Found</h1>
-        <pre>
-            ${exception.printStackTrace()}
-        </pre>
-    </body>
-</html>
+
+
+<%@taglib prefix="l" tagdir="/WEB-INF/tags/layouts/" %>
+
+<l:error>
+    
+    <jsp:attribute name="errorCode">404</jsp:attribute>
+    <jsp:attribute name="message">Non e' stato possibile recuperare la risorsa.</jsp:attribute>
+
+    
+</l:error>
