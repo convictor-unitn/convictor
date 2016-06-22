@@ -10,6 +10,7 @@ import it.unitn.disi.webprog2016.convictor.app.beans.OwnershipNotice;
 import it.unitn.disi.webprog2016.convictor.app.beans.PhotoNotice;
 import it.unitn.disi.webprog2016.convictor.app.beans.PhotoRemovalNotice;
 import it.unitn.disi.webprog2016.convictor.app.beans.ReviewNotice;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -18,15 +19,15 @@ import java.util.List;
  */
 public interface NoticeDAO {
     
-    List<Notice> getAdministratorNotices(int id);
-    List<Notice> getRestaurantOwnerNotices(int id);
+    List<Notice> getAdministratorNotices(int id) throws SQLException;
+    List<Notice> getRestaurantOwnerNotices(int id) throws SQLException;
     
-    void insertPhotoNotice(PhotoNotice notice);
-    void insertPhotoRemovalNotice(PhotoRemovalNotice notice);
-    void insertReviewNotice(ReviewNotice notice);
-    void insertOwnershipNotice(OwnershipNotice notice);
+    void insertPhotoNotice(PhotoNotice notice) throws SQLException;
+    void insertPhotoRemovalNotice(PhotoRemovalNotice notice)throws SQLException;
+    void insertReviewNotice(ReviewNotice notice)throws SQLException;
+    void insertOwnershipNotice(OwnershipNotice notice)throws SQLException;
     
-    void approvePhotoRemovalNotice(boolean approved);
-    void approveOwershipNotice(boolean approved);
+    void approvePhotoRemovalNotice(boolean approved)throws SQLException;
+    void approveOwershipNotice(boolean approved)throws SQLException;
     
 }
