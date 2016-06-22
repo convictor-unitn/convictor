@@ -6,6 +6,8 @@
 package it.unitn.disi.webprog2016.convictor.app.beans;
 
 import it.unitn.disi.webprog2016.convictor.framework.beans.AbstractBean;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -95,4 +97,57 @@ public class User extends AbstractBean {
 	public void setAdmin(String admin) {
 		setAdmin(Boolean.valueOf(admin));
 	}
+
+    @Override
+    public boolean validate() {
+        
+        Pattern pattern;
+        Matcher matcher;
+        final String EMAIL_PATTERN = 
+		"^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+		+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+        final String PASSWORD_PATTERN = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,10}$";
+        
+        boolean status = true;
+        if (this.getName().equals("")) {
+            status = false;
+            this.setError("name", "Surname is not valid");
+        }
+        if (this.getSurname().equals("")) {
+            status = false;
+            this.setError("surname", "Surname is not valid");
+        }
+        
+        // Check if the email is not null and if it is a valid email.
+        if (this.getEmail().equals("")) {
+            status = false;
+            this.setError("email", "Email is not valid");
+        } else {
+            pattern = Pattern.compile(EMAIL_PATTERN);
+            matcher = pattern.matcher(this.getEmail());
+            if (!matcher.matches()) {
+                status = false;
+                this.setError("email", "Email is not valid");
+            }
+        }
+        
+        // Check if the password is not null and if matches some strenght
+        // rules, that are:
+        // * 6-10 characters
+        // * One lowercase letter
+        // * One uppercase letter
+        // * One numeric digit
+        if (this.getPassword().equals("")) {
+            status = false;
+            this.setError("password", " Password must be at least 6 characters, no more than 10 characters, and must include at least one upper case letter, one lower case letter, and one numeric digit.");
+        } else {
+            pattern = Pattern.compile(PASSWORD_PATTERN);
+            matcher = pattern.matcher(this.getPassword());
+            if (!matcher.matches()) {
+                status = false;
+                this.setError("password", " Password must be at least 6 characters, no more than 10 characters, and must include at least one upper case letter, one lower case letter, and one numeric digit.");
+            }
+        }
+        return status;
+    }
 }

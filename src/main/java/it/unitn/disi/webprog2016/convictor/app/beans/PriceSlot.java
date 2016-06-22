@@ -56,6 +56,13 @@ public class PriceSlot extends AbstractBean{
 	public void setName(String name) {
 		this.name = name;
 	}
+
+    // Database value, they will be created manually and
+    // the check is on the DB.
+    @Override
+    public boolean validate() {
+        return true;
+    }
 	
 	
 }

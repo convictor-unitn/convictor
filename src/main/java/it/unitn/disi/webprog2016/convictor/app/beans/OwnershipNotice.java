@@ -69,5 +69,19 @@ public class OwnershipNotice extends AbstractBean implements Notice {
 		return this.getClass().toString();
 	}
     
+    @Override
+    public boolean validate() {
+        boolean status=true;
+        if (this.getRegisteredUserId() <= 0) {
+            status = false;
+            this.setError("user_id","The user_id is equal or less than zero");
+        }
+        if (this.getRestaurantId() <= 0) {
+            status = false;
+            this.setError("restaurant_id","The restaurant_id is equal or less than zero");
+        }
+        return status;
+    }
+    
     
 }

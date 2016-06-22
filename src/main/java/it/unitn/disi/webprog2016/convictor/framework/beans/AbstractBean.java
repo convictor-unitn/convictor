@@ -6,37 +6,45 @@
 package it.unitn.disi.webprog2016.convictor.framework.beans;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * This represents an abstract bean with common properties
  * @author umberto
  */
-public class AbstractBean implements Serializable {
+public abstract class AbstractBean implements Serializable {
 	
 	private int id;
 	private Date createdAt;
 	private Date updatedAt;
-	private final List<String> errors;
+	private final Map<String, String> errors;
 	
 	public AbstractBean() {
-		this.errors = new ArrayList<>();
+		this.errors = new HashMap<>();
 	}
 
-	public List<String> getErrors() {
+	public Map<String, String> getErrors() {
 		return errors;
 	}
 	
-	public void setError(String error) {
-		errors.add(error);
+	public void setError(String field, String error) {
+		errors.put(field, error);
 	}
 	
 	public boolean isValid(){
 		return errors.isEmpty();
 	}
 
+    public void setId(int id) {
+        this.id = id;
+    }
+    
+    public void setId(String id) {
+        this.id = Integer.parseInt(id);
+    }
+    
 	public int getId() {
 		return id;
 	}
@@ -48,5 +56,7 @@ public class AbstractBean implements Serializable {
 	public Date getUpdatedAt() {
 		return updatedAt;
 	}
+    
+    public abstract boolean validate();
 	
 }
