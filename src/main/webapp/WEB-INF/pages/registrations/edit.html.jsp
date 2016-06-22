@@ -10,7 +10,7 @@
 
 <l:main>
 	
-	<jsp:attribute name="title">Nuovo Utente</jsp:attribute>
+	<jsp:attribute name="title">Remipostazione Profilo</jsp:attribute>
 	
 	<jsp:attribute name="body">
             <div class="ui middle aligned center aligned grid">
@@ -18,7 +18,7 @@
                     <h2 class="ui header">
 
                         <div id="s_text" class="content">
-                            Crea un nuovo account
+                            Reimpostazione profilo
                         </div>
                     </h2>
                     <form class="ui large form">
@@ -44,34 +44,40 @@
                             <div class="field">
                                 <div class="ui left icon input">
                                     <i class="lock icon"></i>
-                                    <input type="password" name="password" placeholder="Password">
+                                    <input type="password" name="password" placeholder="Vecchia password">
                                 </div>
                             </div>
                             <div class="field">
                                 <div class="ui left icon input">
                                     <i class="lock icon"></i>
+                                    <input type="password" name="nuova_password" placeholder="Nuova password">
+                                </div>
+                            </div>
+                             <div class="field">
+                                <div class="ui left icon input">
+                                    <i class="lock icon"></i>
                                     <input type="password" name="conf_password" placeholder="Conferma password">
                                 </div>
                             </div>
+                            <div class="ui text" align="right">
+                            <a href="invio_req_pass.html">Password dimenticata?</a>
+                        </div>
 
-                            <div  align="left">
-                                <div class="ui slider checkbox">
-                                    <input type="checkbox" name="privacy">
-                                    <label>Accettazione privacy</label>
-                                </div>
-                            </div>
-
-                            </br>
-
-                            <div id="p_button" class="ui fluid large submit button">Registrati</div>
+                        </br>
+                            <div id="p_button" class="ui fluid large submit button">Modifica</div>
 
                             </br>
 
                             <div class="ui fluid submit button">Annulla</div>
                         </div>
+
+
                     </form>
-                </div>
-            </div>	
+
+                  </div>
+            </div>
+            
         </jsp:attribute>
 		
 </l:main>
+        

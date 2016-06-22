@@ -1,7 +1,7 @@
 <%-- 
     Document   : main
     Created on : May 15, 2016, 10:32:40 AM
-    Author     : umberto
+    Author     : Giovanni M Riva
 --%>
 
 <%@tag description="put the tag description here" pageEncoding="UTF-8"%>
@@ -19,9 +19,14 @@
 	<head>
             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
             <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+            <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
             <link rel="stylesheet" type="text/css" href="${context}/css/semantic.css" media="all" />
             <link rel="stylesheet" type="text/css" href="${context}/css/main.css" media="all" />            
             <link rel="stylesheet" type="text/css" href="${context}/css/topNavbar.css" media="all" />
+            <link rel="stylesheet" type="text/css" href="${context}/css/landingPage.css" media="all" />
+            <link rel="stylesheet" type="text/css" href="${context}/css/forms.css" media="all" />
+
+
 
             <title>${title}</title>
 	</head>
