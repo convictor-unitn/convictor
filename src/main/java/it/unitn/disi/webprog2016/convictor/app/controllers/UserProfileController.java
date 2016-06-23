@@ -26,7 +26,7 @@ public class UserProfileController extends AbstractController {
 	 * @throws IOException
 	 */
 	public String show(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		return "/userProfle/show";
+		return "/userProfile/show";
 	}
 	
 	/**
@@ -38,7 +38,7 @@ public class UserProfileController extends AbstractController {
 	 * @throws IOException
 	 */
 	public String edit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		return "/userProfle/edit";
+		return "/userProfile/edit";
 	}
 	
 	/**

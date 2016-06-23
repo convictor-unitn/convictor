@@ -40,7 +40,7 @@
         <div class="menu">
           <a class="item" href="#">notify 1</a>
           <a class="item" href="#">notify 2</a>
-          <a class="item" href="${pageContext.request.contextPath}/user_profile/show">Open</a> 
+          <a class="item" href="${pageContext.request.contextPath}/userProfile/show">Open</a> 
         </div>
       </div>
       
@@ -48,13 +48,13 @@
       <div class="ui simple dropdown item">
         Name Surname <i class="dropdown icon"></i>
         <div class="menu">
-          <a class="item" href="${pageContext.request.contextPath}/user_profile/show">Pagina Profilo</a> 
+          <a class="item" href="${pageContext.request.contextPath}/userProfile/show">Pagina Profilo</a> 
           <a class="item" href="#">Log Out</a>
         </div>
       </div>
       
       <!-- Owner User -->
-      <a class="item" href="${pageContext.request.contextPath}/user_profile/show">My Restaurant(s)</a>
+      <a class="item" href="${pageContext.request.contextPath}/userProfile/show">My Restaurant(s)</a>
       
       <!-- Anonymous User -->
       <div class="item">
@@ -104,7 +104,7 @@
         <div class="menu">
           <a class="item" href="#">notify 1</a>
           <a class="item" href="#">notify 2</a>
-          <a class="item" href="${pageContext.request.contextPath}/user_profile/show">Open</a> 
+          <a class="item" href="${pageContext.request.contextPath}/userProfile/show">Open</a> 
         </div>
       </div>
 

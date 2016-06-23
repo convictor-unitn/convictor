@@ -7,6 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" session="false" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 <%@taglib prefix="l" tagdir="/WEB-INF/tags/layouts/" %>
+<%@taglib prefix="partials" tagdir="/WEB-INF/tags/partials/" %>
 
 <l:main>
 	
@@ -28,8 +29,11 @@
                 </br>
                 <button class="fluid basic black ui button">Modifica le informazioni del profilo</button>
             </div>
-            
-	</jsp:attribute>
+            <div class="ui divider"></div>
+            <partials:admin_notices />
+            <partials:restaurant_notices />
+
+	</jsp:attribute>        
 		
 </l:main>
 
