@@ -54,8 +54,7 @@
                     </div>
                     <div class="extra">
                       <div class="ui right floated buttons">
-                        <button class="ui basic black button">Conferma</button>
-                        <button class="ui basic black button">Declina</button>
+                        <button class="ui basic black button">Segnala</button>
                       </div>
                     </div>
                   </div>
