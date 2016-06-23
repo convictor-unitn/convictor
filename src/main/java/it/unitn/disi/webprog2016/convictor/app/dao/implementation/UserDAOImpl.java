@@ -5,6 +5,8 @@
  */
 package it.unitn.disi.webprog2016.convictor.app.dao.implementation;
 
+import it.unitn.disi.webprog2016.convictor.app.beans.Administrator;
+import it.unitn.disi.webprog2016.convictor.app.beans.RestaurantOwner;
 import it.unitn.disi.webprog2016.convictor.app.beans.User;
 import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.UserDAO;
 import it.unitn.disi.webprog2016.convictor.framework.dao.DatabaseDAO;
@@ -122,14 +124,26 @@ public class UserDAOImpl extends DatabaseDAO implements UserDAO{
     @Override
     public User authenticate(String email, String password) throws SQLException {
         User user = null;
-        String query = "SELECT * FROM users WHERE email = ? AND password = ? LIMIT 1";
+        String query = "SELECT users.id, name, email, surname, password, admin, restaurant_owners.user_id AS restaurant_owner_id FROM users LEFT JOIN restaurant_owners ON users.id=restaurant_owners.user_id WHERE email = ? AND password = ? LIMIT 1";
         PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
         try {
+			stm.setString(1, email);
+			stm.setString(2, password);
             ResultSet usersSet = stm.executeQuery();
-            try {
+            try {	
                 while(usersSet.next()) {
-                    user= new User();
-                    user.setId(usersSet.getInt("id"));
+					if(usersSet.getBoolean("admin")) {
+						user = new Administrator();
+					} 
+					else if (usersSet.getInt("restaurant_owner_id")!=0) {
+						System.out.println("LOGGED AS RESTAURANT OWNER");
+						user= new RestaurantOwner();
+					}
+					else {
+						user= new User();
+					}
+						
+					user.setId(usersSet.getInt("id"));
                     user.setName(usersSet.getString("name"));
                     user.setEmail(usersSet.getString("email"));
                     user.setSurname(usersSet.getString("surname"));

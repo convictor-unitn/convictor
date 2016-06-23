@@ -5,8 +5,11 @@
 --%>
 
 <%@tag description="put the tag description here" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="loggedUser" value="${sessionScope.user}" />
 
 <%-- The list of normal or fragment attributes can be specified here: --%>
+
 
 
 <%-- topNavbar is a JSTL tag that represents the top level menu which shows specific
@@ -20,7 +23,7 @@
       <!-- Left -->
       <!-- Logo  -->
       <a href="${pageContext.request.contextPath}/" class="brand item">
-        <img class="logo" src="assets/images/logo.png">
+        <!--<img class="logo" src="assets/images/logo.png">-->
         Convictor
       </a>
 
@@ -46,16 +49,18 @@
       
       <!-- Registered User -->
       <div class="ui simple dropdown item">
-        Name Surname <i class="dropdown icon"></i>
+        ${loggedUser.fullName} <i class="dropdown icon"></i>
         <div class="menu">
           <a class="item" href="${pageContext.request.contextPath}/userProfile/show">Pagina Profilo</a> 
-          <a class="item" href="#">Log Out</a>
+          <a class="item" href="${pageContext.request.contextPath}/sign_out">Log Out</a>
         </div>
       </div>
       
       <!-- Owner User -->
-      <a class="item" href="${pageContext.request.contextPath}/userProfile/show">My Restaurant(s)</a>
-      
+      <c:if test="${user.getClass().name == 'it.unitn.disi.webprog2016.convictor.app.beans.RestaurantOwner'}" >
+        <a class="item" href="${pageContext.request.contextPath}/userProfile/show">My Restaurant(s)</a>
+      </c:if>
+      <c:if test="${user == null}" >
       <!-- Anonymous User -->
       <div class="item">
         <a class="ui basic button inverted right" href="${pageContext.request.contextPath}/sign_up">Registrati</a>
@@ -63,6 +68,7 @@
       <div class="item">
         <a class="ui basic button inverted right" href="${pageContext.request.contextPath}/sign_in">Accedi</a>
       </div>
+      </c:if>
     </div>
   </div>
 
@@ -121,7 +127,8 @@
       <div class="item">
         <a href="${pageContext.request.contextPath}/user_profile/show">My Restaurant(s)</a>
       </div>
-
+      <c:if test="${loggedUser == null}" >
+                
       <!-- Anonymous User -->
       <div class="item">
         <a class="ui basic button right" href="${pageContext.request.contextPath}/sign_up">Registrati</a>
@@ -129,7 +136,9 @@
       <div class="item">
           <a class="ui basic button right" href="${pageContext.request.contextPath}/sign_in">Accedi</a>
       </div>
+      </c:if>
     </div>
+    
 
   </div>
 </div>
