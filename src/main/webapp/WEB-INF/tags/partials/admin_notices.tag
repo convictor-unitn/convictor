@@ -10,8 +10,22 @@
         <div class="text"> <h2> Notifiche Amministratore </h2> </div>
         </br>
 
-        <div class="ui grid">
+        <div class="ui one column center aligned grid">
           <div class="row">
+              <div class="column">
+                  <div class="ui buttons">
+                      <div class="ui button">
+                          <i class="left arrow icon"></i>
+                      </div>
+                  </div>
+                  <div class="ui button">                      
+                        <i class="right arrow icon"></i>                      
+                  </div>
+                      <div class="ui basic label">
+                        2,048
+                  </div>
+              </div>  
+          </div>        
             <div class="column">
               <div class="ui segment feed">
                 <div class="event">
@@ -20,18 +34,17 @@
                       Ieri
                     </div>
                     <div class="summary">
-                      <a>Utente</a> ha reclamato <a>Ristorante</a>
+                      <a>Utente</a> ha Reclamato/Segnalato <a>Ristorante</a>
                     </div>
                     <div class="extra">
                       <div class="ui right floated buttons">
-                        <button class="ui basic black button">Contatta</button>
                         <button class="ui basic black button">Conferma</button>
+                        <button class="ui basic black button">Declina</button>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
         </div>
     </div>

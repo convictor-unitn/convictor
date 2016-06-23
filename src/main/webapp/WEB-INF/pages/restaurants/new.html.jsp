@@ -119,7 +119,7 @@
                         </div>
 
                       </div>
-                      <div id="p_button" class="ui fluid large submit button">Invia</div>
+                      <input id="p_button" class="ui fluid large submit button" type="submit"></input>
                       </br>
                       <div class="ui fluid submit button">Annulla</div>
                     </form>
