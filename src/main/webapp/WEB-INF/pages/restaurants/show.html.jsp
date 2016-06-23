@@ -26,7 +26,7 @@
                 </div>
 
                 <!-- Restaurant Image -->
-                <div class="ui two column centered grid">
+                <div class="ui stackable two column centered grid">
                   <div class="column">
                       <img class="ui centered image mySlides" src="../images/rest0.jpg">
                       <img class="ui centered image mySlides" src="../images/rest1.jpg">
@@ -52,12 +52,31 @@
                           5
                         </div>
                         <div class="label">
-                          position in Lombardia
+                          Posizione in Lombardia
                         </div>
                       </div>
                     </div>
                     <div class="ui statistic">
-                      <div class="ui huge center rating" data-rating="1" data-max-rating="5"></div>
+                        <div class="ui horizontal list">
+                            <div class="item">
+                                <i class="heart icon"> </i>
+                            </div>
+                            <div class="item">
+                                <i class="heart icon"> </i>
+                            </div>
+                            <div class="item">
+                                <i class="heart icon"> </i>
+                            </div>
+                            <div class="item">
+                                <i class="heart icon"> </i>
+                            </div>
+                            <div class="item">
+                                <i class="heart icon"> </i>
+                            </div>
+                        </div>
+                        <div class="label">
+                          Valutazione media
+                        </div>
                     </div>
                   </div>
                   <div class="stretched column">
@@ -343,16 +362,16 @@
                                          Aggiungi Nuova Immagine
                                     </div>                                                            
                                     <div class="content">
-                                    <div class="ui form">
+                                    <form class="ui form">
                                         <div class="field">
                                              <input id="fileupload" type="file" name="files[]" data-url="server/php/" multiple >  
-                                         </div>                                                                                               
-                                    </div>
-                                    </div>
-                                    <div class="actions">
-                                        <div class="ui close button">Close</div>
-                                        <button class="ui button" type="submit">Submit</button>
-                                    </div>
+                                         </div> 
+                                        <div class="field">
+                                            <div class="ui close button">Close</div>
+                                            <input class="ui button" type="submit"/>
+                                        </div>
+                                    </form>
+                                    </div>                                    
                                 </div>
                             </div>
                         </div>

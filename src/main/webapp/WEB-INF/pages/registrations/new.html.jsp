@@ -63,7 +63,7 @@
 
                             </br>
 
-                            <div id="p_button" class="ui fluid large submit button">Registrati</div>
+                            <input id="p_button" class="ui fluid large submit button" type="submit"></input>
 
                             </br>
 
