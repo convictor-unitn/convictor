@@ -33,18 +33,20 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
         
         int restaurant_id = -1;
         
-        String query = "INSERT INTO restaurants (name, description, street, city, zip_code, province, full_address, website, slot_price ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id";
+        String query = "INSERT INTO restaurants (name, description, street, city, zip_code, province, full_address, website, slot_price, email, phone) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id";
         PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
         try {
-            stm.setString(0, restaurant.getName());
-            stm.setString(1, restaurant.getDescription());
-            stm.setString(2, restaurant.getStreet());
-            stm.setString(3, restaurant.getCity());
-            stm.setString(4, restaurant.getZipCode());
-            stm.setString(5, restaurant.getProvince());
-            stm.setString(6, restaurant.getStreet() + restaurant.getCity() + restaurant.getZipCode() + restaurant.getProvince());
-            stm.setString(7, restaurant.getWebsite());
-            stm.setInt(8, restaurant.getSlotPrice());
+            stm.setString(1, restaurant.getName());
+            stm.setString(2, restaurant.getDescription());
+            stm.setString(3, restaurant.getStreet());
+            stm.setString(4, restaurant.getCity());
+            stm.setString(5, restaurant.getZipCode());
+            stm.setString(6, restaurant.getProvince());
+            stm.setString(7, restaurant.getStreet() + restaurant.getCity() + restaurant.getZipCode() + restaurant.getProvince());
+            stm.setString(8, restaurant.getWebsite());
+            stm.setInt(9, restaurant.getSlotPrice());
+            stm.setString(10, restaurant.getEmail());
+            stm.setString(11, restaurant.getPhone());
             
             ResultSet id = stm.executeQuery(query);
             try {
@@ -66,19 +68,21 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
         // Check if restaurant is valid
         if (!restaurant.validate()) return -1;   
          
-        String query = "UPDATE restaurants  SET name=?, description=?, street=?, city=?, zip_code=?, province=?, full_address=?, website=?, slot_price=? ) WHERE id=?";
+        String query = "UPDATE restaurants  SET name=?, description=?, street=?, city=?, zip_code=?, province=?, full_address=?, website=?, slot_price=? , phone=?, email=?   WHERE id=?";
         PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
         try {
-            stm.setString(0, restaurant.getName());
-            stm.setString(1, restaurant.getDescription());
-            stm.setString(2, restaurant.getStreet());
-            stm.setString(3, restaurant.getCity());
-            stm.setString(4, restaurant.getZipCode());
-            stm.setString(5, restaurant.getProvince());
-            stm.setString(6, restaurant.getStreet() + restaurant.getCity() + restaurant.getZipCode() + restaurant.getProvince());
-            stm.setString(7, restaurant.getWebsite());
-            stm.setInt(8, restaurant.getSlotPrice());
-            stm.setInt(9, restaurant.getId());
+            stm.setString(1, restaurant.getName());
+            stm.setString(2, restaurant.getDescription());
+            stm.setString(3, restaurant.getStreet());
+            stm.setString(4, restaurant.getCity());
+            stm.setString(5, restaurant.getZipCode());
+            stm.setString(6, restaurant.getProvince());
+            stm.setString(7, restaurant.getStreet() + restaurant.getCity() + restaurant.getZipCode() + restaurant.getProvince());
+            stm.setString(8, restaurant.getWebsite());
+            stm.setInt(9, restaurant.getSlotPrice());
+            stm.setInt(10, restaurant.getId());
+            stm.setString(11, restaurant.getPhone());
+            stm.setString(12, restaurant.getEmail());
             stm.execute();
         } finally {
             stm.close();
@@ -89,10 +93,9 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
     @Override
     public List<Restaurant> getRestaurantByUserId(int id) throws SQLException {
         List<Restaurant> restaurants = new ArrayList<>();
-        String query = "SELECT id, name, description, street, city, zip_code, province, full_address, website, slot_price, rating, main_phot_id, restaurant_owner_id FROM restaurant WHERE restaurant_owner_id = ?";
+        String query = "SELECT id, name, description, street, city, zip_code, province, full_address, website, slot_price, rating, main_phot_id, restaurant_owner_id, phone, email FROM restaurant WHERE restaurant_owner_id = ?";
         PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
         try {
-         
             stm.setInt(0, id);
             ResultSet ownersSet = stm.executeQuery();
             try {
@@ -111,6 +114,8 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
                     tmp.setRating(ownersSet.getString("rating"));
                     tmp.setMainPhotoId(ownersSet.getInt("main_photo_id"));
                     tmp.setRestaurantOwnerId(ownersSet.getInt("restaurant_owner_id"));
+                    tmp.setEmail(ownersSet.getString("email"));
+                    tmp.setPhone(ownersSet.getString("phone"));
                     restaurants.add(tmp);
                 }
             } finally {
@@ -147,6 +152,8 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
                     tmp.setRating(ownersSet.getString("rating"));
                     tmp.setMainPhotoId(ownersSet.getInt("main_photo_id"));
                     tmp.setRestaurantOwnerId(ownersSet.getInt("restaurant_owner_id"));
+                    tmp.setEmail(ownersSet.getString("email"));
+                    tmp.setPhone(ownersSet.getString("phone"));
                 }
             } finally {
                 ownersSet.close();

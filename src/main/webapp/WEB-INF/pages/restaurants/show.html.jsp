@@ -5,13 +5,12 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8" session="false" %>
-<%@taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="l" tagdir="/WEB-INF/tags/layouts/" %>
-
+<jsp:useBean id="restaurant" scope="request" class="it.unitn.disi.webprog2016.convictor.app.beans.Restaurant" />
 
 <l:main>
-	
-	<jsp:attribute name="title">{Restaurant's Name} Pagina</jsp:attribute>
+    <jsp:attribute name="title"> ${restaurant.name} </jsp:attribute>
 	
 	<jsp:attribute name="body">
             <div class="ui container">
@@ -20,7 +19,7 @@
                 <div class="ui center aligned grid">
                   <div class="column">
                     <div class="ui header large">
-                      Trattoria Milanese
+                        ${restaurant.name}
                     </div>
                   </div>
                 </div>
@@ -58,21 +57,18 @@
                     </div>
                     <div class="ui statistic">
                         <div class="ui horizontal list">
-                            <div class="item">
-                                <i class="heart icon"> </i>
-                            </div>
-                            <div class="item">
-                                <i class="heart icon"> </i>
-                            </div>
-                            <div class="item">
-                                <i class="heart icon"> </i>
-                            </div>
-                            <div class="item">
-                                <i class="heart icon"> </i>
-                            </div>
-                            <div class="item">
-                                <i class="heart icon"> </i>
-                            </div>
+                            <c:forEach var="i" begin="0" end="${restaurant.rating}" step="1">
+                                <c:if test="${i!=0}">
+                                    <div class="item">
+                                        <i class="heart icon"> </i>
+                                    </div>
+                                </c:if>
+                            </c:forEach>
+                            <c:forEach begin="${restaurant.rating}" end="4" step="1">
+                                    <div class="item">
+                                        <i class="empty heart icon"> </i>
+                                    </div>
+                            </c:forEach>
                         </div>
                         <div class="label">
                           Valutazione media
@@ -86,19 +82,19 @@
                     <div class="ui list">
                       <div class="item">
                         <div class="meta">
-                          <span>Via Roma, 100</span>
-                          <span>1010</span>
-                          <span>Milano</span>
+                          <span>${restaurant.street}</span>
+                          <span>${restaurant.zipCode}</span>
+                          <span>${restaurant.city}</span>
                         </div>
                       </div>
                       <div class="item">
-                        <div class="meta">trattoria@milanese.me</div>
+                          <div class="meta">${restaurant.email}</div>
                       </div>
                       <div class="item">
-                        <div class="meta">0123 456789</div>
+                          <div class="meta">${restaurant.phone}</div>
                       </div>
                       <div class="item">
-                        <div class="meta"><a href="#">Web Page</a></div>
+                          <div class="meta"><a href="#">${restaurant.website}</a></div>
                       </div>
                     </div>
                   </div>
@@ -158,13 +154,7 @@
                         <div class="column">
                           <div class="ui list">
                             <div class="item">
-                              Alta
-                            </div>
-                            <div class="item">
-                              Media
-                            </div>
-                            <div class="item">
-                              Bassa
+                                ${restaurant.slotPrice}
                             </div>
                           </div>
                         </div>

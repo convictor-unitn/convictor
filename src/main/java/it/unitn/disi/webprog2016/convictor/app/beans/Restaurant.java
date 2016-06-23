@@ -20,11 +20,15 @@ public class Restaurant extends AbstractBean {
     private String province;
     private String fullAddress;
     private String website;
+    private String phone;
+    private String email;
     private int slotPrice;
     private int rating;
     private int mainPhotoId;
     private int restaurantOwnerId;
 
+    
+    
     /**
      * @return the name
      */
@@ -225,6 +229,35 @@ public class Restaurant extends AbstractBean {
     public void setRestaurantOwnerId(String restaurantOwnerId) {
         this.restaurantOwnerId = Integer.parseInt(restaurantOwnerId);
     }
+    
+    
+    /**
+     * @return the phone
+     */
+    public String getPhone() {
+        return phone;
+    }
+
+    /**
+     * @param phone the phone to set
+     */
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    /**
+     * @return the email
+     */
+    public String getEmail() {
+        return email;
+    }
+
+    /**
+     * @param email the email to set
+     */
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     @Override
     public boolean validate() {
@@ -264,6 +297,16 @@ public class Restaurant extends AbstractBean {
         if (this.getSlotPrice() == 0) {
             status = false;
             this.setError("slot_price", "The slot price is not valid!");
+        }
+        
+        if (this.getEmail().equals("")) {
+            status = false;
+            this.setError("email", "The email is not valid!");
+        }
+        
+        if (this.getPhone().equals("")) {
+            status = false;
+            this.setError("phone", "The phone number is not valid!");
         }
         
         return status;
