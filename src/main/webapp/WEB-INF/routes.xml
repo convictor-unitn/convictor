@@ -22,6 +22,15 @@
         <format>html</format>            
     </route>
     
+    <!-- User routes -->
+    <route>
+        <method>GET</method>
+        <url>/userProfile/show</url>
+        <controller>UserProfile</controller>
+        <action>show</action>
+        <format>html</format>            
+    </route>
+    
     <!-- Restaurant routes -->
     <route>
         <method>GET</method>
