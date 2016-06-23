@@ -67,10 +67,14 @@ $(document).ready(function(){
   });
 
   //Add new image modal initializer
-  $('.ui.modal').modal();
+ $(".add_image").click(function(){
+    $('.ui.modal.add_image').modal('show');
+  });
 
-  $(".add_image").click(function(){
-    $('.ui.modal').modal('show');
+  //Ownership form modal initializer
+
+  $(".ownership").click(function(){
+    $('.ui.modal.ownership').modal('show');
   });
 
   $(function () {
