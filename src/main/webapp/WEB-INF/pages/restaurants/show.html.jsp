@@ -26,7 +26,7 @@
                 </div>
 
                 <!-- Restaurant Image -->
-                <div class="ui two column centered grid">
+                <div class="ui stackable two column centered grid">
                   <div class="column">
                       <img class="ui centered image mySlides" src="../images/rest0.jpg">
                       <img class="ui centered image mySlides" src="../images/rest1.jpg">
@@ -52,12 +52,31 @@
                           5
                         </div>
                         <div class="label">
-                          position in Lombardia
+                          Posizione in Lombardia
                         </div>
                       </div>
                     </div>
                     <div class="ui statistic">
-                      <div class="ui huge center rating" data-rating="1" data-max-rating="5"></div>
+                        <div class="ui horizontal list">
+                            <div class="item">
+                                <i class="heart icon"> </i>
+                            </div>
+                            <div class="item">
+                                <i class="heart icon"> </i>
+                            </div>
+                            <div class="item">
+                                <i class="heart icon"> </i>
+                            </div>
+                            <div class="item">
+                                <i class="heart icon"> </i>
+                            </div>
+                            <div class="item">
+                                <i class="heart icon"> </i>
+                            </div>
+                        </div>
+                        <div class="label">
+                          Valutazione media
+                        </div>
                     </div>
                   </div>
                   <div class="stretched column">
@@ -349,7 +368,7 @@
                                          </div> 
                                         <div class="field">
                                             <div class="ui close button">Close</div>
-                                            <button class="ui button" type="submit">Submit</button>
+                                            <input class="ui button" type="submit"/>
                                         </div>
                                     </form>
                                     </div>                                    
