@@ -12,9 +12,9 @@ and open the template in the editor.
     height: 100%;
 }*/
         
-/*.column {
+.myform {
     max-width: 450px;
-}*/
+}
 
 #p_button {
     background-color: #ffbf66;
