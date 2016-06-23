@@ -89,7 +89,7 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
     @Override
     public List<Restaurant> getRestaurantByUserId(int id) throws SQLException {
         List<Restaurant> restaurants = new ArrayList<>();
-        String query = "SELECT * FROM restaurant WHERE restaurant_owner_id = ?";
+        String query = "SELECT id, name, description, street, city, zip_code, province, full_address, website, slot_price, rating, main_phot_id, restaurant_owner_id FROM restaurant WHERE restaurant_owner_id = ?";
         PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
         try {
          
@@ -126,11 +126,10 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
     @Override
     public Restaurant getRestaurantById(int id) throws SQLException {
         Restaurant tmp = null;
-        String query = "SELECT * FROM restaurant WHERE id = ?";
+        String query = "SELECT * FROM restaurants WHERE id = ?";
         PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
         try {
-         
-            stm.setInt(0, id);
+            stm.setInt(1, id);
             ResultSet ownersSet = stm.executeQuery();
             try {
                 while(ownersSet.next()) {

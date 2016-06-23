@@ -42,7 +42,7 @@ public class RestaurantsController extends AbstractController {
         } catch (SQLException ex) {
             Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, ex);
             response.sendError(500);
-            return "/";
+            return "";
         }
 	}
     
