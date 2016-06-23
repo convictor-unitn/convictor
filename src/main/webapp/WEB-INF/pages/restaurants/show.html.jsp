@@ -14,7 +14,7 @@
 	<jsp:attribute name="title">{Restaurant's Name} Pagina</jsp:attribute>
 	
 	<jsp:attribute name="body">
-             <div class="ui container">
+            <div class="ui container">
 
                 <!-- Restaurant's Name -->
                 <div class="ui center aligned grid">
@@ -43,24 +43,9 @@
                   </div>
                 </div>
 
-                <div class="ui center aligned five column stackable grid">
-                  <div class="column">
-                    <div class="meta">
-                      <span>Via Roma, 100</span>
-                      <span>1010</span>
-                      <span>Milano</span>
-                    </div>
-                  </div>
-                  <div class="column">
-                    <div class="meta">trattoria@milanese.me</div>
-                  </div>
-                  <div class="column">
-                    <div class="meta">0123 456789</div>
-                  </div>
-                </div>
-                <!-- Rating Infos & Reviews Infos & QR Code -->
+                <!-- Rating Infos & Reviews Infos & QR Code & Personal Infos -->
                 <div class="ui center aligned middle aligned five column stackable grid">
-                  <div class="column">
+                  <div class="stretched column">
                     <div class="row">
                       <div class="ui small statistic">
                         <div class="value">
@@ -75,8 +60,28 @@
                       <div class="ui huge center rating" data-rating="1" data-max-rating="5"></div>
                     </div>
                   </div>
-                  <div class="column">
+                  <div class="stretched column">
                     <img class="ui small centered image" src="../images/default_qrcode.png"/>
+                  </div>
+                  <div class="stretched column">
+                    <div class="ui list">
+                      <div class="item">
+                        <div class="meta">
+                          <span>Via Roma, 100</span>
+                          <span>1010</span>
+                          <span>Milano</span>
+                        </div>
+                      </div>
+                      <div class="item">
+                        <div class="meta">trattoria@milanese.me</div>
+                      </div>
+                      <div class="item">
+                        <div class="meta">0123 456789</div>
+                      </div>
+                      <div class="item">
+                        <div class="meta"><a href="#">Web Page</a></div>
+                      </div>
+                    </div>
                   </div>
                 </div>
 
@@ -134,7 +139,13 @@
                         <div class="column">
                           <div class="ui list">
                             <div class="item">
-                              7.50 - 15.00
+                              Alta
+                            </div>
+                            <div class="item">
+                              Media
+                            </div>
+                            <div class="item">
+                              Bassa
                             </div>
                           </div>
                         </div>
@@ -324,32 +335,46 @@
                     <!-- End Reclama Tab -->
                     <!-- Add Image Tab -->
                     <div class="ui tab" data-tab="addimage">
-                      <div class="ui center aligned grid">
-                        <div class="column">
-                          <button class="ui button add_image">Aggiungi Immagine</button>
-                          <div class="ui modal">
-                            <div class="ui segment">
-                              <div class="ui header center">
-                                Aggiungi Nuova Immagine
-                              </div>
-                              <div class="ui segment">
-                                <form>
-                                  <input id="fileupload" type="file" name="files[]" data-url="server/php/" multiple >
-                                  <div class="actions">
-                                    <div class="ui close button">Cancel</div>
-                                    <input class="ui button" type="submit"></input>
-                                  </div>
-                                </form>
-                              </div>
+                        <div class="ui center aligned grid">
+                            <div class="column">
+                                <button class="ui button add_image">Aggiungi Immagine</button>
+                                <div class="ui modal">
+                                    <div class="ui segment">
+                                       <div class="ui one column center aligned grid">
+                                          <div class="row">
+                                              <div class="column">
+                                                  <div class="ui header center">
+                                                    Aggiungi Nuova Immagine
+                                                  </div>  
+                                              </div>                                        
+                                          </div>
+                                          <div class="column">
+                                             <div class="ui form">
+                                              <div class="two fields">
+                                                  <div class="field">
+                                                  <input id="fileupload" type="file" name="files[]" data-url="server/php/" multiple >  
+                                              </div>
+                                              <div class="field">
+                                                  <div class="ui actions">
+                                                      <div class="ui close button">Cancel</div>
+                                                    <input class="ui button" type="submit"></input>
+                                                  </div>                                                    
+                                              </div>
+                                              </div>                                              
+                                          </div>   
+                                          </div>
+                                          
+                                      </div>   
+                                    </div>                                                                         
+                                </div>
                             </div>
-                          </div>
                         </div>
-                      </div>
                     </div>
                     <!-- End Add Image Tab -->
                   </div>
                 </div>
               </div>
+ 
             <script type="text/javascript">
                 function initMap() {
                     var myLatLng = {lat: -25.363, lng: 131.044};
