@@ -14,7 +14,7 @@
 	
 	<jsp:attribute name="body">
             <div class="ui middle aligned center aligned grid">
-              <div class="column">
+              <div class="column myform">
                 <h2 class="ui header">
                   <div id="s_text" class="content">
                     Reimpostazione password
