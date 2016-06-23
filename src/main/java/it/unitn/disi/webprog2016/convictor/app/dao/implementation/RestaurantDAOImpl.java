@@ -26,12 +26,14 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
     }
 
     @Override
-    public void insertRestaurant(Restaurant restaurant) throws SQLException {
+    public int insertRestaurant(Restaurant restaurant) throws SQLException {
         
         // Check if restaurant is valid
-        if (!restaurant.validate()) return;
+        if (!restaurant.validate()) return -1;
         
-        String query = "INSERT INTO restaurants (name, description, street, city, zip_code, province, full_address, website, slot_price ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        int restaurant_id = -1;
+        
+        String query = "INSERT INTO restaurants (name, description, street, city, zip_code, province, full_address, website, slot_price ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id";
         PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
         try {
             stm.setString(0, restaurant.getName());
@@ -43,18 +45,26 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
             stm.setString(6, restaurant.getStreet() + restaurant.getCity() + restaurant.getZipCode() + restaurant.getProvince());
             stm.setString(7, restaurant.getWebsite());
             stm.setInt(8, restaurant.getSlotPrice());
-            stm.execute();
+            
+            ResultSet id = stm.executeQuery(query);
+            try {
+                restaurant_id = id.getInt("id");
+            } finally {
+                id.close();
+            }
         } finally {
             stm.close();
         }
         
+        return restaurant_id;
+        
     }
 
     @Override
-    public void updateRestaurant(Restaurant restaurant) throws SQLException {
+    public int updateRestaurant(Restaurant restaurant) throws SQLException {
         
         // Check if restaurant is valid
-        if (!restaurant.validate()) return;   
+        if (!restaurant.validate()) return -1;   
          
         String query = "UPDATE restaurants  SET name=?, description=?, street=?, city=?, zip_code=?, province=?, full_address=?, website=?, slot_price=? ) WHERE id=?";
         PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
@@ -73,7 +83,7 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
         } finally {
             stm.close();
         }
-        
+        return restaurant.getId();
     }
 
     @Override
@@ -88,6 +98,7 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
             try {
                 while(ownersSet.next()) {
                     Restaurant tmp = new Restaurant();
+                    tmp.setId(ownersSet.getInt("id"));
                     tmp.setName(ownersSet.getString("name"));
                     tmp.setDescription(ownersSet.getString("description"));
                     tmp.setStreet(ownersSet.getString("street"));
@@ -110,6 +121,42 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
             stm.close();
         }
         return restaurants;
+    }
+
+    @Override
+    public Restaurant getRestaurantById(int id) throws SQLException {
+        Restaurant tmp = null;
+        String query = "SELECT * FROM restaurant WHERE id = ?";
+        PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
+        try {
+         
+            stm.setInt(0, id);
+            ResultSet ownersSet = stm.executeQuery();
+            try {
+                while(ownersSet.next()) {
+                    tmp = new Restaurant();
+                    tmp.setId(ownersSet.getInt("id"));
+                    tmp.setName(ownersSet.getString("name"));
+                    tmp.setDescription(ownersSet.getString("description"));
+                    tmp.setStreet(ownersSet.getString("street"));
+                    tmp.setCity(ownersSet.getString("city"));
+                    tmp.setZipCode(ownersSet.getString("zip_code"));
+                    tmp.setProvince(ownersSet.getString("province"));
+                    tmp.setFullAddress(ownersSet.getString("full_address"));
+                    tmp.setWebsite(ownersSet.getString("website"));
+                    tmp.setSlotPrice(ownersSet.getInt("slot_price"));
+                    tmp.setRating(ownersSet.getString("rating"));
+                    tmp.setMainPhotoId(ownersSet.getInt("main_photo_id"));
+                    tmp.setRestaurantOwnerId(ownersSet.getInt("restaurant_owner_id"));
+                }
+            } finally {
+                ownersSet.close();
+            }
+            
+        } finally {
+            stm.close();
+        }
+        return tmp;
     }
     
 }

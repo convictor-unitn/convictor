@@ -153,10 +153,10 @@ public class Restaurant extends AbstractBean {
     
     /**
      * Overloading to cast a string value to an integer
-     * @param slot_price 
+     * @param slotPrice 
      */
-    public void setSlot_price(String slot_price) {
-        this.slotPrice = Integer.parseInt(slot_price);
+    public void setSlotPrice(String slotPrice) {
+        this.slotPrice = Integer.parseInt(slotPrice);
     } 
 
     /**
@@ -198,10 +198,10 @@ public class Restaurant extends AbstractBean {
     
     /**
      * Overloading to cast a string value to an integer
-     * @param main_photo_id the mainPhotoId to set
+     * @param mainPhotoId the mainPhotoId to set
      */
-    public void setMain_photo_id(String main_photo_id) {
-        this.mainPhotoId = Integer.parseInt(main_photo_id);
+    public void setMainPhotoId(String mainPhotoId) {
+        this.mainPhotoId = Integer.parseInt(mainPhotoId);
     }
 
     /**
@@ -220,10 +220,10 @@ public class Restaurant extends AbstractBean {
     
     /**
      * Overloading to cast a string value to an integer
-     * @param restaurant_owner_id the restaurantOwnerId to set
+     * @param restaurantOwnerId the restaurantOwnerId to set
      */
-    public void setRestaurant_owner_id(String restaurant_owner_id) {
-        this.restaurantOwnerId = Integer.parseInt(restaurant_owner_id);
+    public void setRestaurantOwnerId(String restaurantOwnerId) {
+        this.restaurantOwnerId = Integer.parseInt(restaurantOwnerId);
     }
 
     @Override

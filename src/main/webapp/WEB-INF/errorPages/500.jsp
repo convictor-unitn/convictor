@@ -10,7 +10,7 @@
 
 <l:error>
     
-    <jsp:attribute name="errorCode">401</jsp:attribute>
+    <jsp:attribute name="errorCode">500</jsp:attribute>
     <jsp:attribute name="message"> Non hai i permessi di accesso a questa risorsa.</jsp:attribute>
     
 </l:error>

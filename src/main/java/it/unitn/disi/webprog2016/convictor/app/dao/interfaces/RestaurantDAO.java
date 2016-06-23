@@ -15,8 +15,9 @@ import java.util.List;
  */
 public interface RestaurantDAO {
     
-    void insertRestaurant(Restaurant restaurant) throws SQLException;
-    void updateRestaurant(Restaurant restaurant) throws SQLException;
+    Restaurant getRestaurantById(int id ) throws SQLException;
+    int insertRestaurant(Restaurant restaurant) throws SQLException;
+    int updateRestaurant(Restaurant restaurant) throws SQLException;
     List<Restaurant> getRestaurantByUserId(int id) throws SQLException;
     
 }
