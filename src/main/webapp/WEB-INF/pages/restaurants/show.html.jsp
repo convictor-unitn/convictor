@@ -339,33 +339,20 @@
                             <div class="column">
                                 <button class="ui button add_image">Aggiungi Immagine</button>
                                 <div class="ui modal">
-                                    <div class="ui segment">
-                                       <div class="ui one column center aligned grid">
-                                          <div class="row">
-                                              <div class="column">
-                                                  <div class="ui header center">
-                                                    Aggiungi Nuova Immagine
-                                                  </div>  
-                                              </div>                                        
-                                          </div>
-                                          <div class="column">
-                                             <div class="ui form">
-                                              <div class="two fields">
-                                                  <div class="field">
-                                                  <input id="fileupload" type="file" name="files[]" data-url="server/php/" multiple >  
-                                              </div>
-                                              <div class="field">
-                                                  <div class="ui actions">
-                                                      <div class="ui close button">Cancel</div>
-                                                    <input class="ui button" type="submit"></input>
-                                                  </div>                                                    
-                                              </div>
-                                              </div>                                              
-                                          </div>   
-                                          </div>
-                                          
-                                      </div>   
-                                    </div>                                                                         
+                                    <div class="header center">
+                                         Aggiungi Nuova Immagine
+                                    </div>                                                            
+                                    <div class="content">
+                                    <div class="ui form">
+                                        <div class="field">
+                                             <input id="fileupload" type="file" name="files[]" data-url="server/php/" multiple >  
+                                         </div>                                                                                               
+                                    </div>
+                                    </div>
+                                    <div class="actions">
+                                        <div class="ui close button">Close</div>
+                                        <button class="ui button" type="submit">Submit</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
