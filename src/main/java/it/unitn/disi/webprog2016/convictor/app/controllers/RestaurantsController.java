@@ -39,7 +39,7 @@ public class RestaurantsController extends AbstractController {
                 request.setAttribute("paginationIndex", id);
                 request.setAttribute("restaurantResult", tmp.get(id));
             }
-        } catch (SQLException e) {
+        } catch (SQLException ex) {
             Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, ex);
             response.sendError(500);
             return "";
@@ -82,9 +82,11 @@ public class RestaurantsController extends AbstractController {
         tmp.setStreet(request.getParameter("street"));
         tmp.setZipCode(request.getParameter("zipcode"));
         tmp.setProvince(request.getParameter("province"));
-        tmp.setDescription("description");
+        tmp.setDescription(request.getParameter("description"));
+        tmp.setPhone(request.getParameter("phone"));
+        tmp.setEmail(request.getParameter("email"));
+        tmp.setWebsite(request.getParameter("website"));
         //tmp.setSlotPrice("slotPrice");
-        //tmp.setWebsite("website"); ADD WEBSITE
         
         try {
             int id = ((RestaurantDAO) request.getServletContext().getAttribute("restaurantdao")).insertRestaurant(tmp);
@@ -115,9 +117,11 @@ public class RestaurantsController extends AbstractController {
         tmp.setStreet(request.getParameter("street"));
         tmp.setZipCode(request.getParameter("zipcode"));
         tmp.setProvince(request.getParameter("province"));
-        tmp.setDescription("description");
+        tmp.setDescription(request.getParameter("description"));
+        tmp.setPhone(request.getParameter("phone"));
+        tmp.setEmail(request.getParameter("email"));
+        tmp.setWebsite(request.getParameter("website"));
         //tmp.setSlotPrice(slotPrice);
-        //tmp.setWebsite(website); ADD WEBSITE
         
         try {
             int id_rest = ((RestaurantDAO) request.getServletContext().getAttribute("restaurantdao")).updateRestaurant(tmp);
