@@ -61,8 +61,8 @@ public class RestaurantsController extends AbstractController {
         tmp.setZipCode(request.getParameter("zipcode"));
         tmp.setProvince(request.getParameter("province"));
         tmp.setDescription("description");
-        //tmp.setSlotPrice(slotPrice);
-        //tmp.setWebsite(website); ADD WEBSITE
+        //tmp.setSlotPrice("slotPrice");
+        //tmp.setWebsite("website"); ADD WEBSITE
         
         try {
             int id = ((RestaurantDAO) request.getServletContext().getAttribute("restaurantdao")).insertRestaurant(tmp);

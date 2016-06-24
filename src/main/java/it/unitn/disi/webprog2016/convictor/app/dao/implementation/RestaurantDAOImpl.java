@@ -13,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -163,6 +164,65 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
             stm.close();
         }
         return tmp;
+    }
+
+    @Override
+    public HashMap<Integer, List<Restaurant>> getRestaurantByString(String pattern, int offset) throws SQLException {
+        
+        HashMap<Integer, List<Restaurant>> result = new HashMap<>();
+        List<Restaurant> listResult = new ArrayList<>();
+        Integer counter = 0;
+        String fullTextPattern = pattern.replace(" ", "&");
+        String count ="SELECT COUNT(*) FROM restaurants WHERE ";
+        String query ="SELECT * FROM restaurants WHERE LIMIT 10 OFFSET ?";
+        PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(count);
+        PreparedStatement stm2 = this.getDbManager().getConnection().prepareStatement(query);
+        try {
+            // Obtain the number of record
+            stm.setString(1, fullTextPattern);
+            ResultSet countSet = stm.executeQuery();
+            try {
+                while(countSet.next()) {
+                    counter = countSet.getInt("count");
+                }
+            } finally {
+                countSet.close();
+            }
+            
+            // Obtain the restaurant paginated 
+            stm2.setString(1, fullTextPattern);
+            stm2.setInt(2, counter);
+            ResultSet restaurantSet = stm2.executeQuery();
+            try {
+                while(restaurantSet.next()) {
+                    Restaurant tmp = new Restaurant();
+                    tmp.setId(restaurantSet.getInt("id"));
+                    tmp.setName(restaurantSet.getString("name"));
+                    tmp.setDescription(restaurantSet.getString("description"));
+                    tmp.setStreet(restaurantSet.getString("street"));
+                    tmp.setCity(restaurantSet.getString("city"));
+                    tmp.setZipCode(restaurantSet.getString("zip_code"));
+                    tmp.setProvince(restaurantSet.getString("province"));
+                    tmp.setFullAddress(restaurantSet.getString("full_address"));
+                    tmp.setWebsite(restaurantSet.getString("website"));
+                    tmp.setSlotPrice(restaurantSet.getInt("slot_price"));
+                    tmp.setRating(restaurantSet.getString("rating"));
+                    tmp.setMainPhotoId(restaurantSet.getInt("main_photo_id"));
+                    tmp.setRestaurantOwnerId(restaurantSet.getInt("restaurant_owner_id"));
+                    tmp.setEmail(restaurantSet.getString("email"));
+                    tmp.setPhone(restaurantSet.getString("phone"));
+                    listResult.add(tmp);   
+                }
+            } finally {
+                restaurantSet.close();
+            }
+            result.put(counter, listResult);
+                
+        } finally {
+            stm.close();
+            stm2.close();
+        }
+        return result;
     }
     
 }
