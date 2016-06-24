@@ -10,6 +10,8 @@ import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.RestaurantDAO;
 import it.unitn.disi.webprog2016.convictor.framework.controllers.AbstractController;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -23,7 +25,27 @@ import javax.servlet.http.HttpServletResponse;
 public class RestaurantsController extends AbstractController {
     
     public String index(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		return "/restaurants/index";
+		
+        String query = request.getParameter("query");
+        int page=0;
+        if (request.getParameter("page") != null ){
+            page = Integer.parseInt(request.getParameter("page"));
+        }
+        
+        RestaurantDAO restaurantDAO = (RestaurantDAO) request.getServletContext().getAttribute("restaurantdao");
+        try {
+            HashMap<Integer, List<Restaurant>> tmp = restaurantDAO.getRestaurantByString(query, page);
+            for(Integer id : tmp.keySet()) {
+                request.setAttribute("paginationIndex", id);
+                request.setAttribute("restaurantResult", tmp.get(id));
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, ex);
+            response.sendError(500);
+            return "";
+        } 
+        
+        return "/restaurants/index";
 	}
     
     public String show(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {

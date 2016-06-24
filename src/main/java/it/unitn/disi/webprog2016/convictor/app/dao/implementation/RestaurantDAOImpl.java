@@ -173,13 +173,14 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
         List<Restaurant> listResult = new ArrayList<>();
         Integer counter = 0;
         String fullTextPattern = pattern.replace(" ", "&");
-        String count ="SELECT COUNT(*) FROM restaurants WHERE ";
-        String query ="SELECT * FROM restaurants WHERE LIMIT 10 OFFSET ?";
+        String count ="SELECT COUNT(*) FROM restaurants WHERE tsv @@ tsquery(?) OR searchable ILIKE '%?%';";
+        String query ="SELECT * FROM restaurants WHERE tsv @@ tsquery(?) OR searchable ILIKE '%?%' LIMIT 10 OFFSET ?";
         PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(count);
         PreparedStatement stm2 = this.getDbManager().getConnection().prepareStatement(query);
         try {
             // Obtain the number of record
             stm.setString(1, fullTextPattern);
+            stm.setString(2, fullTextPattern);
             ResultSet countSet = stm.executeQuery();
             try {
                 while(countSet.next()) {
@@ -191,7 +192,8 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
             
             // Obtain the restaurant paginated 
             stm2.setString(1, fullTextPattern);
-            stm2.setInt(2, counter);
+            stm2.setString(2, fullTextPattern);
+            stm2.setInt(3, counter);
             ResultSet restaurantSet = stm2.executeQuery();
             try {
                 while(restaurantSet.next()) {
