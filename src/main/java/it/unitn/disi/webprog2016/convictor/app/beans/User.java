@@ -18,6 +18,7 @@ public class User extends AbstractBean {
 	
 	private String email;
 	private String password;
+	private String passwordConfirmation;
 	private String name;
 	private String surname;
 	private boolean admin;
@@ -51,6 +52,16 @@ public class User extends AbstractBean {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	public String getPasswordConfirmation() {
+		return passwordConfirmation;
+	}
+
+	public void setPasswordConfirmation(String passwordConfirmation) {
+		this.passwordConfirmation = passwordConfirmation;
+	}
+	
+	
 
 	/**
 	 * @return the name
@@ -160,6 +171,13 @@ public class User extends AbstractBean {
                 this.setError("password", " Password must be at least 6 characters, no more than 10 characters, and must include at least one upper case letter, one lower case letter, and one numeric digit.");
             }
         }
+		
+		if(!this.getPassword().equals("")) {
+			if(!this.getPassword().equals(this.getPasswordConfirmation())) {
+				this.setError("passwordConfirmation", "La password non coincide con la conferma");
+			}
+		}
+		
         return status;
     }
 

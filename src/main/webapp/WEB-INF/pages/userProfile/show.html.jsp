@@ -34,7 +34,7 @@
                 <div class="text"> Email: </div> 
                 <div class="ui segment"> Email </div>
                 </br>
-                <button class="fluid basic black ui button">Modifica le informazioni del profilo</button>
+                <a href="${pageContext.request.contextPath}/userProfile/edit" class="fluid basic black ui button">Modifica le informazioni del profilo</a>
             </div>
             <div class="ui divider"></div>
             <partials:admin_notices />
