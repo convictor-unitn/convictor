@@ -2,12 +2,19 @@
     Document   : index
     Created on : May 15, 2016, 10:32:00 AM
     Author     : Federica Balliana
+
+    Variabili che arrivano dal controller
+    - user (già settata con c:set da requestScope)
+    - user.notices (riferirsi alla interfaccia Notice dei beans)
+
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="l" tagdir="/WEB-INF/tags/layouts/" %>
 <%@taglib prefix="partials" tagdir="/WEB-INF/tags/partials/" %>
+
+<c:set var="user" scope="request" value="${requestScope.user}" />
 
 <l:main>
 	
