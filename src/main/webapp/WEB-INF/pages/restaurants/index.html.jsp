@@ -60,6 +60,7 @@
       </div>
     </div>
 
+	</br>
 	<button class="ui fluid basic black button">Cerca</button>
 
   </div>
