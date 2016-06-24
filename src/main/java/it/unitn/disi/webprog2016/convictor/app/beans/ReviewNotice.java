@@ -14,6 +14,8 @@ public class ReviewNotice extends AbstractBean implements Notice {
     
     private int registeredUserId;
     private int reviewId;
+	private User registeredUser;
+	private Review review;
 
     /**
      * @return the registeredUserId
@@ -83,5 +85,21 @@ public class ReviewNotice extends AbstractBean implements Notice {
         }
         return status;
     }
+
+	public User getRegisteredUser() {
+		return registeredUser;
+	}
+
+	public void setRegisteredUser(User registeredUser) {
+		this.registeredUser = registeredUser;
+	}
+
+	public Review getReview() {
+		return review;
+	}
+
+	public void setReview(Review review) {
+		this.review = review;
+	}
 	
 }
