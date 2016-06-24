@@ -5,9 +5,9 @@
  */
 package it.unitn.disi.webprog2016.convictor.app.beans;
 
-import com.sun.istack.internal.logging.Logger;
 import it.unitn.disi.webprog2016.convictor.framework.beans.AbstractBean;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -75,7 +75,7 @@ public class Photo extends AbstractBean{
 			this.setRestaurantId(Integer.parseInt(restaurantId));
 		}
 		catch (NumberFormatException e) {
-			Logger.getLogger(NumberFormatException.class).log(Level.WARNING, e.getMessage());
+			Logger.getLogger(NumberFormatException.class.getName()).log(Level.WARNING, e.getMessage());
 		}
 	}
 }
