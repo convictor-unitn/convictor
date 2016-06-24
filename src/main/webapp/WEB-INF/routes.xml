@@ -95,6 +95,13 @@
         <action>create</action>
         <format>html</format>            
     </route>
+    <route>
+        <method>GET</method>
+        <url>/sign_out</url>
+        <controller>Sessions</controller>
+        <action>destroy</action>
+        <format>html</format>            
+    </route>
     
     <route>
         <method>GET</method>

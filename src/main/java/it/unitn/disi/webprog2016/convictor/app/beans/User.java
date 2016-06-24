@@ -55,6 +55,13 @@ public class User extends AbstractBean {
 	public String getName() {
 		return name;
 	}
+	
+	/**
+	 * @return the full name
+	 */
+	public String getFullName() {
+		return getName()+ " " +getSurname();
+	}
 
 	/**
 	 * @param name the name to set
