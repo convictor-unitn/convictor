@@ -49,6 +49,17 @@
                               <input type="text" name="province" placeholder="Provincia">
                             </div>
                           </div>
+                          <div class="three fields">
+                            <div class="field">
+                              <input type="text" name="email" placeholder="Email">
+                            </div>
+                            <div class="field">
+                              <input type="text" name="phone" placeholder="Telefono">
+                            </div>
+                            <div class="field">
+                              <input type="text" name="website" placeholder="Pagina Web">
+                            </div>
+                          </div>
                         </div>
 
                         <!-- Cuisines Field -->
