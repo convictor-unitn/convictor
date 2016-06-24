@@ -60,6 +60,7 @@ public class UserDAOImpl extends DatabaseDAO implements UserDAO{
         String query = "SELECT * FROM users WHERE id = ?";
         PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
         try {
+			stm.setInt(1, id);
             ResultSet usersSet = stm.executeQuery();
             try {
                 while(usersSet.next()) {
@@ -89,12 +90,12 @@ public class UserDAOImpl extends DatabaseDAO implements UserDAO{
         String query = "UPDATE users SET name=?, surname=?, password=?, email=?, admin=? WHERE id = ?";
         PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
         try {
-            stm.setString(0, user.getName());
-            stm.setString(1, user.getSurname());
-            stm.setString(2, user.getPassword());
-            stm.setString(3, user.getEmail());
-            stm.setBoolean(4, user.isAdmin());
-            stm.setInt(5, user.getId());
+            stm.setString(1, user.getName());
+            stm.setString(2, user.getSurname());
+            stm.setString(3, user.getPassword());
+            stm.setString(4, user.getEmail());
+            stm.setBoolean(5, user.isAdmin());
+            stm.setInt(6, user.getId());
             stm.execute();
         } finally {
             stm.close();
