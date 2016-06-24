@@ -59,6 +59,9 @@
         </div>
       </div>
     </div>
+
+	<button class="ui fluid basic black button">Cerca</button>
+
   </div>
  
   <div class="thirteen wide column">
