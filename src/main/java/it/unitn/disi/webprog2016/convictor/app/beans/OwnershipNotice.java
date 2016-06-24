@@ -15,6 +15,8 @@ public class OwnershipNotice extends AbstractBean implements Notice, Approvable 
     private Integer registeredUserId;
     private Integer restaurantId;
 	private boolean approved;
+	private User registeredUser;
+	private Photo photo;
 
     /**
      * @return the registeredUserId
@@ -106,6 +108,22 @@ public class OwnershipNotice extends AbstractBean implements Notice, Approvable 
         }
         return status;
     }
+
+	public User getRegisteredUser() {
+		return registeredUser;
+	}
+
+	public void setRegisteredUser(User registeredUser) {
+		this.registeredUser = registeredUser;
+	}
+
+	public Photo getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(Photo photo) {
+		this.photo = photo;
+	}
     
     
 }

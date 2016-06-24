@@ -6,6 +6,7 @@
 package it.unitn.disi.webprog2016.convictor.app.beans;
 
 import it.unitn.disi.webprog2016.convictor.framework.beans.AbstractBean;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -20,6 +21,8 @@ public class User extends AbstractBean {
 	private String name;
 	private String surname;
 	private boolean admin;
+	private List<Notice> notices;
+	private List<Review> reviews;
 
 	/**
 	 * @return the email
@@ -105,6 +108,8 @@ public class User extends AbstractBean {
 		setAdmin(Boolean.valueOf(admin));
 	}
 
+	
+	
     @Override
     public boolean validate() {
         
@@ -157,4 +162,32 @@ public class User extends AbstractBean {
         }
         return status;
     }
+
+	/**
+	 * @return the notices
+	 */
+	public List<Notice> getNotices() {
+		return notices;
+	}
+
+	/**
+	 * @param notices the notices to set
+	 */
+	public void setNotices(List<Notice> notices) {
+		this.notices = notices;
+	}
+
+	/**
+	 * @return the reviews
+	 */
+	public List<Review> getReviews() {
+		return reviews;
+	}
+
+	/**
+	 * @param reviews the reviews to set
+	 */
+	public void setReviews(List<Review> reviews) {
+		this.reviews = reviews;
+	}
 }

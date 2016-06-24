@@ -14,6 +14,8 @@ public class PhotoNotice extends AbstractBean implements Notice {
     
     private int registeredUserId;
     private int photoId;
+	private User registeredUser;
+	private Photo photo;
 
     /**
      * @return the registeredUserId
