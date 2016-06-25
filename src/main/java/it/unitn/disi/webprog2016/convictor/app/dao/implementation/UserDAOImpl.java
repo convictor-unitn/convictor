@@ -151,6 +151,12 @@ public class UserDAOImpl extends DatabaseDAO implements UserDAO{
                     user.setPassword(usersSet.getString("password"));
                     user.setAdmin(usersSet.getString("admin"));
                 }
+				
+				if(user==null) {
+					user = new User();
+					user.setEmail(email);
+					user.setError("loginError", "Nome utente e/o password non validi");
+				}
             } finally {
                 usersSet.close();
             }
