@@ -13,6 +13,7 @@ import it.unitn.disi.webprog2016.convictor.framework.beans.AbstractBean;
 public class Review extends AbstractBean {
     
     private int registeredUserId;
+    private String registeredUserName;
     private int restaurantId;
     private String description;
     private int rating;
@@ -96,6 +97,15 @@ public class Review extends AbstractBean {
      */
     public void setRating(String rating) {
         this.rating = Integer.parseInt(rating);
+    }
+    
+    
+    public String getRegisteredUserName() {
+        return registeredUserName;
+    }
+
+    public void setRegisteredUserName(String registeredUserName) {
+        this.registeredUserName = registeredUserName;
     }
 
     @Override
