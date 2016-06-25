@@ -5,8 +5,8 @@
  */
 package it.unitn.disi.webprog2016.convictor.app.controllers;
 
+import it.unitn.disi.webprog2016.convictor.app.beans.Cusine;
 import it.unitn.disi.webprog2016.convictor.app.beans.Restaurant;
-import it.unitn.disi.webprog2016.convictor.app.beans.Review;
 import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.CusinesRestaurantDAO;
 import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.OpeningTimesDAO;
 import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.RestaurantDAO;
@@ -14,6 +14,7 @@ import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.ReviewDAO;
 import it.unitn.disi.webprog2016.convictor.framework.controllers.AbstractController;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
@@ -88,7 +89,30 @@ public class RestaurantsController extends AbstractController {
 	}
     
     public String new_(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		return "/restaurants/new";
+		int id = Integer.parseInt(request.getParameter("id"));
+        
+        RestaurantDAO restaurantDAO = (RestaurantDAO) request.getServletContext().getAttribute("restaurantdao");
+        CusinesRestaurantDAO cusinesRestaurantDAO = (CusinesRestaurantDAO) request.getServletContext().getAttribute("cusinesrestaurantdao");
+        OpeningTimesDAO openingTimeDAO = (OpeningTimesDAO) request.getServletContext().getAttribute("openingtimesdao");
+        try {
+            Restaurant tmp = restaurantDAO.getRestaurantById(id);
+            tmp.setCusine(cusinesRestaurantDAO.getCusinesByRestaurantId(id));
+            tmp.setOpeningTimes(openingTimeDAO.getResaurantOpeningTimes(id));
+            
+            if (tmp != null) {
+                request.setAttribute("restaurant", tmp);
+            } else {
+                response.sendError(404);
+                return "";
+            }
+            
+            return "/restaurants/new";
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, ex);
+            response.sendError(500);
+            return "";
+        }
 	}
     
     // Mancano i campi del website e dello slot price
@@ -105,7 +129,18 @@ public class RestaurantsController extends AbstractController {
         tmp.setPhone(request.getParameter("phone"));
         tmp.setEmail(request.getParameter("email"));
         tmp.setWebsite(request.getParameter("website"));
-        //tmp.setSlotPrice("slotPrice");
+        
+        String[] cusines = request.getParameterValues("cusines");
+        List<Cusine> list = new ArrayList<>();
+        
+        for(int i=0; i< cusines.length; i++) {
+            Cusine tmpCusine = new Cusine();
+            tmpCusine.setName(cusines[i]);
+            list.add(tmpCusine);
+        }
+        
+        tmp.setCusine(list);
+        
         
         try {
             int id = ((RestaurantDAO) request.getServletContext().getAttribute("restaurantdao")).insertRestaurant(tmp);
@@ -140,7 +175,17 @@ public class RestaurantsController extends AbstractController {
         tmp.setPhone(request.getParameter("phone"));
         tmp.setEmail(request.getParameter("email"));
         tmp.setWebsite(request.getParameter("website"));
-        //tmp.setSlotPrice(slotPrice);
+        
+        String[] cusines = request.getParameterValues("cusines");
+        List<Cusine> list = new ArrayList<>();
+        
+        for(int i=0; i< cusines.length; i++) {
+            Cusine tmpCusine = new Cusine();
+            tmpCusine.setName(cusines[i]);
+            list.add(tmpCusine);
+        }
+        
+        tmp.setCusine(list);
         
         try {
             int id_rest = ((RestaurantDAO) request.getServletContext().getAttribute("restaurantdao")).updateRestaurant(tmp);

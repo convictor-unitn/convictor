@@ -23,6 +23,9 @@ public class OpeningTime extends AbstractBean {
     private String dayString;
 	private Date openAt;
 	private Date closeAt;
+    private Date openAtAfternoon;
+    private Date closeAtAfternoon;
+    private boolean dayoff;
 
 	/**
 	 * @return the restaurantId
@@ -144,9 +147,50 @@ public class OpeningTime extends AbstractBean {
                 break;
         }
     }
-    
 
-    @Override
+    /**
+     * @return the openAtAfternoon
+     */
+    public Date getOpenAtAfternoon() {
+        return openAtAfternoon;
+    }
+
+    /**
+     * @param openAtAfternoon the openAtAfternoon to set
+     */
+    public void setOpenAtAfternoon(Date openAtAfternoon) {
+        this.openAtAfternoon = openAtAfternoon;
+    }
+
+    /**
+     * @return the closeAtAfternoon
+     */
+    public Date getCloseAtAfternoon() {
+        return closeAtAfternoon;
+    }
+
+    /**
+     * @param closeAtAfternoon the closeAtAfternoon to set
+     */
+    public void setCloseAtAfternoon(Date closeAtAfternoon) {
+        this.closeAtAfternoon = closeAtAfternoon;
+    }
+
+    /**
+     * @return the dayoff
+     */
+    public boolean isDayoff() {
+        return dayoff;
+    }
+
+    /**
+     * @param dayoff the dayoff to set
+     */
+    public void setDayoff(boolean dayoff) {
+        this.dayoff = dayoff;
+    }
+	
+	@Override
     public boolean validate() {
         boolean status = true;
         if (this.getRestaurantId() <= 0)
@@ -165,6 +209,4 @@ public class OpeningTime extends AbstractBean {
         }
         return status;
     }
-	
-	
 }
