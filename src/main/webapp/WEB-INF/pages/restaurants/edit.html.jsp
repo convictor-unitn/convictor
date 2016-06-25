@@ -9,6 +9,8 @@
 
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="l" tagdir="/WEB-INF/tags/layouts/" %>
+<%@taglib prefix="partials" tagdir="/WEB-INF/tags/partials" %>
+
 
 <c:set var="restaurant" scope="request" value="${requestScope.Restaurant}" />
 <l:main>
@@ -19,6 +21,9 @@
             <div class="ui container">
                 <div class="ui middle aligned center aligned grid">
                   <div class="column">
+                      <c:if test="${!restaurant.isvalid()}">
+                        <partials:formerrors/>
+                      </c:if>
                     <h2 class="ui header">
                       <div id="s_text" class="content">
                         Modifica Ristorante
