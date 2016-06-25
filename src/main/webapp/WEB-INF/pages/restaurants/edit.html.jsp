@@ -7,7 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="l" tagdir="/WEB-INF/tags/layouts/" %>
-
+<jsp:useBean id="restaurant" scope="request" class="it.unitn.disi.webprog2016.convictor.app.beans.Restaurant"/>
 <l:main>
 	
 	<jsp:attribute name="title">Modifica Ristorante</jsp:attribute>
@@ -31,33 +31,33 @@
                           <label>Informazioni Personali</label>
                           <div class="ui divider"></div>
                           <div class="field">
-                            <input type="text" name="name" placeholder="Nome">
+                              <input type="text" name="name" placeholder="Nome" value="${restaurant.name}" >
                           </div>
 
                           <!-- Location Fields -->
                           <div class="four fields">
                             <div class="field">
-                              <input type="text" name="street" placeholder="Via">
+                                <input type="text" name="street" placeholder="Via" value="${restaurant.street}">
                             </div>
                             <div class="field">
-                              <input type="text" name="city" placeholder="Città">
+                                <input type="text" name="city" placeholder="Città" value="${restaurant.city}">
                             </div>
                             <div class="field">
-                              <input type="text" name="zipcode" placeholder="CAP">
+                                <input type="text" name="zipcode" placeholder="CAP" value="${restaurant.zipCode}">
                             </div>
                             <div class="field">
-                                <input type="text" name="province" placeholder="Provincia">
+                                <input type="text" name="province" placeholder="Provincia" value="${restaurant.province}">
                             </div>
                           </div>
                           <div class="three fields">
                             <div class="field">
-                              <input type="text" name="email" placeholder="Email">
+                                <input type="text" name="email" placeholder="Email" value="${restaurant.email}">
                             </div>
                             <div class="field">
-                              <input type="text" name="phone" placeholder="Telefono">
+                                <input type="text" name="phone" placeholder="Telefono" value="${restaurant.phone}">
                             </div>
                             <div class="field">
-                              <input type="text" name="website" placeholder="Pagina Web">
+                                <input type="text" name="website" placeholder="Pagina Web" value="${restaurant.website}">
                             </div>
                           </div>
                         </div>
@@ -99,8 +99,8 @@
                                 <div class="ui basic label">
                                   Apertura
                                 </div>
-                                <input type="text" name="openH" placeholder="Ora">
-                                <input type="text" name="openM" placeholder="Minuti">
+                                  <input type="text" name="openH" placeholder="Ora">
+                                  <input type="text" name="openM" placeholder="Minuti">
                               </div>
                             </div>
 
@@ -142,15 +142,13 @@
 
                           <!-- Days Opening -->
                           <div class="field">
-                            <select multiple="" class="ui dropdown">
-                              <option value="">Giorni Apertura</option>
-                              <option value="CI">Luned</option>
-                              <option value="JP">Giapponese</option>
-                              <option value="IT">Italiana</option>
-                              <option value="SWE">Svedese</option>
-                            </select>
+                              <div class="ui checkbox">
+                                  <input type="checkbox" tabindex="0" class="hidden">
+                                  <label>Checkbox</label>
+                                </div>
                           </div>
                           </div>
+                          
                           <div class="ui segment">
                               <div class="field">
                                   <div class="ui small label">
@@ -207,13 +205,10 @@
 
                           <!-- Days Opening -->
                           <div class="field">
-                            <select multiple="" class="ui dropdown">
-                              <option value="">Giorni Apertura</option>
-                              <option value="CI">Luned</option>
-                              <option value="JP">Giapponese</option>
-                              <option value="IT">Italiana</option>
-                              <option value="SWE">Svedese</option>
-                            </select>
+                            <div class="ui checkbox">
+                              <input type="checkbox" tabindex="0" class="hidden">
+                              <label>Checkbox</label>
+                            </div>
                           </div>
                           </div>
                           <div class="ui segment">
@@ -270,13 +265,10 @@
 
                           <!-- Days Opening -->
                           <div class="field">
-                            <select multiple="" class="ui dropdown">
-                              <option value="">Giorni Apertura</option>
-                              <option value="CI">Luned</option>
-                              <option value="JP">Giapponese</option>
-                              <option value="IT">Italiana</option>
-                              <option value="SWE">Svedese</option>
-                            </select>
+                            <div class="ui checkbox">
+                              <input type="checkbox" tabindex="0" class="hidden">
+                              <label>Checkbox</label>
+                            </div>
                           </div>
                           </div>
                           <div class="ui segment">
@@ -333,13 +325,10 @@
 
                           <!-- Days Opening -->
                           <div class="field">
-                            <select multiple="" class="ui dropdown">
-                              <option value="">Giorni Apertura</option>
-                              <option value="CI">Luned</option>
-                              <option value="JP">Giapponese</option>
-                              <option value="IT">Italiana</option>
-                              <option value="SWE">Svedese</option>
-                            </select>
+                            <div class="ui checkbox">
+                              <input type="checkbox" tabindex="0" class="hidden">
+                              <label>Checkbox</label>
+                            </div>
                           </div>
                           </div>
                           <div class="ui segment">
@@ -396,13 +385,10 @@
 
                           <!-- Days Opening -->
                           <div class="field">
-                            <select multiple="" class="ui dropdown">
-                              <option value="">Giorni Apertura</option>
-                              <option value="CI">Luned</option>
-                              <option value="JP">Giapponese</option>
-                              <option value="IT">Italiana</option>
-                              <option value="SWE">Svedese</option>
-                            </select>
+                            <div class="ui checkbox">
+                              <input type="checkbox" tabindex="0" class="hidden">
+                              <label>Checkbox</label>
+                            </div>
                           </div>
                           </div>
                           <div class="ui segment">
@@ -459,13 +445,10 @@
 
                           <!-- Days Opening -->
                           <div class="field">
-                            <select multiple="" class="ui dropdown">
-                              <option value="">Giorni Apertura</option>
-                              <option value="CI">Luned</option>
-                              <option value="JP">Giapponese</option>
-                              <option value="IT">Italiana</option>
-                              <option value="SWE">Svedese</option>
-                            </select>
+                            <div class="ui checkbox">
+                              <input type="checkbox" tabindex="0" class="hidden">
+                              <label>Checkbox</label>
+                            </div>
                           </div>
                           </div>
                           <div class="ui segment">
@@ -522,13 +505,10 @@
 
                           <!-- Days Opening -->
                           <div class="field">
-                            <select multiple="" class="ui dropdown">
-                              <option value="">Giorni Apertura</option>
-                              <option value="CI">Luned</option>
-                              <option value="JP">Giapponese</option>
-                              <option value="IT">Italiana</option>
-                              <option value="SWE">Svedese</option>
-                            </select>
+                            <div class="ui checkbox">
+                              <input type="checkbox" tabindex="0" class="hidden">
+                              <label>Checkbox</label>
+                            </div>
                           </div>
                           </div>
                           
@@ -540,7 +520,8 @@
                           <label>Descrizione</label>
                           <div class="ui divider"></div>
                           <div class="field">
-                            <textarea rows="2" placeholder="Aggiungi breve descrizione"></textarea>
+                              <textarea rows="2" placeholder="Aggiungi breve descrizione" value="${restaurant.description}">
+                              </textarea>
                           </div>
                         </div>
 
