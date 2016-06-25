@@ -20,7 +20,7 @@
                         Aggiungi Ristorante
                       </div>
                     </h2>
-                    <form class="ui large form">
+                    <form class="ui large form" method="POST">
                       <div class="ui tertiary segment">
 
                         <!-- Personal Infos -->

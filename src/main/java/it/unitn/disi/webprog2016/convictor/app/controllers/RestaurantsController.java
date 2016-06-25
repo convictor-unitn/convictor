@@ -89,30 +89,7 @@ public class RestaurantsController extends AbstractController {
 	}
     
     public String new_(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		int id = Integer.parseInt(request.getParameter("id"));
-        
-        RestaurantDAO restaurantDAO = (RestaurantDAO) request.getServletContext().getAttribute("restaurantdao");
-        CusinesRestaurantDAO cusinesRestaurantDAO = (CusinesRestaurantDAO) request.getServletContext().getAttribute("cusinesrestaurantdao");
-        OpeningTimesDAO openingTimeDAO = (OpeningTimesDAO) request.getServletContext().getAttribute("openingtimesdao");
-        try {
-            Restaurant tmp = restaurantDAO.getRestaurantById(id);
-            tmp.setCusine(cusinesRestaurantDAO.getCusinesByRestaurantId(id));
-            tmp.setOpeningTimes(openingTimeDAO.getResaurantOpeningTimes(id));
-            
-            if (tmp != null) {
-                request.setAttribute("restaurant", tmp);
-            } else {
-                response.sendError(404);
-                return "";
-            }
-            
-            return "/restaurants/new";
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, ex);
-            response.sendError(500);
-            return "";
-        }
+        return "/restaurants/new";
 	}
     
     // Mancano i campi del website e dello slot price
