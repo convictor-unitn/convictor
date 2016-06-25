@@ -203,7 +203,7 @@
                     <c:forEach var="review" items="${restaurant.reviews}">
                         <div class="comment">
                             <a class="avatar">
-                                <img src="/images/avatar/small/stevie.jpg">
+                                <img src="#">
                             </a>
                         <div class="content">
                             <a class="author">${review.registeredUserName}</a>

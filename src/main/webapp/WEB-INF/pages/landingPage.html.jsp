@@ -26,7 +26,7 @@
                 </c:if>
                 <div class="ui text container">
                   <h1 class="ui header">
-                    <img class="ui small middle aligned circular image" src="logo.png">
+                    <img class="ui small middle aligned circular image" src="#">
                     <span class="content">Convictor</span>
                   </h1>
                 </div>
