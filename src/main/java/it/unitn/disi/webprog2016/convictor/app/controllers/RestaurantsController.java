@@ -12,6 +12,7 @@ import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.OpeningTimesDAO;
 import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.RestaurantDAO;
 import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.ReviewDAO;
 import it.unitn.disi.webprog2016.convictor.framework.controllers.AbstractController;
+import it.unitn.disi.webprog2016.convictor.framework.utils.AddressResolver;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.Clock;
@@ -63,11 +64,16 @@ public class RestaurantsController extends AbstractController {
             reviewPage = Integer.parseInt(request.getParameter("reviewPage"));
         }
         
+		
         RestaurantDAO restaurantDAO = (RestaurantDAO) request.getServletContext().getAttribute("restaurantdao");
         ReviewDAO reviewDAO = (ReviewDAO) request.getServletContext().getAttribute("reviewdao");
         CusinesRestaurantDAO cusinesRestaurantDAO = (CusinesRestaurantDAO) request.getServletContext().getAttribute("cusinesrestaurantdao");
         OpeningTimesDAO openingTimeDAO = (OpeningTimesDAO) request.getServletContext().getAttribute("openingtimesdao");
-        try {
+        
+		AddressResolver ad = new AddressResolver();
+		ad.setAddress("via  san michele");
+		
+		try {
             Restaurant tmp = restaurantDAO.getRestaurantById(id);
             tmp.setCusine(cusinesRestaurantDAO.getCusinesByRestaurantId(id));
             tmp.setReviews(reviewDAO.getRestaurantReviews(id, reviewPage));
