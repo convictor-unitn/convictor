@@ -27,8 +27,8 @@ public class CusinesRestaurantDAOImpl extends DatabaseDAO implements CusinesRest
 
     @Override
     public List<Cusine> getCusinesByRestaurantId(int restaurant_id) throws SQLException {
-       List<Cusine> cusines = new ArrayList<>();
-       String query = "select cusines.id, cusines.name from cusines_restaurants inner join cusines on cusines_restaurants.cusine_id = cusines.id where restaurant_id =?;";
+        List<Cusine> cusines = new ArrayList<>();
+        String query = "select cusines.id, cusines.name from cusines_restaurants inner join cusines on cusines_restaurants.cusine_id = cusines.id where restaurant_id =?;";
         PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
         try {
             stm.setInt(1, restaurant_id);
@@ -47,6 +47,43 @@ public class CusinesRestaurantDAOImpl extends DatabaseDAO implements CusinesRest
             stm.close();
         }
        return cusines;
+    }
+
+    @Override
+    public void insertRestaurantCusines(int restaurant_id, List<Cusine> cusines) throws SQLException {
+       String query = "INSERT INTO cusines_restaurants (restaurant_id, cusine_id) VALUES (?, ?);";
+        for (int i = 0; i < cusines.size(); i++) {
+            PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
+            try {
+                stm.setInt(1, restaurant_id);
+                stm.setInt(2, cusines.get(i).getId());
+                stm.execute();
+            } finally {
+                stm.close();
+            }
+        }
+    }
+
+    @Override
+    public Cusine getCusinebyName(String name) throws SQLException {
+        Cusine cusine = new Cusine();
+        String query = "select * from cusines where name=?";
+        PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
+        try {
+            stm.setString(1, name);
+            ResultSet cusinesSet = stm.executeQuery();
+            try {
+                while(cusinesSet.next()) {
+                    cusine.setId(cusinesSet.getInt("id"));
+                    cusine.setName(cusinesSet.getString("name"));
+                }
+            } finally {
+                cusinesSet.close();
+            }
+        } finally {
+            stm.close();
+        }
+       return cusine;
     }
     
 }

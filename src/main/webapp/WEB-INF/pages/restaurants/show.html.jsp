@@ -147,8 +147,15 @@
                     <c:forEach var="openingTime" items="${restaurant.openingTimes}">
                         <div class="item">
                             ${openingTime.dayString}
-                            ${openingTime.openAt}
-                            ${openingTime.closeAt}
+                            <c:if test="${openingTime.dayoff != true}">
+                                <p>${openingTime.openAt}
+                                ${openingTime.closeAt}
+                                ${openingTime.openAtAfternoon}
+                                ${openingTime.closeAtAfternoon}</p>  
+                            </c:if>
+                            <c:if test="${openingTime.dayoff == true}">
+                                CHIUSO
+                            </c:if>
                         </div>
                     </c:forEach>
                 </div>

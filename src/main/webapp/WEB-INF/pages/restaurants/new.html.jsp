@@ -67,7 +67,7 @@
                           <label>Tipologia Piatti</label>
                           <div class="ui divider"></div>
                           <div class="field">
-                            <select multiple="" class="ui dropdown">
+                            <select multiple="" class="ui dropdown" name="cusines">
                               <option value="">Seleziona Cucine</option>
                               <option value="CI">Cinese</option>
                               <option value="JP">Giapponese</option>
@@ -519,7 +519,7 @@
                           <label>Descrizione</label>
                           <div class="ui divider"></div>
                           <div class="field">
-                            <textarea rows="2" placeholder="Aggiungi breve descrizione"></textarea>
+                            <textarea rows="2" placeholder="Aggiungi breve descrizione" name="descripition"></textarea>
                           </div>
                         </div>
 
