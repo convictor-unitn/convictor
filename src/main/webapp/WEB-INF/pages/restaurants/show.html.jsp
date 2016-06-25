@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="l" tagdir="/WEB-INF/tags/layouts/" %>
 <jsp:useBean id="restaurant" scope="request" class="it.unitn.disi.webprog2016.convictor.app.beans.Restaurant" />
 <l:main>
@@ -120,26 +121,7 @@
               </div>
             </div>
           </div>
-
-          <div class="column">
-            <div clas="ui center aligned grid">
-              <div class="column">
-                <div class="ui sub header">Orari di apertura</div>
-              </div>
-              <div class="ui divider"></div>
-              <div class="column">
-                <div class="ui list">
-                  <div class="item">
-                    7.30 - 12.30
-                  </div>
-                  <div class="item">
-                    18.30 - 1.30
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
+            
           <div class="column">
             <div clas="ui center aligned grid">
               <div class="column">
@@ -149,6 +131,26 @@
               <div class="column">
                 <div class="ui list">
                   ${restaurant.slotPrice}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="column">
+            <div clas="ui center aligned grid">
+              <div class="column">
+                <div class="ui sub header">Orari di apertura</div>
+              </div>
+              <div class="ui divider"></div>
+              <div class="column">
+                <div class="ui list">
+                    <c:forEach var="openingTime" items="${restaurant.openingTimes}">
+                        <div class="item">
+                            ${openingTime.dayString}
+                            ${openingTime.openAt}
+                            ${openingTime.closeAt}
+                        </div>
+                    </c:forEach>
                 </div>
               </div>
             </div>

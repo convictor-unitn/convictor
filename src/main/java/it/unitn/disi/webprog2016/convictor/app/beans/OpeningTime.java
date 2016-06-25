@@ -20,6 +20,7 @@ import java.util.logging.Logger;
 public class OpeningTime extends AbstractBean {
 	private int restaurantId;
     private int day;
+    private String dayString;
 	private Date openAt;
 	private Date closeAt;
 
@@ -111,6 +112,38 @@ public class OpeningTime extends AbstractBean {
         this.day = day;
     }
     
+    
+    public String getDayString() {
+        return dayString;
+    }
+    
+    public void setDayString(int day) {
+        switch(day) {
+            case 1:
+                dayString = "Lunedì";
+                break;
+            case 2:
+                dayString = "Martedì";
+                break;
+            case 3:
+                dayString = "Mercoledì";
+                break;
+            case 4:
+                dayString = "Giovedì";
+                break;
+            case 5:
+                dayString = "Venerdì";
+                break;
+            case 6:
+                dayString = "Sabato";
+                break;
+            case 7:
+                dayString = "Domenica";
+                break;
+            default:
+                break;
+        }
+    }
     
 
     @Override

@@ -8,6 +8,7 @@ package it.unitn.disi.webprog2016.convictor.app.controllers;
 import it.unitn.disi.webprog2016.convictor.app.beans.Restaurant;
 import it.unitn.disi.webprog2016.convictor.app.beans.Review;
 import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.CusinesRestaurantDAO;
+import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.OpeningTimesDAO;
 import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.RestaurantDAO;
 import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.ReviewDAO;
 import it.unitn.disi.webprog2016.convictor.framework.controllers.AbstractController;
@@ -63,10 +64,12 @@ public class RestaurantsController extends AbstractController {
         RestaurantDAO restaurantDAO = (RestaurantDAO) request.getServletContext().getAttribute("restaurantdao");
         ReviewDAO reviewDAO = (ReviewDAO) request.getServletContext().getAttribute("reviewdao");
         CusinesRestaurantDAO cusinesRestaurantDAO = (CusinesRestaurantDAO) request.getServletContext().getAttribute("cusinesrestaurantdao");
+        OpeningTimesDAO openingTimeDAO = (OpeningTimesDAO) request.getServletContext().getAttribute("openingtimesdao");
         try {
             Restaurant tmp = restaurantDAO.getRestaurantById(id);
             tmp.setCusine(cusinesRestaurantDAO.getCusinesByRestaurantId(id));
             tmp.setReviews(reviewDAO.getRestaurantReviews(id, reviewPage));
+            tmp.setOpeningTimes(openingTimeDAO.getResaurantOpeningTimes(id));
             
             if (tmp != null) {
                 request.setAttribute("restaurant", tmp);
