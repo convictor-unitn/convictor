@@ -23,9 +23,7 @@
                             Reimpostazione profilo
                         </div>
                     </h2>
-                    <c:if test="${user.valid == false }">
-                        <partials:formerrors/>
-                    </c:if>    
+                      
                     <form class="ui large form" method="POST" action="${pageContext.servletContext.contextPath}/registrations/update">
                         <div class="ui stacked segment">
                             <div class="field">

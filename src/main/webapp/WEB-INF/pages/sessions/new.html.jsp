@@ -22,6 +22,7 @@
                 Accedi
               </div>
             </h2>
+              
               <form method="POST" class="ui large form" action="${pageContext.servletContext.contextPath}/sessions/create">
               <div class="ui stacked segment">
                 <div class="field">

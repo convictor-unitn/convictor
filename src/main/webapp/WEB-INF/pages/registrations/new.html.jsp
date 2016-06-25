@@ -24,6 +24,7 @@
                             Crea un nuovo account
                         </div>
                     </h2>
+                    
                     <form class="ui large form" method="POST" action="${pageContext.servletContext.contextPath}/registrations/create">
                         <div class="ui stacked segment">
                             <div class="field">

@@ -21,9 +21,7 @@
             <div class="ui container">
                 <div class="ui middle aligned center aligned grid">
                   <div class="column">
-                      <c:if test="${restaurant.valid == false }">
-                        <partials:formerrors/>
-                      </c:if>
+                      
                     <h2 class="ui header">
                       <div id="s_text" class="content">
                         Modifica Ristorante
