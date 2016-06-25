@@ -28,11 +28,11 @@
                 </br>
 
                 <div class="text"> Nome: </div> 
-                <div class="ui segment"> Nome </div>
+                <div class="ui segment"> ${user.name} </div>
                 <div class="text"> Cognome: </div> 
-                <div class="ui segment"> Cognome </div>
+                <div class="ui segment"> ${user.surname} </div>
                 <div class="text"> Email: </div> 
-                <div class="ui segment"> Email </div>
+                <div class="ui segment"> ${user.email} </div>
                 </br>
                 <a href="${pageContext.request.contextPath}/userProfile/edit" class="fluid basic black ui button">Modifica le informazioni del profilo</a>
             </div>
