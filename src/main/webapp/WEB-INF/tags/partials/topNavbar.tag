@@ -30,10 +30,11 @@
       <!-- Center -->
       <!-- Search Bar -->
       <div class="ui search mini item">
-        <div class="ui icon input">
-          <input class = "prompt" type="text" placeholder="Search...">
+        <form class="ui icon input" method="POST" action="${pageContext.request.contextPath}/restaurants/index" >   
+>
+          <input class = "prompt" type="text" placeholder="Search..." name="name">
           <i class="search icon"></i>
-        </div>
+        </form>
       </div>
 
       <!-- Right -->
@@ -89,11 +90,11 @@
       <!-- Center -->
       <!-- Search Bar -->
       <div class="ui search mini item">
-        <div class="ui icon input">
-          <input class = "prompt" type="text" placeholder="Search...">
+        <form class="ui icon input"method="POST" action="${pageContext.request.contextPath}/restaurants/index">
+          <input class = "prompt" type="text" placeholder="Search..." name="name" >
           <i class="search icon"></i>
         </div>
-      </div>
+      </form>
       <div class="right menu open">
         <a href="" class="menu item">
           <i class="content icon"></i>

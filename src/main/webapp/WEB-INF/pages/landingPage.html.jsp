@@ -7,6 +7,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@taglib prefix="l" tagdir="/WEB-INF/tags/layouts/" %>
+<jsp:useBean id="restaurant" scope="request" class="it.unitn.disi.webprog2016.convictor.app.beans.Restaurant" />
 
 <l:main>
 	
@@ -33,15 +34,15 @@
                 </div>
                
                  <div class="ui container">
-                  <div class="ui very padded black basic segment" >   
+                     <form class="ui very padded black basic segment" method="POST" action="${pageContext.request.contextPath}/restaurants/index" >   
                     <div class="ui mysegment">
                       <div class="ui medium fluid action input">
-                        <input placeholder="Cerca per ristorante" type="text">
-                        <input placeholder="Cerca per citta'" type="text">
+                        <input placeholder="Cerca per ristorante" type="text" name="name">
+                        <input placeholder="Cerca per citta'" type="text" name="city">
                         <button class="ui black submit button" type=submit>Cerca</button>
                       </div>
                     </div>
-                  </div>
+                  </form>
                 </div>
                
                   
