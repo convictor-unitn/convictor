@@ -28,7 +28,7 @@
 
                         <div class="ui segment">
                           <!-- Name Field -->
-                          <label>Personal Infos</label>
+                          <label>Informazioni Personali</label>
                           <div class="ui divider"></div>
                           <div class="field">
                             <input type="text" name="name" placeholder="Nome">

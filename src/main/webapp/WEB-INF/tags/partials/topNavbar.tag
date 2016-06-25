@@ -39,11 +39,11 @@
       <!-- Right -->
       <!-- Notificazion Dropdown -->
       <div class="ui simple dropdown right item">
-        Notifications <i class="dropdown icon"></i>
+        Notifiche <i class="dropdown icon"></i>
         <div class="menu">
           <a class="item" href="#">notify 1</a>
           <a class="item" href="#">notify 2</a>
-          <a class="item" href="${pageContext.request.contextPath}/userProfile/show">Open</a> 
+          <a class="item" href="${pageContext.request.contextPath}/userProfile/show">Leggi</a> 
         </div>
       </div>
       
@@ -58,9 +58,10 @@
       
       <!-- Owner User -->
       <c:if test="${user.getClass().name == 'it.unitn.disi.webprog2016.convictor.app.beans.RestaurantOwner'}" >
-        <a class="item" href="${pageContext.request.contextPath}/userProfile/show">My Restaurant(s)</a>
+        <a class="item" href="${pageContext.request.contextPath}/userProfile/show">I miei Ristoranti</a>
       </c:if>
       <c:if test="${user == null}" >
+          
       <!-- Anonymous User -->
       <div class="item">
         <a class="ui basic button inverted right" href="${pageContext.request.contextPath}/sign_up">Registrati</a>
@@ -80,9 +81,9 @@
 
       <!-- Left -->
       <!-- Logo  -->
-      <a href="#" class="brand item">
-        <img class="logo" src="#">
-        Logo
+      <a href="${pageContext.request.contextPath}/" class="brand item">
+        <!--<img class="logo" src="assets/images/logo.png">-->
+        Convictor
       </a>
 
       <!-- Center -->
@@ -106,30 +107,30 @@
       <!-- Right -->
       <!-- Notification Dropdown -->
       <div class="ui item">
-        <div class="text">Notifications </div>
+        <div class="text">Notifiche</div>
         <div class="menu">
-          <a class="item" href="#">notify 1</a>
-          <a class="item" href="#">notify 2</a>
-          <a class="item" href="${pageContext.request.contextPath}/userProfile/show">Open</a> 
+           <a class="item" href="#">notifica 1</a>
+          <a class="item" href="#">notifica 2</a>
+          <a class="item" href="${pageContext.request.contextPath}/userProfile/show">Leggi</a>
         </div>
       </div>
 
       <!-- Registered User -->
       <div class="item">
-        <a href="${pageContext.request.contextPath}/user_profile/show">Name Surname </a> 
+        <a href="${pageContext.request.contextPath}/userProfile/show">${loggedUser.fullName}</a> 
         <div class="menu">
-          <a class="item" href="#">Profile</a>
-          <a class="item" href="#">Log Out</a>
+          <a class="item" href="${pageContext.request.contextPath}/userProfile/show">Pagina Profilo</a> 
+          <a class="item" href="${pageContext.request.contextPath}/sign_out">Log Out</a>
         </div>
-      </div>
+        </div>
 
       <!-- Owner User -->
       <div class="item">
-        <a href="${pageContext.request.contextPath}/user_profile/show">My Restaurant(s)</a>
+        <a href="${pageContext.request.contextPath}/userProfile/show">I Miei Ristoranti</a>
       </div>
-      <c:if test="${loggedUser == null}" >
-                
+      
       <!-- Anonymous User -->
+      <c:if test="${loggedUser == null}" >                     
       <div class="item">
         <a class="ui basic button right" href="${pageContext.request.contextPath}/sign_up">Registrati</a>
       </div>
