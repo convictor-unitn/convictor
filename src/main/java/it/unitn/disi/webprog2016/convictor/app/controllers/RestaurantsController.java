@@ -5,8 +5,11 @@
  */
 package it.unitn.disi.webprog2016.convictor.app.controllers;
 
+import it.unitn.disi.webprog2016.convictor.app.beans.ListReview;
 import it.unitn.disi.webprog2016.convictor.app.beans.Restaurant;
+import it.unitn.disi.webprog2016.convictor.app.beans.Review;
 import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.RestaurantDAO;
+import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.ReviewDAO;
 import it.unitn.disi.webprog2016.convictor.framework.controllers.AbstractController;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -51,16 +54,31 @@ public class RestaurantsController extends AbstractController {
     public String show(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         
         int id = Integer.parseInt(request.getParameter("id"));
+        int reviewPage = 0;
+        
+        if (request.getParameter("reviewPage") != null) {
+            reviewPage = Integer.parseInt(request.getParameter("reviewPage"));
+        }
+        
         RestaurantDAO restaurantDAO = (RestaurantDAO) request.getServletContext().getAttribute("restaurantdao");
+        ReviewDAO reviewDAO = (ReviewDAO) request.getServletContext().getAttribute("reviewdao");
         try {
             Restaurant tmp = restaurantDAO.getRestaurantById(id);
+            ListReview tmp2 = new ListReview();
+            tmp2.setList(reviewDAO.getRestaurantReviews(id, reviewPage));
+            
             if (tmp != null) {
                 request.setAttribute("restaurant", tmp);
-                return "/restaurants/show";
             } else {
                 response.sendError(404);
                 return "";
             }
+            
+            if (tmp2 != null) {
+                request.setAttribute("restaurantReview", tmp2);
+            }
+            return "/restaurants/show";
+            
         } catch (SQLException ex) {
             Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, ex);
             response.sendError(500);

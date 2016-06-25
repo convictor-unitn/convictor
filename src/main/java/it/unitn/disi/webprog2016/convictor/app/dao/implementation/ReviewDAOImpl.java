@@ -26,16 +26,19 @@ public class ReviewDAOImpl extends DatabaseDAO implements ReviewDAO {
     }
 
     @Override
-    public List<Review> getRestaurantReviews(int restaurant_id) throws SQLException {
+    public List<Review> getRestaurantReviews(int restaurant_id, int offset) throws SQLException {
+        
         List<Review> reviews = new ArrayList<>();
-        String query = "SELECT * FROM review WHERE restaurant_id = ?";
+        String query = "SELECT * FROM reviews WHERE restaurant_id = ? LIMIT 10 OFFSET ?";
         PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
         try {
-            stm.setInt(0, restaurant_id);
+            stm.setInt(1, restaurant_id);
+            stm.setInt(2, offset);
             ResultSet reviewSet = stm.executeQuery();
             try {
                 while (reviewSet.next()) {                    
                     Review tmp = new Review();
+                    tmp.setId(reviewSet.getInt("id"));
                     tmp.setRestaurantId(reviewSet.getString("restaurant_id"));
                     tmp.setRegisteredUserId(reviewSet.getString("registered_user_id"));
                     tmp.setRating(reviewSet.getString("rating"));
@@ -57,13 +60,13 @@ public class ReviewDAOImpl extends DatabaseDAO implements ReviewDAO {
         // Check if valid
         if (!review.validate()) return;
         
-        String query = "INSERT INTO review (registered_user_id, restaurant_id, description, rating) VALUES(?, ?, ?, ?)";
+        String query = "INSERT INTO reviews (registered_user_id, restaurant_id, description, rating) VALUES(?, ?, ?, ?)";
         PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
         try {
-            stm.setInt(0, review.getRegisteredUserId());
-            stm.setInt(1, review.getRestaurantId());
-            stm.setString(2, review.getDescription());
-            stm.setInt(3, review.getRating());
+            stm.setInt(1, review.getRegisteredUserId());
+            stm.setInt(2, review.getRestaurantId());
+            stm.setString(3, review.getDescription());
+            stm.setInt(4, review.getRating());
             stm.executeQuery();
         } finally {
             stm.close();

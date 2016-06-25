@@ -8,7 +8,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="l" tagdir="/WEB-INF/tags/layouts/" %>
 <jsp:useBean id="restaurant" scope="request" class="it.unitn.disi.webprog2016.convictor.app.beans.Restaurant" />
-
+<jsp:useBean id="restaurantReview" scope="request" class="it.unitn.disi.webprog2016.convictor.app.beans.ListReview" />
 <l:main>
     <jsp:attribute name="title"> ${restaurant.name} </jsp:attribute>
 	
@@ -205,22 +205,32 @@
                 <div class="column">
 
                   <!-- Reviews List -->
-                  <div class="ui comments">
-                    <div class="comment">
-                      <a class="avatar">
-                        <img src="/images/avatar/small/stevie.jpg">
-                      </a>
-                      <div class="content">
-                        <a class="author">Stevie Feliciano</a>
-                        <div class="metadata">
-                          <div class="date">2 days ago</div>
-                          <div class="rating">
-                            <i class="star icon"></i>
-                            5 Faves
-                          </div>
-                        </div>
+                    <c:forEach var="review" items="${restaurantReview.list}">
+                        <div class="comment">
+                            <a class="avatar">
+                                <img src="/images/avatar/small/stevie.jpg">
+                            </a>
+                        <div class="content">
+                            <a class="author">Mario Rossi</a>
+                            <div class="metadata">
+                                <div class="date">2 days ago</div>
+                                <div class="rating">
+                                    <c:forEach var="i" begin="0" end="${review.rating}" step="1">
+                                        <c:if test="${i!=0}">
+                                            <div class="item">
+                                                <i class="heart icon"> </i>
+                                            </div>
+                                        </c:if>
+                                    </c:forEach>
+                                    <c:forEach begin="${restaurant.rating}" end="4" step="1">
+                                        <div class="item">
+                                            <i class="empty heart icon"> </i>
+                                        </div>
+                                    </c:forEach>
+                                </div>
+                            </div>
                         <div class="text">
-                          Hey guys, I hope this example comment is helping you read this documentation.
+                          ${review.description}
                         </div>
                         <div class="actions">
                           <a class="reply">Reply</a>
@@ -235,67 +245,7 @@
                         </form>
                       </div>
                     </div>
-
-                    <div class="comment">
-                      <a class="avatar">
-                        <img src="/images/avatar/small/stevie.jpg">
-                      </a>
-                      <div class="content">
-                        <a class="author">Mario Rossi</a>
-                        <div class="metadata">
-                          <div class="date">2 days ago</div>
-                          <div class="rating">
-                            <i class="star icon"></i>
-                            1 Faves
-                          </div>
-                        </div>
-                        <div class="text">
-                          Hey guys, this place sucks
-                        </div>
-                        <div class="actions">
-                          <a class="reply">Reply</a>
-                        </div>
-                        <form class="ui reply form">
-                          <div class="field">
-                            <textarea></textarea>
-                          </div>
-                          <div class="ui basic submit labeled icon button">
-                            <i class="icon edit"></i> Add Reply
-                          </div>
-                        </form>
-                      </div>
-                    </div>
-                    <div class="comment">
-                      <a class="avatar">
-                        <img src="/images/avatar/small/stevie.jpg">
-                      </a>
-                      <div class="content">
-                        <a class="author">Luca Bianchi</a>
-                        <div class="metadata">
-                          <div class="date">2 days ago</div>
-                          <div class="rating">
-                            <i class="star icon"></i>
-                            2 Faves
-                          </div>
-                        </div>
-                        <div class="text">
-                          Brilliant Rest
-                        </div>
-                        <div class="actions">
-                          <a class="reply">Reply</a>
-                        </div>
-                        <form class="ui reply form">
-                          <div class="field">
-                            <textarea></textarea>
-                          </div>
-                          <div class="ui basic submit labeled icon button">
-                            <i class="icon edit"></i> Add Reply
-                          </div>
-                        </form>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                    </c:forEach>
                 <!-- End Reviews List -->
               </div>
 
