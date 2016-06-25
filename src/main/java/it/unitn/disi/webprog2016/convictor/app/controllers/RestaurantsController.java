@@ -183,10 +183,12 @@ public class RestaurantsController extends AbstractController {
         String[] cusines = request.getParameterValues("cusines");
         List<Cusine> list = new ArrayList<>();
         
-        for(int i=0; i< cusines.length; i++) {
-            Cusine tmpCusine = new Cusine();
-            tmpCusine.setName(cusines[i]);
-            list.add(tmpCusine);
+        if (cusines != null) {
+            for(int i=0; i< cusines.length; i++) {
+                Cusine tmpCusine = new Cusine();
+                tmpCusine.setName(cusines[i]);
+                list.add(tmpCusine);
+            }
         }
         
         tmp.setCusine(list);
