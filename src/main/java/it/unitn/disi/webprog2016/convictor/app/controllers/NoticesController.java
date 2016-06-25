@@ -7,6 +7,8 @@ package it.unitn.disi.webprog2016.convictor.app.controllers;
 
 import it.unitn.disi.webprog2016.convictor.framework.controllers.AbstractController;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,6 +20,24 @@ import javax.servlet.http.HttpServletResponse;
 public class NoticesController extends AbstractController {
 	
 	public String setApproval(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try {
+			Class noticeClass = Class.forName("it.unitn.disi.webprog2016.convictor.app.beans.", true, getClass().getClassLoader());
+		
+			switch(noticeClass.getName()) {
+				case "PhotoRemovalNotice":
+					
+					break;
+				case "OwnershipNotice":
+					
+					break;
+				default:
+					response.sendError(500);
+					return "";
+			}
+			
+		} catch (ClassNotFoundException ex) {
+			Logger.getLogger(NoticesController.class.getName()).log(Level.SEVERE, null, ex);
+		}
 		return "/landingPage";
 	}
 	

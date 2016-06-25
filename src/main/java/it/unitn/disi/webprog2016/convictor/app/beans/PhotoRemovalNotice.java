@@ -15,6 +15,8 @@ public class PhotoRemovalNotice extends AbstractBean implements Notice, Approvab
     private int registeredUserId;
     private int photoId;
 	private boolean approved;
+	private User registeredUser;
+	private Photo photo;
 
     /**
      * @return the registeredUserId
@@ -110,5 +112,21 @@ public class PhotoRemovalNotice extends AbstractBean implements Notice, Approvab
         }
         return status;
     }
+	
+	public User getRegisteredUser() {
+		return registeredUser;
+	}
+
+	public void setRegisteredUser(User registeredUser) {
+		this.registeredUser = registeredUser;
+	}
+
+	public Photo getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(Photo photo) {
+		this.photo = photo;
+	}
     
 }

@@ -12,7 +12,7 @@
 <%@attribute name="title" required="true" %>
 <%@attribute name="body" required="true" fragment="true" %>
 <c:set var="context" value="${pageContext.request.contextPath}" />
-
+<c:set var="user" value="${sessionScope.user}" />
 
 <!DOCTYPE html>
 <html>
@@ -32,7 +32,9 @@
             <title>${title}</title>
 	</head>
 	<body>
-            <partials:topNavbar />
+            <c:if test="${user != null}" >
+                <partials:topNavbar />
+            </c:if>
             <jsp:invoke fragment="body" />
             <script type="text/javascript" src="${context}/js/jquery-2.2.4.js"></script>
             <script type="text/javascript" src="${context}/js/semantic.js"></script>

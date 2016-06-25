@@ -2,12 +2,19 @@
     Document   : index
     Created on : May 15, 2016, 10:32:00 AM
     Author     : Federica Balliana
+
+    Variabili che arrivano dal controller
+    - user (già settata con c:set da requestScope)
+    - user.notices (riferirsi alla interfaccia Notice dei beans)
+
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8" session="false" %>
-<%@taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
+<%@page contentType="text/html" pageEncoding="UTF-8" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="l" tagdir="/WEB-INF/tags/layouts/" %>
 <%@taglib prefix="partials" tagdir="/WEB-INF/tags/partials/" %>
+
+<c:set var="user" scope="request" value="${requestScope.user}" />
 
 <l:main>
 	
@@ -27,7 +34,7 @@
                 <div class="text"> Email: </div> 
                 <div class="ui segment"> Email </div>
                 </br>
-                <button class="fluid basic black ui button">Modifica le informazioni del profilo</button>
+                <a href="${pageContext.request.contextPath}/userProfile/edit" class="fluid basic black ui button">Modifica le informazioni del profilo</a>
             </div>
             <div class="ui divider"></div>
             <partials:admin_notices />

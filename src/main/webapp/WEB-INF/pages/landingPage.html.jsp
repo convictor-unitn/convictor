@@ -4,10 +4,9 @@
     Author     : Federica Balliana
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8" session="false" %>
-<%@taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@taglib prefix="l" tagdir="/WEB-INF/tags/layouts/" %>
-
 <l:main>
 	
 	<jsp:attribute name="title">Landing Page</jsp:attribute>
@@ -15,7 +14,7 @@
 	<jsp:attribute name="body">
 
            <div class="ui vertical masthead center aligned segment">
-
+               <c:if test="${sessionScope.user == null}" >
                 <div class="ui container">
                   <div class="ui menu" style="background-color:rgba(256,256,256,0.4)">   
                     <div class="right item">
@@ -24,8 +23,7 @@
                     </div> 
                   </div>
                 </div>
-
-
+                </c:if>
                 <div class="ui text container">
                   <h1 class="ui header">
                     <img class="ui small middle aligned circular image" src="logo.png">
