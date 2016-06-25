@@ -29,7 +29,7 @@
                         Modifica Ristorante
                       </div>
                     </h2>
-                    <form class="ui large form" method="POST" action="${pageContext.servletContext.contextPath}/restaurants/update">
+                    <form class="ui large form" method="POST" action="${pageContext.servletContext.contextPath}/restaurants/update?id=${restaurant.id}">
                       <div class="ui tertiary segment">
 
                         <!-- Personal Infos -->
@@ -76,7 +76,7 @@
                           <label>Tipologia Piatti</label>
                           <div class="ui divider"></div>
                           <div class="field">
-                            <select multiple="" class="ui dropdown">
+                            <select multiple="" class="ui dropdown" name="cusines">
                               <option value="">Seleziona Cucine</option>
                               <option value="CI">Cinese</option>
                               <option value="JP">Giapponese</option>
@@ -529,6 +529,7 @@
                           <div class="ui divider"></div>
                           <div class="field">
                               <textarea rows="2" placeholder="Aggiungi breve descrizione" value="${restaurant.description}">
+                                ${restaurant.description}
                               </textarea>
                           </div>
                         </div>
