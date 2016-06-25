@@ -32,9 +32,7 @@
             <title>${title}</title>
 	</head>
 	<body>
-            <c:if test="${user != null}" >
-                <partials:topNavbar />
-            </c:if>
+            <partials:topNavbar />
             <c:if test="${user.valid == false }">
                 <partials:formerrors/>
             </c:if>  
