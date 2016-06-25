@@ -29,7 +29,8 @@ public class ReviewDAOImpl extends DatabaseDAO implements ReviewDAO {
     public List<Review> getRestaurantReviews(int restaurant_id, int offset) throws SQLException {
         
         List<Review> reviews = new ArrayList<>();
-        String query = "SELECT * FROM reviews WHERE restaurant_id = ? LIMIT 10 OFFSET ?";
+        //String query = "SELECT * FROM reviews WHERE restaurant_id = ? LIMIT 10 OFFSET ?";
+        String query = "select reviews.id, restaurant_id, registered_user_id, rating, description, users.name, users.surname  from reviews inner join users on users.id = registered_user_id where reviews.restaurant_id = ? LIMIT 10 OFFSET ?";
         PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
         try {
             stm.setInt(1, restaurant_id);
@@ -41,6 +42,10 @@ public class ReviewDAOImpl extends DatabaseDAO implements ReviewDAO {
                     tmp.setId(reviewSet.getInt("id"));
                     tmp.setRestaurantId(reviewSet.getString("restaurant_id"));
                     tmp.setRegisteredUserId(reviewSet.getString("registered_user_id"));
+                    tmp.setRegisteredUserName(
+                            reviewSet.getString("name")+ " "+
+                            reviewSet.getString("surname")
+                    );
                     tmp.setRating(reviewSet.getString("rating"));
                     tmp.setDescription(reviewSet.getString("description"));
                     reviews.add(tmp);

@@ -203,7 +203,7 @@
             <div class="ui grid">
               <div class="row">
                 <div class="column">
-
+                    <div class="ui comments">
                   <!-- Reviews List -->
                     <c:forEach var="review" items="${restaurantReview.list}">
                         <div class="comment">
@@ -211,7 +211,7 @@
                                 <img src="/images/avatar/small/stevie.jpg">
                             </a>
                         <div class="content">
-                            <a class="author">Mario Rossi</a>
+                            <a class="author">${review.registeredUserName}</a>
                             <div class="metadata">
                                 <div class="date">2 days ago</div>
                                 <div class="rating">
@@ -246,6 +246,7 @@
                       </div>
                     </div>
                     </c:forEach>
+                    </div>
                 <!-- End Reviews List -->
               </div>
 
