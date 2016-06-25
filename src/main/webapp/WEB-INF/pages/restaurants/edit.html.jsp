@@ -5,9 +5,12 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
+<%@page import="it.unitn.disi.webprog2016.convictor.app.beans.*" %>
+
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="l" tagdir="/WEB-INF/tags/layouts/" %>
-<jsp:useBean id="restaurant" scope="request" class="it.unitn.disi.webprog2016.convictor.app.beans.Restaurant"/>
+
+<c:set var="restaurant" scope="request" value="${requestScope.Restaurant}" />
 <l:main>
 	
 	<jsp:attribute name="title">Modifica Ristorante</jsp:attribute>
@@ -144,7 +147,7 @@
                           <div class="field">
                               <div class="ui checkbox">
                                   <input type="checkbox" tabindex="0" class="hidden">
-                                  <label>Checkbox</label>
+                                  <label>Seleziona come giorno di chiusura</label>
                                 </div>
                           </div>
                           </div>
@@ -207,7 +210,7 @@
                           <div class="field">
                             <div class="ui checkbox">
                               <input type="checkbox" tabindex="0" class="hidden">
-                              <label>Checkbox</label>
+                              <label>Seleziona come giorno di chiusura</label>
                             </div>
                           </div>
                           </div>
@@ -267,7 +270,7 @@
                           <div class="field">
                             <div class="ui checkbox">
                               <input type="checkbox" tabindex="0" class="hidden">
-                              <label>Checkbox</label>
+                              <label>Seleziona come giorno di chiusura</label>
                             </div>
                           </div>
                           </div>
@@ -327,7 +330,7 @@
                           <div class="field">
                             <div class="ui checkbox">
                               <input type="checkbox" tabindex="0" class="hidden">
-                              <label>Checkbox</label>
+                              <label>Seleziona come giorno di chiusura</label>
                             </div>
                           </div>
                           </div>
@@ -387,7 +390,7 @@
                           <div class="field">
                             <div class="ui checkbox">
                               <input type="checkbox" tabindex="0" class="hidden">
-                              <label>Checkbox</label>
+                              <label>Seleziona come giorno di chiusura</label>
                             </div>
                           </div>
                           </div>
@@ -447,7 +450,7 @@
                           <div class="field">
                             <div class="ui checkbox">
                               <input type="checkbox" tabindex="0" class="hidden">
-                              <label>Checkbox</label>
+                              <label>Seleziona come giorno di chiusura</label>
                             </div>
                           </div>
                           </div>
@@ -507,7 +510,7 @@
                           <div class="field">
                             <div class="ui checkbox">
                               <input type="checkbox" tabindex="0" class="hidden">
-                              <label>Checkbox</label>
+                              <label>Seleziona come giorno di chiusura</label>
                             </div>
                           </div>
                           </div>

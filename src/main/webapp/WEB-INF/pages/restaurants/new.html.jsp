@@ -143,7 +143,7 @@
                           <div class="field">
                               <div class="ui checkbox">
                                   <input type="checkbox" tabindex="0" class="hidden">
-                                  <label>Checkbox</label>
+                                  <label>Seleziona come giorno di chiusura</label>
                                 </div>
                           </div>
                           </div>
@@ -206,7 +206,7 @@
                           <div class="field">
                             <div class="ui checkbox">
                               <input type="checkbox" tabindex="0" class="hidden">
-                              <label>Checkbox</label>
+                              <label>Seleziona come giorno di chiusura</label>
                             </div>
                           </div>
                           </div>
@@ -266,7 +266,7 @@
                           <div class="field">
                             <div class="ui checkbox">
                               <input type="checkbox" tabindex="0" class="hidden">
-                              <label>Checkbox</label>
+                              <label>Seleziona come giorno di chiusura</label>
                             </div>
                           </div>
                           </div>
@@ -326,7 +326,7 @@
                           <div class="field">
                             <div class="ui checkbox">
                               <input type="checkbox" tabindex="0" class="hidden">
-                              <label>Checkbox</label>
+                              <label>Seleziona come giorno di chiusura</label>
                             </div>
                           </div>
                           </div>
@@ -386,7 +386,7 @@
                           <div class="field">
                             <div class="ui checkbox">
                               <input type="checkbox" tabindex="0" class="hidden">
-                              <label>Checkbox</label>
+                              <label>Seleziona come giorno di chiusura</label>
                             </div>
                           </div>
                           </div>
@@ -446,7 +446,7 @@
                           <div class="field">
                             <div class="ui checkbox">
                               <input type="checkbox" tabindex="0" class="hidden">
-                              <label>Checkbox</label>
+                              <label>Seleziona come giorno di chiusura</label>
                             </div>
                           </div>
                           </div>
@@ -506,7 +506,7 @@
                           <div class="field">
                             <div class="ui checkbox">
                               <input type="checkbox" tabindex="0" class="hidden">
-                              <label>Checkbox</label>
+                              <label>Seleziona come giorno di chiusura</label>
                             </div>
                           </div>
                           </div>

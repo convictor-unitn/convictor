@@ -80,6 +80,10 @@ $(document).ready(function(){
   //New/Edit restaurant day opening checkboxes initializer
   $('.ui.checkbox').checkbox();
   
+  $('.ui.checkbox').toggle(function(){
+     $(this).parent().parent().toggleClass('.disabled'); 
+  });
+  
   $(function () {
     $('#fileupload').fileupload({
       dataType: 'json',
