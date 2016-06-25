@@ -81,7 +81,7 @@
       <!-- Left -->
       <!-- Logo  -->
       <a href="#" class="brand item">
-        <img class="logo" src="assets/images/logo.png">
+        <img class="logo" src="#">
         Logo
       </a>
 
