@@ -109,7 +109,8 @@ public class RestaurantsController extends AbstractController {
         
         String[] cusines = request.getParameterValues("cusines");
         List<Cusine> list = new ArrayList<>();
-        
+       
+        /**
         try {
             for (String name : cusines) {
                 Cusine tmpCusine = ((CusinesRestaurantDAO)request.getServletContext().getAttribute("cusinerestaurantdao")).getCusinebyName(name);
@@ -119,7 +120,7 @@ public class RestaurantsController extends AbstractController {
             Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, e);
             response.sendError(500);
             return "";
-        }
+        }**/
         
         tmp.setCusine(list);        
         
