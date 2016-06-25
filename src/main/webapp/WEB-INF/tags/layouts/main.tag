@@ -4,7 +4,7 @@
     Author     : Giovanni M Riva
 --%>
 
-<%@tag description="put the tag description here" pageEncoding="UTF-8"%>
+<%@tag description="This tag contains the main layout for all pages except for error pages" pageEncoding="UTF-8"%>
 <%@taglib prefix="partials" tagdir="/WEB-INF/tags/partials/" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 

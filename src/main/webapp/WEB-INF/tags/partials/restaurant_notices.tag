@@ -9,6 +9,7 @@
 <div class="ui container">
 
     <div class="ui stackable two column equal width center aligned grid">
+      <!-- My Restaurants list-->
       <div class="stretched column">
         <div class="ui segment">
           <div class="text"> <h2> I miei ristoranti: </h2> </div>
@@ -22,8 +23,11 @@
 
         </div>
       </div>
+      <!-- END My Restaurants list-->
+      
+      <!-- Notifications list-->      
       <div class="stretched column">
-          <div class="center text"> <h2> Notifiche Amministratore </h2> </div>
+          <div class="center text"> <h2> Notifiche Ristoratore </h2> </div>
         </br>
 
         <div class="ui one column center aligned grid">
@@ -63,5 +67,7 @@
             </div>
         </div>
       </div>
+      <!-- END Notifications list-->
+
     </div>
 </div>

@@ -11,6 +11,6 @@
 <l:error>
     
     <jsp:attribute name="errorCode">500</jsp:attribute>
-    <jsp:attribute name="message"> Non hai i permessi di accesso a questa risorsa.</jsp:attribute>
+    <jsp:attribute name="message"> Si e' verificato un errore interno al sistema.</jsp:attribute>
     
 </l:error>
