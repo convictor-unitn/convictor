@@ -37,8 +37,16 @@
                 <a href="${pageContext.request.contextPath}/userProfile/edit" class="fluid basic black ui button">Modifica le informazioni del profilo</a>
             </div>
             <div class="ui divider"></div>
-            <partials:admin_notices />
-            <partials:restaurant_notices />
+            
+            <!--restaurant_owner-->
+            <c:if test="${user.getClass().name == 'it.unitn.disi.webprog2016.convictor.app.beans.RestaurantOwner'}" >
+               <partials:restaurant_notices />
+            </c:if>
+            
+            <!--admin-->           
+            <c:if test="${user.getClass().name == 'it.unitn.disi.webprog2016.convictor.app.beans.Administrator'}" >
+               <partials:admin_notices />
+            </c:if>
 
 	</jsp:attribute>        
 		
