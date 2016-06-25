@@ -83,41 +83,90 @@
 
                           <!-- Opening Hours -->
                           <label>Informazioni Orari</label>
-                          <div class="ui divider"></div>
-                          <div class="two fields">
-                            <div class="field">
-                              <div class="ui left labeled input">
-                                <div class="ui basic label">
-                                  Apertura
-                                </div>
-                                <input type="text" name="openH" placeholder="Ora">
-                                <input type="text" name="openM" placeholder="Minuti">
-                              </div>
-                            </div>
+                          <div class="ui segment">
+                              <div class="ui two column grid">
+                                  <div class="row">
+                                      <div class="column">
+                                          Mattina
+                                      </div>
+                                      <div class="column">
+                                          Pomeriggio
+                                      </div>
+                                  </div>
+                                  <div class="row">
+                                      <div class="sixteen wide column">
+                                      <div class="two fields">
+                                      
+                                      <div class="field">
+                                        <div class="ui left labeled input">
+                                          <div class="ui basic label">
+                                            Apertura
+                                          </div>
+                                          <input type="text" name="openH" placeholder="Ora">
+                                          <input type="text" name="openM" placeholder="Minuti">
+                                        </div>
+                                      </div>
 
-                            <!-- Closing Hours -->
-                            <div class="field">
-                              <div class="ui left labeled input">
-                                <div class="ui basic label">
-                                  Chiusura
-                                </div>
-                                <input type="text" name="closeH" placeholder="Ora">
-                                <input type="text" name="closeM" placeholder="Minuti">
-                              </div>
-                            </div>
-                          </div>
+                                      <div class="field">
+                                        <div class="ui left labeled input">
+                                          <div class="ui basic label">
+                                            Apertura
+                                          </div>
+                                          <input type="text" name="openH" placeholder="Ora">
+                                          <input type="text" name="openM" placeholder="Minuti">
+                                        </div>
+                                      </div>
+                                    </div>
+                                   </div>                                                                            
+                                  </div>
+                                  <div class="row">
+                                      <div class="sixteen wide column">
+                                       <!-- Closing Hours -->
+                                      <div class="two fields">
 
-                          <!-- Days Opening -->
-                          <div class="field">
-                            <select multiple="" class="ui dropdown">
-                              <option value="">Giorni Apertura</option>
-                              <option value="CI">Luned</option>
-                              <option value="JP">Giapponese</option>
-                              <option value="IT">Italiana</option>
-                              <option value="SWE">Svedese</option>
-                            </select>
-                          </div>
-                        </div>
+                                      <div class="field">
+                                        <div class="ui left labeled input">
+                                          <div class="ui basic label">
+                                            Chiusura
+                                          </div>
+                                          <input type="text" name="closeH" placeholder="Ora">
+                                          <input type="text" name="closeM" placeholder="Minuti">
+                                        </div>
+                                      </div>
+
+                                      <div class="field">
+                                        <div class="ui left labeled input">
+                                          <div class="ui basic label">
+                                            Chiusura
+                                          </div>
+                                          <input type="text" name="closeH" placeholder="Ora">
+                                          <input type="text" name="closeM" placeholder="Minuti">
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  </div>
+                                  <div class=" sixteen wide column">
+                                      <div class="field">
+                                      <select multiple="" class="ui dropdown">
+                                        <option value="">Giorni Apertura</option>
+                                        <option value="CI">Luned</option>
+                                        <option value="JP">Giapponese</option>
+                                        <option value="IT">Italiana</option>
+                                        <option value="SWE">Svedese</option>
+                                      </select>
+                                    </div>
+                                  </div>
+                                   <!-- Days Opening -->
+                                    
+                                  </div>                                                      
+                                </div>
+                              </div>
+                              
+                              
+                              
+
+                           
 
                         <!-- Description Field -->
 
