@@ -36,12 +36,9 @@ public class NoticeDAOImpl extends DatabaseDAO implements NoticeDAO {
                 "SELECT * FROM ownership_notices"
             );
         PreparedStatement stm2 = this.getDbManager().getConnection().prepareStatement(
-                "SELECT * FROM photo_removal_notices"
+                "SELECT * FROM photo_remove_notices"
             );
         try {   
-            
-            stm.setInt(1, id);
-            stm2.setInt(1, id);
             ResultSet ownershipSet = stm.executeQuery();
             ResultSet removalSet = stm2.executeQuery();
             

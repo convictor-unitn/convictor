@@ -5,6 +5,7 @@
  */
 package it.unitn.disi.webprog2016.convictor.app.beans;
 import it.unitn.disi.webprog2016.convictor.framework.beans.AbstractBean;
+import java.util.List;
 
 /**
  * Restaurant bean class. 
@@ -26,6 +27,12 @@ public class Restaurant extends AbstractBean {
     private int rating;
     private int mainPhotoId;
     private int restaurantOwnerId;
+	private List<Cusine> cusine;
+	private List<Review> reviews;
+	private List<Notice> notices;
+	private List<OpeningTime> openingTimes;
+	private List<Photo> photos;
+	private RestaurantOwner owner;
 
     
     

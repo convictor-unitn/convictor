@@ -2,12 +2,19 @@
     Document   : index
     Created on : May 15, 2016, 10:32:00 AM
     Author     : Federica Balliana
+
+    Variabili che arrivano dal controller
+    - user (già settata con c:set da requestScope)
+    - user.errors contiene gli errori dei campi
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8" session="false" %>
-<%@taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
+<%@page contentType="text/html" pageEncoding="UTF-8" %>
+<%@page import="it.unitn.disi.webprog2016.convictor.app.beans.*" %>
+
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="l" tagdir="/WEB-INF/tags/layouts/" %>
 
+<c:set var="user" scope="request" value="${requestScope.user}" />
 <l:main>
 	
 	<jsp:attribute name="title">Reimposta Profilo Utente</jsp:attribute>
@@ -21,42 +28,42 @@
                             Reimpostazione profilo utente
                         </div>
                     </h2>
-                    <form class="ui large form">
+                    <form action="${pageContext.request.contextPath}/userProfile/update" method="POST" class="ui large form">
                         <div class="ui stacked segment">
                             <div class="field">
                                 <div class="ui left icon input">
                                     <i class="user icon"></i>
-                                    <input type="text" name="nome" placeholder="Nome">
+                                    <input type="text" name="name" placeholder="Nome" value="${user.name}" />
                                 </div>
                             </div>
                             <div class="field">
                                 <div class="ui left icon input">
                                     <i class="user icon"></i>
-                                    <input type="text" name="cognome" placeholder="Cognome">
+                                    <input type="text" name="surname" placeholder="Cognome" value="${user.surname}" />
                                 </div>
                             </div>
                             <div class="field">
                                 <div class="ui left icon input">
                                     <i class="user icon"></i>
-                                    <input type="text" name="email" placeholder="Email">
+                                    <input type="text" name="email" placeholder="Email" value="${user.email}">
                                 </div>
                             </div>
                             <div class="field">
                                 <div class="ui left icon input">
                                     <i class="lock icon"></i>
-                                    <input type="password" name="password" placeholder="Vecchia password">
+                                    <input type="password" name="oldPassword" placeholder="Vecchia password">
                                 </div>
                             </div>
                             <div class="field">
                                 <div class="ui left icon input">
                                     <i class="lock icon"></i>
-                                    <input type="password" name="nuova_password" placeholder="Nuova password">
+                                    <input type="password" name="password" placeholder="Nuova password">
                                 </div>
                             </div>
                              <div class="field">
                                 <div class="ui left icon input">
                                     <i class="lock icon"></i>
-                                    <input type="password" name="conf_password" placeholder="Conferma password">
+                                    <input type="password" name="passwordConfirmation" placeholder="Conferma password">
                                 </div>
                             </div>
                             <div class="ui text" align="right">
@@ -64,11 +71,11 @@
                         </div>
 
                         </br>
-                        <input id="p_button" class="ui fluid large submit button" type="submit">Modifica</input>
+                        <input id="p_button" class="ui fluid large submit button" type="submit" value="Salva" />
 
                             </br>
 
-                            <div class="ui fluid submit button">Annulla</div>
+                            <a href="javascript:history.back()" class="ui fluid submit button">Annulla</a>
                         </div>
 
 

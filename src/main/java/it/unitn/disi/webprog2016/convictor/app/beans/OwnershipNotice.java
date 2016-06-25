@@ -10,10 +10,13 @@ import it.unitn.disi.webprog2016.convictor.framework.beans.AbstractBean;
  * Ownership Notice bean.
  * @author Giovanni De Toni
  */
-public class OwnershipNotice extends AbstractBean implements Notice {
+public class OwnershipNotice extends AbstractBean implements Notice, Approvable {
     
     private Integer registeredUserId;
     private Integer restaurantId;
+	private boolean approved;
+	private User registeredUser;
+	private Photo photo;
 
     /**
      * @return the registeredUserId
@@ -59,6 +62,14 @@ public class OwnershipNotice extends AbstractBean implements Notice {
         this.restaurantId = Integer.parseInt(restaurantId);
     }
 
+	public boolean isApproved() {
+		return approved;
+	}
+
+	public void setApproved(boolean approved) {
+		this.approved = approved;
+	}
+	
 	@Override
 	public String getDescription() {
 		return "DA IMPLEMENTARE";
@@ -67,6 +78,21 @@ public class OwnershipNotice extends AbstractBean implements Notice {
 	@Override
 	public String getNoticeType() {
 		return this.getClass().toString();
+	}
+
+	@Override
+	public void approve() {
+		this.setApproved(true);
+	}
+
+	@Override
+	public void decline() {
+		this.setApproved(false);
+	}
+
+	@Override
+	public boolean getApproved() {
+		return this.isApproved();
 	}
     
     @Override
@@ -82,6 +108,22 @@ public class OwnershipNotice extends AbstractBean implements Notice {
         }
         return status;
     }
+
+	public User getRegisteredUser() {
+		return registeredUser;
+	}
+
+	public void setRegisteredUser(User registeredUser) {
+		this.registeredUser = registeredUser;
+	}
+
+	public Photo getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(Photo photo) {
+		this.photo = photo;
+	}
     
     
 }

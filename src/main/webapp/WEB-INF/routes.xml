@@ -30,6 +30,20 @@
         <action>show</action>
         <format>html</format>            
     </route>
+    <route>
+        <method>GET</method>
+        <url>/userProfile/edit</url>
+        <controller>UserProfile</controller>
+        <action>edit</action>
+        <format>html</format>            
+    </route>
+    <route>
+        <method>POST</method>
+        <url>/userProfile/update</url>
+        <controller>UserProfile</controller>
+        <action>update</action>
+        <format>html</format>            
+    </route>
     
     <!-- Restaurant routes -->
     <route>
@@ -93,6 +107,13 @@
         <url>/sessions/create</url>
         <controller>Sessions</controller>
         <action>create</action>
+        <format>html</format>            
+    </route>
+    <route>
+        <method>GET</method>
+        <url>/sign_out</url>
+        <controller>Sessions</controller>
+        <action>destroy</action>
         <format>html</format>            
     </route>
     

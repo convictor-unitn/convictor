@@ -14,6 +14,8 @@ public class PhotoNotice extends AbstractBean implements Notice {
     
     private int registeredUserId;
     private int photoId;
+	private User registeredUser;
+	private Photo photo;
 
     /**
      * @return the registeredUserId
@@ -83,4 +85,19 @@ public class PhotoNotice extends AbstractBean implements Notice {
         return status;
     }
     
+	public User getRegisteredUser() {
+		return registeredUser;
+	}
+
+	public void setRegisteredUser(User registeredUser) {
+		this.registeredUser = registeredUser;
+	}
+
+	public Photo getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(Photo photo) {
+		this.photo = photo;
+	}
 }
