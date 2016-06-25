@@ -84,6 +84,38 @@
                           <!-- Opening Hours -->
                           <label>Informazioni Orari</label>
                           <div class="ui divider"></div>
+                         
+                          <div class="ui segment">
+                              <div class="field">
+                                  <div class="ui small label">
+                                      Lunedi'
+                                  </div>
+                              </div>
+                              <div class="field">Mattina</div>
+                          <div class="two fields">
+                            <div class="field">
+                              <div class="ui left labeled input">
+                                <div class="ui basic label">
+                                  Apertura
+                                </div>
+                                <input type="text" name="openH" placeholder="Ora">
+                                <input type="text" name="openM" placeholder="Minuti">
+                              </div>
+                            </div>
+
+                            <!-- Closing Hours -->
+                            <div class="field">
+                              <div class="ui left labeled input">
+                                <div class="ui basic label">
+                                  Chiusura
+                                </div>
+                                <input type="text" name="closeH" placeholder="Ora">
+                                <input type="text" name="closeM" placeholder="Minuti">
+                              </div>
+                            </div>
+                          </div>
+                          
+                          <div class="field">Pomeriggio</div>
                           <div class="two fields">
                             <div class="field">
                               <div class="ui left labeled input">
@@ -117,6 +149,388 @@
                               <option value="SWE">Svedese</option>
                             </select>
                           </div>
+                          </div>
+                          <div class="ui segment">
+                              <div class="field">
+                                  <div class="ui small label">
+                                      Martedi'
+                                  </div>
+                              </div>
+                              <div class="field">Mattina</div>
+                          <div class="two fields">
+                            <div class="field">
+                              <div class="ui left labeled input">
+                                <div class="ui basic label">
+                                  Apertura
+                                </div>
+                                <input type="text" name="openH" placeholder="Ora">
+                                <input type="text" name="openM" placeholder="Minuti">
+                              </div>
+                            </div>
+
+                            <!-- Closing Hours -->
+                            <div class="field">
+                              <div class="ui left labeled input">
+                                <div class="ui basic label">
+                                  Chiusura
+                                </div>
+                                <input type="text" name="closeH" placeholder="Ora">
+                                <input type="text" name="closeM" placeholder="Minuti">
+                              </div>
+                            </div>
+                          </div>
+                          
+                          <div class="field">Pomeriggio</div>
+                          <div class="two fields">
+                            <div class="field">
+                              <div class="ui left labeled input">
+                                <div class="ui basic label">
+                                  Apertura
+                                </div>
+                                <input type="text" name="openH" placeholder="Ora">
+                                <input type="text" name="openM" placeholder="Minuti">
+                              </div>
+                            </div>
+
+                            <!-- Closing Hours -->
+                            <div class="field">
+                              <div class="ui left labeled input">
+                                <div class="ui basic label">
+                                  Chiusura
+                                </div>
+                                <input type="text" name="closeH" placeholder="Ora">
+                                <input type="text" name="closeM" placeholder="Minuti">
+                              </div>
+                            </div>
+                          </div>
+
+                          <!-- Days Opening -->
+                          <div class="field">
+                            <select multiple="" class="ui dropdown">
+                              <option value="">Giorni Apertura</option>
+                              <option value="CI">Luned</option>
+                              <option value="JP">Giapponese</option>
+                              <option value="IT">Italiana</option>
+                              <option value="SWE">Svedese</option>
+                            </select>
+                          </div>
+                          </div>
+                          <div class="ui segment">
+                              <div class="ui small label">
+                                      Mercoledi'
+                                  </div>
+                              <div class="field">Mattina</div>
+                          <div class="two fields">
+                            <div class="field">
+                              <div class="ui left labeled input">
+                                <div class="ui basic label">
+                                  Apertura
+                                </div>
+                                <input type="text" name="openH" placeholder="Ora">
+                                <input type="text" name="openM" placeholder="Minuti">
+                              </div>
+                            </div>
+
+                            <!-- Closing Hours -->
+                            <div class="field">
+                              <div class="ui left labeled input">
+                                <div class="ui basic label">
+                                  Chiusura
+                                </div>
+                                <input type="text" name="closeH" placeholder="Ora">
+                                <input type="text" name="closeM" placeholder="Minuti">
+                              </div>
+                            </div>
+                          </div>
+                          
+                          <div class="field">Pomeriggio</div>
+                          <div class="two fields">
+                            <div class="field">
+                              <div class="ui left labeled input">
+                                <div class="ui basic label">
+                                  Apertura
+                                </div>
+                                <input type="text" name="openH" placeholder="Ora">
+                                <input type="text" name="openM" placeholder="Minuti">
+                              </div>
+                            </div>
+
+                            <!-- Closing Hours -->
+                            <div class="field">
+                              <div class="ui left labeled input">
+                                <div class="ui basic label">
+                                  Chiusura
+                                </div>
+                                <input type="text" name="closeH" placeholder="Ora">
+                                <input type="text" name="closeM" placeholder="Minuti">
+                              </div>
+                            </div>
+                          </div>
+
+                          <!-- Days Opening -->
+                          <div class="field">
+                            <select multiple="" class="ui dropdown">
+                              <option value="">Giorni Apertura</option>
+                              <option value="CI">Luned</option>
+                              <option value="JP">Giapponese</option>
+                              <option value="IT">Italiana</option>
+                              <option value="SWE">Svedese</option>
+                            </select>
+                          </div>
+                          </div>
+                          <div class="ui segment">
+                              <div class="ui small label">
+                                      Giovedi'
+                                  </div>
+                              <div class="field">Mattina</div>
+                          <div class="two fields">
+                            <div class="field">
+                              <div class="ui left labeled input">
+                                <div class="ui basic label">
+                                  Apertura
+                                </div>
+                                <input type="text" name="openH" placeholder="Ora">
+                                <input type="text" name="openM" placeholder="Minuti">
+                              </div>
+                            </div>
+
+                            <!-- Closing Hours -->
+                            <div class="field">
+                              <div class="ui left labeled input">
+                                <div class="ui basic label">
+                                  Chiusura
+                                </div>
+                                <input type="text" name="closeH" placeholder="Ora">
+                                <input type="text" name="closeM" placeholder="Minuti">
+                              </div>
+                            </div>
+                          </div>
+                          
+                          <div class="field">Pomeriggio</div>
+                          <div class="two fields">
+                            <div class="field">
+                              <div class="ui left labeled input">
+                                <div class="ui basic label">
+                                  Apertura
+                                </div>
+                                <input type="text" name="openH" placeholder="Ora">
+                                <input type="text" name="openM" placeholder="Minuti">
+                              </div>
+                            </div>
+
+                            <!-- Closing Hours -->
+                            <div class="field">
+                              <div class="ui left labeled input">
+                                <div class="ui basic label">
+                                  Chiusura
+                                </div>
+                                <input type="text" name="closeH" placeholder="Ora">
+                                <input type="text" name="closeM" placeholder="Minuti">
+                              </div>
+                            </div>
+                          </div>
+
+                          <!-- Days Opening -->
+                          <div class="field">
+                            <select multiple="" class="ui dropdown">
+                              <option value="">Giorni Apertura</option>
+                              <option value="CI">Luned</option>
+                              <option value="JP">Giapponese</option>
+                              <option value="IT">Italiana</option>
+                              <option value="SWE">Svedese</option>
+                            </select>
+                          </div>
+                          </div>
+                          <div class="ui segment">
+                              <div class="ui small label">
+                                      Venerdi'
+                                  </div>
+                              <div class="field">Mattina</div>
+                          <div class="two fields">
+                            <div class="field">
+                              <div class="ui left labeled input">
+                                <div class="ui basic label">
+                                  Apertura
+                                </div>
+                                <input type="text" name="openH" placeholder="Ora">
+                                <input type="text" name="openM" placeholder="Minuti">
+                              </div>
+                            </div>
+
+                            <!-- Closing Hours -->
+                            <div class="field">
+                              <div class="ui left labeled input">
+                                <div class="ui basic label">
+                                  Chiusura
+                                </div>
+                                <input type="text" name="closeH" placeholder="Ora">
+                                <input type="text" name="closeM" placeholder="Minuti">
+                              </div>
+                            </div>
+                          </div>
+                          
+                          <div class="field">Pomeriggio</div>
+                          <div class="two fields">
+                            <div class="field">
+                              <div class="ui left labeled input">
+                                <div class="ui basic label">
+                                  Apertura
+                                </div>
+                                <input type="text" name="openH" placeholder="Ora">
+                                <input type="text" name="openM" placeholder="Minuti">
+                              </div>
+                            </div>
+
+                            <!-- Closing Hours -->
+                            <div class="field">
+                              <div class="ui left labeled input">
+                                <div class="ui basic label">
+                                  Chiusura
+                                </div>
+                                <input type="text" name="closeH" placeholder="Ora">
+                                <input type="text" name="closeM" placeholder="Minuti">
+                              </div>
+                            </div>
+                          </div>
+
+                          <!-- Days Opening -->
+                          <div class="field">
+                            <select multiple="" class="ui dropdown">
+                              <option value="">Giorni Apertura</option>
+                              <option value="CI">Luned</option>
+                              <option value="JP">Giapponese</option>
+                              <option value="IT">Italiana</option>
+                              <option value="SWE">Svedese</option>
+                            </select>
+                          </div>
+                          </div>
+                          <div class="ui segment">
+                              <div class="ui small label">
+                                      Sabato
+                                  </div>
+                              <div class="field">Mattina</div>
+                          <div class="two fields">
+                            <div class="field">
+                              <div class="ui left labeled input">
+                                <div class="ui basic label">
+                                  Apertura
+                                </div>
+                                <input type="text" name="openH" placeholder="Ora">
+                                <input type="text" name="openM" placeholder="Minuti">
+                              </div>
+                            </div>
+
+                            <!-- Closing Hours -->
+                            <div class="field">
+                              <div class="ui left labeled input">
+                                <div class="ui basic label">
+                                  Chiusura
+                                </div>
+                                <input type="text" name="closeH" placeholder="Ora">
+                                <input type="text" name="closeM" placeholder="Minuti">
+                              </div>
+                            </div>
+                          </div>
+                          
+                          <div class="field">Pomeriggio</div>
+                          <div class="two fields">
+                            <div class="field">
+                              <div class="ui left labeled input">
+                                <div class="ui basic label">
+                                  Apertura
+                                </div>
+                                <input type="text" name="openH" placeholder="Ora">
+                                <input type="text" name="openM" placeholder="Minuti">
+                              </div>
+                            </div>
+
+                            <!-- Closing Hours -->
+                            <div class="field">
+                              <div class="ui left labeled input">
+                                <div class="ui basic label">
+                                  Chiusura
+                                </div>
+                                <input type="text" name="closeH" placeholder="Ora">
+                                <input type="text" name="closeM" placeholder="Minuti">
+                              </div>
+                            </div>
+                          </div>
+
+                          <!-- Days Opening -->
+                          <div class="field">
+                            <select multiple="" class="ui dropdown">
+                              <option value="">Giorni Apertura</option>
+                              <option value="CI">Luned</option>
+                              <option value="JP">Giapponese</option>
+                              <option value="IT">Italiana</option>
+                              <option value="SWE">Svedese</option>
+                            </select>
+                          </div>
+                          </div>
+                          <div class="ui segment">
+                              <div class="ui small label">
+                                      Domenica
+                                  </div>
+                              <div class="field">Mattina</div>
+                          <div class="two fields">
+                            <div class="field">
+                              <div class="ui left labeled input">
+                                <div class="ui basic label">
+                                  Apertura
+                                </div>
+                                <input type="text" name="openH" placeholder="Ora">
+                                <input type="text" name="openM" placeholder="Minuti">
+                              </div>
+                            </div>
+
+                            <!-- Closing Hours -->
+                            <div class="field">
+                              <div class="ui left labeled input">
+                                <div class="ui basic label">
+                                  Chiusura
+                                </div>
+                                <input type="text" name="closeH" placeholder="Ora">
+                                <input type="text" name="closeM" placeholder="Minuti">
+                              </div>
+                            </div>
+                          </div>
+                          
+                          <div class="field">Pomeriggio</div>
+                          <div class="two fields">
+                            <div class="field">
+                              <div class="ui left labeled input">
+                                <div class="ui basic label">
+                                  Apertura
+                                </div>
+                                <input type="text" name="openH" placeholder="Ora">
+                                <input type="text" name="openM" placeholder="Minuti">
+                              </div>
+                            </div>
+
+                            <!-- Closing Hours -->
+                            <div class="field">
+                              <div class="ui left labeled input">
+                                <div class="ui basic label">
+                                  Chiusura
+                                </div>
+                                <input type="text" name="closeH" placeholder="Ora">
+                                <input type="text" name="closeM" placeholder="Minuti">
+                              </div>
+                            </div>
+                          </div>
+
+                          <!-- Days Opening -->
+                          <div class="field">
+                            <select multiple="" class="ui dropdown">
+                              <option value="">Giorni Apertura</option>
+                              <option value="CI">Luned</option>
+                              <option value="JP">Giapponese</option>
+                              <option value="IT">Italiana</option>
+                              <option value="SWE">Svedese</option>
+                            </select>
+                          </div>
+                          </div>
+                          
                         </div>
 
                         <!-- Description Field -->
