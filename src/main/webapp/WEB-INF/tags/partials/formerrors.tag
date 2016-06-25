@@ -11,15 +11,19 @@
 <jsp:useBean id="restaurant" scope="request" class="it.unitn.disi.webprog2016.convictor.app.beans.Restaurant" />
 <c:set var="restaurant" value="${requestScope.Restaurant}" />
 
-<c:forEach var="error" items="${restaurant.errors}" > 
-    <div class="ui error message">
-        <div class="header">Ci sono degli errori</div>
-        <div class="ui list">
-            <div class="item">
-                ${error}
+    <div class="row">
+        <div class="sixteen wide column">
+            <div class="ui error message">
+                <div class="header">Ci sono degli errori</div>
+                <div class="ui list">
+                    <c:forEach var="error" items="${restaurant.errors}" > 
+                    <div class="item">
+                        ${error}
+                    </div>
+                    </c:forEach>
+                </div>    
             </div>
-        </div>    
-    </div>
-</c:forEach>
+        </div>
+    </div>    
     
 

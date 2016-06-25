@@ -8,6 +8,9 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="l" tagdir="/WEB-INF/tags/layouts/" %>
 
+
+<jsp:useBean id="user" scope="session" class="it.unitn.disi.webprog2016.convictor.app.beans.User"/>
+
 <l:main>
 	
 	<jsp:attribute name="title">Nuovo Utente</jsp:attribute>
@@ -21,18 +24,18 @@
                             Crea un nuovo account
                         </div>
                     </h2>
-                    <form class="ui large form">
+                    <form class="ui large form" method="POST" action="${pageContext.servletContext.contextPath}/registrations/create">
                         <div class="ui stacked segment">
                             <div class="field">
                                 <div class="ui left icon input">
                                     <i class="user icon"></i>
-                                    <input type="text" name="nome" placeholder="Nome">
+                                    <input type="text" name="name" placeholder="Nome">
                                 </div>
                             </div>
                             <div class="field">
                                 <div class="ui left icon input">
                                     <i class="user icon"></i>
-                                    <input type="text" name="cognome" placeholder="Cognome">
+                                    <input type="text" name="surname" placeholder="Cognome">
                                 </div>
                             </div>
                             <div class="field">
@@ -50,7 +53,7 @@
                             <div class="field">
                                 <div class="ui left icon input">
                                     <i class="lock icon"></i>
-                                    <input type="password" name="conf_password" placeholder="Conferma password">
+                                    <input type="password" name="passwordConfirmation" placeholder="Conferma password">
                                 </div>
                             </div>
 

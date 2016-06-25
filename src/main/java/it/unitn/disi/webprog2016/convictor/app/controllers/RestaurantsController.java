@@ -204,7 +204,7 @@ public class RestaurantsController extends AbstractController {
             response.sendError(500);
             return "";
         }
-        
+        System.out.println("not VALID");
         return "/restaurants/edit";
 	}
 }

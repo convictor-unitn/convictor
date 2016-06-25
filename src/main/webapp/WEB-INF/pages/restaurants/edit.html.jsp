@@ -528,9 +528,7 @@
                           <label>Descrizione</label>
                           <div class="ui divider"></div>
                           <div class="field">
-                              <textarea rows="2" placeholder="Aggiungi breve descrizione" value="${restaurant.description}">
-                                ${restaurant.description}
-                              </textarea>
+                              <input type="text" name="description" rows="2" placeholder="Aggiungi breve descrizione" value="${restaurant.description}"/>
                           </div>
                         </div>
 

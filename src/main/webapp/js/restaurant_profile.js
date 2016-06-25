@@ -81,6 +81,7 @@ $(document).ready(function(){
   $('.ui.checkbox').checkbox();
   
   $('.ui.checkbox').toggle(function(){
+      alert("hello");
      $(this).parent().parent().toggleClass('.disabled'); 
   });
   
