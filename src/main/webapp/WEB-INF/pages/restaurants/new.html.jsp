@@ -141,15 +141,13 @@
 
                           <!-- Days Opening -->
                           <div class="field">
-                            <select multiple="" class="ui dropdown">
-                              <option value="">Giorni Apertura</option>
-                              <option value="CI">Luned</option>
-                              <option value="JP">Giapponese</option>
-                              <option value="IT">Italiana</option>
-                              <option value="SWE">Svedese</option>
-                            </select>
+                              <div class="ui checkbox">
+                                  <input type="checkbox" tabindex="0" class="hidden">
+                                  <label>Checkbox</label>
+                                </div>
                           </div>
                           </div>
+                          
                           <div class="ui segment">
                               <div class="field">
                                   <div class="ui small label">
@@ -206,13 +204,10 @@
 
                           <!-- Days Opening -->
                           <div class="field">
-                            <select multiple="" class="ui dropdown">
-                              <option value="">Giorni Apertura</option>
-                              <option value="CI">Luned</option>
-                              <option value="JP">Giapponese</option>
-                              <option value="IT">Italiana</option>
-                              <option value="SWE">Svedese</option>
-                            </select>
+                            <div class="ui checkbox">
+                              <input type="checkbox" tabindex="0" class="hidden">
+                              <label>Checkbox</label>
+                            </div>
                           </div>
                           </div>
                           <div class="ui segment">
@@ -269,13 +264,10 @@
 
                           <!-- Days Opening -->
                           <div class="field">
-                            <select multiple="" class="ui dropdown">
-                              <option value="">Giorni Apertura</option>
-                              <option value="CI">Luned</option>
-                              <option value="JP">Giapponese</option>
-                              <option value="IT">Italiana</option>
-                              <option value="SWE">Svedese</option>
-                            </select>
+                            <div class="ui checkbox">
+                              <input type="checkbox" tabindex="0" class="hidden">
+                              <label>Checkbox</label>
+                            </div>
                           </div>
                           </div>
                           <div class="ui segment">
@@ -332,13 +324,10 @@
 
                           <!-- Days Opening -->
                           <div class="field">
-                            <select multiple="" class="ui dropdown">
-                              <option value="">Giorni Apertura</option>
-                              <option value="CI">Luned</option>
-                              <option value="JP">Giapponese</option>
-                              <option value="IT">Italiana</option>
-                              <option value="SWE">Svedese</option>
-                            </select>
+                            <div class="ui checkbox">
+                              <input type="checkbox" tabindex="0" class="hidden">
+                              <label>Checkbox</label>
+                            </div>
                           </div>
                           </div>
                           <div class="ui segment">
@@ -395,13 +384,10 @@
 
                           <!-- Days Opening -->
                           <div class="field">
-                            <select multiple="" class="ui dropdown">
-                              <option value="">Giorni Apertura</option>
-                              <option value="CI">Luned</option>
-                              <option value="JP">Giapponese</option>
-                              <option value="IT">Italiana</option>
-                              <option value="SWE">Svedese</option>
-                            </select>
+                            <div class="ui checkbox">
+                              <input type="checkbox" tabindex="0" class="hidden">
+                              <label>Checkbox</label>
+                            </div>
                           </div>
                           </div>
                           <div class="ui segment">
@@ -458,13 +444,10 @@
 
                           <!-- Days Opening -->
                           <div class="field">
-                            <select multiple="" class="ui dropdown">
-                              <option value="">Giorni Apertura</option>
-                              <option value="CI">Luned</option>
-                              <option value="JP">Giapponese</option>
-                              <option value="IT">Italiana</option>
-                              <option value="SWE">Svedese</option>
-                            </select>
+                            <div class="ui checkbox">
+                              <input type="checkbox" tabindex="0" class="hidden">
+                              <label>Checkbox</label>
+                            </div>
                           </div>
                           </div>
                           <div class="ui segment">
@@ -521,13 +504,10 @@
 
                           <!-- Days Opening -->
                           <div class="field">
-                            <select multiple="" class="ui dropdown">
-                              <option value="">Giorni Apertura</option>
-                              <option value="CI">Luned</option>
-                              <option value="JP">Giapponese</option>
-                              <option value="IT">Italiana</option>
-                              <option value="SWE">Svedese</option>
-                            </select>
+                            <div class="ui checkbox">
+                              <input type="checkbox" tabindex="0" class="hidden">
+                              <label>Checkbox</label>
+                            </div>
                           </div>
                           </div>
                           

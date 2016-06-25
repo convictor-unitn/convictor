@@ -102,7 +102,7 @@
 
 
       <!-- Restaurant Infos -->
-      <div class="ui center aligned six column stackable grid">
+      <div class="ui center aligned five column stackable grid">
         <div class="row">
           <div class="column">
             <div clas="ui grid">
@@ -137,7 +137,7 @@
           </div>
 
           <div class="column">
-            <div clas="ui center aligned grid">
+            <div clas="ui  grid">
               <div class="column">
                 <div class="ui sub header">Orari di apertura</div>
               </div>
@@ -156,24 +156,6 @@
             </div>
           </div>
 
-          <div class="column">
-            <div clas="ui center aligned grid">
-              <div class="column">
-                <div class="ui sub header">Giorno di chiusura</div>
-              </div>
-              <div class="ui divider"></div>
-              <div class="column">
-                <div class="ui list">
-                  <div class="item">
-                    LUN
-                  </div>
-                  <div class="item">
-                    MER
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
         <div class="ui divider"></div>
       </div>
