@@ -12,7 +12,7 @@
 <%@taglib prefix="partials" tagdir="/WEB-INF/tags/partials" %>
 
 
-<c:set var="restaurant" scope="request" value="${requestScope.Restaurant}" />
+<jsp:useBean id="restaurant" scope="request" class="it.unitn.disi.webprog2016.convictor.app.beans.Restaurant"/>
 <l:main>
 	
 	<jsp:attribute name="title">Modifica Ristorante</jsp:attribute>
@@ -21,7 +21,7 @@
             <div class="ui container">
                 <div class="ui middle aligned center aligned grid">
                   <div class="column">
-                      <c:if test="${!restaurant.isvalid()}">
+                      <c:if test="${restaurant.valid == false }">
                         <partials:formerrors/>
                       </c:if>
                     <h2 class="ui header">
@@ -29,7 +29,7 @@
                         Modifica Ristorante
                       </div>
                     </h2>
-                    <form class="ui large form" method="POST" action="${pageContext.servletContext.contextPath}/restaurants/create">
+                    <form class="ui large form" method="POST" action="${pageContext.servletContext.contextPath}/restaurants/update">
                       <div class="ui tertiary segment">
 
                         <!-- Personal Infos -->
