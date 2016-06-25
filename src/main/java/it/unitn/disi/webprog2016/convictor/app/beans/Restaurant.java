@@ -29,8 +29,8 @@ public class Restaurant extends AbstractBean {
     private int restaurantOwnerId;
 	private List<Cusine> cusine;
 	private List<Review> reviews;
+    private List<OpeningTime> openingTimes;
 	private List<Notice> notices;
-	private List<OpeningTime> openingTimes;
 	private List<Photo> photos;
 	private RestaurantOwner owner;
 
@@ -345,6 +345,20 @@ public class Restaurant extends AbstractBean {
      */
     public void setReviews(List<Review> reviews) {
         this.reviews = reviews;
+    }
+
+    /**
+     * @return the openingTimes
+     */
+    public List<OpeningTime> getOpeningTimes() {
+        return openingTimes;
+    }
+
+    /**
+     * @param openingTimes the openingTimes to set
+     */
+    public void setOpeningTimes(List<OpeningTime> openingTimes) {
+        this.openingTimes = openingTimes;
     }
     
     

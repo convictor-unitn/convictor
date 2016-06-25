@@ -8,6 +8,7 @@ package it.unitn.disi.webprog2016.convictor.framework.listeners;
 import it.unitn.disi.webprog2016.convictor.app.beans.Cusine;
 import it.unitn.disi.webprog2016.convictor.app.dao.implementation.CusinesRestaurantDAOImpl;
 import it.unitn.disi.webprog2016.convictor.app.dao.implementation.NoticeDAOImpl;
+import it.unitn.disi.webprog2016.convictor.app.dao.implementation.OpeningTimeDAOImpl;
 import it.unitn.disi.webprog2016.convictor.app.dao.implementation.RestaurantDAOImpl;
 import it.unitn.disi.webprog2016.convictor.app.dao.implementation.ReviewDAOImpl;
 import it.unitn.disi.webprog2016.convictor.app.dao.implementation.UserDAOImpl;
@@ -38,7 +39,8 @@ public class DatabaseListener implements ServletContextListener {
             sce.getServletContext().setAttribute("restaurantdao", new RestaurantDAOImpl(manager));
             sce.getServletContext().setAttribute("noticedao", new NoticeDAOImpl(manager));
             sce.getServletContext().setAttribute("cusinesrestaurantdao", new CusinesRestaurantDAOImpl(manager));
-		}
+            sce.getServletContext().setAttribute("openingtimesdao", new OpeningTimeDAOImpl(manager));
+        }
 		catch(SQLException e) {
 			Logger.getLogger(getClass().getName()).severe(e.toString());
             throw new RuntimeException(e);
