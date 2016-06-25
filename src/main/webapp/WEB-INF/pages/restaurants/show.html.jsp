@@ -191,69 +191,68 @@
         </div>
       </div>
 
-                <div id ="tabs"class="ui stackable grid">
-                  <div class="column">
-                    <!-- Recensioni Tab -->
-                    <div class="ui tab active" data-tab="recensioni">
-                      <div class="ui grid">
-                        <div class="row">
-                          <div class="column">
-                              <div class="ui comments">
-                            <!-- Reviews List -->
-                              <c:forEach var="review" items="${restaurant.reviews}">
-                                  <div class="comment">
-                                      <a class="avatar">
-                                          <img src="#">
-                                      </a>
-                                  <div class="content">
-                                      <a class="author">${review.registeredUserName}</a>
-                                      <div class="metadata">
-                                          <div class="date">2 days ago</div>
-                                          <div class="rating">
-                                              <div class="ui horizontal list">
-                                                  <c:forEach var="i" begin="0" end="${review.rating}" step="1">
-                                                  <c:if test="${i!=0}">
-                                                      <div class="item">
-                                                          <i class="heart icon"> </i>
-                                                      </div>
-                                                  </c:if>
-                                              </c:forEach>
-                                              <c:forEach begin="${review.rating}" end="4" step="1">
-                                                  <div class="item">
-                                                      <i class="empty heart icon"> </i>
-                                                  </div>
-                                              </c:forEach>
-                                              </div>                                    
+    <!-- Show Reviews/Map TABS -->
+
+    <div id ="tabs"class="ui stackable grid">
+      <div class="column">
+        <!-- Recensioni Tab -->
+        <div class="ui tab active" data-tab="recensioni">
+          <div class="ui grid">
+            <div class="row">
+              <div class="column">
+                  <div class="ui comments">
+                <!-- Reviews List -->
+                  <c:forEach var="review" items="${restaurant.reviews}">
+                      <div class="comment">
+                          <a class="avatar">
+                              <img src="#">
+                          </a>
+                      <div class="content">
+                          <a class="author">${review.registeredUserName}</a>
+                          <div class="metadata">
+                              <div class="date">2 days ago</div>
+                              <div class="rating">
+                                  <div class="ui horizontal list">
+                                      <c:forEach var="i" begin="0" end="${review.rating}" step="1">
+                                      <c:if test="${i!=0}">
+                                          <div class="item">
+                                              <i class="heart icon"> </i>
                                           </div>
+                                      </c:if>
+                                  </c:forEach>
+                                  <c:forEach begin="${review.rating}" end="4" step="1">
+                                      <div class="item">
+                                          <i class="empty heart icon"> </i>
                                       </div>
-                                  <div class="text">
-                                    ${review.description}
-                                  </div>
-                                  <div class="actions">
-                                    <a class="reply">Reply</a>
-                                  </div>
-                                  <form class="ui reply form">
-                                    <div class="field">
-                                      <textarea></textarea>
-                                    </div>
-                                    <div class="ui basic submit labeled icon button">
-                                      <i class="icon edit"></i> Add Reply
-                                    </div>
-                                  </form>
-                                </div>
-                              </div>
-                              </c:forEach>
+                                  </c:forEach>
+                                  </div>                                    
                               </div>
                           </div>
-                        </div>
+                      <div class="text">
+                        ${review.description}
                       </div>
+                      <div class="actions">
+                        <a class="reply">Reply</a>
+                      </div>                            
+                      <form class="ui reply form">
+                        <div class="field">
+                          <textarea></textarea>
+                        </div>
+                        <div class="ui basic submit labeled icon button">
+                          <i class="icon edit"></i> Add Reply
+                        </div>
+                      </form>
                     </div>
+                      </div>                      
+                  </c:forEach>
                   </div>
-                </div>
-                <!-- End Reviews List -->
+                  
               </div>
-
+  
+                <!-- End Reviews List -->
+            </div>
               <!-- Add a review textbox -->
+              
               <div class="sixteen wide column">
                 <div class="ui center aligned grid">
                   <div class="column">
@@ -274,8 +273,9 @@
                   </div>
                 </div>
               </div>
-            </div>
           </div>
+         </div>
+              
           <!-- End Recensioni Tab -->
           <!-- Mappa Tab -->
           <div class="ui tab" data-tab="mappa">
@@ -349,7 +349,9 @@
         </div>
       </div>
     </div>
- 
+    <!-- End Reviews/Map TABS -->
+
+    
             <script type="text/javascript">
                 function initMap() {
                     var myLatLng = {lat: -25.363, lng: 131.044};
