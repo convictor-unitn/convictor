@@ -12,6 +12,7 @@ import it.unitn.disi.webprog2016.convictor.framework.utils.DatabaseConnectionMan
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -34,8 +35,8 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
         
         int restaurant_id = -1;
         
-        String query = "INSERT INTO restaurants (name, description, street, city, zip_code, province, full_address, website, slot_price, email, phone) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id";
-        PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
+        String query = "INSERT INTO restaurants (name, description, street, city, zip_code, province, full_address, website, slot_price, email, phone) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
         try {
             stm.setString(1, restaurant.getName());
             stm.setString(2, restaurant.getDescription());
@@ -48,13 +49,12 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
             stm.setInt(9, restaurant.getSlotPrice());
             stm.setString(10, restaurant.getEmail());
             stm.setString(11, restaurant.getPhone());
-            
-            ResultSet id = stm.executeQuery(query);
-            try {
-                restaurant_id = id.getInt("id");
-            } finally {
-                id.close();
-            }
+			stm.executeUpdate();
+			ResultSet result;
+			result = stm.getGeneratedKeys();
+			if(result.next() && result != null){
+				restaurant_id=result.getInt(1);
+			}
         } finally {
             stm.close();
         }

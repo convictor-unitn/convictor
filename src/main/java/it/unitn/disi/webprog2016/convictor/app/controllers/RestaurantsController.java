@@ -7,6 +7,7 @@ package it.unitn.disi.webprog2016.convictor.app.controllers;
 
 import it.unitn.disi.webprog2016.convictor.app.beans.Cusine;
 import it.unitn.disi.webprog2016.convictor.app.beans.Restaurant;
+import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.CusineDAO;
 import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.CusinesRestaurantDAO;
 import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.OpeningTimesDAO;
 import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.RestaurantDAO;
@@ -90,6 +91,14 @@ public class RestaurantsController extends AbstractController {
 	}
     
     public String new_(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+		CusineDAO cusineDAO = (CusineDAO) request.getServletContext().getAttribute("cusinedao");
+		try {
+			List<Cusine> allCusines = cusineDAO.getAllCusines();
+			request.setAttribute("allCusines", allCusines);
+		} catch (SQLException ex) {
+			Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		
         return "/restaurants/new";
 	}
     
@@ -97,7 +106,14 @@ public class RestaurantsController extends AbstractController {
     public String create(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		
         Restaurant tmp = new Restaurant();
-        
+		CusineDAO cusineDAO = (CusineDAO) request.getServletContext().getAttribute("cusinedao");
+		List<Cusine> allCusines=null;
+		try {
+			allCusines = cusineDAO.getAllCusines();
+			request.setAttribute("allCusines", allCusines);
+		} catch (SQLException ex) {
+			Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, ex);
+		}
         tmp.setName(request.getParameter("name"));
         tmp.setCity(request.getParameter("city"));
         tmp.setStreet(request.getParameter("street"));
@@ -111,26 +127,35 @@ public class RestaurantsController extends AbstractController {
         String[] cusines = request.getParameterValues("cusines");
         List<Cusine> list = new ArrayList<>();
        
-        /**
         try {
             for (String name : cusines) {
-                Cusine tmpCusine = ((CusinesRestaurantDAO)request.getServletContext().getAttribute("cusinerestaurantdao")).getCusinebyName(name);
-                list.add(tmpCusine);
+				if(allCusines==null) break;
+                for(Cusine c : allCusines) {
+					if(c.getId()==Integer.parseInt(name)) {
+						list.add(c);
+					}
+				}
+                
             }
         } catch (Exception e) {
             Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, e);
             response.sendError(500);
             return "";
-        }**/
+        }
         
         tmp.setCusine(list);        
-        
+        tmp.validate();
         try {       
             if (tmp.isValid()) {
                 int id = ((RestaurantDAO) request.getServletContext().getAttribute("restaurantdao")).insertRestaurant(tmp);
-                ((CusinesRestaurantDAO)request.getServletContext().getAttribute("cusinerestaurantdao")).insertRestaurantCusines(id, list);
-                response.sendRedirect("/restaurants/show?id="+id);
+                ((CusinesRestaurantDAO)request.getServletContext().getAttribute("cusinesrestaurantdao")).insertRestaurantCusines(id, list);
+                response.sendRedirect(request.getContextPath()+"/restaurants/show?id="+id);
+				return "";
             }
+			else
+			{
+				request.setAttribute("restaurant", tmp);
+			}
         } catch (SQLException ex) {
             Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, ex);
             response.sendError(500);
