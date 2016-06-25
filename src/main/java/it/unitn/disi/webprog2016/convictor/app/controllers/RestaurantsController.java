@@ -139,6 +139,7 @@ public class RestaurantsController extends AbstractController {
 	}
     
     public String edit(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {        
+        
         int id = Integer.parseInt(request.getParameter("id"));
         RestaurantDAO restaurantDAO = (RestaurantDAO) request.getServletContext().getAttribute("restaurantdao");
         CusinesRestaurantDAO cusinesRestaurantDAO = (CusinesRestaurantDAO) request.getServletContext().getAttribute("cusinesrestaurantdao");
@@ -155,7 +156,7 @@ public class RestaurantsController extends AbstractController {
                 return "";
             }
             
-            return "/restaurants/edit?id="+id;
+            return "/restaurants/edit";
             
         } catch (SQLException ex) {
             Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, ex);
