@@ -20,7 +20,7 @@
                         Aggiungi Ristorante
                       </div>
                     </h2>
-                    <form class="ui large form" method="POST">
+                      <form class="ui large form" method="POST" action="${pageContext.servletContext.contextPath}/restaurants/create">
                       <div class="ui tertiary segment">
 
                         <!-- Personal Infos -->
