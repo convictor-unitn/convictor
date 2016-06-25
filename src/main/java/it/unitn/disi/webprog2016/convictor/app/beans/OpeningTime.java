@@ -19,6 +19,7 @@ import java.util.logging.Logger;
  */
 public class OpeningTime extends AbstractBean {
 	private int restaurantId;
+    private int day;
 	private Date openAt;
 	private Date closeAt;
 
@@ -101,6 +102,16 @@ public class OpeningTime extends AbstractBean {
 			Logger.getLogger(OpeningTime.class.getName()).log(Level.SEVERE, null, ex);
 		}
 	}
+    
+    public int getDay() {
+        return day;
+    }
+
+    public void setDay(int day) {
+        this.day = day;
+    }
+    
+    
 
     @Override
     public boolean validate() {

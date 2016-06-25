@@ -8,7 +8,6 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="l" tagdir="/WEB-INF/tags/layouts/" %>
 <jsp:useBean id="restaurant" scope="request" class="it.unitn.disi.webprog2016.convictor.app.beans.Restaurant" />
-<jsp:useBean id="restaurantReview" scope="request" class="it.unitn.disi.webprog2016.convictor.app.beans.ListReview" />
 <l:main>
     <jsp:attribute name="title"> ${restaurant.name} </jsp:attribute>
 	
@@ -112,15 +111,11 @@
               <div class="ui divider"></div>
               <div class="column">
                 <div class="ui list">
-                  <div class="item">
-                    Cinese
-                  </div>
-                  <div class="item">
-                    Giapponese
-                  </div>
-                  <div class="item">
-                    Indiano
-                  </div>
+                    <c:forEach var="cusine" items="${restaurant.cusine}">
+                        <div class="item">
+                            ${cusine.name}
+                        </div>
+                    </c:forEach>
                 </div>
               </div>
             </div>
@@ -205,7 +200,7 @@
                 <div class="column">
                     <div class="ui comments">
                   <!-- Reviews List -->
-                    <c:forEach var="review" items="${restaurantReview.list}">
+                    <c:forEach var="review" items="${restaurant.reviews}">
                         <div class="comment">
                             <a class="avatar">
                                 <img src="/images/avatar/small/stevie.jpg">

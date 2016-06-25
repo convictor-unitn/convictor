@@ -318,6 +318,34 @@ public class Restaurant extends AbstractBean {
         
         return status;
     }
+
+    /**
+     * @return the cusine
+     */
+    public List<Cusine> getCusine() {
+        return cusine;
+    }
+
+    /**
+     * @param cusine the cusine to set
+     */
+    public void setCusine(List<Cusine> cusine) {
+        this.cusine = cusine;
+    }
+
+    /**
+     * @return the reviews
+     */
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    /**
+     * @param reviews the reviews to set
+     */
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
+    }
     
     
     

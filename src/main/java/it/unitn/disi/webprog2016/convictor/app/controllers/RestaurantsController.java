@@ -5,9 +5,9 @@
  */
 package it.unitn.disi.webprog2016.convictor.app.controllers;
 
-import it.unitn.disi.webprog2016.convictor.app.beans.ListReview;
 import it.unitn.disi.webprog2016.convictor.app.beans.Restaurant;
 import it.unitn.disi.webprog2016.convictor.app.beans.Review;
+import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.CusinesRestaurantDAO;
 import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.RestaurantDAO;
 import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.ReviewDAO;
 import it.unitn.disi.webprog2016.convictor.framework.controllers.AbstractController;
@@ -62,10 +62,11 @@ public class RestaurantsController extends AbstractController {
         
         RestaurantDAO restaurantDAO = (RestaurantDAO) request.getServletContext().getAttribute("restaurantdao");
         ReviewDAO reviewDAO = (ReviewDAO) request.getServletContext().getAttribute("reviewdao");
+        CusinesRestaurantDAO cusinesRestaurantDAO = (CusinesRestaurantDAO) request.getServletContext().getAttribute("cusinesrestaurantdao");
         try {
             Restaurant tmp = restaurantDAO.getRestaurantById(id);
-            ListReview tmp2 = new ListReview();
-            tmp2.setList(reviewDAO.getRestaurantReviews(id, reviewPage));
+            tmp.setCusine(cusinesRestaurantDAO.getCusinesByRestaurantId(id));
+            tmp.setReviews(reviewDAO.getRestaurantReviews(id, reviewPage));
             
             if (tmp != null) {
                 request.setAttribute("restaurant", tmp);
@@ -74,9 +75,6 @@ public class RestaurantsController extends AbstractController {
                 return "";
             }
             
-            if (tmp2 != null) {
-                request.setAttribute("restaurantReview", tmp2);
-            }
             return "/restaurants/show";
             
         } catch (SQLException ex) {
