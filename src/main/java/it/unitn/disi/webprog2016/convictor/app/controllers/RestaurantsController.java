@@ -177,7 +177,7 @@ public class RestaurantsController extends AbstractController {
                 return "";
             }
             
-            return "/restaurants/edit";
+            return "/restaurants/edit?id="+id;
             
         } catch (SQLException ex) {
             Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, ex);
