@@ -55,7 +55,6 @@
       </div>
 
       <!-- Cuisines Field -->
-
       <div class="ui segment">
         <label>Tipologia Piatti</label>
         <div class="ui divider"></div>
@@ -63,7 +62,25 @@
           <select multiple="" class="ui dropdown" name="cusines">
               <option value="">Seleziona Cucine</option>
               <c:forEach var="cusine" items="${allCusines}">
-                  <option  value="${cusine.id}">${cusine.name}</option>
+                  <!-- If on edit page -->                  
+                  <c:choose>    
+                      <c:when test="${!empty bean.id && bean.id != 0}">
+                          <!--finds which cusines belongs to restaurant already-->
+                            <c:forEach var="restCusine" items="${bean.cusine}">
+                                <c:choose>
+                                    <c:when test="${cusine.name == restCusine.name}">
+                                        <option  value="${cusine.id}" selected>${cusine.name}</option>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <option  value="${cusine.id}" >${cusine.name}</option>
+                                    </c:otherwise>
+                                </c:choose>
+                            </c:forEach>
+                      </c:when>
+                    <c:otherwise>
+                        <option  value="${cusine.id}" >${cusine.name}</option>
+                    </c:otherwise>
+                  </c:choose>   
               </c:forEach>
           </select>
         </div>

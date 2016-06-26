@@ -134,8 +134,7 @@ public class RestaurantsController extends AbstractController {
 					if(c.getId()==Integer.parseInt(name)) {
 						list.add(c);
 					}
-				}
-                
+				}               
             }
         } catch (Exception e) {
             Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, e);
@@ -170,7 +169,18 @@ public class RestaurantsController extends AbstractController {
         RestaurantDAO restaurantDAO = (RestaurantDAO) request.getServletContext().getAttribute("restaurantdao");
         CusinesRestaurantDAO cusinesRestaurantDAO = (CusinesRestaurantDAO) request.getServletContext().getAttribute("cusinesrestaurantdao");
         OpeningTimesDAO openingTimeDAO = (OpeningTimesDAO) request.getServletContext().getAttribute("openingtimesdao");
-        try {
+        
+		//Retrieve cusines list from database to fill restaurant edit form - GR
+		CusineDAO cusineDAO = (CusineDAO) request.getServletContext().getAttribute("cusinedao");
+		List<Cusine> allCusines=null;
+		try {
+			allCusines = cusineDAO.getAllCusines();
+			request.setAttribute("allCusines", allCusines);
+		} catch (SQLException ex) {
+			Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, ex);
+		}
+				
+		try {
             Restaurant tmp = restaurantDAO.getRestaurantById(id);
             tmp.setCusine(cusinesRestaurantDAO.getCusinesByRestaurantId(id));
             tmp.setOpeningTimes(openingTimeDAO.getResaurantOpeningTimes(id));
