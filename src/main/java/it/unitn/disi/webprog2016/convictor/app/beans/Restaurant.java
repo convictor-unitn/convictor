@@ -321,6 +321,11 @@ public class Restaurant extends AbstractBean {
             this.setError("phone", "The phone number is not valid!");
         }
         
+        if (this.getCusine().isEmpty()) {
+            status = false;
+            this.setError("cusines", "You didn't choose any cusines!");
+        }
+        
         return status;
     }
 

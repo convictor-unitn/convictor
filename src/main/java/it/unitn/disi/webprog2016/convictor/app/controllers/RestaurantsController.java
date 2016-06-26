@@ -138,9 +138,11 @@ public class RestaurantsController extends AbstractController {
                 
             }
         } catch (Exception e) {
-            Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, e);
-            response.sendError(500);
-            return "";
+            // If somebody doesn't insert cusines, List<Cusine> will
+            // be inserted empty. The validate procedure will discover
+            // the error. 
+            // This catch exists only to ensure that the exception doesn't
+            // kill the request.
         }
         
         tmp.setCusine(list);        
@@ -172,10 +174,10 @@ public class RestaurantsController extends AbstractController {
         OpeningTimesDAO openingTimeDAO = (OpeningTimesDAO) request.getServletContext().getAttribute("openingtimesdao");
         try {
             Restaurant tmp = restaurantDAO.getRestaurantById(id);
-            tmp.setCusine(cusinesRestaurantDAO.getCusinesByRestaurantId(id));
-            tmp.setOpeningTimes(openingTimeDAO.getResaurantOpeningTimes(id));
             
             if (tmp != null) {
+                tmp.setCusine(cusinesRestaurantDAO.getCusinesByRestaurantId(id));
+                tmp.setOpeningTimes(openingTimeDAO.getResaurantOpeningTimes(id));
                 request.setAttribute("restaurant", tmp);
             } else {
                 response.sendError(404);
