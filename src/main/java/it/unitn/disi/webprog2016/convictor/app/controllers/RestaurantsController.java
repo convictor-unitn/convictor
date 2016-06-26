@@ -71,7 +71,13 @@ public class RestaurantsController extends AbstractController {
         OpeningTimesDAO openingTimeDAO = (OpeningTimesDAO) request.getServletContext().getAttribute("openingtimesdao");
         
 		AddressResolver ad = new AddressResolver();
-		ad.setAddress("via  san michele");
+		ad.setZipcode(36043);
+		ad.setStreet("via san michele");
+		ad.setCity("Malo");
+		ad.setState("IT");
+		ad.resolveAddress();
+		
+		System.out.print(ad.getLatitude()+" "+ad.getLongitude());
 		
 		try {
             Restaurant tmp = restaurantDAO.getRestaurantById(id);
@@ -129,7 +135,7 @@ public class RestaurantsController extends AbstractController {
             return "";
         }**/
         
-        tmp.setCusine(list);        
+        tmp.setCusine(list);
         
         try {       
             if (tmp.isValid()) {
