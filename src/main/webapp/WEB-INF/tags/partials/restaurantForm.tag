@@ -67,15 +67,11 @@
                       <c:when test="${!empty bean.id && bean.id != 0}">
                           <!--finds which cusines belongs to restaurant already-->
                             <c:forEach var="restCusine" items="${bean.cusine}">
-                                <c:choose>
-                                    <c:when test="${cusine.name == restCusine.name}">
-                                        <option  value="${cusine.id}" selected>${cusine.name}</option>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <option  value="${cusine.id}" >${cusine.name}</option>
-                                    </c:otherwise>
-                                </c:choose>
+                                <c:if test="${cusine.id == restCusine.id}">
+                                    <option  value="${cusine.id}" selected>${cusine.name}</option>
+                                </c:if>                                    
                             </c:forEach>
+                            <option  value="${cusine.id}" >${cusine.name}</option>
                       </c:when>
                     <c:otherwise>
                         <option  value="${cusine.id}" >${cusine.name}</option>
