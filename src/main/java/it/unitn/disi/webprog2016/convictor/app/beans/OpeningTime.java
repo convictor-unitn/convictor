@@ -161,6 +161,16 @@ public class OpeningTime extends AbstractBean {
     public void setOpenAtAfternoon(Date openAtAfternoon) {
         this.openAtAfternoon = openAtAfternoon;
     }
+    
+    public void setOpenAtAfternoon(String openAt) {
+		DateFormat df = new SimpleDateFormat("HH:mm:ss");
+		try {
+			setOpenAtAfternoon(df.parse(openAt));
+		} catch (ParseException ex) {
+			// TODO: quando si farà la validazione dei beans inserire l'errore sulla data non valida
+			Logger.getLogger(OpeningTime.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	}
 
     /**
      * @return the closeAtAfternoon
@@ -175,6 +185,16 @@ public class OpeningTime extends AbstractBean {
     public void setCloseAtAfternoon(Date closeAtAfternoon) {
         this.closeAtAfternoon = closeAtAfternoon;
     }
+    
+     public void setCloseAtAfternoon(String closeAtAfternoon) {
+		DateFormat df = new SimpleDateFormat("HH:mm:ss");
+		/*try {
+			setCloseAtAfternoon(df.parse(closeAtAfternoon));
+		} catch (ParseException ex) {
+			// TODO: quando si farà la validazione dei beans inserire l'errore sulla data non valida
+			Logger.getLogger(OpeningTime.class.getName()).log(Level.SEVERE, null, ex);
+		}*/
+	}
 
     /**
      * @return the dayoff
@@ -193,20 +213,52 @@ public class OpeningTime extends AbstractBean {
 	@Override
     public boolean validate() {
         boolean status = true;
-        if (this.getRestaurantId() <= 0)
-        {
-            status = false;
-            this.setError("restaurant_id", "The restaurant_id is not valid!");
-        }
         
-        if (this.getCloseAt().toString().equals("")) {
+        if (this.getCloseAt() == null) {
             status = false;
             this.setError("close_at", "The close_at date is not valid!");
         }
-        if (this.getOpenAt().toString().equals("")) {
+        if (this.getOpenAt() == null) {
+            status = false;
+            this.setError("open_at", "The open_at date is not valid!");
+        }
+        if (this.getCloseAtAfternoon() == null) {
+            status = false;
+            this.setError("open_at", "The open_at date is not valid!");
+        }
+        if (this.getOpenAtAfternoon()== null) {
             status = false;
             this.setError("open_at", "The open_at date is not valid!");
         }
         return status;
+    }
+
+    public void setDay(String day) {
+        switch(day){
+            case "monday":
+                this.setDay(1);
+                break;
+            case "tuesday":
+                this.setDay(2);
+                break;
+            case "wednesday":
+                this.setDay(3);
+                break;
+            case "thursday":
+                this.setDay(4);
+                break;
+            case "friday":
+                this.setDay(5);
+                break;
+            case "saturday":
+                this.setDay(6);
+                break;
+            case "sunday":
+                this.setDay(7);
+                break;
+            default:
+                this.setDay(1);
+                break;
+        }
     }
 }

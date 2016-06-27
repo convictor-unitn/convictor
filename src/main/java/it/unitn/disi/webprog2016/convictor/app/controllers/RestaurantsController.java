@@ -6,6 +6,7 @@
 package it.unitn.disi.webprog2016.convictor.app.controllers;
 
 import it.unitn.disi.webprog2016.convictor.app.beans.Cusine;
+import it.unitn.disi.webprog2016.convictor.app.beans.OpeningTime;
 import it.unitn.disi.webprog2016.convictor.app.beans.Restaurant;
 import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.CusineDAO;
 import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.CusinesRestaurantDAO;
@@ -126,6 +127,7 @@ public class RestaurantsController extends AbstractController {
         
         String[] cusines = request.getParameterValues("cusines");
         List<Cusine> list = new ArrayList<>();
+        List<OpeningTime> listTime = new ArrayList<>();
        
         try {
             for (String name : cusines) {
@@ -143,8 +145,28 @@ public class RestaurantsController extends AbstractController {
             // This catch exists only to ensure that the exception doesn't
             // kill the request.
         }
-        
         tmp.setCusine(list);        
+        
+        // Set the opening times
+        String[] days = {"monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"};
+        for (String day : days) {
+            OpeningTime tmpTime = new OpeningTime();
+            tmpTime.setDay(day);
+            if (request.getParameter("dayoff_"+day) != null) {
+                tmpTime.setDayoff(true);
+            } else {
+                tmpTime.setOpenAt(request.getParameter("open_at_"+day));
+                tmpTime.setCloseAt(request.getParameter("close_at_"+day));
+                tmpTime.setOpenAtAfternoon(request.getParameter("open_at_afternoon_"+day));
+                tmpTime.setCloseAtAfternoon(request.getParameter("close_at_afternoon"+day));
+                tmpTime.setDayoff(false);
+            }
+            if (tmpTime.validate()) {
+                listTime.add(tmpTime);
+            }
+        }
+        tmp.setOpeningTimes(listTime);
+        
         tmp.validate();
         try {       
             if (tmp.isValid()) {

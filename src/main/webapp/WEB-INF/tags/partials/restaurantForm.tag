@@ -103,8 +103,8 @@
               <div class="ui basic label">
                 Apertura
               </div>
-                <input type="text" name="openH" placeholder="Ora">
-                <input type="text" name="openM" placeholder="Minuti">
+                <input type="text" name="open_at_monday" placeholder="Ora">
+                <input type="text" name="openH" placeholder="Minuti">
             </div>
           </div>
 
@@ -114,7 +114,7 @@
               <div class="ui basic label">
                 Chiusura
               </div>
-              <input type="text" name="closeH" placeholder="Ora">
+              <input type="text" name="close_at_monday" placeholder="Ora">
               <input type="text" name="closeM" placeholder="Minuti">
             </div>
           </div>
@@ -127,8 +127,8 @@
               <div class="ui basic label">
                 Apertura
               </div>
-              <input type="text" name="openH" placeholder="Ora">
-              <input type="text" name="openM" placeholder="Minuti">
+              <input type="text" name="open_at_afternoon_monday" placeholder="Ora">
+              <input type="text" name="openH" placeholder="Minuti">
             </div>
           </div>
 
@@ -138,7 +138,7 @@
               <div class="ui basic label">
                 Chiusura
               </div>
-              <input type="text" name="closeH" placeholder="Ora">
+              <input type="text" name="close_at_afternoon_monday" placeholder="Ora">
               <input type="text" name="closeM" placeholder="Minuti">
             </div>
           </div>
@@ -147,7 +147,7 @@
         <!-- Days Opening -->
         <div class="field">
             <div class="ui checkbox">
-                <input type="checkbox" tabindex="0" class="hidden">
+                <input type="checkbox" tabindex="0" class="hidden" name="dayoff_monday">
                 <label>Seleziona come giorno di chiusura</label>
               </div>
         </div>
@@ -166,7 +166,7 @@
               <div class="ui basic label">
                 Apertura
               </div>
-              <input type="text" name="openH" placeholder="Ora">
+              <input type="text" name="open_at_tuesday" placeholder="Ora">
               <input type="text" name="openM" placeholder="Minuti">
             </div>
           </div>
@@ -177,7 +177,7 @@
               <div class="ui basic label">
                 Chiusura
               </div>
-              <input type="text" name="closeH" placeholder="Ora">
+              <input type="text" name="close_at_tuesday" placeholder="Ora">
               <input type="text" name="closeM" placeholder="Minuti">
             </div>
           </div>
@@ -190,7 +190,7 @@
               <div class="ui basic label">
                 Apertura
               </div>
-              <input type="text" name="openH" placeholder="Ora">
+              <input type="text" name="open_at_afternoon_tuesday" placeholder="Ora">
               <input type="text" name="openM" placeholder="Minuti">
             </div>
           </div>
@@ -201,7 +201,7 @@
               <div class="ui basic label">
                 Chiusura
               </div>
-              <input type="text" name="closeH" placeholder="Ora">
+              <input type="text" name="close_at_afternoon_tuesday" placeholder="Ora">
               <input type="text" name="closeM" placeholder="Minuti">
             </div>
           </div>
@@ -210,7 +210,7 @@
         <!-- Days Opening -->
         <div class="field">
           <div class="ui checkbox">
-            <input type="checkbox" tabindex="0" class="hidden">
+            <input type="checkbox" tabindex="0" class="hidden" name="dayoff_tuesday">
             <label>Seleziona come giorno di chiusura</label>
           </div>
         </div>
@@ -226,7 +226,7 @@
               <div class="ui basic label">
                 Apertura
               </div>
-              <input type="text" name="openH" placeholder="Ora">
+              <input type="text" name="open_at_wednesday" placeholder="Ora">
               <input type="text" name="openM" placeholder="Minuti">
             </div>
           </div>
@@ -237,7 +237,7 @@
               <div class="ui basic label">
                 Chiusura
               </div>
-              <input type="text" name="closeH" placeholder="Ora">
+              <input type="text" name="close_at_wednesday" placeholder="Ora">
               <input type="text" name="closeM" placeholder="Minuti">
             </div>
           </div>
@@ -250,7 +250,7 @@
               <div class="ui basic label">
                 Apertura
               </div>
-              <input type="text" name="openH" placeholder="Ora">
+              <input type="text" name="open_at_afternoon_wednesday" placeholder="Ora">
               <input type="text" name="openM" placeholder="Minuti">
             </div>
           </div>
@@ -261,7 +261,7 @@
               <div class="ui basic label">
                 Chiusura
               </div>
-              <input type="text" name="closeH" placeholder="Ora">
+              <input type="text" name="close_at_afternoon_wednesday" placeholder="Ora">
               <input type="text" name="closeM" placeholder="Minuti">
             </div>
           </div>
@@ -270,7 +270,7 @@
         <!-- Days Opening -->
         <div class="field">
           <div class="ui checkbox">
-            <input type="checkbox" tabindex="0" class="hidden">
+            <input type="checkbox" tabindex="0" class="hidden" name="dayoff_wednesday">
             <label>Seleziona come giorno di chiusura</label>
           </div>
         </div>
@@ -286,7 +286,7 @@
               <div class="ui basic label">
                 Apertura
               </div>
-              <input type="text" name="openH" placeholder="Ora">
+              <input type="text" name="open_at_thursday" placeholder="Ora">
               <input type="text" name="openM" placeholder="Minuti">
             </div>
           </div>
@@ -297,7 +297,7 @@
               <div class="ui basic label">
                 Chiusura
               </div>
-              <input type="text" name="closeH" placeholder="Ora">
+              <input type="text" name="close_at_thursday" placeholder="Ora">
               <input type="text" name="closeM" placeholder="Minuti">
             </div>
           </div>
@@ -310,7 +310,7 @@
               <div class="ui basic label">
                 Apertura
               </div>
-              <input type="text" name="openH" placeholder="Ora">
+              <input type="text" name="open_at_afternoon_thursday" placeholder="Ora">
               <input type="text" name="openM" placeholder="Minuti">
             </div>
           </div>
@@ -321,7 +321,7 @@
               <div class="ui basic label">
                 Chiusura
               </div>
-              <input type="text" name="closeH" placeholder="Ora">
+              <input type="text" name="close_at_afternoon_thursday" placeholder="Ora">
               <input type="text" name="closeM" placeholder="Minuti">
             </div>
           </div>
@@ -330,7 +330,7 @@
         <!-- Days Opening -->
         <div class="field">
           <div class="ui checkbox">
-            <input type="checkbox" tabindex="0" class="hidden">
+            <input type="checkbox" tabindex="0" class="hidden" name="dayoff_thursday">
             <label>Seleziona come giorno di chiusura</label>
           </div>
         </div>
@@ -346,7 +346,7 @@
               <div class="ui basic label">
                 Apertura
               </div>
-              <input type="text" name="openH" placeholder="Ora">
+              <input type="text" name="open_at_friday" placeholder="Ora">
               <input type="text" name="openM" placeholder="Minuti">
             </div>
           </div>
@@ -357,7 +357,7 @@
               <div class="ui basic label">
                 Chiusura
               </div>
-              <input type="text" name="closeH" placeholder="Ora">
+              <input type="text" name="close_at_friday" placeholder="Ora">
               <input type="text" name="closeM" placeholder="Minuti">
             </div>
           </div>
@@ -370,7 +370,7 @@
               <div class="ui basic label">
                 Apertura
               </div>
-              <input type="text" name="openH" placeholder="Ora">
+              <input type="text" name="open_at_afternoon_friday" placeholder="Ora">
               <input type="text" name="openM" placeholder="Minuti">
             </div>
           </div>
@@ -381,7 +381,7 @@
               <div class="ui basic label">
                 Chiusura
               </div>
-              <input type="text" name="closeH" placeholder="Ora">
+              <input type="text" name="close_at_afternoon_friday" placeholder="Ora">
               <input type="text" name="closeM" placeholder="Minuti">
             </div>
           </div>
@@ -390,7 +390,7 @@
         <!-- Days Opening -->
         <div class="field">
           <div class="ui checkbox">
-            <input type="checkbox" tabindex="0" class="hidden">
+            <input type="checkbox" tabindex="0" class="hidden" name="dayoff_friday">
             <label>Seleziona come giorno di chiusura</label>
           </div>
         </div>
@@ -406,7 +406,7 @@
               <div class="ui basic label">
                 Apertura
               </div>
-              <input type="text" name="openH" placeholder="Ora">
+              <input type="text" name="open_at_saturday" placeholder="Ora">
               <input type="text" name="openM" placeholder="Minuti">
             </div>
           </div>
@@ -417,7 +417,7 @@
               <div class="ui basic label">
                 Chiusura
               </div>
-              <input type="text" name="closeH" placeholder="Ora">
+              <input type="text" name="close_at_saturday" placeholder="Ora">
               <input type="text" name="closeM" placeholder="Minuti">
             </div>
           </div>
@@ -430,7 +430,7 @@
               <div class="ui basic label">
                 Apertura
               </div>
-              <input type="text" name="openH" placeholder="Ora">
+              <input type="text" name="open_at_afternoon_saturday" placeholder="Ora">
               <input type="text" name="openM" placeholder="Minuti">
             </div>
           </div>
@@ -441,7 +441,7 @@
               <div class="ui basic label">
                 Chiusura
               </div>
-              <input type="text" name="closeH" placeholder="Ora">
+              <input type="text" name="close_at_afternoon_saturday" placeholder="Ora">
               <input type="text" name="closeM" placeholder="Minuti">
             </div>
           </div>
@@ -450,7 +450,7 @@
         <!-- Days Opening -->
         <div class="field">
           <div class="ui checkbox">
-            <input type="checkbox" tabindex="0" class="hidden">
+            <input type="checkbox" tabindex="0" class="hidden" name="dayoff_saturday">
             <label>Seleziona come giorno di chiusura</label>
           </div>
         </div>
@@ -466,7 +466,7 @@
               <div class="ui basic label">
                 Apertura
               </div>
-              <input type="text" name="openH" placeholder="Ora">
+              <input type="text" name="open_at_sunday" placeholder="Ora">
               <input type="text" name="openM" placeholder="Minuti">
             </div>
           </div>
@@ -477,7 +477,7 @@
               <div class="ui basic label">
                 Chiusura
               </div>
-              <input type="text" name="closeH" placeholder="Ora">
+              <input type="text" name="close_at_sunday" placeholder="Ora">
               <input type="text" name="closeM" placeholder="Minuti">
             </div>
           </div>
@@ -490,7 +490,7 @@
               <div class="ui basic label">
                 Apertura
               </div>
-              <input type="text" name="openH" placeholder="Ora">
+              <input type="text" name="open_at_afternoon_sunday" placeholder="Ora">
               <input type="text" name="openM" placeholder="Minuti">
             </div>
           </div>
@@ -501,7 +501,7 @@
               <div class="ui basic label">
                 Chiusura
               </div>
-              <input type="text" name="closeH" placeholder="Ora">
+              <input type="text" name="close_at_afternoon_sunday" placeholder="Ora">
               <input type="text" name="closeM" placeholder="Minuti">
             </div>
           </div>
@@ -510,7 +510,7 @@
         <!-- Days Opening -->
         <div class="field">
           <div class="ui checkbox">
-            <input type="checkbox" tabindex="0" class="hidden">
+            <input type="checkbox" tabindex="0" class="hidden" name="dayoff_sunday">
             <label>Seleziona come giorno di chiusura</label>
           </div>
         </div>

@@ -326,6 +326,11 @@ public class Restaurant extends AbstractBean {
             this.setError("cusines", "You didn't choose any cusines!");
         }
         
+        if (this.getOpeningTimes().isEmpty()) {
+            status = false;
+            this.setError("openingTimes", "You didn't choose any opening times!");
+        }
+        
         return status;
     }
 
