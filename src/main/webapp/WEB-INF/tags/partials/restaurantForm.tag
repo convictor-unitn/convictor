@@ -53,6 +53,38 @@
           </div>
         </div>
       </div>
+          
+          <div class="ui segment">
+              <label>Fascia di Prezzo</label>
+              <div class="ui divider"></div>
+              <div class="three horizontal fields">
+                <div class="field">
+                  <c:forEach var="slot" items="${allSlotsPrices}">
+                  <!-- If on edit page -->                  
+                  <c:choose>    
+                      <c:when test="${!empty bean.id && bean.id != 0}">
+                          <!--finds which slot price belongs to restaurant already-->                            
+                            <c:if test="${slot.id == bean.slotPrice}">
+                                <option  value="${slot.id}" selected>${slot.name}</option>
+                            </c:if>                                   
+                            <option  value="${slot.id}" >${slot.name}</option>
+                      </c:when>
+                    <c:otherwise>
+                        <option  value="${slot.id}" >${slot.name}</option>
+                    </c:otherwise>
+                  </c:choose>   
+              </c:forEach>
+                    
+                    
+                    
+                  <div class="ui radio checkbox">
+                    <input type="radio" name="frequency" checked="checked">
+                    <label>Alta</label>
+                  </div>
+                </div>
+                               
+              </div>
+          </div>
 
       <!-- Cuisines Field -->
       <div class="ui segment">
@@ -81,7 +113,17 @@
           </select>
         </div>
       </div>
+      
+      <!-- Description Field -->
 
+      <div class="ui segment">
+        <label>Descrizione</label>
+        <div class="ui divider"></div>
+        <div class="field">
+            <input type="text" name="description" rows="2" placeholder="Aggiungi breve descrizione" value="${restaurant.description}"/>
+        </div>
+      </div>     
+      
       <!-- Timing Infos -->
 
       <div class="ui segment">
@@ -516,17 +558,7 @@
         </div>
         </div>
 
-      </div>
-
-      <!-- Description Field -->
-
-      <div class="ui segment">
-        <label>Descrizione</label>
-        <div class="ui divider"></div>
-        <div class="field">
-            <input type="text" name="description" rows="2" placeholder="Aggiungi breve descrizione" value="${restaurant.description}"/>
-        </div>
-      </div>
+      </div>      
 
     </div>
       <input id="p_button" class="ui fluid large submit button" type="submit"></input>
