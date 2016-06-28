@@ -57,32 +57,28 @@
           <div class="ui segment">
               <label>Fascia di Prezzo</label>
               <div class="ui divider"></div>
-              <div class="three horizontal fields">
-                <div class="field">
-                  <c:forEach var="slot" items="${allSlotsPrices}">
-                  <!-- If on edit page -->                  
-                  <c:choose>    
-                      <c:when test="${!empty bean.id && bean.id != 0}">
-                          <!--finds which slot price belongs to restaurant already-->                            
-                            <c:if test="${slot.id == bean.slotPrice}">
-                                <option  value="${slot.id}" selected>${slot.name}</option>
-                            </c:if>                                   
-                            <option  value="${slot.id}" >${slot.name}</option>
-                      </c:when>
-                    <c:otherwise>
-                        <option  value="${slot.id}" >${slot.name}</option>
-                    </c:otherwise>
-                  </c:choose>   
-              </c:forEach>
-                    
-                    
-                    
-                  <div class="ui radio checkbox">
-                    <input type="radio" name="frequency" checked="checked">
-                    <label>Alta</label>
-                  </div>
-                </div>
-                               
+              <div class="five fields">                  
+                      <c:forEach var="slotprice" items="${allPriceSlot}">
+                         <div class="field">
+                             <div class="ui radio checkbox">
+                      <!-- If on edit page -->                  
+                      <c:choose>    
+                          <c:when test="${!empty bean.id && bean.id != 0}">
+                              <!--finds which slot price belongs to restaurant already-->                            
+                                <c:if test="${slotprice.slot == bean.slotPrice}">
+                                        <input type="radio" name="${slotprice.slot}" checked="checked">
+                                        <label>${slotprice.name}</label>
+                                </c:if>                                   
+                                <option  value="${slotprice.slot}" >${slotprice.name}</option>
+                          </c:when>
+                        <c:otherwise>
+                            <input type="radio" name="${slotprice.slot}">
+                            <label>${slotprice.name}</label>
+                        </c:otherwise>
+                      </c:choose> 
+                         </div>
+                      </div>
+                  </c:forEach>                                                     
               </div>
           </div>
 

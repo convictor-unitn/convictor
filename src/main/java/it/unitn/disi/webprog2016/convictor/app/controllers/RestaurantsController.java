@@ -7,10 +7,13 @@ package it.unitn.disi.webprog2016.convictor.app.controllers;
 
 import it.unitn.disi.webprog2016.convictor.app.beans.Cusine;
 import it.unitn.disi.webprog2016.convictor.app.beans.OpeningTime;
+import it.unitn.disi.webprog2016.convictor.app.beans.PriceSlot;
 import it.unitn.disi.webprog2016.convictor.app.beans.Restaurant;
+import it.unitn.disi.webprog2016.convictor.app.dao.implementation.PriceSlotDAOImpl;
 import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.CusineDAO;
 import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.CusinesRestaurantDAO;
 import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.OpeningTimesDAO;
+import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.PriceSlotDAO;
 import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.RestaurantDAO;
 import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.ReviewDAO;
 import it.unitn.disi.webprog2016.convictor.framework.controllers.AbstractController;
@@ -100,6 +103,14 @@ public class RestaurantsController extends AbstractController {
 			Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, ex);
 		}
 		
+		PriceSlotDAO priceSlotDAO = (PriceSlotDAO) request.getServletContext().getAttribute("priceslotdao");
+		try {
+			List<PriceSlot> allPriceSlot = priceSlotDAO.getAllPriceSlots();
+			request.setAttribute("allPriceSlot", allPriceSlot);
+		} catch (SQLException ex) {
+			Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		
         return "/restaurants/new";
 	}
     
@@ -124,6 +135,8 @@ public class RestaurantsController extends AbstractController {
         tmp.setPhone(request.getParameter("phone"));
         tmp.setEmail(request.getParameter("email"));
         tmp.setWebsite(request.getParameter("website"));
+		//add slot price field
+		tmp.setSlotPrice("priceslotchecked");
         
         String[] cusines = request.getParameterValues("cusines");
         List<Cusine> list = new ArrayList<>();
@@ -203,7 +216,16 @@ public class RestaurantsController extends AbstractController {
 		} catch (SQLException ex) {
 			Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, ex);
 		}
-				
+		
+		//Retrieve priceSlot list from database to fill restaurant edit form - GR
+		PriceSlotDAO priceSlotDAO = (PriceSlotDAO) request.getServletContext().getAttribute("priceslotdao");
+		try {
+			List<PriceSlot> allPriceSlot = priceSlotDAO.getAllPriceSlots();
+			request.setAttribute("allPriceSlot", allPriceSlot);
+		} catch (SQLException ex) {
+			Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, ex);
+		}	
+		
 		try {
             Restaurant tmp = restaurantDAO.getRestaurantById(id);
             
@@ -239,9 +261,10 @@ public class RestaurantsController extends AbstractController {
         tmp.setPhone(request.getParameter("phone"));
         tmp.setEmail(request.getParameter("email"));
         tmp.setWebsite(request.getParameter("website"));
+		tmp.setSlotPrice(request.getParameter("priceslotchecked"));
         
         String[] cusines = request.getParameterValues("cusines");
-        List<Cusine> list = new ArrayList<>();
+        List<Cusine> list = new ArrayList<>();		
         
         if (cusines != null) {
             for(int i=0; i< cusines.length; i++) {

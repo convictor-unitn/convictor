@@ -27,14 +27,14 @@ public class PriceSlotDAOImpl extends DatabaseDAO implements PriceSlotDAO{
 	@Override
 	public List<PriceSlot> getAllPriceSlots() throws SQLException {
 		List<PriceSlot> pricesSlot = new ArrayList<>();
-        String query = "SELECT cusines.id, cusines.name FROM cusines";
+        String query = "SELECT price_slots.slot, price_slots.name FROM price_slots";
         PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
         try {
             ResultSet priceslotSet = stm.executeQuery();
             try {
                 while(priceslotSet.next()) {
                     PriceSlot tmp = new PriceSlot();
-                    tmp.setId(priceslotSet.getInt("id"));
+                    tmp.setSlot(priceslotSet.getInt("slot"));
                     tmp.setName(priceslotSet.getString("name"));
                     pricesSlot.add(tmp);
                 }
