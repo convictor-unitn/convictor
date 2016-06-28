@@ -65,11 +65,16 @@
                       <c:choose>    
                           <c:when test="${!empty bean.id && bean.id != 0}">
                               <!--finds which slot price belongs to restaurant already-->                            
-                                <c:if test="${slotprice.slot == bean.slotPrice}">
-                                        <input type="radio" name="${slotprice.slot}" checked="checked">
-                                        <label>${slotprice.name}</label>
-                                </c:if>                                   
-                                <option  value="${slotprice.slot}" >${slotprice.name}</option>
+                              <c:choose>
+                                  <c:when test="${slotprice.slot == bean.slotPrice}">
+                                      <input type="radio" name="${slotprice.slot}" checked="checked">
+                                      <label>${slotprice.name}</label>
+                                  </c:when>
+                                  <c:otherwise>
+                                      <input type="radio" name="${slotprice.slot}">
+                                      <label>${slotprice.name}</label>
+                                  </c:otherwise>
+                              </c:choose>                                                                                
                           </c:when>
                         <c:otherwise>
                             <input type="radio" name="${slotprice.slot}">
