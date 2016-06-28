@@ -136,7 +136,7 @@ public class RestaurantsController extends AbstractController {
         tmp.setEmail(request.getParameter("email"));
         tmp.setWebsite(request.getParameter("website"));
 		//add slot price field
-		tmp.setSlotPrice("priceslotchecked");
+		tmp.setSlotPrice(request.getParameter("priceslotselected"));
         
         String[] cusines = request.getParameterValues("cusines");
         List<Cusine> list = new ArrayList<>();
@@ -261,7 +261,7 @@ public class RestaurantsController extends AbstractController {
         tmp.setPhone(request.getParameter("phone"));
         tmp.setEmail(request.getParameter("email"));
         tmp.setWebsite(request.getParameter("website"));
-		tmp.setSlotPrice(request.getParameter("priceslotchecked"));
+		tmp.setSlotPrice(request.getParameter("priceslotselected"));
         
         String[] cusines = request.getParameterValues("cusines");
         List<Cusine> list = new ArrayList<>();		
@@ -275,7 +275,8 @@ public class RestaurantsController extends AbstractController {
         }
         
         tmp.setCusine(list);
-        
+        tmp.validate();
+
         try {
             int id_rest = ((RestaurantDAO) request.getServletContext().getAttribute("restaurantdao")).updateRestaurant(tmp);
             if (tmp.isValid()) {
@@ -286,7 +287,6 @@ public class RestaurantsController extends AbstractController {
             response.sendError(500);
             return "";
         }
-        System.out.println("not VALID");
         return "/restaurants/edit";
 	}
 }

@@ -67,17 +67,17 @@
                               <!--finds which slot price belongs to restaurant already-->                            
                               <c:choose>
                                   <c:when test="${slotprice.slot == bean.slotPrice}">
-                                      <input type="radio" name="${slotprice.slot}" checked="checked">
+                                      <input type="radio" name="priceslotselected" checked="checked" value="${slotprice.slot}">
                                       <label>${slotprice.name}</label>
                                   </c:when>
                                   <c:otherwise>
-                                      <input type="radio" name="${slotprice.slot}">
+                                      <input type="radio" name="priceslotselected" value="${slotprice.slot}">
                                       <label>${slotprice.name}</label>
                                   </c:otherwise>
                               </c:choose>                                                                                
                           </c:when>
                         <c:otherwise>
-                            <input type="radio" name="${slotprice.slot}">
+                            <input type="radio" name="priceslotselected" value="${slotprice.slot}">
                             <label>${slotprice.name}</label>
                         </c:otherwise>
                       </c:choose> 
