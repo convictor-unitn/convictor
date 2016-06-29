@@ -6,6 +6,7 @@
 package it.unitn.disi.webprog2016.convictor.app.beans;
 
 import it.unitn.disi.webprog2016.convictor.framework.beans.AbstractBean;
+import java.util.Objects;
 
 /**
  *
@@ -22,6 +23,33 @@ public class Cusine extends AbstractBean {
 		this.name = name;
 	}
 
+	@Override
+	public int hashCode() {
+		int hash = 3;
+		hash = 79 * hash + Objects.hashCode(this.name);
+		return hash;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		final Cusine other = (Cusine) obj;
+		if (!Objects.equals(this.name, other.name)) {
+			return false;
+		}
+		return true;
+	}
+
+	
+	
 	@Override
 	public boolean validate() {
 		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

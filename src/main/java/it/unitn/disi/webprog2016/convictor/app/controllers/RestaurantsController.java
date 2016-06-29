@@ -6,9 +6,14 @@
 package it.unitn.disi.webprog2016.convictor.app.controllers;
 
 import it.unitn.disi.webprog2016.convictor.app.beans.Cusine;
+import it.unitn.disi.webprog2016.convictor.app.beans.OpeningTime;
+import it.unitn.disi.webprog2016.convictor.app.beans.PriceSlot;
 import it.unitn.disi.webprog2016.convictor.app.beans.Restaurant;
+import it.unitn.disi.webprog2016.convictor.app.dao.implementation.PriceSlotDAOImpl;
+import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.CusineDAO;
 import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.CusinesRestaurantDAO;
 import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.OpeningTimesDAO;
+import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.PriceSlotDAO;
 import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.RestaurantDAO;
 import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.ReviewDAO;
 import it.unitn.disi.webprog2016.convictor.framework.controllers.AbstractController;
@@ -102,6 +107,22 @@ public class RestaurantsController extends AbstractController {
 	}
     
     public String new_(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+		CusineDAO cusineDAO = (CusineDAO) request.getServletContext().getAttribute("cusinedao");
+		try {
+			List<Cusine> allCusines = cusineDAO.getAllCusines();
+			request.setAttribute("allCusines", allCusines);
+		} catch (SQLException ex) {
+			Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		
+		PriceSlotDAO priceSlotDAO = (PriceSlotDAO) request.getServletContext().getAttribute("priceslotdao");
+		try {
+			List<PriceSlot> allPriceSlot = priceSlotDAO.getAllPriceSlots();
+			request.setAttribute("allPriceSlot", allPriceSlot);
+		} catch (SQLException ex) {
+			Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		
         return "/restaurants/new";
 	}
     
@@ -109,7 +130,14 @@ public class RestaurantsController extends AbstractController {
     public String create(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		
         Restaurant tmp = new Restaurant();
-        
+		CusineDAO cusineDAO = (CusineDAO) request.getServletContext().getAttribute("cusinedao");
+		List<Cusine> allCusines=null;
+		try {
+			allCusines = cusineDAO.getAllCusines();
+			request.setAttribute("allCusines", allCusines);
+		} catch (SQLException ex) {
+			Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, ex);
+		}
         tmp.setName(request.getParameter("name"));
         tmp.setCity(request.getParameter("city"));
         tmp.setStreet(request.getParameter("street"));
@@ -119,30 +147,64 @@ public class RestaurantsController extends AbstractController {
         tmp.setPhone(request.getParameter("phone"));
         tmp.setEmail(request.getParameter("email"));
         tmp.setWebsite(request.getParameter("website"));
+		//add slot price field
+		tmp.setSlotPrice(request.getParameter("priceslotselected"));
         
         String[] cusines = request.getParameterValues("cusines");
         List<Cusine> list = new ArrayList<>();
+        List<OpeningTime> listTime = new ArrayList<>();
        
-        /**
         try {
             for (String name : cusines) {
-                Cusine tmpCusine = ((CusinesRestaurantDAO)request.getServletContext().getAttribute("cusinerestaurantdao")).getCusinebyName(name);
-                list.add(tmpCusine);
+				if(allCusines==null) break;
+                for(Cusine c : allCusines) {
+					if(c.getId()==Integer.parseInt(name)) {
+						list.add(c);
+					}
+				}               
             }
         } catch (Exception e) {
-            Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, e);
-            response.sendError(500);
-            return "";
-        }**/
+
+            // If somebody doesn't insert cusines, List<Cusine> will
+            // be inserted empty. The validate procedure will discover
+            // the error. 
+            // This catch exists only to ensure that the exception doesn't
+            // kill the request.
+        }
+        tmp.setCusine(list);        
         
-        tmp.setCusine(list);
+        // Set the opening times
+        String[] days = {"monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"};
+        for (String day : days) {
+            OpeningTime tmpTime = new OpeningTime();
+            tmpTime.setDay(day);
+            if (request.getParameter("dayoff_"+day) != null) {
+                tmpTime.setDayoff(true);
+            } else {
+                tmpTime.setOpenAt(request.getParameter("open_at_"+day));
+                tmpTime.setCloseAt(request.getParameter("close_at_"+day));
+                tmpTime.setOpenAtAfternoon(request.getParameter("open_at_afternoon_"+day));
+                tmpTime.setCloseAtAfternoon(request.getParameter("close_at_afternoon"+day));
+                tmpTime.setDayoff(false);
+            }
+            if (tmpTime.validate()) {
+                listTime.add(tmpTime);
+            }
+        }
+        tmp.setOpeningTimes(listTime);
         
+        tmp.validate();
         try {       
             if (tmp.isValid()) {
                 int id = ((RestaurantDAO) request.getServletContext().getAttribute("restaurantdao")).insertRestaurant(tmp);
-                ((CusinesRestaurantDAO)request.getServletContext().getAttribute("cusinerestaurantdao")).insertRestaurantCusines(id, list);
-                response.sendRedirect("/restaurants/show?id="+id);
+                ((CusinesRestaurantDAO)request.getServletContext().getAttribute("cusinesrestaurantdao")).insertRestaurantCusines(id, list);
+                response.sendRedirect(request.getContextPath()+"/restaurants/show?id="+id);
+				return "";
             }
+			else
+			{
+				request.setAttribute("restaurant", tmp);
+			}
         } catch (SQLException ex) {
             Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, ex);
             response.sendError(500);
@@ -157,12 +219,32 @@ public class RestaurantsController extends AbstractController {
         RestaurantDAO restaurantDAO = (RestaurantDAO) request.getServletContext().getAttribute("restaurantdao");
         CusinesRestaurantDAO cusinesRestaurantDAO = (CusinesRestaurantDAO) request.getServletContext().getAttribute("cusinesrestaurantdao");
         OpeningTimesDAO openingTimeDAO = (OpeningTimesDAO) request.getServletContext().getAttribute("openingtimesdao");
-        try {
+        
+		//Retrieve cusines list from database to fill restaurant edit form - GR
+		CusineDAO cusineDAO = (CusineDAO) request.getServletContext().getAttribute("cusinedao");
+		List<Cusine> allCusines=null;
+		try {
+			allCusines = cusineDAO.getAllCusines();
+			request.setAttribute("allCusines", allCusines);
+		} catch (SQLException ex) {
+			Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		
+		//Retrieve priceSlot list from database to fill restaurant edit form - GR
+		PriceSlotDAO priceSlotDAO = (PriceSlotDAO) request.getServletContext().getAttribute("priceslotdao");
+		try {
+			List<PriceSlot> allPriceSlot = priceSlotDAO.getAllPriceSlots();
+			request.setAttribute("allPriceSlot", allPriceSlot);
+		} catch (SQLException ex) {
+			Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, ex);
+		}	
+		
+		try {
             Restaurant tmp = restaurantDAO.getRestaurantById(id);
-            tmp.setCusine(cusinesRestaurantDAO.getCusinesByRestaurantId(id));
-            tmp.setOpeningTimes(openingTimeDAO.getResaurantOpeningTimes(id));
             
             if (tmp != null) {
+                tmp.setCusine(cusinesRestaurantDAO.getCusinesByRestaurantId(id));
+                tmp.setOpeningTimes(openingTimeDAO.getResaurantOpeningTimes(id));
                 request.setAttribute("restaurant", tmp);
             } else {
                 response.sendError(404);
@@ -192,9 +274,10 @@ public class RestaurantsController extends AbstractController {
         tmp.setPhone(request.getParameter("phone"));
         tmp.setEmail(request.getParameter("email"));
         tmp.setWebsite(request.getParameter("website"));
+		tmp.setSlotPrice(request.getParameter("priceslotselected"));
         
         String[] cusines = request.getParameterValues("cusines");
-        List<Cusine> list = new ArrayList<>();
+        List<Cusine> list = new ArrayList<>();		
         
         if (cusines != null) {
             for(int i=0; i< cusines.length; i++) {
@@ -205,7 +288,8 @@ public class RestaurantsController extends AbstractController {
         }
         
         tmp.setCusine(list);
-        
+        tmp.validate();
+
         try {
             int id_rest = ((RestaurantDAO) request.getServletContext().getAttribute("restaurantdao")).updateRestaurant(tmp);
             if (tmp.isValid()) {
@@ -216,7 +300,6 @@ public class RestaurantsController extends AbstractController {
             response.sendError(500);
             return "";
         }
-        System.out.println("not VALID");
         return "/restaurants/edit";
 	}
 }

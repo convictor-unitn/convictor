@@ -90,7 +90,7 @@ public class AddressResolver {
 	 * @param zipcode the zipcode to set
 	 */
 	public void setZipcode(int zipcode) {
-		this.zipcode = zipcode;
+//		this.zipcode = zipcode;
 	}
 
 	/**
@@ -101,7 +101,7 @@ public class AddressResolver {
 		StringTokenizer st = new StringTokenizer(city," ",true);
 		
 		for (int i = 0; i < st.countTokens(); i++) {
-			this.city[i] = (String)st.nextElement();
+//			this.city[i] = (String)st.nextElement();
 		}
 	}
 
@@ -111,7 +111,7 @@ public class AddressResolver {
 	public void setStreet(String street) {
 		StringTokenizer st = new StringTokenizer(street," ",true);
 		for (int i = 0; i < st.countTokens(); i++) {
-			this.street[i] = (String)st.nextElement();
+//			this.street[i] = (String)st.nextElement();
 		}
 	}
 
@@ -122,7 +122,7 @@ public class AddressResolver {
 		StringTokenizer st = new StringTokenizer(state," ",true);
 		
 		for (int i = 0; i < st.countTokens(); i++) {
-			this.state[i] = (String)st.nextElement();
+//			this.state[i] = (String)st.nextElement();
 		}
 	}
 	

@@ -27,7 +27,7 @@
       
       <!-- Notifications list-->      
       <div class="stretched column">
-          <div class="center text"> <h2> Notifiche Ristoratore </h2> </div>
+          <div class="center text"> <h2> Notifiche </h2> </div>
         </br>
 
         <div class="ui one column center aligned grid">
@@ -54,11 +54,28 @@
                       Ieri
                     </div>
                     <div class="summary">
-                      <a>Utente</a> ha Reclamato/Segnalato <a>Ristorante</a>
+                      <a>Utente</a> ha recensito <a>Ristorante</a>
                     </div>
                     <div class="extra">
                       <div class="ui right floated buttons">
-                        <button class="ui basic black button">Segnala</button>
+                        <button class="ui basic black button">Visualizza</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="ui segment feed">
+                <div class="event">
+                  <div class="content">
+                    <div class="date">
+                      Ieri
+                    </div>
+                    <div class="summary">
+                      <a>Utente</a> ha aggiunto una foto a <a>Ristorante</a>
+                    </div>
+                    <div class="extra">
+                      <div class="ui right floated buttons">
+                        <button class="ui basic black button">Visualizza</button>
                       </div>
                     </div>
                   </div>

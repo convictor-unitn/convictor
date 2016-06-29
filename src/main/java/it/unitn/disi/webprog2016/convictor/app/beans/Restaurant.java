@@ -189,7 +189,13 @@ public class Restaurant extends AbstractBean {
      * @param rating the rating to set
      */
     public void setRating(String rating) {
-        this.rating = Integer.parseInt(rating);
+		try {
+			this.rating = Integer.parseInt(rating);
+		}
+		catch(NumberFormatException e) {
+			this.rating = 0;
+		}
+        
     }
 
 
@@ -302,8 +308,7 @@ public class Restaurant extends AbstractBean {
         } 
         
         if (this.getSlotPrice() == 0) {
-            status = false;
-            this.setError("slot_price", "The slot price is not valid!");
+            setSlotPrice(3);
         }
         
         if (this.getEmail().equals("")) {
@@ -314,6 +319,16 @@ public class Restaurant extends AbstractBean {
         if (this.getPhone().equals("")) {
             status = false;
             this.setError("phone", "The phone number is not valid!");
+        }
+        
+        if (this.getCusine().isEmpty()) {
+            status = false;
+            this.setError("cusines", "You didn't choose any cusines!");
+        }
+        
+        if (this.getOpeningTimes().isEmpty()) {
+            status = false;
+            this.setError("openingTimes", "You didn't choose any opening times!");
         }
         
         return status;
