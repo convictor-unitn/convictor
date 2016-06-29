@@ -7,7 +7,7 @@
 <%@tag description="admin notifications list partial" pageEncoding="UTF-8"%>
 
     <div class="ui container">
-        <div class="text"> <h2> Notifiche Amministratore </h2> </div>
+        <div class="text"> <h2> Notifiche </h2> </div>
         </br>
 
         <div class="ui one column center aligned grid">
@@ -34,7 +34,7 @@
                       Ieri
                     </div>
                     <div class="summary">
-                      <a>Utente</a> ha Reclamato/Segnalato <a>Ristorante</a>
+                      <a>Utente</a> ha reclamato <a>Ristorante</a>
                     </div>
                     <div class="extra">
                       <div class="ui right floated buttons">
