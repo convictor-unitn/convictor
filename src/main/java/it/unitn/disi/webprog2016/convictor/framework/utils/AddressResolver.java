@@ -45,18 +45,18 @@ public class AddressResolver {
 	private void composeAddress () {
 		String comma = ",";
 		String plus = "+";
-		this.address=this.zipcode+comma;
-		for (int i = 0; i < street.length; i++) {
-			this.address.
-		}
-		this.address+=comma;
-		for (int i = 0; i < city.length; i++) {
-			this.address+=city[i];
-		}
-		this.address+=comma;
-		for (int i = 0; i < state.length; i++) {
-			this.address+=state[i];
-		}
+//		this.address=this.zipcode+comma;
+//		for (int i = 0; i < street.length; i++) {
+//			this.address.
+//		}
+//		this.address+=comma;
+//		for (int i = 0; i < city.length; i++) {
+//			this.address+=city[i];
+//		}
+//		this.address+=comma;
+//		for (int i = 0; i < state.length; i++) {
+//			this.address+=state[i];
+//		}
 	}
 	
 	public void resolveAddress() throws IOException {
