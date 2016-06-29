@@ -6,12 +6,11 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="l" tagdir="/WEB-INF/tags/layouts/" %>
-
-
+<jsp:useBean id="restaurant" scope="request" class="it.unitn.disi.webprog2016.convictor.app.beans.Restaurant" />
 <l:main>
-	
-	<jsp:attribute name="title">{Restaurant's Name} Pagina</jsp:attribute>
+    <jsp:attribute name="title"> ${restaurant.name} </jsp:attribute>
 	
 	<jsp:attribute name="body">
     <div class="ui container">
@@ -20,7 +19,7 @@
       <div class="ui center aligned grid">
         <div class="column">
           <div class="ui header large">
-            Trattoria Milanese
+            ${restaurant.name}
           </div>
         </div>
       </div>
@@ -58,21 +57,18 @@
           </div>
           <div class="ui statistic">
               <div class="ui horizontal list">
-                  <div class="item">
-                      <i class="heart icon"> </i>
-                  </div>
-                  <div class="item">
-                      <i class="heart icon"> </i>
-                  </div>
-                  <div class="item">
-                      <i class="heart icon"> </i>
-                  </div>
-                  <div class="item">
-                      <i class="heart icon"> </i>
-                  </div>
-                  <div class="item">
-                      <i class="heart icon"> </i>
-                  </div>
+                <c:forEach var="i" begin="0" end="${restaurant.rating}" step="1">
+                    <c:if test="${i!=0}">
+                        <div class="item">
+                            <i class="heart icon"> </i>
+                        </div>
+                    </c:if>
+                </c:forEach>
+                    <c:forEach begin="${restaurant.rating}" end="4" step="1">
+                        <div class="item">
+                            <i class="empty heart icon"> </i>
+                        </div>
+                </c:forEach>
               </div>
               <div class="label">
                 Valutazione media
@@ -86,19 +82,19 @@
           <div class="ui list">
             <div class="item">
               <div class="meta">
-                <span>Via Roma, 100</span>
-                <span>1010</span>
-                <span>Milano</span>
+                <span>${restaurant.street}</span>
+                <span>${restaurant.zipCode}</span>
+                <span>${restaurant.city}</span>
               </div>
             </div>
             <div class="item">
-              <div class="meta">trattoria@milanese.me</div>
+              <div class="meta">${restaurant.email}</div>
             </div>
             <div class="item">
-              <div class="meta">0123 456789</div>
+              <div class="meta">${restaurant.phone}</div>
             </div>
             <div class="item">
-              <div class="meta"><a href="#">Web Page</a></div>
+              <div class="meta"><a href="#">${restaurant.website}</a></div>
             </div>
           </div>
         </div>
@@ -106,7 +102,7 @@
 
 
       <!-- Restaurant Infos -->
-      <div class="ui center aligned six column stackable grid">
+      <div class="ui center aligned five column stackable grid">
         <div class="row">
           <div class="column">
             <div clas="ui grid">
@@ -116,39 +112,16 @@
               <div class="ui divider"></div>
               <div class="column">
                 <div class="ui list">
-                  <div class="item">
-                    Cinese
-                  </div>
-                  <div class="item">
-                    Giapponese
-                  </div>
-                  <div class="item">
-                    Indiano
-                  </div>
+                    <c:forEach var="cusine" items="${restaurant.cusine}">
+                        <div class="item">
+                            ${cusine.name}
+                        </div>
+                    </c:forEach>
                 </div>
               </div>
             </div>
           </div>
-
-          <div class="column">
-            <div clas="ui center aligned grid">
-              <div class="column">
-                <div class="ui sub header">Orari di apertura</div>
-              </div>
-              <div class="ui divider"></div>
-              <div class="column">
-                <div class="ui list">
-                  <div class="item">
-                    7.30 - 12.30
-                  </div>
-                  <div class="item">
-                    18.30 - 1.30
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
+            
           <div class="column">
             <div clas="ui center aligned grid">
               <div class="column">
@@ -157,38 +130,39 @@
               <div class="ui divider"></div>
               <div class="column">
                 <div class="ui list">
-                  <div class="item">
-                    Alta
-                  </div>
-                  <div class="item">
-                    Media
-                  </div>
-                  <div class="item">
-                    Bassa
-                  </div>
+                  ${restaurant.slotPrice}
                 </div>
               </div>
             </div>
           </div>
 
           <div class="column">
-            <div clas="ui center aligned grid">
+            <div clas="ui  grid">
               <div class="column">
-                <div class="ui sub header">Giorno di chiusura</div>
+                <div class="ui sub header">Orari di apertura</div>
               </div>
               <div class="ui divider"></div>
               <div class="column">
                 <div class="ui list">
-                  <div class="item">
-                    LUN
-                  </div>
-                  <div class="item">
-                    MER
-                  </div>
+                    <c:forEach var="openingTime" items="${restaurant.openingTimes}">
+                        <div class="item">
+                            ${openingTime.dayString}
+                            <c:if test="${openingTime.dayoff != true}">
+                                <p>${openingTime.openAt}
+                                ${openingTime.closeAt}
+                                ${openingTime.openAtAfternoon}
+                                ${openingTime.closeAtAfternoon}</p>  
+                            </c:if>
+                            <c:if test="${openingTime.dayoff == true}">
+                                CHIUSO
+                            </c:if>
+                        </div>
+                    </c:forEach>
                 </div>
               </div>
             </div>
           </div>
+
         </div>
         <div class="ui divider"></div>
       </div>
@@ -208,109 +182,68 @@
         </div>
       </div>
 
-      <div id ="tabs"class="ui stackable grid">
-        <div class="column">
-          <!-- Recensioni Tab -->
-          <div class="ui tab active" data-tab="recensioni">
-            <div class="ui grid">
-              <div class="row">
-                <div class="column">
+    <!-- Show Reviews/Map TABS -->
 
-                  <!-- Reviews List -->
+    <div id ="tabs"class="ui stackable grid">
+      <div class="column">
+        <!-- Recensioni Tab -->
+        <div class="ui tab active" data-tab="recensioni">
+          <div class="ui grid">
+            <div class="row">
+              <div class="column">
                   <div class="ui comments">
-                    <div class="comment">
-                      <a class="avatar">
-                        <img src="/images/avatar/small/stevie.jpg">
-                      </a>
+                <!-- Reviews List -->
+                  <c:forEach var="review" items="${restaurant.reviews}">
+                      <div class="comment">
+                          <a class="avatar">
+                              <img src="#">
+                          </a>
                       <div class="content">
-                        <a class="author">Stevie Feliciano</a>
-                        <div class="metadata">
-                          <div class="date">2 days ago</div>
-                          <div class="rating">
-                            <i class="star icon"></i>
-                            5 Faves
+                          <a class="author">${review.registeredUserName}</a>
+                          <div class="metadata">
+                              <div class="date">2 days ago</div>
+                              <div class="rating">
+                                  <div class="ui horizontal list">
+                                      <c:forEach var="i" begin="0" end="${review.rating}" step="1">
+                                      <c:if test="${i!=0}">
+                                          <div class="item">
+                                              <i class="heart icon"> </i>
+                                          </div>
+                                      </c:if>
+                                  </c:forEach>
+                                  <c:forEach begin="${review.rating}" end="4" step="1">
+                                      <div class="item">
+                                          <i class="empty heart icon"> </i>
+                                      </div>
+                                  </c:forEach>
+                                  </div>                                    
+                              </div>
                           </div>
-                        </div>
-                        <div class="text">
-                          Hey guys, I hope this example comment is helping you read this documentation.
-                        </div>
-                        <div class="actions">
-                          <a class="reply">Reply</a>
-                        </div>
-                        <form class="ui reply form">
-                          <div class="field">
-                            <textarea></textarea>
-                          </div>
-                          <div class="ui basic submit labeled icon button">
-                            <i class="icon edit"></i> Add Reply
-                          </div>
-                        </form>
+                      <div class="text">
+                        ${review.description}
                       </div>
+                      <div class="actions">
+                        <a class="reply">Reply</a>
+                      </div>                            
+                      <form class="ui reply form">
+                        <div class="field">
+                          <textarea></textarea>
+                        </div>
+                        <div class="ui basic submit labeled icon button">
+                          <i class="icon edit"></i> Add Reply
+                        </div>
+                      </form>
                     </div>
-                    <div class="comment">
-                      <a class="avatar">
-                        <img src="/images/avatar/small/stevie.jpg">
-                      </a>
-                      <div class="content">
-                        <a class="author">Mario Rossi</a>
-                        <div class="metadata">
-                          <div class="date">2 days ago</div>
-                          <div class="rating">
-                            <i class="star icon"></i>
-                            1 Faves
-                          </div>
-                        </div>
-                        <div class="text">
-                          Hey guys, this place sucks
-                        </div>
-                        <div class="actions">
-                          <a class="reply">Reply</a>
-                        </div>
-                        <form class="ui reply form">
-                          <div class="field">
-                            <textarea></textarea>
-                          </div>
-                          <div class="ui basic submit labeled icon button">
-                            <i class="icon edit"></i> Add Reply
-                          </div>
-                        </form>
-                      </div>
-                    </div>
-                    <div class="comment">
-                      <a class="avatar">
-                        <img src="/images/avatar/small/stevie.jpg">
-                      </a>
-                      <div class="content">
-                        <a class="author">Luca Bianchi</a>
-                        <div class="metadata">
-                          <div class="date">2 days ago</div>
-                          <div class="rating">
-                            <i class="star icon"></i>
-                            2 Faves
-                          </div>
-                        </div>
-                        <div class="text">
-                          Brilliant Rest
-                        </div>
-                        <div class="actions">
-                          <a class="reply">Reply</a>
-                        </div>
-                        <form class="ui reply form">
-                          <div class="field">
-                            <textarea></textarea>
-                          </div>
-                          <div class="ui basic submit labeled icon button">
-                            <i class="icon edit"></i> Add Reply
-                          </div>
-                        </form>
-                      </div>
-                    </div>
+                      </div>                      
+                  </c:forEach>
                   </div>
-                </div>
-                <!-- End Reviews List -->
+                  
               </div>
-
+  
+                <!-- End Reviews List -->
+            </div>
               <!-- Add a review textbox -->
+              
               <div class="sixteen wide column">
                 <div class="ui center aligned grid">
                   <div class="column">
@@ -331,8 +264,9 @@
                   </div>
                 </div>
               </div>
-            </div>
           </div>
+         </div>
+              
           <!-- End Recensioni Tab -->
           <!-- Mappa Tab -->
           <div class="ui tab" data-tab="mappa">
@@ -406,7 +340,9 @@
         </div>
       </div>
     </div>
- 
+    <!-- End Reviews/Map TABS -->
+
+    
             <script type="text/javascript">
                 function initMap() {
                     var myLatLng = {lat: -25.363, lng: 131.044};

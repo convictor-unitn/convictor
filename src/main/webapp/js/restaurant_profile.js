@@ -76,7 +76,15 @@ $(document).ready(function(){
   $(".ownership").click(function(){
     $('.ui.modal.ownership').modal('show');
   });
-
+  
+  //New/Edit restaurant day opening checkboxes initializer
+  $('.ui.checkbox').checkbox();
+  
+  $('.ui.checkbox').toggle(function(){
+      alert("hello");
+     $(this).parent().parent().toggleClass('.disabled'); 
+  });
+  
   $(function () {
     $('#fileupload').fileupload({
       dataType: 'json',

@@ -4,7 +4,7 @@
     Author     : Giovanni M Riva
 --%>
 
-<%@tag description="put the tag description here" pageEncoding="UTF-8"%>
+<%@tag description="This tag contains the main layout for all pages except for error pages" pageEncoding="UTF-8"%>
 <%@taglib prefix="partials" tagdir="/WEB-INF/tags/partials/" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
@@ -32,9 +32,7 @@
             <title>${title}</title>
 	</head>
 	<body>
-            <c:if test="${user != null}" >
-                <partials:topNavbar />
-            </c:if>
+            <partials:topNavbar />
             <jsp:invoke fragment="body" />
             <script type="text/javascript" src="${context}/js/jquery-2.2.4.js"></script>
             <script type="text/javascript" src="${context}/js/semantic.js"></script>

@@ -21,17 +21,21 @@ public class Restaurant extends AbstractBean {
     private String province;
     private String fullAddress;
     private String website;
+    private String phone;
+    private String email;
     private int slotPrice;
     private int rating;
     private int mainPhotoId;
     private int restaurantOwnerId;
 	private List<Cusine> cusine;
 	private List<Review> reviews;
+    private List<OpeningTime> openingTimes;
 	private List<Notice> notices;
-	private List<OpeningTime> openingTimes;
 	private List<Photo> photos;
 	private RestaurantOwner owner;
 
+    
+    
     /**
      * @return the name
      */
@@ -160,10 +164,10 @@ public class Restaurant extends AbstractBean {
     
     /**
      * Overloading to cast a string value to an integer
-     * @param slot_price 
+     * @param slotPrice 
      */
-    public void setSlot_price(String slot_price) {
-        this.slotPrice = Integer.parseInt(slot_price);
+    public void setSlotPrice(String slotPrice) {
+        this.slotPrice = Integer.parseInt(slotPrice);
     } 
 
     /**
@@ -185,7 +189,13 @@ public class Restaurant extends AbstractBean {
      * @param rating the rating to set
      */
     public void setRating(String rating) {
-        this.rating = Integer.parseInt(rating);
+		try {
+			this.rating = Integer.parseInt(rating);
+		}
+		catch(NumberFormatException e) {
+			this.rating = 0;
+		}
+        
     }
 
 
@@ -205,10 +215,10 @@ public class Restaurant extends AbstractBean {
     
     /**
      * Overloading to cast a string value to an integer
-     * @param main_photo_id the mainPhotoId to set
+     * @param mainPhotoId the mainPhotoId to set
      */
-    public void setMain_photo_id(String main_photo_id) {
-        this.mainPhotoId = Integer.parseInt(main_photo_id);
+    public void setMainPhotoId(String mainPhotoId) {
+        this.mainPhotoId = Integer.parseInt(mainPhotoId);
     }
 
     /**
@@ -227,10 +237,39 @@ public class Restaurant extends AbstractBean {
     
     /**
      * Overloading to cast a string value to an integer
-     * @param restaurant_owner_id the restaurantOwnerId to set
+     * @param restaurantOwnerId the restaurantOwnerId to set
      */
-    public void setRestaurant_owner_id(String restaurant_owner_id) {
-        this.restaurantOwnerId = Integer.parseInt(restaurant_owner_id);
+    public void setRestaurantOwnerId(String restaurantOwnerId) {
+        this.restaurantOwnerId = Integer.parseInt(restaurantOwnerId);
+    }
+    
+    
+    /**
+     * @return the phone
+     */
+    public String getPhone() {
+        return phone;
+    }
+
+    /**
+     * @param phone the phone to set
+     */
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    /**
+     * @return the email
+     */
+    public String getEmail() {
+        return email;
+    }
+
+    /**
+     * @param email the email to set
+     */
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @Override
@@ -269,11 +308,72 @@ public class Restaurant extends AbstractBean {
         } 
         
         if (this.getSlotPrice() == 0) {
+            setSlotPrice(3);
+        }
+        
+        if (this.getEmail().equals("")) {
             status = false;
-            this.setError("slot_price", "The slot price is not valid!");
+            this.setError("email", "The email is not valid!");
+        }
+        
+        if (this.getPhone().equals("")) {
+            status = false;
+            this.setError("phone", "The phone number is not valid!");
+        }
+        
+        if (this.getCusine().isEmpty()) {
+            status = false;
+            this.setError("cusines", "You didn't choose any cusines!");
+        }
+        
+        if (this.getOpeningTimes().isEmpty()) {
+            status = false;
+            this.setError("openingTimes", "You didn't choose any opening times!");
         }
         
         return status;
+    }
+
+    /**
+     * @return the cusine
+     */
+    public List<Cusine> getCusine() {
+        return cusine;
+    }
+
+    /**
+     * @param cusine the cusine to set
+     */
+    public void setCusine(List<Cusine> cusine) {
+        this.cusine = cusine;
+    }
+
+    /**
+     * @return the reviews
+     */
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    /**
+     * @param reviews the reviews to set
+     */
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
+    }
+
+    /**
+     * @return the openingTimes
+     */
+    public List<OpeningTime> getOpeningTimes() {
+        return openingTimes;
+    }
+
+    /**
+     * @param openingTimes the openingTimes to set
+     */
+    public void setOpeningTimes(List<OpeningTime> openingTimes) {
+        this.openingTimes = openingTimes;
     }
     
     

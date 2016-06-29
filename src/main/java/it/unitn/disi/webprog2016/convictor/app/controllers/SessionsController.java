@@ -40,17 +40,13 @@ public class SessionsController extends AbstractController{
 		try {
 			user = userDAO.authenticate(email, password);
 			
-			if(user!=null) {
+			if(user.isValid()) {
 				HttpSession session = request.getSession(true);
 				session.setAttribute("user", user);
 				response.sendRedirect(request.getContextPath());
 				return "";
 			}
-			else
-			{
-				user = new User();
-				user.setEmail(email);
-			}
+			
 			request.setAttribute("user", user);
 		} catch (SQLException ex) {
 			Logger.getLogger(SessionsController.class.getName()).log(Level.SEVERE, null, ex);

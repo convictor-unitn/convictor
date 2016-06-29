@@ -7,8 +7,9 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="l" tagdir="/WEB-INF/tags/layouts/" %>
+<%@taglib prefix="p" tagdir="/WEB-INF/tags/partials/" %>
 
-<jsp:useBean id="user" scope="request" class="it.unitn.disi.webprog2016.convictor.app.beans.User" />
+<c:set var="bean" value="${requestScope.user}" scope="request" />
 
 <l:main>
 	
@@ -22,12 +23,15 @@
                 Accedi
               </div>
             </h2>
+              
+              <p:formerrors />
+              
               <form method="POST" class="ui large form" action="${pageContext.servletContext.contextPath}/sessions/create">
               <div class="ui stacked segment">
                 <div class="field">
                   <div class="ui left icon input">
                     <i class="user icon"></i>
-                    <input type="text" name="email" placeholder="Email" value="${user.email}" />
+                    <input type="text" name="email" placeholder="Email" value="${bean.email}" />
                   </div>
                 </div>
                 <div class="field">

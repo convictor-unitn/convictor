@@ -28,6 +28,7 @@
                             Reimpostazione profilo utente
                         </div>
                     </h2>
+                    
                     <form action="${pageContext.request.contextPath}/userProfile/update" method="POST" class="ui large form">
                         <div class="ui stacked segment">
                             <div class="field">
