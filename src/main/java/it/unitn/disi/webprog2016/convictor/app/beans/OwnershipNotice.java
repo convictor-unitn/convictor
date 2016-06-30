@@ -12,8 +12,8 @@ import it.unitn.disi.webprog2016.convictor.framework.beans.AbstractBean;
  */
 public class OwnershipNotice extends AbstractBean implements Notice, Approvable {
     
-    private Integer registeredUserId;
-    private Integer restaurantId;
+    private int registeredUserId;
+    private int restaurantId;
 	private boolean approved;
 	private User registeredUser;
 	private Photo photo;
@@ -21,14 +21,14 @@ public class OwnershipNotice extends AbstractBean implements Notice, Approvable 
     /**
      * @return the registeredUserId
      */
-    public Integer getRegisteredUserId() {
+    public int getRegisteredUserId() {
         return registeredUserId;
     }
 
     /**
      * @param registeredUserId the registeredUserId to set
      */
-    public void setRegisteredUserId(Integer registeredUserId) {
+    public void setRegisteredUserId(int registeredUserId) {
         this.registeredUserId = registeredUserId;
     }
     
@@ -37,20 +37,25 @@ public class OwnershipNotice extends AbstractBean implements Notice, Approvable 
      * @param registeredUserId the registeredUserId to set
      */
     public void setRegisteredUserId(String registeredUserId) {
-        this.registeredUserId = Integer.parseInt(registeredUserId);
+        try {
+            this.registeredUserId = Integer.parseInt(registeredUserId);
+        } catch (Exception e) {
+            this.setRegisteredUserId(-1);
+            this.setError("user_id", "L'id utente inserito non è valido");
+        }
     }
 
     /**
      * @return the restaurantId
      */
-    public Integer getRestaurantId() {
+    public int getRestaurantId() {
         return restaurantId;
     }
 
     /**
      * @param restaurantId the restaurantId to set
      */
-    public void setRestaurantId(Integer restaurantId) {
+    public void setRestaurantId(int restaurantId) {
         this.restaurantId = restaurantId;
     }
     
@@ -59,7 +64,12 @@ public class OwnershipNotice extends AbstractBean implements Notice, Approvable 
      * @param restaurantId the restaurantId to set
      */
     public void setRestaurantId(String restaurantId) {
-        this.restaurantId = Integer.parseInt(restaurantId);
+        try {
+            this.setRestaurantId(Integer.parseInt(restaurantId));
+        } catch (Exception e) {
+            this.setError("restaurant_id", "L'id del ristorante non è valido.");
+            this.setRestaurantId(-1);
+        }
     }
 
 	public boolean isApproved() {

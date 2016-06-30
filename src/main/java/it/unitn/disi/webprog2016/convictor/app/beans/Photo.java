@@ -75,7 +75,7 @@ public class Photo extends AbstractBean{
 			this.setRestaurantId(Integer.parseInt(restaurantId));
 		}
 		catch (NumberFormatException e) {
-			Logger.getLogger(NumberFormatException.class.getName()).log(Level.WARNING, e.getMessage());
+			this.setError("restaurant_id", "L'id del ristorante non è valido.");
 		}
 	}
 }

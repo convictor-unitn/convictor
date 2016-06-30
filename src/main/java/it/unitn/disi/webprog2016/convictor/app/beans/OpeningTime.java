@@ -46,11 +46,11 @@ public class OpeningTime extends AbstractBean {
 	 */
 	public void setRestaurantId(String restaurantId) {
 		try {
-			setRestaurantId(Integer.parseInt(restaurantId));
-		} catch (NumberFormatException ex) {
-			// TODO: quando si farà la validazione dei beans inserire l'errore sulla data non valida
-			Logger.getLogger(OpeningTime.class.getName()).log(Level.SEVERE, null, ex);
-		}
+            this.setRestaurantId(Integer.parseInt(restaurantId));
+        } catch (Exception e) {
+            this.setError("restaurant_id", "L'id del ristorante non è valido.");
+            this.setRestaurantId(-1);
+        }
 	}
 
 	/**
