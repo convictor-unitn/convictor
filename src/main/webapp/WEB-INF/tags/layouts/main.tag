@@ -31,7 +31,7 @@
 
             <title>${title}</title>
 	</head>
-	<body>
+	<body style='background-image: url("${pageContext.servletContext.contextPath}/images/background.png")'>
             <partials:topNavbar />
             <jsp:invoke fragment="body" />
             <script type="text/javascript" src="${context}/js/jquery-2.2.4.js"></script>
