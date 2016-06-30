@@ -6,6 +6,8 @@
 
 <%@tag description="put the tag description here" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <c:set var="loggedUser" value="${sessionScope.user}" />
 
 <%-- The list of normal or fragment attributes can be specified here: --%>
@@ -29,13 +31,16 @@
 
       <!-- Center -->
       <!-- Search Bar -->
-      <div class="ui search mini item">
-        <form class="ui icon input" method="POST" action="${pageContext.request.contextPath}/restaurants/index" >   
->
-          <input class = "prompt" type="text" placeholder="Search..." name="name">
-          <i class="search icon"></i>
-        </form>
-      </div>
+      <!-- Check whether current url is on home page to hide mini search bar in menu -->
+      <c:set value="landingPage.html.jsp" var="root" />
+      <c:if test="${not fn:endsWith(pageContext.request.requestURI, root)}">
+        <div class="ui search mini item">
+          <form class="ui icon input" method="POST" action="${pageContext.request.contextPath}/restaurants/index" >               
+            <input class = "prompt" type="text" placeholder="Search..." name="name">
+            <i class="search icon"></i>
+          </form>
+        </div>
+      </c:if>
 
       <!-- Right -->
       <!-- Notificazion Dropdown -->
