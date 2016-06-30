@@ -11,6 +11,7 @@
 <%-- The list of normal or fragment attributes can be specified here: --%>
 <%@attribute name="title" required="true" %>
 <%@attribute name="body" required="true" fragment="true" %>
+<%@attribute name="bodyBackground" %>
 <c:set var="context" value="${pageContext.request.contextPath}" />
 <c:set var="user" value="${sessionScope.user}" />
 
@@ -31,7 +32,7 @@
 
             <title>${title}</title>
 	</head>
-	<body style='background-image: url("${pageContext.servletContext.contextPath}/images/background.png")'>
+	<body style="background: <c:out value="${bodyBackground}" />">
             <partials:topNavbar />
             <jsp:invoke fragment="body" />
             <script type="text/javascript" src="${context}/js/jquery-2.2.4.js"></script>
