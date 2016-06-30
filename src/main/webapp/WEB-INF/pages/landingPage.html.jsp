@@ -38,7 +38,6 @@
                     <div class="ui mysegment">
                       <div class="ui medium fluid action input">
                         <input placeholder="Cerca per ristorante" type="text" name="name">
-                        <input placeholder="Cerca per citta'" type="text" name="city">
                         <button class="ui black submit button" type=submit>Cerca</button>
                       </div>
                     </div>
