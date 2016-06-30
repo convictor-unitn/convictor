@@ -167,7 +167,12 @@ public class Restaurant extends AbstractBean {
      * @param slotPrice 
      */
     public void setSlotPrice(String slotPrice) {
-        this.slotPrice = Integer.parseInt(slotPrice);
+        try {
+            this.slotPrice = Integer.parseInt(slotPrice);
+        } catch (Exception e) {
+            this.setSlotPrice(-1);
+            this.setError("slotPrice", email);
+        }
     } 
 
     /**
@@ -193,7 +198,8 @@ public class Restaurant extends AbstractBean {
 			this.rating = Integer.parseInt(rating);
 		}
 		catch(NumberFormatException e) {
-			this.rating = 0;
+			this.rating = -1;
+            this.setError("slotPrice", "Lo slot price non è valido.");
 		}
         
     }
@@ -218,7 +224,12 @@ public class Restaurant extends AbstractBean {
      * @param mainPhotoId the mainPhotoId to set
      */
     public void setMainPhotoId(String mainPhotoId) {
-        this.mainPhotoId = Integer.parseInt(mainPhotoId);
+        try {
+            this.setMainPhotoId(Integer.parseInt(mainPhotoId));
+        } catch (Exception e) {
+            this.setMainPhotoId(-1);
+            this.setError("photo_id", "L'id della foto principale non è valido.");
+        }
     }
 
     /**
@@ -240,7 +251,12 @@ public class Restaurant extends AbstractBean {
      * @param restaurantOwnerId the restaurantOwnerId to set
      */
     public void setRestaurantOwnerId(String restaurantOwnerId) {
-        this.restaurantOwnerId = Integer.parseInt(restaurantOwnerId);
+        try {
+            this.setRestaurantOwnerId(Integer.parseInt(restaurantOwnerId));
+        } catch (Exception e) {
+            this.setRestaurantOwnerId(-1);
+            this.setError("restaurant_owner_id", "L'id del proprietario non è valido");
+        }
     }
     
     
@@ -308,7 +324,8 @@ public class Restaurant extends AbstractBean {
         } 
         
         if (this.getSlotPrice() == 0) {
-            setSlotPrice(3);
+            status = false;
+            this.setError("slotPrice", "Lo slot price non è valido.");
         }
         
         if (this.getEmail().equals("")) {

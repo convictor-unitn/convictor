@@ -37,7 +37,12 @@ public class Review extends AbstractBean {
      * @param registeredUserId the registeredUserId to set
      */
     public void setRegisteredUserId(String registeredUserId) {
-        this.registeredUserId = Integer.parseInt(registeredUserId);
+        try {
+            this.registeredUserId = Integer.parseInt(registeredUserId);
+        } catch (Exception e) {
+            this.setRegisteredUserId(-1);
+            this.setError("user_id", "L'id utente non è valido.");
+        }
     }
 
     /**
@@ -59,7 +64,13 @@ public class Review extends AbstractBean {
      * @param restaurantId the restaurantId to set
      */
     public void setRestaurantId(String restaurantId) {
-        this.restaurantId = Integer.parseInt(restaurantId);
+        try {
+            this.restaurantId = Integer.parseInt(restaurantId);
+        } catch (Exception e) {
+            this.setRegisteredUserId(-1);
+            this.setError("restaurant_id", "L'id del ristorante non è valido.");
+        }
+        
     }
     
 
@@ -96,7 +107,12 @@ public class Review extends AbstractBean {
      * @param rating the rating to set
      */
     public void setRating(String rating) {
-        this.rating = Integer.parseInt(rating);
+        try {
+           this.rating = Integer.parseInt(rating); 
+        } catch (Exception e) {
+            this.setRating(-1);
+            this.setError("rating", "Il rating non è un valore valido.");
+        }
     }
     
     
