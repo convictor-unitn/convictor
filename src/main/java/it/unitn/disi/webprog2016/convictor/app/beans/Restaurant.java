@@ -255,7 +255,7 @@ public class Restaurant extends AbstractBean {
             this.setRestaurantOwnerId(Integer.parseInt(restaurantOwnerId));
         } catch (Exception e) {
             this.setRestaurantOwnerId(-1);
-            this.setError("restaurant_owner_id", "L'id del proprietario non è valido");
+            this.setError("restaurant_owner_id", "L'id del proprietario non è validox");
         }
     }
     

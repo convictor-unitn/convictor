@@ -6,8 +6,6 @@
 package it.unitn.disi.webprog2016.convictor.app.beans;
 
 import it.unitn.disi.webprog2016.convictor.framework.beans.AbstractBean;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -38,8 +36,7 @@ public class PriceSlot extends AbstractBean{
 		try {
 			setSlot(Integer.parseInt(slot));
 		} catch (NumberFormatException ex) {
-			// TODO: quando si farà la validazione dei beans inserire l'errore sulla data non valida
-			Logger.getLogger(OpeningTime.class.getName()).log(Level.SEVERE, null, ex);
+			this.setError("slotPrice", "La fascia di prezzo non è valida.");
 		}
 	}
 

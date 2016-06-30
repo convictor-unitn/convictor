@@ -37,7 +37,13 @@ public class PhotoRemovalNotice extends AbstractBean implements Notice, Approvab
      * @param registeredUserId the registeredUserId to set
      */
     public void setRegisteredUserId(String registeredUserId) {
-        this.registeredUserId = Integer.parseInt(registeredUserId);
+        try {
+            this.setRegisteredUserId(Integer.parseInt(registeredUserId));
+        } catch (Exception e) {
+            this.setError("registered_user_id", "L'id dell'utente registrato non è valido");
+            this.setRegisteredUserId(-1);
+        }
+        
     }
 
     /**
@@ -59,7 +65,12 @@ public class PhotoRemovalNotice extends AbstractBean implements Notice, Approvab
      * @param photoId the photoId to set
      */
     public void setPhotoId(String photoId) {
-        this.photoId = Integer.parseInt(photoId);
+        try {
+            this.setPhotoId(Integer.parseInt(photoId));
+        } catch (Exception e) {
+            this.setError("photo_id", "L'id della foto non è valido");
+            this.setPhotoId(-1);
+        }
     }
 
 	public boolean isApproved() {
@@ -71,7 +82,11 @@ public class PhotoRemovalNotice extends AbstractBean implements Notice, Approvab
 	}
 	
 	public void setApproved(String approved) {
-		this.approved = Boolean.valueOf(approved);;
+        try {
+            this.setApproved(Boolean.valueOf(approved));
+        } catch (Exception e) {
+            this.setError("approved", "Non è stato possibile settare l'approvazione.");
+        }
 	}
 
 	@Override
