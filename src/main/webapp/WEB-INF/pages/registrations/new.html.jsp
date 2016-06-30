@@ -14,7 +14,7 @@
 <l:main>
 	
 	<jsp:attribute name="title">Nuovo Utente</jsp:attribute>
-	
+	<jsp:attribute name="bodyBackground">url("${pageContext.servletContext.contextPath}/images/background.png")</jsp:attribute>
 	<jsp:attribute name="body">
             <div class="ui middle aligned center aligned grid">
                 <div class="column myform">
