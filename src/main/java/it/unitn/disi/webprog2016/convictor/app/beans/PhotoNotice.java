@@ -36,7 +36,12 @@ public class PhotoNotice extends AbstractBean implements Notice {
      * @param registeredUserId the registeredUserId to set
      */
     public void setRegisteredUserId(String registeredUserId) {
-        this.registeredUserId = Integer.parseInt(registeredUserId);
+       try {
+            this.registeredUserId = Integer.parseInt(registeredUserId);
+        } catch (Exception e) {
+            this.setRegisteredUserId(-1);
+            this.setError("user_id", "L'id utente inserito non è valido");
+        }
     }
 
     /**
@@ -58,7 +63,12 @@ public class PhotoNotice extends AbstractBean implements Notice {
      * @param photoId the photoId to set
      */
     public void setPhotoId(String photoId) {
-        this.photoId = Integer.parseInt(photoId);
+        try {
+            this.setPhotoId(Integer.parseInt(photoId));
+        } catch (Exception e) {
+            this.setError("photo_id", "L'id della foto non è valido");
+            this.setPhotoId(-1);
+        }
     }
 
 	@Override
