@@ -32,23 +32,36 @@
                     <span class="content">Convictor</span>
                   </h1>
                 </div>
-               
-                 <div class="ui container">
-                     <form class="ui very padded black basic segment" method="POST" action="${pageContext.request.contextPath}/restaurants/index" >   
-                    <div class="ui mysegment">
-                      <div class="ui medium fluid action input">
-                        <input placeholder="Cerca per ristorante" type="text" name="name">
-                        <button class="ui black submit button" type=submit>Cerca</button>
-                      </div>
+                
+                <div class="ui grid">
+                    <div class="ui computer tablet only row">
+                     <div class="ui container">
+                         <form class="ui very padded black basic segment" method="POST" action="${pageContext.request.contextPath}/restaurants/index" >   
+                        <div class="ui mysegment">
+                          <div class="ui medium fluid action input">
+                            <input placeholder="Cerca.." type="text" name="name">
+                            <button class="ui black submit button" type=submit>Cerca</button>
+                          </div>
+                        </div>
+                      </form>
+                     </div>
                     </div>
-                  </form>
-                </div>
                
-                  
+                    <div class="ui mobile only row">
+                        <div class="column">
+                            <form class="ui black basic segment" method="POST" action="${pageContext.request.contextPath}/restaurants/index" >                           
+                                <div class="ui fluid input">
+                                    <input placeholder="Cerca.." type="text" name="name">                            
+                                </div>                        
+                                <button class="ui black submit fluid button" type=submit>Cerca</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+           </div>                
                 
 
-            </div>
-            
+                       
             <div class="ui list">
                 <div class="item">
                 <a href="${pageContext.request.contextPath}/passwords/request_new">Reimposta Password</a>
