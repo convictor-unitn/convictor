@@ -10,10 +10,10 @@
 <jsp:useBean id="restaurant" scope="request" class="it.unitn.disi.webprog2016.convictor.app.beans.Restaurant" />
 
 <l:main>
-	
-	<jsp:attribute name="title">Landing Page</jsp:attribute>
-	
+	<jsp:attribute name="bodyBackground">url("${pageContext.servletContext.contextPath}/images/background.png")</jsp:attribute>
+	<jsp:attribute name="title">Landing Page</jsp:attribute>	
 	<jsp:attribute name="body">
+           
 
            <div class="ui vertical masthead center aligned segment">
                <c:if test="${sessionScope.user == null}" >
@@ -28,7 +28,7 @@
                 </c:if>
                 <div class="ui text container">
                   <h1 class="ui header">
-                    <img class="ui small middle aligned circular image" src="#">
+                    <img class="ui small middle aligned circular image" src="${pageContext.servletContext.contextPath}/images/logo.png">
                     <span class="content">Convictor</span>
                   </h1>
                 </div>

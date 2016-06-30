@@ -23,8 +23,8 @@
       <!-- Left -->
       <!-- Logo  -->
       <a href="${pageContext.request.contextPath}/" class="brand item">
-        <!--<img class="logo" src="assets/images/logo.png">-->
-        Convictor
+        <img class="ui avatar image" src="${pageContext.servletContext.contextPath}/images/logo.png">
+        <span>Convictor</span>
       </a>
 
       <!-- Center -->
