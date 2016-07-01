@@ -33,7 +33,8 @@ public class Restaurant extends AbstractBean {
 	private List<Notice> notices;
 	private List<Photo> photos;
 	private RestaurantOwner owner;
-
+	private double lat;
+	private double lng;
     
     
     /**
@@ -375,6 +376,48 @@ public class Restaurant extends AbstractBean {
     public void setOpeningTimes(List<OpeningTime> openingTimes) {
         this.openingTimes = openingTimes;
     }
+
+	public List<Photo> getPhotos() {
+		return photos;
+	}
+
+	public void setPhotos(List<Photo> photos) {
+		this.photos = photos;
+	}
+
+	public double getLat() {
+		return lat;
+	}
+
+	public void setLat(double lat) {
+		this.lat = lat;
+	}
+	
+	public void setLat(String lat) {
+		try {
+			setLat(Double.parseDouble(lat));
+		}
+		catch(NumberFormatException e) {
+			this.setError("lat", "Latitudine non valida. Deve essere un numero");
+		}
+	}
+
+	public double getLng() {
+		return lng;
+	}
+
+	public void setLng(double lng) {
+		this.lng = lng;
+	}
+	
+	public void setLng(String lng) {
+		try {
+			setLng(Double.parseDouble(lng));
+		}
+		catch(NumberFormatException e) {
+			this.setError("lng", "Longitudine non valida. Deve essere un numero");
+		}
+	}
     
     
     
