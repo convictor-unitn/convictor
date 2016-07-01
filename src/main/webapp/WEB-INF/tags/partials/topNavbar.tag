@@ -43,17 +43,41 @@
       </c:if>
 
       <!-- Right -->
-      <!-- Notificazion Dropdown -->
+      <!-- Owner User -->
+      <c:if test="${user.getClass().name == 'it.unitn.disi.webprog2016.convictor.app.beans.RestaurantOwner'}" >
+        <!-- Notificazion Dropdown -->
       <div class="ui simple dropdown right item">
-        Notifiche <i class="dropdown icon"></i>
+        Notifications <i class="dropdown icon"></i>
         <div class="menu">
           <a class="item" href="#">notify 1</a>
           <a class="item" href="#">notify 2</a>
-          <a class="item" href="${pageContext.request.contextPath}/userProfile/show">Leggi</a> 
+          <a class="item" href="${pageContext.request.contextPath}/userProfile/show">Open</a> 
         </div>
       </div>
+      <!-- Restaurants Dropdown -->
+      <div class="ui simple dropdown item">
+        I miei ristoranti <i class="dropdown icon"></i>
+        <div class="menu">
+          <a class="item" href="#">notify 1</a>
+          <a class="item" href="#">notify 2</a>
+        </div>
+      </div>
+      </c:if>
+      
+      <!-- Administrator User -->
+      <c:if test="${user.getClass().name == 'it.unitn.disi.webprog2016.convictor.app.beans.Administrator'}" >
+        <div class="ui simple dropdown right item">
+            Notifications <i class="dropdown icon"></i>
+            <div class="menu">
+              <a class="item" href="#">notify 1</a>
+              <a class="item" href="#">notify 2</a>
+              <a class="item" href="${pageContext.request.contextPath}/userProfile/show">Open</a> 
+            </div>
+        </div>
+      </c:if>
       
       <!-- Registered User -->
+      <c:if test="${user != null}" >
       <div class="ui simple dropdown item">
         ${loggedUser.fullName} <i class="dropdown icon"></i>
         <div class="menu">
@@ -61,19 +85,17 @@
           <a class="item" href="${pageContext.request.contextPath}/sign_out">Log Out</a>
         </div>
       </div>
-      
-      <!-- Owner User -->
-      <c:if test="${user.getClass().name == 'it.unitn.disi.webprog2016.convictor.app.beans.RestaurantOwner'}" >
-        <a class="item" href="${pageContext.request.contextPath}/userProfile/show">I miei Ristoranti</a>
       </c:if>
-      <c:if test="${user == null}" >
+      
+    <c:if test="${user == null}" >
           
       <!-- Anonymous User -->
-      <div class="item">
-        <a class="ui basic button inverted right" href="${pageContext.request.contextPath}/sign_up">Registrati</a>
-      </div>
-      <div class="item">
-        <a class="ui basic button inverted right" href="${pageContext.request.contextPath}/sign_in">Accedi</a>
+      <div class="right item">
+         
+        <a class="ui basic button inverted" href="${pageContext.request.contextPath}/sign_in">Accedi</a>
+      <!--</div>
+      <div class="item">-->
+        <a class="ui basic button inverted " href="${pageContext.request.contextPath}/sign_up">Registrati</a>
       </div>
       </c:if>
     </div>
@@ -88,18 +110,21 @@
       <!-- Left -->
       <!-- Logo  -->
       <a href="${pageContext.request.contextPath}/" class="brand item">
-        <!--<img class="logo" src="assets/images/logo.png">-->
-        Convictor
+        <img class="logo" src="${pageContext.request.contextPath}/images/logo.png"> Convictor
       </a>
 
       <!-- Center -->
       <!-- Search Bar -->
-      <div class="ui search mini item">
-        <form class="ui icon input"method="POST" action="${pageContext.request.contextPath}/restaurants/index">
-          <input class = "prompt" type="text" placeholder="Search..." name="name" >
-          <i class="search icon"></i>
-        </div>
+      <c:set value="landingPage.html.jsp" var="root" />
+      <c:if test="${not fn:endsWith(pageContext.request.requestURI, root)}">
+        <div class="ui search mini item">
+          <form class="ui icon input"method="POST" action="${pageContext.request.contextPath}/restaurants/index">
+            <input class = "prompt" type="text" placeholder="Search..." name="name" >
+            <i class="search icon"></i>
+          
       </form>
+            </div>
+      </c:if>
       <div class="right menu open">
         <a href="" class="menu item">
           <i class="content icon"></i>
@@ -109,41 +134,61 @@
 
 
     <div class="ui vertical navbar menu">
-
-      <!-- Right -->
-      <!-- Notification Dropdown -->
-      <div class="ui item">
-        <div class="text">Notifiche</div>
+        
+      <!-- Owner User -->
+      <c:if test="${user.getClass().name == 'it.unitn.disi.webprog2016.convictor.app.beans.RestaurantOwner'}" >
+        <!-- Notificazion Dropdown -->
+      <div class="item">
+        <div class="text">Notifications</div>
         <div class="menu">
-           <a class="item" href="#">notifica 1</a>
-          <a class="item" href="#">notifica 2</a>
-          <a class="item" href="${pageContext.request.contextPath}/userProfile/show">Leggi</a>
+          <a class="item" href="#">notify 1</a>
+          <a class="item" href="#">notify 2</a>
+          <a class="item" href="${pageContext.request.contextPath}/userProfile/show">Open</a> 
         </div>
       </div>
-
-      <!-- Registered User -->
+      <!-- Restaurants Dropdown -->
       <div class="item">
-        <a href="${pageContext.request.contextPath}/userProfile/show">${loggedUser.fullName}</a> 
+        <div class="text">I miei ristoranti</div>
+        <div class="menu">
+          <a class="item" href="#">notify 1</a>
+          <a class="item" href="#">notify 2</a>
+        </div>
+      </div>
+      </c:if>
+      
+      <!-- Administrator User -->
+      <c:if test="${user.getClass().name == 'it.unitn.disi.webprog2016.convictor.app.beans.Administrator'}" >
+        <div class="ui item">
+            <div class="text">Notifications</div> 
+            <div class="menu">
+              <a class="item" href="#">notify 1</a>
+              <a class="item" href="#">notify 2</a>
+              <a class="item" href="${pageContext.request.contextPath}/userProfile/show">Open</a> 
+            </div>
+        </div>
+      </c:if>
+      
+      <!-- Registered User -->
+      <c:if test="${user != null}" >
+      <div class="ui item">
+        <div class="text">${loggedUser.fullName}</div>
         <div class="menu">
           <a class="item" href="${pageContext.request.contextPath}/userProfile/show">Pagina Profilo</a> 
           <a class="item" href="${pageContext.request.contextPath}/sign_out">Log Out</a>
         </div>
+      </div>  
+      </c:if> 
+        
+      <c:if test="${user == null}" >          
+        <!-- Anonymous User -->
+        <div class="item">
+          <a class="ui basic fluid black button" href="${pageContext.request.contextPath}/sign_in">Accedi</a>
         </div>
-
-      <!-- Owner User -->
-      <div class="item">
-        <a href="${pageContext.request.contextPath}/userProfile/show">I Miei Ristoranti</a>
-      </div>
-      
-      <!-- Anonymous User -->
-      <c:if test="${loggedUser == null}" >                     
-      <div class="item">
-        <a class="ui basic button right" href="${pageContext.request.contextPath}/sign_up">Registrati</a>
-      </div>
-      <div class="item">
-          <a class="ui basic button right" href="${pageContext.request.contextPath}/sign_in">Accedi</a>
-      </div>
+        <div class="item">
+            <a class="ui basic fluid black button" href="${pageContext.request.contextPath}/sign_up">Registrati</a>
+        </div>
       </c:if>
+      
     </div>
     
 
