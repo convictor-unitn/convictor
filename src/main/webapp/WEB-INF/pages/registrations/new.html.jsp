@@ -8,8 +8,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="l" tagdir="/WEB-INF/tags/layouts/" %>
 
-
-<jsp:useBean id="user" scope="session" class="it.unitn.disi.webprog2016.convictor.app.beans.User"/>
+<c:set var="bean" value="${requestScope.user}" scope="request" />
 
 <l:main>
 	
