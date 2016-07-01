@@ -44,7 +44,7 @@
 
       <!-- Right -->
       <!-- Owner User -->
-      <c:if test="${user.getClass().name == 'it.unitn.disi.webprog2016.convictor.app.beans.RestaurantOwner'}" >
+      <c:if test="${loggedUser.getClass().name == 'it.unitn.disi.webprog2016.convictor.app.beans.RestaurantOwner'}" >
         <!-- Notificazion Dropdown -->
       <div class="ui simple dropdown right item">
         Notifications <i class="dropdown icon"></i>
@@ -65,7 +65,7 @@
       </c:if>
       
       <!-- Administrator User -->
-      <c:if test="${user.getClass().name == 'it.unitn.disi.webprog2016.convictor.app.beans.Administrator'}" >
+      <c:if test="${loggedUser.getClass().name == 'it.unitn.disi.webprog2016.convictor.app.beans.Administrator'}" >
         <div class="ui simple dropdown right item">
             Notifications <i class="dropdown icon"></i>
             <div class="menu">
@@ -77,7 +77,7 @@
       </c:if>
       
       <!-- Registered User -->
-      <c:if test="${user != null}" >
+      <c:if test="${loggedUser != null}" >
       <div class="ui simple dropdown item">
         ${loggedUser.fullName} <i class="dropdown icon"></i>
         <div class="menu">
@@ -87,7 +87,7 @@
       </div>
       </c:if>
       
-    <c:if test="${user == null}" >
+    <c:if test="${loggedUser == null}" >
           
       <!-- Anonymous User -->
       <div class="right item">
@@ -136,7 +136,7 @@
     <div class="ui vertical navbar menu">
         
       <!-- Owner User -->
-      <c:if test="${user.getClass().name == 'it.unitn.disi.webprog2016.convictor.app.beans.RestaurantOwner'}" >
+      <c:if test="${loggedUser.getClass().name == 'it.unitn.disi.webprog2016.convictor.app.beans.RestaurantOwner'}" >
         <!-- Notificazion Dropdown -->
       <div class="item">
         <div class="text">Notifications</div>
@@ -157,7 +157,7 @@
       </c:if>
       
       <!-- Administrator User -->
-      <c:if test="${user.getClass().name == 'it.unitn.disi.webprog2016.convictor.app.beans.Administrator'}" >
+      <c:if test="${loggedUser.getClass().name == 'it.unitn.disi.webprog2016.convictor.app.beans.Administrator'}" >
         <div class="ui item">
             <div class="text">Notifications</div> 
             <div class="menu">
@@ -169,7 +169,7 @@
       </c:if>
       
       <!-- Registered User -->
-      <c:if test="${user != null}" >
+      <c:if test="${loggedUser != null}" >
       <div class="ui item">
         <div class="text">${loggedUser.fullName}</div>
         <div class="menu">
@@ -179,7 +179,7 @@
       </div>  
       </c:if> 
         
-      <c:if test="${user == null}" >          
+      <c:if test="${loggedUser == null}" >          
         <!-- Anonymous User -->
         <div class="item">
           <a class="ui basic fluid black button" href="${pageContext.request.contextPath}/sign_in">Accedi</a>
