@@ -76,9 +76,19 @@
         </div>
       </c:if>
       
+	  <!-- 
+		Questo è un tweak per settare il right di semantic: se sono un utente registrato setto una variabile
+		che stampo nelle classi CSS
+	  -->
+	  <c:if test="${loggedUser.getClass().name == 'it.unitn.disi.webprog2016.convictor.app.beans.User'}">
+		  <c:set var="setRight" value="right" scope="request" />
+	  </c:if>
+	
+	  <c:out value="" />
+	  
       <!-- Registered User -->
       <c:if test="${loggedUser != null}" >
-      <div class="ui simple dropdown item">
+      <div class="ui simple dropdown ${setRight} item">
         ${loggedUser.fullName} <i class="dropdown icon"></i>
         <div class="menu">
           <a class="item" href="${pageContext.request.contextPath}/userProfile/show">Pagina Profilo</a> 
