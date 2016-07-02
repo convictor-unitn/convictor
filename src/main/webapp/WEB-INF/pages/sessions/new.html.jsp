@@ -11,6 +11,15 @@
 
 <c:set var="bean" value="${requestScope.user}" scope="request" />
 
+<c:choose>
+    <c:when test="${bean.valid == false}">
+        <c:set var="error" value="error"/>
+    </c:when>  
+    <c:otherwise>
+        <c:set var="error" value=""/>
+    </c:otherwise>
+</c:choose>
+
 <l:main>
 	
 	<jsp:attribute name="title">Accedi</jsp:attribute>
@@ -24,17 +33,17 @@
               </div>
             </h2>
               
-              <p:formerrors />
+              <p:formerrors/>
               
               <form method="POST" class="ui large form" action="${pageContext.servletContext.contextPath}/sessions/create">
               <div class="ui stacked segment">
-                <div class="field">
+                <div class="field ${error} ">
                   <div class="ui left icon input">
                     <i class="user icon"></i>
                     <input type="text" name="email" placeholder="Email" value="${bean.email}" />
                   </div>
                 </div>
-                <div class="field">
+                <div class="field ${error}">
                   <div class="ui left icon input">
                     <i class="lock icon"></i>
                     <input type="password" name="password" placeholder="Password" />
