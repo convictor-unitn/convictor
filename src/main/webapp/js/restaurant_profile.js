@@ -35,7 +35,7 @@ $(document).ready(function(){
   
   //New/Edit restaurant day opening checkboxes initializer
   
-  $('.ui.checkbox').checkbox({
+  $('.ui.checkbox.mycheckbox').checkbox({
           
         onChecked: 
             function(){
