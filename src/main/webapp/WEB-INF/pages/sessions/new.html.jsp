@@ -41,7 +41,7 @@
                   </div>
                 </div>
                 <div class="ui text" align="right">
-                  <a href="${pageContext.servletContext.contextPath}/passwords/new">Password dimenticata?</a>
+                  <a href="${pageContext.servletContext.contextPath}/passwords/request_new">Password dimenticata?</a>
                 </div>
                 </br>
                     <input type="submit" id="p_button" class="ui fluid large submit button"  value="Accedi"/>
