@@ -33,10 +33,12 @@
               </div>
             </h2>
               
-              <p:formerrors/>
               
-              <form method="POST" class="ui large form" action="${pageContext.servletContext.contextPath}/sessions/create">
-              <div class="ui stacked segment">
+              <form method="POST" class="ui large form ${error}" action="${pageContext.servletContext.contextPath}/sessions/create">
+
+                <div class="ui stacked segment">
+                <p:formerrors/>
+
                 <div class="field ${error} ">
                   <div class="ui left icon input">
                     <i class="user icon"></i>
