@@ -11,15 +11,6 @@
 
 <c:set var="bean" value="${requestScope.user}" scope="request" />
 
-<c:choose>
-    <c:when test="${bean.valid == false}">
-        <c:set var="error" value="error"/>
-    </c:when>  
-    <c:otherwise>
-        <c:set var="error" value=""/>
-    </c:otherwise>
-</c:choose>
-
 <l:main>
 	
 	<jsp:attribute name="title">Accedi</jsp:attribute>
@@ -32,20 +23,18 @@
                 Accedi
               </div>
             </h2>
-              
-              
-              <form method="POST" class="ui large form ${error}" action="${pageContext.servletContext.contextPath}/sessions/create">
-
-                <div class="ui stacked segment">
+                            
+              <form method="POST" class="ui large form error" action="${pageContext.servletContext.contextPath}/sessions/create">
+              <div class="ui stacked segment">
                 <p:formerrors/>
-
-                <div class="field ${error} ">
+                
+                <div class="field <c:if test="${bean.valid == false and not (bean.errors['loginError'] == null)}" >error</c:if>">
                   <div class="ui left icon input">
                     <i class="user icon"></i>
                     <input type="text" name="email" placeholder="Email" value="${bean.email}" />
                   </div>
                 </div>
-                <div class="field ${error}">
+                <div class="field <c:if test="${bean.valid == false and not (bean.errors['loginError'] == null)}" >error</c:if>">
                   <div class="ui left icon input">
                     <i class="lock icon"></i>
                     <input type="password" name="password" placeholder="Password" />

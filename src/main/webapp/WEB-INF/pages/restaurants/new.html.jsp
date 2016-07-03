@@ -26,7 +26,6 @@
                         Aggiungi Ristorante
                       </div>
                     </h2>
-                    <p:formerrors />
                     <p:restaurantForm />
                   </div>
                 </div>

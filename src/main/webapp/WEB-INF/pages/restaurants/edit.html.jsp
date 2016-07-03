@@ -27,7 +27,6 @@
                         Modifica Ristorante
                       </div>
                     </h2>
-                      <partials:formerrors />
                       
                       <partials:restaurantForm />
                   </div>

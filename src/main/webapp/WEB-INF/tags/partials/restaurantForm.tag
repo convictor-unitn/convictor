@@ -5,6 +5,7 @@
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="partials" tagdir="/WEB-INF/tags/partials" %>
 <%@tag description="put the tag description here" pageEncoding="UTF-8"%>
 
 <c:if test="${empty bean.id || bean.id == 0}">
@@ -15,6 +16,7 @@
 </c:if>
 <form class="ui large form" method="POST" action="${url}">
     <div class="ui tertiary segment">
+        <partials:formerrors/>
 
       <!-- Personal Infos -->
 
@@ -22,33 +24,33 @@
         <!-- Name Field -->
         <label>Informazioni Personali</label>
         <div class="ui divider"></div>
-        <div class="field">
+        <div class="field <c:if test="${bean.valid == false and not bean.errors['name'] == null}" >error</c:if>">
             <input type="text" name="name" placeholder="Nome" value="${bean.name}" >
         </div>
 
         <!-- Location Fields -->
         <div class="four fields">
-          <div class="field">
+          <div class="field <c:if test="${bean.valid == false and not bean.errors['street'] == null}" >error</c:if>">
               <input type="text" name="street" placeholder="Via" value="${bean.street}">
           </div>
-          <div class="field">
+          <div class="field <c:if test="${bean.valid == false and not bean.errors['city'] == null}" >error</c:if>">
               <input type="text" name="city" placeholder="Città" value="${bean.city}">
           </div>
-          <div class="field">
+          <div class="field <c:if test="${bean.valid == false and not bean.errors['zipCode'] == null}" >error</c:if>">
               <input type="text" name="zipcode" placeholder="CAP" value="${bean.zipCode}">
           </div>
-          <div class="field">
+          <div class="field <c:if test="${bean.valid == false and not bean.errors['province'] == null}" >error</c:if>">
               <input type="text" name="province" placeholder="Provincia" value="${bean.province}">
           </div>
         </div>
         <div class="three fields">
-          <div class="field">
+          <div class="field <c:if test="${bean.valid == false and not bean.errors['email'] == null}" >error</c:if>">
               <input type="text" name="email" placeholder="Email" value="${bean.email}">
           </div>
-          <div class="field">
+          <div class="field <c:if test="${bean.valid == false and not bean.errors['phone'] == null}" >error</c:if>">
               <input type="text" name="phone" placeholder="Telefono" value="${bean.phone}">
           </div>
-          <div class="field">
+          <div class="field <c:if test="${bean.valid == false and not bean.errors['website'] == null}" >error</c:if>">
               <input type="text" name="website" placeholder="Pagina Web" value="${bean.website}">
           </div>
         </div>
@@ -59,7 +61,7 @@
               <div class="ui divider"></div>
               <div class="five fields">                  
                       <c:forEach var="slotprice" items="${allPriceSlot}">
-                         <div class="field">
+                         <div class="field <c:if test="${bean.valid == false and not bean.errors['slotPrice'] == null}" >error</c:if>">
                              <div class="ui radio checkbox">
                       <!-- If on edit page -->                  
                       <c:choose>    

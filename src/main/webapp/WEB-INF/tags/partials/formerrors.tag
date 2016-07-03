@@ -7,9 +7,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@tag description="put the tag description here" pageEncoding="UTF-8"%>
 
-
-            <div class="ui error message">
-                <div class="header">Ci sono degli errori</div>
+<c:if test="${bean.valid == false}">
+    <div class="ui error message">
                 <ul>
                    
                     <c:forEach var="error" items="${bean.errors}" >
@@ -19,4 +18,5 @@
                     </c:forEach>
                 </ul>    
             </div>
+</c:if>
 
