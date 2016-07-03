@@ -7,7 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="l" tagdir="/WEB-INF/tags/layouts/" %>
-<%@taglib prefix="p" tagdir="/WEB-INF/tags/partials/" %>
+<%@taglib prefix="partials" tagdir="/WEB-INF/tags/partials/" %>
 
 <c:set var="bean" value="${requestScope.user}" scope="request" />
 
@@ -26,7 +26,7 @@
                             
               <form method="POST" class="ui large form error" action="${pageContext.servletContext.contextPath}/sessions/create">
               <div class="ui stacked segment">
-                <p:formerrors/>
+                <partials:formerrors/>
                 
                 <div class="field <c:if test="${bean.valid == false and not (bean.errors['loginError'] == null)}" >error</c:if>">
                   <div class="ui left icon input">

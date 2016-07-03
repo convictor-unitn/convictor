@@ -13,8 +13,10 @@
 
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="l" tagdir="/WEB-INF/tags/layouts/" %>
+<%@taglib prefix="partials" tagdir="/WEB-INF/tags/partials/" %>
 
-<c:set var="bean" scope="request" value="${requestScope.user}" />
+
+<c:set var="bean" value="${requestScope.user}" scope="request" />
 <l:main>
 	
 	<jsp:attribute name="title">Reimposta Profilo Utente</jsp:attribute>
@@ -31,37 +33,38 @@
                     
                     <form action="${pageContext.request.contextPath}/userProfile/update" method="POST" class="ui large form">
                         <div class="ui stacked segment">
-                            <div class="field">
+                            <partials:formerrors />
+                            <div class="field <c:if test="${bean.valid == false and not (bean.errors['name'] == null)}" >error</c:if>">
                                 <div class="ui left icon input">
                                     <i class="user icon"></i>
                                     <input type="text" name="name" placeholder="Nome" value="${bean.name}" />
                                 </div>
                             </div>
-                            <div class="field">
+                            <div class="field <c:if test="${bean.valid == false and not (bean.errors['surname'] == null)}" >error</c:if>">
                                 <div class="ui left icon input">
                                     <i class="user icon"></i>
                                     <input type="text" name="surname" placeholder="Cognome" value="${bean.surname}" />
                                 </div>
                             </div>
-                            <div class="field">
+                            <div class="field <c:if test="${bean.valid == false and not (bean.errors['email'] == null)}" >error</c:if>">
                                 <div class="ui left icon input">
                                     <i class="user icon"></i>
                                     <input type="text" name="email" placeholder="Email" value="${bean.email}">
                                 </div>
                             </div>
-                            <div class="field">
+                            <div class="field <c:if test="${bean.valid == false and not (bean.errors['password'] == null)}" >error</c:if>">
                                 <div class="ui left icon input">
                                     <i class="lock icon"></i>
                                     <input type="password" name="oldPassword" placeholder="Vecchia password">
                                 </div>
                             </div>
-                            <div class="field">
+                            <div class="field <c:if test="${bean.valid == false and not (bean.errors['password'] == null)}" >error</c:if>">
                                 <div class="ui left icon input">
                                     <i class="lock icon"></i>
                                     <input type="password" name="password" placeholder="Nuova password">
                                 </div>
                             </div>
-                             <div class="field">
+                            <div class="field <c:if test="${bean.valid == false and not (bean.errors['password'] == null)}" >error</c:if>">
                                 <div class="ui left icon input">
                                     <i class="lock icon"></i>
                                     <input type="password" name="passwordConfirmation" placeholder="Conferma password">
