@@ -7,6 +7,9 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="l" tagdir="/WEB-INF/tags/layouts/" %>
+<%@taglib prefix="p" tagdir="/WEB-INF/tags/partials/" %>
+
+<c:set var="bean" scope="request" value="${requestScope.user}" />
 
 <l:main>
 	
@@ -22,12 +25,13 @@
                 </h2>
                 <form class="ui large form">
                   <div class="ui stacked segment">
+                    <p:formerrors />
                     <div>Per reimpostare la password del tuo account ti sarà inviato all'indirizzo email che inserirai qui un link per effettuare l'operazione.</div>
                     </br>
-                    <div class="field">
+                    <div class="field <c:if test="${bean.valid == false and not bean.errors['email'] == null}" >error</c:if>">
                       <div class="ui left icon input">
                         <i class="user icon"></i>
-                        <input type="text" name="email" placeholder="Email">
+                        <input type="text" name="email" placeholder="Email" value="${bean.email}">
                       </div>
                     </div>
                     </br>

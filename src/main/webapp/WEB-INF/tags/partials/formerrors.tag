@@ -9,14 +9,13 @@
 
 <c:if test="${bean.valid == false}">
     <div class="ui error message">
-                <ul>
-                   
-                    <c:forEach var="error" items="${bean.errors}" >
-                        <li>
-                            ${error['value']}
-                        </li>
-                    </c:forEach>
-                </ul>    
-            </div>
+        <ul>
+            <c:forEach var="error" items="${bean.errors}" >
+                <li>
+                    ${error['value']}
+                </li>
+            </c:forEach>
+        </ul>    
+    </div>
 </c:if>
 

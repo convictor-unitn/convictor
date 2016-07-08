@@ -1,13 +1,14 @@
 <%-- 
     Document   : passwordForm
-    Created on : 27-giu-2016, 18.40.38
+    Created on : 8-lug-2016, 15.54.20
     Author     : Giovanni
 --%>
 
 <%@tag description="put the tag description here" pageEncoding="UTF-8"%>
 
-<%-- The list of normal or fragment attributes can be specified here: --%>
-<%@attribute name="message"%>
-
-<%-- any content can be specified here e.g.: --%>
-<h2>${message}</h2>
+<c:if test="${empty bean.id || bean.id == 0}">
+    <c:set var="url" value="${pageContext.servletContext.contextPath}/passwords/create" />
+</c:if>
+<c:if test="${!empty bean.id && bean.id != 0}">
+    <c:set var="url" value="${pageContext.servletContext.contextPath}/passwords/getResetToken" />
+</c:if>
