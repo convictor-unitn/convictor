@@ -20,7 +20,7 @@
                     Reimpostazione password
                   </div>
                 </h2>
-                <form class="ui large form">
+                <form class="ui large form" method="POST" action="${url}">
                   <div class="ui stacked segment">
                     <div>Per reimpostare la password del tuo account ti sarà inviato all'indirizzo email che inserirai qui un link per effettuare l'operazione.</div>
                     </br>
