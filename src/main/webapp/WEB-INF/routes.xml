@@ -117,6 +117,7 @@
         <format>html</format>            
     </route>
     
+    <!-- Registrations routes -->
     <route>
         <method>GET</method>
         <url>/sign_up</url>

@@ -26,15 +26,16 @@
                     </h2>
                     
                     <form class="ui large form" method="POST" action="${pageContext.servletContext.contextPath}/registrations/create">
-                        <div class="ui stacked segment">                            
+                        <div class="ui stacked segment">
+                            <f:formerrors />
                             <f:registrationForm />
-                            <div class="field">
+                            <div class="field <c:if test="${bean.valid == false and not bean.errors['passwordNew'] == null}" >error</c:if>">
                                 <div class="ui left icon input">
                                     <i class="lock icon"></i>
                                     <input type="password" name="passwordNew" placeholder="Password">
                                 </div>
                             </div>
-                            <div class="field">
+                            <div class="field <c:if test="${bean.valid == false and not bean.errors['passwordConfirmation'] == null}" >error</c:if>">
                                 <div class="ui left icon input">
                                     <i class="lock icon"></i>
                                     <input type="password" name="passwordConfirmation" placeholder="Conferma password">
