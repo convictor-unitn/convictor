@@ -7,6 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="l" tagdir="/WEB-INF/tags/layouts/" %>
+<%@taglib prefix="f" tagdir="/WEB-INF/tags/partials" %>
 
 <c:set var="bean" value="${requestScope.user}" scope="request" />
 
@@ -25,29 +26,12 @@
                     </h2>
                     
                     <form class="ui large form" method="POST" action="${pageContext.servletContext.contextPath}/registrations/create">
-                        <div class="ui stacked segment">
-                            <div class="field">
-                                <div class="ui left icon input">
-                                    <i class="user icon"></i>
-                                    <input type="text" name="name" placeholder="Nome">
-                                </div>
-                            </div>
-                            <div class="field">
-                                <div class="ui left icon input">
-                                    <i class="user icon"></i>
-                                    <input type="text" name="surname" placeholder="Cognome">
-                                </div>
-                            </div>
-                            <div class="field">
-                                <div class="ui left icon input">
-                                    <i class="user icon"></i>
-                                    <input type="text" name="email" placeholder="Email">
-                                </div>
-                            </div>
+                        <div class="ui stacked segment">                            
+                            <f:registrationForm />
                             <div class="field">
                                 <div class="ui left icon input">
                                     <i class="lock icon"></i>
-                                    <input type="password" name="password" placeholder="Password">
+                                    <input type="password" name="passwordNew" placeholder="Password">
                                 </div>
                             </div>
                             <div class="field">
