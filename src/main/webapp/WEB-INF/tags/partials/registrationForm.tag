@@ -8,6 +8,13 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+    <c:if test="${empty bean.id || bean.id == 0}">
+        <c:set var="url" value="${pageContext.servletContext.contextPath}/registrations/create" />
+    </c:if>
+    <c:if test="${!empty bean.id && bean.id != 0}">
+        <c:set var="url" value="${pageContext.servletContext.contextPath}/registrations/update?id=${bean.id}" />
+    </c:if>
+
     <div class="field <c:if test="${bean.valid == false and not bean.errors['name'] == null}" >error</c:if>">
         <div class="ui left icon input">
             <i class="user icon"></i>

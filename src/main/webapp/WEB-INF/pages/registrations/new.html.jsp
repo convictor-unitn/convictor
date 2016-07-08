@@ -25,7 +25,7 @@
                         </div>
                     </h2>
                     
-                    <form class="ui large form" method="POST" action="${pageContext.servletContext.contextPath}/registrations/create">
+                    <form class="ui large form" method="POST" action="${url}">
                         <div class="ui stacked segment">
                             <f:formerrors />
                             <f:registrationForm />
