@@ -12,7 +12,7 @@
         <c:set var="url" value="${pageContext.servletContext.contextPath}/registrations/create" />
     </c:if>
     <c:if test="${!empty bean.id && bean.id != 0}">
-        <c:set var="url" value="${pageContext.servletContext.contextPath}/registrations/update?id=${bean.id}" />
+        <c:set var="url" value="${pageContext.servletContext.contextPath}/registrations/update" />
     </c:if>
 
     <div class="field <c:if test="${bean.valid == false and not bean.errors['name'] == null}" >error</c:if>">
