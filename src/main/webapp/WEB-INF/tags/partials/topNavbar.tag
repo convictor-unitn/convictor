@@ -60,6 +60,7 @@
         <div class="menu">
           <a class="item" href="#">notify 1</a>
           <a class="item" href="#">notify 2</a>
+          <a class="item" href="${pageContext.request.contextPath}/userProfile/show">Lista completa</a>
         </div>
       </div>
       </c:if>
@@ -162,6 +163,7 @@
         <div class="menu">
           <a class="item" href="#">notify 1</a>
           <a class="item" href="#">notify 2</a>
+          <a class="item" href="${pageContext.request.contextPath}/userProfile/show">Lista completa</a>
         </div>
       </div>
       </c:if>
