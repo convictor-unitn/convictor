@@ -36,7 +36,8 @@ public class PriceSlot extends AbstractBean{
 		try {
 			setSlot(Integer.parseInt(slot));
 		} catch (NumberFormatException ex) {
-			this.setError("slotPrice", "La fascia di prezzo non è valida.");
+			this.setError("slotPrice", "La fascia di prezzo non è valida");
+            this.setSlot(-1);
 		}
 	}
 
