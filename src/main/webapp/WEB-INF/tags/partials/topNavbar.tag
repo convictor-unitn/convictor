@@ -60,6 +60,7 @@
         <div class="menu">
           <a class="item" href="#">notify 1</a>
           <a class="item" href="#">notify 2</a>
+          <a class="item" href="${pageContext.request.contextPath}/userProfile/show">Lista completa</a>
         </div>
       </div>
       </c:if>
@@ -120,7 +121,7 @@
       <!-- Left -->
       <!-- Logo  -->
       <a href="${pageContext.request.contextPath}/" class="brand item">
-        <img class="logo" src="${pageContext.request.contextPath}/images/logo.png"> Convictor
+        <img class="logo" src="${pageContext.request.contextPath}/images/logo.png">
       </a>
 
       <!-- Center -->
@@ -162,6 +163,7 @@
         <div class="menu">
           <a class="item" href="#">notify 1</a>
           <a class="item" href="#">notify 2</a>
+          <a class="item" href="${pageContext.request.contextPath}/userProfile/show">Lista completa</a>
         </div>
       </div>
       </c:if>
