@@ -46,7 +46,7 @@ public class OpeningTime extends AbstractBean {
 		try {
             this.setRestaurantId(Integer.parseInt(restaurantId));
         } catch (Exception e) {
-            this.setError("restaurant_id", "L'id del ristorante non è valido.");
+            this.setError("restaurant_id", "L'id del ristorante non è valido");
             this.setRestaurantId(-1);
         }
 	}
@@ -73,7 +73,7 @@ public class OpeningTime extends AbstractBean {
 		try {
 			setOpenAt(df.parse(openAt));
 		} catch (ParseException ex) {
-			this.setError("open_at", "L'orario di apertura non è valido.");
+			this.setError("open_at", "L'orario di apertura non è valido");
             this.setOpenAt(new Date(0,0,0));
 		}
 	}
@@ -100,7 +100,7 @@ public class OpeningTime extends AbstractBean {
 		try {
 			setCloseAt(df.parse(closeAt));
 		} catch (ParseException ex) {
-			this.setError("close_at", "L'orario di chiusura non è valido.");
+			this.setError("close_at", "L'orario di chiusura non è valido");
             this.setCloseAt(new Date(0,0,0));
 		}
 	}
@@ -138,7 +138,7 @@ public class OpeningTime extends AbstractBean {
 		try {
 			setOpenAtAfternoon(df.parse(openAt));
 		} catch (ParseException ex) {
-			this.setError("open_at_afternoon", "L'orario di apertura pomeridiano non è valido.");
+			this.setError("open_at_afternoon", "L'orario di apertura pomeridiano non è valido");
             this.setOpenAtAfternoon(new Date(0,0,0));
 		}
 	}
@@ -162,7 +162,7 @@ public class OpeningTime extends AbstractBean {
 		try {
 			setCloseAtAfternoon(df.parse(closeAtAfternoon));
 		} catch (ParseException ex) {
-			this.setError("close_at_afternoon", "L'orario di chiusura pomeridiano non è valido.");
+			this.setError("close_at_afternoon", "L'orario di chiusura pomeridiano non è valido");
             this.setCloseAt(new Date(0,0,0));
 		}
 	}
@@ -187,19 +187,19 @@ public class OpeningTime extends AbstractBean {
         
         if (this.getCloseAt() == null) {
             status = false;
-            this.setError("close_at", "The close_at date is not valid!");
+            this.setError("close_at", "L'orario di chiusura mattutina non è valido");
         }
         if (this.getOpenAt() == null) {
             status = false;
-            this.setError("open_at", "The open_at date is not valid!");
+            this.setError("open_at", "L'orario di apertura mattutina non è valido");
         }
         if (this.getCloseAtAfternoon() == null) {
             status = false;
-            this.setError("open_at", "The open_at date is not valid!");
+            this.setError("close_at_afternoon", "L'orario di chiusura pomeridiana non è valido");
         }
         if (this.getOpenAtAfternoon()== null) {
             status = false;
-            this.setError("open_at", "The open_at date is not valid!");
+            this.setError("open_at_afternoon", "L'orario di apertura pomeridiana non è valido");
         }
         return status;
     }
