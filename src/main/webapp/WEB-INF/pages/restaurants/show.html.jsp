@@ -342,27 +342,55 @@
     </div>
     <!-- End Reviews/Map TABS -->
 
-    
-            <script type="text/javascript">
-                function initMap() {
-                    var myLatLng = {lat: -25.363, lng: 131.044};
+        <script type="text/javascript">
+            // Image slider control functions
 
-                    var map = new google.maps.Map(document.getElementById('map'), {
-                      zoom: 4,
-                      center: myLatLng
-                    });
+            var slideIndex = 1;
+            showDivs(slideIndex);
 
-                    var marker = new google.maps.Marker({
-                      position: myLatLng,
-                      map: map,
-                      title: 'Hello World!'
-                    });
+            function plusDivs(n) {
+              showDivs(slideIndex += n);
+            }
 
-                }
+            function currentDiv(n) {
+              showDivs(slideIndex = n);
+            }
 
-            </script>
-            <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBbiud33G2KsodO5JvP-5HQzoSTuWiI0a8&callback=initMap"
-  type="text/javascript"></script>
+            function showDivs(n) {
+              var i;
+              var x = document.getElementsByClassName("mySlides");
+              var dots = document.getElementsByClassName("demo");
+              if (n > x.length) {slideIndex = 1;}
+              if (n < 1) {slideIndex = x.length;}
+              for (i = 0; i < x.length; i++) {
+                x[i].style.display = "none";
+              }
+              for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" w3-white", "");
+              }
+              x[slideIndex-1].style.display = "block";
+              dots[slideIndex-1].className += " w3-white";              
+            }   
+        </script>
+        <script type="text/javascript">
+            function initMap() {
+                var myLatLng = {lat: -25.363, lng: 131.044};
+
+                var map = new google.maps.Map(document.getElementById('map'), {
+                  zoom: 4,
+                  center: myLatLng
+                });
+
+                var marker = new google.maps.Marker({
+                  position: myLatLng,
+                  map: map,
+                  title: 'Hello World!'
+                });
+
+            }
+
+        </script>
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBbiud33G2KsodO5JvP-5HQzoSTuWiI0a8&callback=initMap" type="text/javascript"></script>
 
 	</jsp:attribute>
                 

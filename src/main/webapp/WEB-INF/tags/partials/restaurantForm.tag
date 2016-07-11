@@ -121,7 +121,7 @@
         <label>Descrizione</label>
         <div class="ui divider"></div>
         <div class="field">
-            <input type="text" name="description" rows="2" placeholder="Aggiungi breve descrizione" value="${restaurant.description}"/>
+            <input class="ui textbox" type="text" name="description" rows="2" placeholder="Aggiungi breve descrizione" value="${restaurant.description}"/>
         </div>
       </div>     
       
@@ -190,9 +190,9 @@
         <!-- Days Opening -->
         <div class="field">
             <div class="ui checkbox">
-                <input type="checkbox" tabindex="0" class="hidden" name="dayoff_monday">
-                <label>Seleziona come giorno di chiusura</label>
-              </div>
+                <input type="checkbox" name="dayoff_monday">
+                <label >Seleziona come giorno di chiusura</label>
+             </div>
         </div>
         </div>
 
@@ -252,10 +252,10 @@
 
         <!-- Days Opening -->
         <div class="field">
-          <div class="ui checkbox">
-            <input type="checkbox" tabindex="0" class="hidden" name="dayoff_tuesday">
-            <label>Seleziona come giorno di chiusura</label>
-          </div>
+            <div >
+                <input type="checkbox" name="dayoff_tuesday" class="ui checkbox" >
+                <label >Seleziona come giorno di chiusura</label>
+             </div>
         </div>
         </div>
         <div class="ui segment">
@@ -313,9 +313,9 @@
         <!-- Days Opening -->
         <div class="field">
           <div class="ui checkbox">
-            <input type="checkbox" tabindex="0" class="hidden" name="dayoff_wednesday">
-            <label>Seleziona come giorno di chiusura</label>
-          </div>
+                <input type="checkbox" name="dayoff_wednesday" >
+                <label >Seleziona come giorno di chiusura</label>
+             </div>
         </div>
         </div>
         <div class="ui segment">
@@ -373,9 +373,9 @@
         <!-- Days Opening -->
         <div class="field">
           <div class="ui checkbox">
-            <input type="checkbox" tabindex="0" class="hidden" name="dayoff_thursday">
-            <label>Seleziona come giorno di chiusura</label>
-          </div>
+                <input type="checkbox" name="dayoff_thursday" >
+                <label >Seleziona come giorno di chiusura</label>
+             </div>
         </div>
         </div>
         <div class="ui segment">
@@ -433,9 +433,9 @@
         <!-- Days Opening -->
         <div class="field">
           <div class="ui checkbox">
-            <input type="checkbox" tabindex="0" class="hidden" name="dayoff_friday">
-            <label>Seleziona come giorno di chiusura</label>
-          </div>
+                <input type="checkbox" name="dayoff_friday"  >
+                <label >Seleziona come giorno di chiusura</label>
+             </div>
         </div>
         </div>
         <div class="ui segment">
@@ -493,9 +493,9 @@
         <!-- Days Opening -->
         <div class="field">
           <div class="ui checkbox">
-            <input type="checkbox" tabindex="0" class="hidden" name="dayoff_saturday">
-            <label>Seleziona come giorno di chiusura</label>
-          </div>
+                <input type="checkbox" name="dayoff_saturday"  >
+                <label >Seleziona come giorno di chiusura</label>
+             </div>
         </div>
         </div>
         <div class="ui segment">
@@ -553,9 +553,9 @@
         <!-- Days Opening -->
         <div class="field">
           <div class="ui checkbox">
-            <input type="checkbox" tabindex="0" class="hidden" name="dayoff_sunday">
-            <label>Seleziona come giorno di chiusura</label>
-          </div>
+                <input type="checkbox" name="dayoff_sunday" >
+                <label >Seleziona come giorno di chiusura</label>
+             </div>
         </div>
         </div>
 

@@ -14,7 +14,7 @@
 <%@taglib prefix="l" tagdir="/WEB-INF/tags/layouts/" %>
 <%@taglib prefix="partials" tagdir="/WEB-INF/tags/partials/" %>
 
-<c:set var="user" scope="request" value="${requestScope.user}" />
+<c:set var="bean" scope="request" value="${requestScope.user}" />
 
 <l:main>
 	
@@ -28,11 +28,11 @@
                 </br>
 
                 <div class="text"> Nome: </div> 
-                <div class="ui segment"> ${user.name} </div>
+                <div class="ui segment"> ${bean.name} </div>
                 <div class="text"> Cognome: </div> 
-                <div class="ui segment"> ${user.surname} </div>
+                <div class="ui segment"> ${bean.surname} </div>
                 <div class="text"> Email: </div> 
-                <div class="ui segment"> ${user.email} </div>
+                <div class="ui segment"> ${bean.email} </div>
                 </br>
                 <a href="${pageContext.request.contextPath}/userProfile/edit" class="fluid basic black ui button">Modifica le informazioni del profilo</a>
             </div>

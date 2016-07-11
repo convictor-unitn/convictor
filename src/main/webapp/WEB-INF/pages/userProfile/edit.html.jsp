@@ -14,7 +14,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="l" tagdir="/WEB-INF/tags/layouts/" %>
 
-<c:set var="user" scope="request" value="${requestScope.user}" />
+<c:set var="bean" scope="request" value="${requestScope.user}" />
 <l:main>
 	
 	<jsp:attribute name="title">Reimposta Profilo Utente</jsp:attribute>
@@ -34,19 +34,19 @@
                             <div class="field">
                                 <div class="ui left icon input">
                                     <i class="user icon"></i>
-                                    <input type="text" name="name" placeholder="Nome" value="${user.name}" />
+                                    <input type="text" name="name" placeholder="Nome" value="${bean.name}" />
                                 </div>
                             </div>
                             <div class="field">
                                 <div class="ui left icon input">
                                     <i class="user icon"></i>
-                                    <input type="text" name="surname" placeholder="Cognome" value="${user.surname}" />
+                                    <input type="text" name="surname" placeholder="Cognome" value="${bean.surname}" />
                                 </div>
                             </div>
                             <div class="field">
                                 <div class="ui left icon input">
                                     <i class="user icon"></i>
-                                    <input type="text" name="email" placeholder="Email" value="${user.email}">
+                                    <input type="text" name="email" placeholder="Email" value="${bean.email}">
                                 </div>
                             </div>
                             <div class="field">
