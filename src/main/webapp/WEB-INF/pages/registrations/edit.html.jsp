@@ -56,7 +56,7 @@
 
                             </br>
 
-                            <div class="ui fluid submit button">Annulla</div>
+                            <a href="javascript:history.back()" class="ui fluid submit button">Annulla</a>
                         </div>
 
 
