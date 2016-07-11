@@ -94,11 +94,11 @@ public class ReviewNotice extends AbstractBean implements Notice {
         boolean status=true;
         if (this.getRegisteredUserId() <= 0) {
             status = false;
-            this.setError("user_id", "The user_id is equal or lessa than zero");
+            this.setError("user_id", "Lo user_id è uguale o minore di zero");
         }
         if (this.getReviewId() <=0) {
             status = false;
-            this.setError("review_id", "The review_id is equal or less than zero");
+            this.setError("review_id", "Lo review_id è uguale o minore di zero");
         }
         return status;
     }
