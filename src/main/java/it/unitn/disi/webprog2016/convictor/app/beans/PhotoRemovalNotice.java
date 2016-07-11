@@ -88,10 +88,18 @@ public class PhotoRemovalNotice extends AbstractBean implements Notice, Approvab
             this.setError("approved", "Non è stato possibile settare l'approvazione.");
         }
 	}
-
+    
+    /**
+     * Return the viewable message representing this notice.
+     * @return A string message
+     */
 	@Override
 	public String getDescription() {
-		return "DA IMPLEMENTARE";
+		String userName = registeredUser.getName() + " " + registeredUser.getSurname();
+        String userProfile = "<a href=\"/userProfile/show?id="+ registeredUserId + "\">"+userName+"</a>";
+        String photoMessage ="<a href=\"/restaurant/show?id="+ photo.getRestaurantId() + "\">foto</a>";
+        String message = userProfile + " ha inserito la rimozione di " + photoMessage + "!";
+        return message;
 	}
 
 	@Override

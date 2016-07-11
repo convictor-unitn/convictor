@@ -70,10 +70,18 @@ public class PhotoNotice extends AbstractBean implements Notice {
             this.setPhotoId(-1);
         }
     }
-
+    
+    /**
+     * Return the viewable message representing this notice.
+     * @return A string message
+     */
 	@Override
 	public String getDescription() {
-		return "DA IMPLEMENTARE";
+		String userName = registeredUser.getName() + " " + registeredUser.getSurname();
+        String userProfile = "<a href=\"/userProfile/show?id="+ registeredUserId + "\">"+userName+"</a>";
+        String photoMessage ="<a href=\"/restaurant/show?id="+ photo.getRestaurantId() + "\">foto</a>";
+        String message = userProfile + " ha inserito una nuova " + photoMessage + "!";
+        return message;
 	}
 
 	@Override

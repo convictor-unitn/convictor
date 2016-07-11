@@ -70,11 +70,18 @@ public class ReviewNotice extends AbstractBean implements Notice {
             this.setError("review_id", "L'id della recensione non è valido.");
         }
     }
-
+    
+    /**
+     * Return the viewable message representing this notice.
+     * @return A string message
+     */
 	@Override
 	public String getDescription() {
-		//TODO: Implementare la stringa della notifica
-		return "DA IMPLEMENTARE!!!";
+		String userName = registeredUser.getName() + " " + registeredUser.getSurname();
+        String userProfile = "<a href=\"/userProfile/show?id="+ registeredUserId + "\">"+userName+"</a>";
+        String reviewMessage ="<a href=\"/reviews/show?id="+ reviewId + "\"> recensione </a>";
+        String message = userProfile + " ha inserito una nuova " + reviewMessage + "!";
+        return message;
 	}
 
 	@Override
