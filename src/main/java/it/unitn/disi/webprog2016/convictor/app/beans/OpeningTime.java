@@ -10,8 +10,6 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -46,11 +44,11 @@ public class OpeningTime extends AbstractBean {
 	 */
 	public void setRestaurantId(String restaurantId) {
 		try {
-			setRestaurantId(Integer.parseInt(restaurantId));
-		} catch (NumberFormatException ex) {
-			// TODO: quando si farà la validazione dei beans inserire l'errore sulla data non valida
-			Logger.getLogger(OpeningTime.class.getName()).log(Level.SEVERE, null, ex);
-		}
+            this.setRestaurantId(Integer.parseInt(restaurantId));
+        } catch (Exception e) {
+            this.setError("restaurant_id", "L'id del ristorante non è valido.");
+            this.setRestaurantId(-1);
+        }
 	}
 
 	/**
@@ -75,8 +73,8 @@ public class OpeningTime extends AbstractBean {
 		try {
 			setOpenAt(df.parse(openAt));
 		} catch (ParseException ex) {
-			// TODO: quando si farà la validazione dei beans inserire l'errore sulla data non valida
-			Logger.getLogger(OpeningTime.class.getName()).log(Level.SEVERE, null, ex);
+			this.setError("open_at", "L'orario di apertura non è valido.");
+            this.setOpenAt(new Date(0,0,0));
 		}
 	}
 
@@ -102,8 +100,8 @@ public class OpeningTime extends AbstractBean {
 		try {
 			setCloseAt(df.parse(closeAt));
 		} catch (ParseException ex) {
-			// TODO: quando si farà la validazione dei beans inserire l'errore sulla data non valida
-			Logger.getLogger(OpeningTime.class.getName()).log(Level.SEVERE, null, ex);
+			this.setError("close_at", "L'orario di chiusura non è valido.");
+            this.setCloseAt(new Date(0,0,0));
 		}
 	}
     
@@ -120,33 +118,6 @@ public class OpeningTime extends AbstractBean {
         return dayString;
     }
     
-    public void setDayString(int day) {
-        switch(day) {
-            case 1:
-                dayString = "Lunedì";
-                break;
-            case 2:
-                dayString = "Martedì";
-                break;
-            case 3:
-                dayString = "Mercoledì";
-                break;
-            case 4:
-                dayString = "Giovedì";
-                break;
-            case 5:
-                dayString = "Venerdì";
-                break;
-            case 6:
-                dayString = "Sabato";
-                break;
-            case 7:
-                dayString = "Domenica";
-                break;
-            default:
-                break;
-        }
-    }
 
     /**
      * @return the openAtAfternoon
@@ -167,8 +138,8 @@ public class OpeningTime extends AbstractBean {
 		try {
 			setOpenAtAfternoon(df.parse(openAt));
 		} catch (ParseException ex) {
-			// TODO: quando si farà la validazione dei beans inserire l'errore sulla data non valida
-			Logger.getLogger(OpeningTime.class.getName()).log(Level.SEVERE, null, ex);
+			this.setError("open_at_afternoon", "L'orario di apertura pomeridiano non è valido.");
+            this.setOpenAtAfternoon(new Date(0,0,0));
 		}
 	}
 
@@ -188,12 +159,12 @@ public class OpeningTime extends AbstractBean {
     
      public void setCloseAtAfternoon(String closeAtAfternoon) {
 		DateFormat df = new SimpleDateFormat("HH:mm:ss");
-		/*try {
+		try {
 			setCloseAtAfternoon(df.parse(closeAtAfternoon));
 		} catch (ParseException ex) {
-			// TODO: quando si farà la validazione dei beans inserire l'errore sulla data non valida
-			Logger.getLogger(OpeningTime.class.getName()).log(Level.SEVERE, null, ex);
-		}*/
+			this.setError("close_at_afternoon", "L'orario di chiusura pomeridiano non è valido.");
+            this.setCloseAt(new Date(0,0,0));
+		}
 	}
 
     /**
@@ -261,4 +232,33 @@ public class OpeningTime extends AbstractBean {
                 break;
         }
     }
+    
+    public void setDayString(int day) {
+        switch(day) {
+            case 1:
+                dayString = "Lunedì";
+                break;
+            case 2:
+                dayString = "Martedì";
+                break;
+            case 3:
+                dayString = "Mercoledì";
+                break;
+            case 4:
+                dayString = "Giovedì";
+                break;
+            case 5:
+                dayString = "Venerdì";
+                break;
+            case 6:
+                dayString = "Sabato";
+                break;
+            case 7:
+                dayString = "Domenica";
+                break;
+            default:
+                break;
+        }
+    }
 }
+

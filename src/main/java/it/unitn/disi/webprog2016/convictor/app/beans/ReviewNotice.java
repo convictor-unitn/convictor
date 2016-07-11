@@ -36,7 +36,12 @@ public class ReviewNotice extends AbstractBean implements Notice {
      * @param registeredUserId the registeredUserId to set
      */
     public void setRegisteredUserId(String registeredUserId) {
-        this.registeredUserId = Integer.parseInt(registeredUserId);
+        try {
+            this.registeredUserId = Integer.parseInt(registeredUserId);
+        } catch (Exception e) {
+            this.setRegisteredUserId(-1);
+            this.setError("user_id", "L'id utente inserito non è valido");
+        }
     }
 
     /**
@@ -58,7 +63,12 @@ public class ReviewNotice extends AbstractBean implements Notice {
      * @param reviewId the reviewId to set
      */
     public void setReviewId(String reviewId) {
-		this.reviewId = Integer.parseInt(reviewId);
+        try {
+            this.reviewId = Integer.parseInt(reviewId);
+        } catch (Exception e) {
+            this.setReviewId(-1);
+            this.setError("review_id", "L'id della recensione non è valido.");
+        }
     }
 
 	@Override

@@ -116,10 +116,12 @@ public class User extends AbstractBean {
 	 * @param admin the admin to set
 	 */
 	public void setAdmin(String admin) {
-		setAdmin(Boolean.valueOf(admin));
+        try {
+           setAdmin(Boolean.valueOf(admin)); 
+        } catch (Exception e) {
+            this.setError("admin", "Il valore di admin non è valido.");
+        }
 	}
-
-	
 	
     @Override
     public boolean validate() {
