@@ -16,7 +16,6 @@ public class OwnershipNotice extends AbstractBean implements Notice, Approvable 
     private int restaurantId;
 	private boolean approved;
 	private User registeredUser;
-	private Photo photo;
 
     /**
      * @return the registeredUserId
@@ -71,6 +70,14 @@ public class OwnershipNotice extends AbstractBean implements Notice, Approvable 
             this.setRestaurantId(-1);
         }
     }
+    
+    public User getRegisteredUser() {
+		return registeredUser;
+	}
+
+	public void setRegisteredUser(User registeredUser) {
+		this.registeredUser = registeredUser;
+	}
 
 	public boolean isApproved() {
 		return approved;
@@ -80,10 +87,18 @@ public class OwnershipNotice extends AbstractBean implements Notice, Approvable 
 		this.approved = approved;
 	}
 	
+    /**
+     * Return the viewable message representing this notice.
+     * @return A string message
+     */
 	@Override
 	public String getDescription() {
-		return "DA IMPLEMENTARE";
-	}
+		String userName = registeredUser.getName() + " " + registeredUser.getSurname();
+        String userProfile = "<a href=\"/userProfile/show?id="+ registeredUserId + "\">"+userName+"</a>";
+        String restaurantProfile ="<a href=\"/restaurants/show?id="+restaurantId + "\">"+restaurantId+"</a>";
+        String message = userProfile + " ha richiesto l'assegnazione del ristorante " + restaurantProfile;
+        return message;
+    }
 
 	@Override
 	public String getNoticeType() {
@@ -119,21 +134,6 @@ public class OwnershipNotice extends AbstractBean implements Notice, Approvable 
         return status;
     }
 
-	public User getRegisteredUser() {
-		return registeredUser;
-	}
-
-	public void setRegisteredUser(User registeredUser) {
-		this.registeredUser = registeredUser;
-	}
-
-	public Photo getPhoto() {
-		return photo;
-	}
-
-	public void setPhoto(Photo photo) {
-		this.photo = photo;
-	}
-    
+	
     
 }
