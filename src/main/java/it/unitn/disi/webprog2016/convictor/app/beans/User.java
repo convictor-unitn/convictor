@@ -119,7 +119,7 @@ public class User extends AbstractBean {
         try {
            setAdmin(Boolean.valueOf(admin)); 
         } catch (Exception e) {
-            this.setError("admin", "Il valore di admin non è valido.");
+            this.setError("admin", "Il valore di admin non è valido");
         }
 	}
 	
@@ -136,23 +136,23 @@ public class User extends AbstractBean {
         boolean status = true;
         if (this.getName().equals("")) {
             status = false;
-            this.setError("name", "Surname is not valid");
+            this.setError("name", "Il nome non è valido");
         }
         if (this.getSurname().equals("")) {
             status = false;
-            this.setError("surname", "Surname is not valid");
+            this.setError("surname", "Il cognome non è valido");
         }
         
         // Check if the email is not null and if it is a valid email.
         if (this.getEmail().equals("")) {
             status = false;
-            this.setError("email", "Email is not valid");
+            this.setError("email", "La mail non è valida");
         } else {
             pattern = Pattern.compile(EMAIL_PATTERN);
             matcher = pattern.matcher(this.getEmail());
             if (!matcher.matches()) {
                 status = false;
-                this.setError("email", "Email is not valid");
+                this.setError("email", "La mail non è valida");
             }
         }
         
@@ -164,13 +164,13 @@ public class User extends AbstractBean {
         // * One numeric digit
         if (this.getPassword().equals("")) {
             status = false;
-            this.setError("password", " Password must be at least 6 characters, no more than 10 characters, and must include at least one upper case letter, one lower case letter, and one numeric digit.");
+            this.setError("password", "La password deve avere dai 6 ai 10 caratteri e deve includere almeno una lettera maiuscola, una lettera minuscola, e un numero");
         } else {
             pattern = Pattern.compile(PASSWORD_PATTERN);
             matcher = pattern.matcher(this.getPassword());
             if (!matcher.matches()) {
                 status = false;
-                this.setError("password", " Password must be at least 6 characters, no more than 10 characters, and must include at least one upper case letter, one lower case letter, and one numeric digit.");
+                this.setError("password", "La password deve avere dai 6 ai 10 caratteri e deve includere almeno una lettera maiuscola, una lettera minuscola, e un numero");
             }
         }
 		

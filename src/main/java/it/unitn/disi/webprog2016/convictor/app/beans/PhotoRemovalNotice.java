@@ -127,11 +127,11 @@ public class PhotoRemovalNotice extends AbstractBean implements Notice, Approvab
         boolean status=true;
         if (this.getRegisteredUserId() <= 0) {
             status = false;
-            this.setError("user_id","The user_id is equal or less than zero");
+            this.setError("user_id","L'id utente è minore o uguale a zero");
         }
         if (this.getPhotoId() <= 0) {
             status = false;
-            this.setError("photo_id","The photo_id is equal or less than zero");
+            this.setError("photo_id","L'id della foto è minore o uguale a zero");
         }
         return status;
     }

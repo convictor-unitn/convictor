@@ -66,7 +66,7 @@ public class OwnershipNotice extends AbstractBean implements Notice, Approvable 
         try {
             this.setRestaurantId(Integer.parseInt(restaurantId));
         } catch (Exception e) {
-            this.setError("restaurant_id", "L'id del ristorante non è valido.");
+            this.setError("restaurant_id", "L'id del ristorante non è valido");
             this.setRestaurantId(-1);
         }
     }
@@ -125,11 +125,11 @@ public class OwnershipNotice extends AbstractBean implements Notice, Approvable 
         boolean status=true;
         if (this.getRegisteredUserId() <= 0) {
             status = false;
-            this.setError("user_id","The user_id is equal or less than zero");
+            this.setError("user_id","L'id utente è minore o uguale a zero");
         }
         if (this.getRestaurantId() <= 0) {
             status = false;
-            this.setError("restaurant_id","The restaurant_id is equal or less than zero");
+            this.setError("restaurant_id","L'id del ristorante è minore o uguale a zero");
         }
         return status;
     }

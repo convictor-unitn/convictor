@@ -6,8 +6,6 @@
 package it.unitn.disi.webprog2016.convictor.app.beans;
 
 import it.unitn.disi.webprog2016.convictor.framework.beans.AbstractBean;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -18,12 +16,7 @@ public class Photo extends AbstractBean{
 	private String url;
 	private String description;
 	private int restaurantId;
-	
-	
-	@Override
-	public boolean validate() {
-		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-	}
+
 
 	/**
 	 * @return the url
@@ -77,5 +70,10 @@ public class Photo extends AbstractBean{
 		catch (NumberFormatException e) {
 			this.setError("restaurant_id", "L'id del ristorante non è valido.");
 		}
+	}
+    
+	@Override
+	public boolean validate() {
+		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 	}
 }
