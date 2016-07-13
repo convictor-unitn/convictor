@@ -189,7 +189,7 @@
 
         <!-- Days Opening -->
         <div class="field">
-            <div class="ui checkbox">
+            <div class="ui checkbox mycheckbox">
                 <input type="checkbox" name="dayoff_monday">
                 <label >Seleziona come giorno di chiusura</label>
              </div>
@@ -252,8 +252,8 @@
 
         <!-- Days Opening -->
         <div class="field">
-            <div >
-                <input type="checkbox" name="dayoff_tuesday" class="ui checkbox" >
+            <div class="ui checkbox mycheckbox">
+                <input type="checkbox" name="dayoff_monday">
                 <label >Seleziona come giorno di chiusura</label>
              </div>
         </div>
@@ -312,7 +312,7 @@
 
         <!-- Days Opening -->
         <div class="field">
-          <div class="ui checkbox">
+          <div class="ui checkbox mycheckbox">
                 <input type="checkbox" name="dayoff_wednesday" >
                 <label >Seleziona come giorno di chiusura</label>
              </div>
@@ -372,7 +372,7 @@
 
         <!-- Days Opening -->
         <div class="field">
-          <div class="ui checkbox">
+          <div class="ui checkbox mycheckbox">
                 <input type="checkbox" name="dayoff_thursday" >
                 <label >Seleziona come giorno di chiusura</label>
              </div>
@@ -432,7 +432,7 @@
 
         <!-- Days Opening -->
         <div class="field">
-          <div class="ui checkbox">
+          <div class="ui checkbox mycheckbox">
                 <input type="checkbox" name="dayoff_friday"  >
                 <label >Seleziona come giorno di chiusura</label>
              </div>
@@ -492,7 +492,7 @@
 
         <!-- Days Opening -->
         <div class="field">
-          <div class="ui checkbox">
+          <div class="ui checkbox mycheckbox">
                 <input type="checkbox" name="dayoff_saturday"  >
                 <label >Seleziona come giorno di chiusura</label>
              </div>
@@ -552,7 +552,7 @@
 
         <!-- Days Opening -->
         <div class="field">
-          <div class="ui checkbox">
+          <div class="ui checkbox mycheckbox">
                 <input type="checkbox" name="dayoff_sunday" >
                 <label >Seleziona come giorno di chiusura</label>
              </div>
