@@ -36,6 +36,10 @@ public class RestaurantsController extends AbstractController {
     public String index(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		
         String query = request.getParameter("query");
+        if (query==null) {
+            query = "";
+        }
+        
         int page=0;
         if (request.getParameter("page") != null ){
             page = Integer.parseInt(request.getParameter("page"));
@@ -72,12 +76,12 @@ public class RestaurantsController extends AbstractController {
         CusinesRestaurantDAO cusinesRestaurantDAO = (CusinesRestaurantDAO) request.getServletContext().getAttribute("cusinesrestaurantdao");
         OpeningTimesDAO openingTimeDAO = (OpeningTimesDAO) request.getServletContext().getAttribute("openingtimesdao");
         try {
-            Restaurant tmp = restaurantDAO.getRestaurantById(id);
-            tmp.setCusine(cusinesRestaurantDAO.getCusinesByRestaurantId(id));
-            tmp.setReviews(reviewDAO.getRestaurantReviews(id, reviewPage));
-            tmp.setOpeningTimes(openingTimeDAO.getResaurantOpeningTimes(id));
             
+            Restaurant tmp = restaurantDAO.getRestaurantById(id);
             if (tmp != null) {
+                tmp.setCusine(cusinesRestaurantDAO.getCusinesByRestaurantId(id));
+                tmp.setReviews(reviewDAO.getRestaurantReviews(id, reviewPage));
+                tmp.setOpeningTimes(openingTimeDAO.getResaurantOpeningTimes(id));
                 request.setAttribute("restaurant", tmp);
             } else {
                 response.sendError(404);
