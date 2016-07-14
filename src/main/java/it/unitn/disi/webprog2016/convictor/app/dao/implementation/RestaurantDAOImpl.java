@@ -1,4 +1,4 @@
-/*
+    /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -173,14 +173,23 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
         List<Restaurant> listResult = new ArrayList<>();
         Integer counter = 0;
         String fullTextPattern = pattern.replace(" ", "&");
-        String count ="SELECT COUNT(*) FROM restaurants WHERE tsv @@ tsquery(?) OR searchable ILIKE '%?%';";
-        String query ="SELECT * FROM restaurants WHERE tsv @@ tsquery(?) OR searchable ILIKE '%?%' LIMIT 10 OFFSET ?";
+        
+        // Deleted fro these query ' char. They cause errors when stm.setString
+        // is called. PreparedStatement should add single quote automatically.
+        String count ="SELECT COUNT(*) FROM restaurants WHERE tsv @@ tsquery(?) OR searchable ILIKE ?";
+        String query ="SELECT * FROM restaurants WHERE tsv @@ tsquery(?) OR searchable ILIKE ? LIMIT 10 OFFSET ?";
+        
         PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(count);
         PreparedStatement stm2 = this.getDbManager().getConnection().prepareStatement(query);
         try {
             // Obtain the number of record
             stm.setString(1, fullTextPattern);
-            stm.setString(2, fullTextPattern);
+            
+            // The ILIKE has to be set like this because PreparedStatement
+            // doesn't like %?% this pattern. Therefore, we must concatenate
+            // % at the beginning and at the end of the fullTextPattern.
+            stm.setString(2, "%"+fullTextPattern+"%");
+            
             ResultSet countSet = stm.executeQuery();
             try {
                 while(countSet.next()) {
@@ -192,7 +201,7 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
             
             // Obtain the restaurant paginated 
             stm2.setString(1, fullTextPattern);
-            stm2.setString(2, fullTextPattern);
+            stm2.setString(2, "%"+fullTextPattern+"%");
             stm2.setInt(3, counter);
             ResultSet restaurantSet = stm2.executeQuery();
             try {
