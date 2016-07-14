@@ -220,12 +220,13 @@ public class RestaurantsController extends AbstractController {
                 tmpTime.setOpenAt(request.getParameter("open_at_"+day));
                 tmpTime.setCloseAt(request.getParameter("close_at_"+day));
                 tmpTime.setOpenAtAfternoon(request.getParameter("open_at_afternoon_"+day));
-                tmpTime.setCloseAtAfternoon(request.getParameter("close_at_afternoon"+day));
+                tmpTime.setCloseAtAfternoon(request.getParameter("close_at_afternoon_"+day));
                 tmpTime.setDayoff(false);
             }
             if (tmpTime.validate()) {
                 listTime.add(tmpTime);
             }
+            
         }
         tmp.setOpeningTimes(listTime);
         
@@ -234,6 +235,7 @@ public class RestaurantsController extends AbstractController {
             if (tmp.isValid()) {
                 int id = ((RestaurantDAO) request.getServletContext().getAttribute("restaurantdao")).insertRestaurant(tmp);
                 ((CusinesRestaurantDAO)request.getServletContext().getAttribute("cusinesrestaurantdao")).insertRestaurantCusines(id, list);
+                ((OpeningTimesDAO) request.getServletContext().getAttribute("openingtimesdao")).insertRestaurantOpeningTimes(id, listTime);
                 response.sendRedirect(request.getContextPath()+"/restaurants/show?id="+id);
 				return "";
             }

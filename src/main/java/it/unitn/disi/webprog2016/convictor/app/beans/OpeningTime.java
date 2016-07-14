@@ -163,7 +163,7 @@ public class OpeningTime extends AbstractBean {
 			setCloseAtAfternoon(df.parse(closeAtAfternoon));
 		} catch (Exception ex) {
 			this.setError("close_at_afternoon", "L'orario di chiusura pomeridiano non è valido");
-            this.setCloseAt(new Date(0,0,0));
+            this.setCloseAtAfternoon(new Date(0,0,0));
 		}
 	}
 
