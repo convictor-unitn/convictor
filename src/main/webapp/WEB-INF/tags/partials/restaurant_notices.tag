@@ -1,7 +1,7 @@
 <%-- 
     Document   : restaurant_notices
     Created on : 22-giu-2016, 14.15.20
-    Author     : Giovanni M Riva
+    Author     : Giovanni M Riva/Federica Balliana
 --%>
 
 <%@tag description="restaurant owner notifications list partial" pageEncoding="UTF-8"%>
