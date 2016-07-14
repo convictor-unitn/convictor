@@ -44,6 +44,11 @@ public class RestaurantsController extends AbstractController {
         RestaurantDAO restaurantDAO = (RestaurantDAO) request.getServletContext().getAttribute("restaurantdao");
         try {
             List<Restaurant> tmp = restaurantDAO.getRestaurantByString(query, page);
+             if (tmp != null) {
+                request.setAttribute("results", tmp);
+            } else {
+                request.setAttribute("results", new ArrayList<>());
+            }
         } catch (SQLException ex) {
             Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, ex);
             response.sendError(500);
