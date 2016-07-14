@@ -8,6 +8,10 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="l" tagdir="/WEB-INF/tags/layouts/" %>
 
+<c:set var="results" scope="request" value="${requestScope.restaurantResult}" />
+<!-- By now each results will display the first of its photos list as a preview -->
+<c:set var="photo_index" scope="page" value="1" />
+
 <l:main>
 	
 	<jsp:attribute name="title">Lista risultati</jsp:attribute>
@@ -51,12 +55,14 @@
     <div id="choices" class="ui form">
       <div class="grouped fields">
         <label>Filtra per tipologia di cucina:</label>
-        <div class="field">
-          <div class="ui checkbox">
-            <input name="tipo_cucina" type="checkbox">
-            <label></label>
-          </div>
-        </div>
+        <c:forEach var="cusine" items="${allCusines}">
+           <div class="field">
+              <div class="ui checkbox">
+                <input name="${cusine.name}" type="checkbox">
+                <label></label>
+              </div>
+            </div> 
+        </c:forEach>                
       </div>
     </div>
 
@@ -68,26 +74,33 @@
   <div class="thirteen wide column">
 
     <div id="results" class="ui three stackable cards">
-      <div class="ui card">
-        <div class="image">
-          <img src="immagine">
-        </div>
-        <div class="content">
-          <a class="header">Ristorante</a>
-          <div class="ui heart rating">
-            <i class="heart icon"> </i>
-            <i class="heart icon"> </i>
-            <i class="heart icon"> </i>
-            <i class="heart icon"> </i>
-            <i class="heart icon"> </i>
-          </div>
-          <div class="meta">
-            <span class="date">Numero di recensioni</span>
-          </div>
-          <div class="text">Posizione in classifica</div>
-          <div class="description">Tipi di cucina</div>
-        </div>
-      </div>
+        <c:forEach var="rest" items="${results}">
+          <div class="ui card">
+            <div class="image">
+              <img src="${rest.photos[photo_index]}">
+            </div>
+            <div class="content">
+              <a class="header">${rest.name}</a>
+                <c:forEach var="i" begin="0" end="${rest.rating}" step="1">
+                    <c:if test="${i!=0}">
+                        <div class="ui heart rating">
+                            <i class="heart icon"> </i>
+                        </div>
+                    </c:if>
+                </c:forEach>
+                <c:forEach begin="${restaurant.rating}" end="4" step="1">
+                        <div class="ui heart rating">
+                            <i class="empty heart icon"> </i>
+                        </div>
+                </c:forEach>                  
+              <div class="meta">
+                <span class="date">${rest.reviews.length} recensioni</span>                
+              </div>
+              <div class="text">${rest.}Posizione in classifica</div>
+              <div class="description">Tipi di cucina</div>
+            </div>            
+        </div>  
+        </c:forEach>               
     </div>
   </div>
 </div>
