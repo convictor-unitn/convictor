@@ -16,6 +16,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Restaurants DAO implementation. 
@@ -167,15 +169,15 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
     }
 
     @Override
-    public HashMap<Integer, List<Restaurant>> getRestaurantByString(String pattern, int offset) throws SQLException {
+    public List<Restaurant> getRestaurantByString(String pattern, int offset) throws SQLException {
         
-        HashMap<Integer, List<Restaurant>> result = new HashMap<>();
         List<Restaurant> listResult = new ArrayList<>();
-        Integer counter = 0;
         String fullTextPattern = pattern.replace(" ", "&");
+        int counter=0;
         
-        // Deleted fro these query ' char. They cause errors when stm.setString
-        // is called. PreparedStatement should add single quote automatically.
+        // Deleted from these query single quote char. They cause errors when 
+        // stm.setString is called. PreparedStatement should add single quote 
+        // automatically.
         String count ="SELECT COUNT(*) FROM restaurants WHERE tsv @@ tsquery(?) OR searchable ILIKE ?";
         String query ="SELECT * FROM restaurants WHERE tsv @@ tsquery(?) OR searchable ILIKE ? LIMIT 10 OFFSET ?";
         
@@ -202,7 +204,7 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
             // Obtain the restaurant paginated 
             stm2.setString(1, fullTextPattern);
             stm2.setString(2, "%"+fullTextPattern+"%");
-            stm2.setInt(3, counter);
+            stm2.setInt(3, offset);
             ResultSet restaurantSet = stm2.executeQuery();
             try {
                 while(restaurantSet.next()) {
@@ -222,18 +224,17 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
                     tmp.setRestaurantOwnerId(restaurantSet.getInt("restaurant_owner_id"));
                     tmp.setEmail(restaurantSet.getString("email"));
                     tmp.setPhone(restaurantSet.getString("phone"));
-                    listResult.add(tmp);   
+                    listResult.add(tmp);
                 }
             } finally {
                 restaurantSet.close();
             }
-            result.put(counter, listResult);
                 
         } finally {
             stm.close();
             stm2.close();
-        }
-        return result;
+        }          
+        return listResult;
     }
     
 }
