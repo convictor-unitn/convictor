@@ -19,7 +19,6 @@ import it.unitn.disi.webprog2016.convictor.framework.controllers.AbstractControl
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -122,8 +121,20 @@ public class RestaurantsController extends AbstractController {
         }
 	}
     
+    /**
+     * New method, it show the page used to insert a new restaurant.
+     * @param request Object representing the request made
+     * @param response Object representing the response that will be sent to
+     * the client
+     * @return A string representing the view and it sets an "allCusines" variable  
+     * and an "allPriceSlot" variable that can be used inside a JSP. 
+     * @throws IOException
+     * @throws ServletException
+     */
     public String new_(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		CusineDAO cusineDAO = (CusineDAO) request.getServletContext().getAttribute("cusinedao");
+		
+        // Get all cusines available to make them available inside the JSP
+        CusineDAO cusineDAO = (CusineDAO) request.getServletContext().getAttribute("cusinedao");
 		try {
 			List<Cusine> allCusines = cusineDAO.getAllCusines();
 			request.setAttribute("allCusines", allCusines);
@@ -131,6 +142,7 @@ public class RestaurantsController extends AbstractController {
 			Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, ex);
 		}
 		
+        // Get all price slots available to make them available inside the JSP
 		PriceSlotDAO priceSlotDAO = (PriceSlotDAO) request.getServletContext().getAttribute("priceslotdao");
 		try {
 			List<PriceSlot> allPriceSlot = priceSlotDAO.getAllPriceSlots();
