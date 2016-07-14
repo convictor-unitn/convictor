@@ -154,7 +154,6 @@ public class RestaurantsController extends AbstractController {
         return "/restaurants/new";
 	}
     
-    // Mancano i campi del website e dello slot price
     public String create(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		
         Restaurant tmp = new Restaurant();
@@ -175,7 +174,6 @@ public class RestaurantsController extends AbstractController {
         tmp.setPhone(request.getParameter("phone"));
         tmp.setEmail(request.getParameter("email"));
         tmp.setWebsite(request.getParameter("website"));
-		//add slot price field
 		tmp.setSlotPrice(request.getParameter("priceslotselected"));
         
         String[] cusines = request.getParameterValues("cusines");
