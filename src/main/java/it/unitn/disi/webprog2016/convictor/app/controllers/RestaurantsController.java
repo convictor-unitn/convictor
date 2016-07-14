@@ -32,19 +32,33 @@ import javax.servlet.http.HttpServletResponse;
  * @author umberto
  */
 public class RestaurantsController extends AbstractController {
-    
+   
+    /**
+     * Index method, it handles the search action to find restaurants given
+     * a search query.
+     * @param request Object representing the request made
+     * @param response Object representing the response that will be sent to
+     * the client
+     * @return A string representing the view and it sets a "results" var that
+     * can be used inside a JSP. 
+     * @throws IOException
+     * @throws ServletException 
+     */
     public String index(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		
+        // Set the query
         String query = request.getParameter("query");
         if (query==null) {
             query = "";
         }
         
+        // Set the page index (pagination)
         int page=0;
         if (request.getParameter("page") != null ){
             page = Integer.parseInt(request.getParameter("page"));
         }
         
+        // Retrive restaurants from the database given the query string
         RestaurantDAO restaurantDAO = (RestaurantDAO) request.getServletContext().getAttribute("restaurantdao");
         try {
             List<Restaurant> tmp = restaurantDAO.getRestaurantByString(query, page);
@@ -62,15 +76,26 @@ public class RestaurantsController extends AbstractController {
         return "/restaurants/index";
 	}
     
+    /**
+     * Show method, it show the restaurant page given its id.
+     * @param request Object representing the request made
+     * @param response Object representing the response that will be sent to
+     * the client
+     * @return A string representing the view and it sets a "restaurant" variable  
+     * that can be used inside a JSP. 
+     * @throws IOException
+     * @throws ServletException
+     */
     public String show(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         
         int id = Integer.parseInt(request.getParameter("id"));
-        int reviewPage = 0;
         
+        int reviewPage = 0;        
         if (request.getParameter("reviewPage") != null) {
             reviewPage = Integer.parseInt(request.getParameter("reviewPage"));
         }
         
+        // Retrive the restaurant from the database given its id 
         RestaurantDAO restaurantDAO = (RestaurantDAO) request.getServletContext().getAttribute("restaurantdao");
         ReviewDAO reviewDAO = (ReviewDAO) request.getServletContext().getAttribute("reviewdao");
         CusinesRestaurantDAO cusinesRestaurantDAO = (CusinesRestaurantDAO) request.getServletContext().getAttribute("cusinesrestaurantdao");
