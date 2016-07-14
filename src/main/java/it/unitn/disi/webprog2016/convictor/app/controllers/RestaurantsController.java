@@ -154,6 +154,17 @@ public class RestaurantsController extends AbstractController {
         return "/restaurants/new";
 	}
     
+    /**
+     * Create method, it create the Restaurant object that will be saved, if valid,
+     * inside the database.
+     * @param request Object representing the request made
+     * @param response Object representing the response that will be sent to
+     * the client
+     * @return A string representing the view and it sets an "allCusines" variable  
+     * and an "allPriceSlot" variable that can be used inside a JSP. 
+     * @throws IOException
+     * @throws ServletException
+     */
     public String create(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		
         Restaurant tmp = new Restaurant();
@@ -228,6 +239,8 @@ public class RestaurantsController extends AbstractController {
             }
 			else
 			{
+                // So we can give to the user the same page, with already datas
+                // filled and also the errors made. 
 				request.setAttribute("restaurant", tmp);
 			}
         } catch (SQLException ex) {

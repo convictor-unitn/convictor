@@ -172,7 +172,7 @@ public class Restaurant extends AbstractBean {
             this.slotPrice = Integer.parseInt(slotPrice);
         } catch (Exception e) {
             this.setSlotPrice(-1);
-            this.setError("slotPrice", email);
+            this.setError("slotPrice", "Non è stato scelta la fascia di prezzo");
         }
     } 
 
