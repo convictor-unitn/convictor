@@ -23,6 +23,8 @@
 	<jsp:attribute name="body">
             <div class="ui container">
 
+                </br>
+                
                 <div class="text"> <h2> Il mio profilo </h2> </div>
 
                 </br>
