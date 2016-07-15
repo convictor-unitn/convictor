@@ -54,6 +54,14 @@ public class RestaurantsController extends AbstractController {
             response.sendError(500);
             return "";
         } 
+		
+		CusineDAO cusineDAO = (CusineDAO) request.getServletContext().getAttribute("cusinedao");
+		try {
+			List<Cusine> allCusines = cusineDAO.getAllCusines();
+			request.setAttribute("allCusines", allCusines);
+		} catch (SQLException ex) {
+			Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, ex);
+		}
         
         return "/restaurants/index";
 	}
