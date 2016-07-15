@@ -16,7 +16,10 @@
 		<div class="ui two column stackable grid container">
 
   <div class="three wide column">
-    <div id="choices" class="ui form">
+     <div class="ui one column grid">
+      <div class="row">                
+       <div class="column">
+              <div id="choices" class="ui form">
       <div class="grouped fields">
         <label>Ordina per:</label>
         <div class="field">
@@ -62,11 +65,27 @@
 
 	</br>
 	<button class="ui fluid basic black button">Cerca</button>
+   </div>
+  </div>
+    <div class="column">
+            <div class="ui buttons">
+                <div class="ui button">
+                    <i class="left arrow icon"></i>
+                </div>
+            </div>
+            <div class="ui button">                      
+                  <i class="right arrow icon"></i>                      
+            </div>
+                <div class="ui basic label">
+                  2,048
+            </div>
+        </div>
+  </div>
+    
 
   </div>
  
   <div class="thirteen wide column">
-
     <div id="results" class="ui three stackable cards">
       <div class="ui card">
         <div class="image">
