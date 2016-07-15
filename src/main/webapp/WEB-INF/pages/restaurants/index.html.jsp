@@ -58,8 +58,8 @@
         <c:forEach var="cusine" items="${allCusines}">
            <div class="field">
               <div class="ui checkbox">
-                <input name="${cusine.name}" type="checkbox">
-                <label></label>
+                <input name="${cusine.id}" type="checkbox">
+                <label>${cusine.name}</label>
               </div>
             </div> 
         </c:forEach>                
