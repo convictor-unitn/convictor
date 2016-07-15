@@ -96,8 +96,10 @@
               <div class="meta">
                 <span class="date">${rest.reviews.length} recensioni</span>                
               </div>
-              <div class="text">${rest.}Posizione in classifica</div>
-              <div class="description">Tipi di cucina</div>
+              <div class="text">${rest} Posizione in classifica</div>
+              <div class="description">
+                <c:forEach var="cusine" items="${bean.cusine}">${cusine} </c:forEach> 
+              </div>  
             </div>            
         </div>  
         </c:forEach>               
