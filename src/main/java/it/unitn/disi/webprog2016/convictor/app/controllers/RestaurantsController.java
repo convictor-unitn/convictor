@@ -253,12 +253,24 @@ public class RestaurantsController extends AbstractController {
         return "/restaurants/new";
 	}
     
+    /**
+     * New method, it show the page used to edit a restaurant.
+     * @param request Object representing the request made
+     * @param response Object representing the response that will be sent to
+     * the client
+     * @return A string representing the view and it sets an "allCusines" variable,  
+     * an "allPriceSlot" variable and a "restaurant" variable that can be 
+     * used inside a JSP.
+     * @throws IOException
+     * @throws ServletException
+     */
     public String edit(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {        
         
-        int id = Integer.parseInt(request.getParameter("id"));
         RestaurantDAO restaurantDAO = (RestaurantDAO) request.getServletContext().getAttribute("restaurantdao");
         CusinesRestaurantDAO cusinesRestaurantDAO = (CusinesRestaurantDAO) request.getServletContext().getAttribute("cusinesrestaurantdao");
         OpeningTimesDAO openingTimeDAO = (OpeningTimesDAO) request.getServletContext().getAttribute("openingtimesdao");
+        
+        int id = Integer.parseInt(request.getParameter("id"));
         
 		//Retrieve cusines list from database to fill restaurant edit form - GR
 		CusineDAO cusineDAO = (CusineDAO) request.getServletContext().getAttribute("cusinedao");
@@ -268,6 +280,8 @@ public class RestaurantsController extends AbstractController {
 			request.setAttribute("allCusines", allCusines);
 		} catch (SQLException ex) {
 			Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, ex);
+            response.sendError(500);
+            return "";
 		}
 		
 		//Retrieve priceSlot list from database to fill restaurant edit form - GR
@@ -277,7 +291,9 @@ public class RestaurantsController extends AbstractController {
 			request.setAttribute("allPriceSlot", allPriceSlot);
 		} catch (SQLException ex) {
 			Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, ex);
-		}	
+            response.sendError(500);
+            return "";
+        }	
 		
 		try {
             Restaurant tmp = restaurantDAO.getRestaurantById(id);
