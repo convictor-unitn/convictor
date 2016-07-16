@@ -399,7 +399,6 @@ public class RestaurantsController extends AbstractController {
                     !"".equals(request.getParameter("open_at_afternoon_"+day)) &&
                     !"".equals(request.getParameter("close_at_afternoon_"+day)) 
                     ) {
-                    Logger.getLogger("TEST").log(Level.SEVERE,request.getParameter("close_at_afternoon_"+day));
                     tmpTime.setOpenAt(request.getParameter("open_at_"+day));
                     tmpTime.setCloseAt(request.getParameter("close_at_"+day));
                     tmpTime.setOpenAtAfternoon(request.getParameter("open_at_afternoon_"+day));
