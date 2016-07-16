@@ -344,7 +344,7 @@ public class Restaurant extends AbstractBean {
             this.setError("cusines", "Non sono state scelte le tipologie di cucina");
         }
         
-        if (this.getOpeningTimes().isEmpty()) {
+        if (this.getOpeningTimes().isEmpty() && this.getOpeningTimes().size() < 7) {
             status = false;
             this.setError("openingTimes", "Non sono stati inseriti gli orari del ristorante");
         }

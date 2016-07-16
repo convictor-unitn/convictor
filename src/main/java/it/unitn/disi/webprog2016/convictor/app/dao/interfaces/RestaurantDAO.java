@@ -18,7 +18,7 @@ public interface RestaurantDAO {
     List<Restaurant> getRestaurantByString(String pattern, int offset) throws SQLException;
     Restaurant getRestaurantById(int id ) throws SQLException;
     int insertRestaurant(Restaurant restaurant) throws SQLException;
-    int updateRestaurant(Restaurant restaurant) throws SQLException;
+    int updateRestaurant(Restaurant restaurant, int id) throws SQLException;
     List<Restaurant> getRestaurantByUserId(int id) throws SQLException;
     
 }

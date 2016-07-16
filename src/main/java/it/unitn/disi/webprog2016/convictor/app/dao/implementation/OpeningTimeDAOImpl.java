@@ -75,5 +75,18 @@ public class OpeningTimeDAOImpl extends DatabaseDAO implements OpeningTimesDAO {
             }
         }
     }
+
+    @Override
+    public void updateRestaurantOpeningTimes(int restaurant_id, List<OpeningTime> times) throws SQLException {
+        String query = "DELETE FROM opening_times WHERE restaurant_id = ?";
+        PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
+        try {
+            stm.setInt(1, restaurant_id);
+            stm.executeUpdate();
+        } finally {
+            stm.close();
+        }
+        //this.insertRestaurantOpeningTimes(restaurant_id, times);
+    }
     
 }

@@ -14,10 +14,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Restaurants DAO implementation. 
@@ -66,12 +63,9 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
     }
 
     @Override
-    public int updateRestaurant(Restaurant restaurant) throws SQLException {
-        
-        // Check if restaurant is valid
-        if (!restaurant.validate()) return -1;   
+    public int updateRestaurant(Restaurant restaurant, int id) throws SQLException {
          
-        String query = "UPDATE restaurants  SET name=?, description=?, street=?, city=?, zip_code=?, province=?, full_address=?, website=?, slot_price=? , phone=?, email=?   WHERE id=?";
+        String query = "UPDATE restaurants  SET name=?, description=?, street=?, city=?, zip_code=?, province=?, full_address=?, website=?, slot_price=? , phone=?, email=? WHERE id=?";
         PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
         try {
             stm.setString(1, restaurant.getName());
@@ -83,14 +77,14 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
             stm.setString(7, restaurant.getStreet() + restaurant.getCity() + restaurant.getZipCode() + restaurant.getProvince());
             stm.setString(8, restaurant.getWebsite());
             stm.setInt(9, restaurant.getSlotPrice());
-            stm.setInt(10, restaurant.getId());
-            stm.setString(11, restaurant.getPhone());
-            stm.setString(12, restaurant.getEmail());
-            stm.execute();
+            stm.setString(10, restaurant.getPhone());
+            stm.setString(11, restaurant.getEmail());
+            stm.setInt(12, id);
+            stm.executeUpdate();
         } finally {
             stm.close();
         }
-        return restaurant.getId();
+        return id;
     }
 
     @Override

@@ -57,7 +57,7 @@ public class CusinesRestaurantDAOImpl extends DatabaseDAO implements CusinesRest
             try {
                 stm.setInt(1, restaurant_id);
                 stm.setInt(2, cusines.get(i).getId());
-                stm.execute();
+                stm.executeUpdate();
             } finally {
                 stm.close();
             }
@@ -84,6 +84,19 @@ public class CusinesRestaurantDAOImpl extends DatabaseDAO implements CusinesRest
             stm.close();
         }
        return cusine;
+    }
+
+    @Override
+    public void updateRestaurantCusines(int restaurant_id, List<Cusine> cusines) throws SQLException {
+        String query = "DELETE FROM cusines_restaurants WHERE restaurant_id = ?;";
+        PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
+        try {
+            stm.setInt(1, restaurant_id);
+            stm.executeUpdate();
+        } finally {
+            stm.close();
+        }
+        //this.insertRestaurantCusines(restaurant_id, cusines);
     }
     
 }

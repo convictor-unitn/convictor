@@ -175,7 +175,10 @@ public class RestaurantsController extends AbstractController {
 			request.setAttribute("allCusines", allCusines);
 		} catch (SQLException ex) {
 			Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, ex);
+            response.sendError(500);
+            return "";
 		}
+        
         tmp.setName(request.getParameter("name"));
         tmp.setCity(request.getParameter("city"));
         tmp.setStreet(request.getParameter("street"));
@@ -217,16 +220,22 @@ public class RestaurantsController extends AbstractController {
             if (request.getParameter("dayoff_"+day) != null) {
                 tmpTime.setDayoff(true);
             } else {
-                tmpTime.setOpenAt(request.getParameter("open_at_"+day));
-                tmpTime.setCloseAt(request.getParameter("close_at_"+day));
-                tmpTime.setOpenAtAfternoon(request.getParameter("open_at_afternoon_"+day));
-                tmpTime.setCloseAtAfternoon(request.getParameter("close_at_afternoon_"+day));
-                tmpTime.setDayoff(false);
-            }
-            if (tmpTime.validate()) {
-                listTime.add(tmpTime);
-            }
-            
+                if (!"".equals(request.getParameter("open_at_"+day)) &&
+                    !"".equals(request.getParameter("close_at_"+day)) &&  
+                    !"".equals(request.getParameter("open_at_afternoon_"+day)) &&
+                    !"".equals(request.getParameter("close_at_afternoon_"+day)) 
+                    ) {
+                    Logger.getLogger("TEST").log(Level.SEVERE,request.getParameter("close_at_afternoon_"+day));
+                    tmpTime.setOpenAt(request.getParameter("open_at_"+day));
+                    tmpTime.setCloseAt(request.getParameter("close_at_"+day));
+                    tmpTime.setOpenAtAfternoon(request.getParameter("open_at_afternoon_"+day));
+                    tmpTime.setCloseAtAfternoon(request.getParameter("close_at_afternoon_"+day));
+                    tmpTime.setDayoff(false);
+                    if (tmpTime.validate()) {
+                        listTime.add(tmpTime);
+                    }
+                }
+            }         
         }
         tmp.setOpeningTimes(listTime);
         
@@ -254,7 +263,7 @@ public class RestaurantsController extends AbstractController {
 	}
     
     /**
-     * New method, it show the page used to edit a restaurant.
+     * Edit method, it show the page used to edit a restaurant.
      * @param request Object representing the request made
      * @param response Object representing the response that will be sent to
      * the client
@@ -316,9 +325,31 @@ public class RestaurantsController extends AbstractController {
         }
 	}
     
+    /**
+     * Update method, it updates the Restaurant object that will be saved, if valid,
+     * inside the database.
+     * @param request Object representing the request made
+     * @param response Object representing the response that will be sent to
+     * the client
+     * @return Send to the restaurant page modified 
+     * @throws IOException
+     * @throws ServletException
+     */
     public String update(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		
         int id = Integer.parseInt(request.getParameter("id")); 
+        
+        // Set all cusines 
+        CusineDAO cusineDAO = (CusineDAO) request.getServletContext().getAttribute("cusinedao");
+		List<Cusine> allCusines=null;
+		try {
+			allCusines = cusineDAO.getAllCusines();
+			request.setAttribute("allCusines", allCusines);
+		} catch (SQLException ex) {
+			Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, ex);
+            response.sendError(500);
+            return "";
+		}
         
         Restaurant tmp = new Restaurant();
         tmp.setName(request.getParameter("name"));
@@ -333,23 +364,64 @@ public class RestaurantsController extends AbstractController {
 		tmp.setSlotPrice(request.getParameter("priceslotselected"));
         
         String[] cusines = request.getParameterValues("cusines");
-        List<Cusine> list = new ArrayList<>();		
+        List<Cusine> list = new ArrayList<>();
+        List<OpeningTime> listTime = new ArrayList<>();
         
-        if (cusines != null) {
-            for(int i=0; i< cusines.length; i++) {
-                Cusine tmpCusine = new Cusine();
-                tmpCusine.setName(cusines[i]);
-                list.add(tmpCusine);
-            }
-        }
         
-        tmp.setCusine(list);
-        tmp.validate();
-
         try {
-            int id_rest = ((RestaurantDAO) request.getServletContext().getAttribute("restaurantdao")).updateRestaurant(tmp);
+            for (String name : cusines) {
+				if(allCusines==null) break;
+                for(Cusine c : allCusines) {
+					if(c.getId()==Integer.parseInt(name)) {
+						list.add(c);
+					}
+				}               
+            }
+        } catch (Exception e) {
+            // If somebody doesn't insert cusines, List<Cusine> will
+            // be inserted empty. The validate procedure will discover
+            // the error. 
+            // This catch exists only to ensure that the exception doesn't
+            // kill the request.
+        }
+        tmp.setCusine(list); 
+        
+       // Set the opening times
+        String[] days = {"monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"};
+        for (String day : days) {
+            OpeningTime tmpTime = new OpeningTime();
+            tmpTime.setDay(day);
+            if (request.getParameter("dayoff_"+day) != null) {
+                tmpTime.setDayoff(true);
+            } else {
+                if (!"".equals(request.getParameter("open_at_"+day)) &&
+                    !"".equals(request.getParameter("close_at_"+day)) &&  
+                    !"".equals(request.getParameter("open_at_afternoon_"+day)) &&
+                    !"".equals(request.getParameter("close_at_afternoon_"+day)) 
+                    ) {
+                    Logger.getLogger("TEST").log(Level.SEVERE,request.getParameter("close_at_afternoon_"+day));
+                    tmpTime.setOpenAt(request.getParameter("open_at_"+day));
+                    tmpTime.setCloseAt(request.getParameter("close_at_"+day));
+                    tmpTime.setOpenAtAfternoon(request.getParameter("open_at_afternoon_"+day));
+                    tmpTime.setCloseAtAfternoon(request.getParameter("close_at_afternoon_"+day));
+                    tmpTime.setDayoff(false);
+                    if (tmpTime.validate()) {
+                        listTime.add(tmpTime);
+                    }
+                }
+            }         
+        }
+        tmp.setOpeningTimes(listTime);
+        
+        tmp.validate();
+        
+        try {
             if (tmp.isValid()) {
-                response.sendRedirect("/restaurants/show?id="+id_rest);
+                int id_rest = ((RestaurantDAO) request.getServletContext().getAttribute("restaurantdao")).updateRestaurant(tmp, id);
+                ((CusinesRestaurantDAO)request.getServletContext().getAttribute("cusinesrestaurantdao")).updateRestaurantCusines(id, list);
+                ((OpeningTimesDAO) request.getServletContext().getAttribute("openingtimesdao")).updateRestaurantOpeningTimes(id, listTime);
+                response.sendRedirect(request.getContextPath()+"/restaurants/show?id="+id_rest);
+                return "";
             }
         } catch (SQLException ex) {
             Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, ex);
