@@ -141,8 +141,6 @@ public class OpeningTime extends AbstractBean {
 			setOpenAtAfternoon(df.parse(openAt));
 		} catch (ParseException ex) {
 			this.setError("open_at_afternoon", "L'orario di apertura pomeridiano non è valido");
-            Logger.getLogger("TEST").log(Level.SEVERE, getOpenAt().toString());
-            Logger.getLogger("TEST").log(Level.SEVERE, ex.toString());
             this.setOpenAtAfternoon(new Date(0,0,0));
 		}
 	}
