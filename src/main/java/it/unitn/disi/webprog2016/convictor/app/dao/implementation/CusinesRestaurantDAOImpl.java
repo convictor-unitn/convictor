@@ -14,6 +14,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -95,8 +97,8 @@ public class CusinesRestaurantDAOImpl extends DatabaseDAO implements CusinesRest
             stm.executeUpdate();
         } finally {
             stm.close();
+            //this.insertRestaurantCusines(restaurant_id, cusines);
         }
-        //this.insertRestaurantCusines(restaurant_id, cusines);
     }
     
 }
