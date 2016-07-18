@@ -36,6 +36,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+import it.unitn.disi.webprog2016.convictor.app.beans.Photo;
 import java.io.File;
 import java.util.Enumeration;
 import java.util.Iterator;
@@ -477,11 +478,7 @@ public class RestaurantsController extends AbstractController {
 	}
 	
 	public String uploadPhoto(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		
-		response.setHeader("Access-Control-Allow-Origin", "*");
-        response.setHeader("Access-Control-Allow-Methods", "POST");
-        response.setHeader("Access-Control-Allow-Headers", "Content-Type");
-        response.setHeader("Access-Control-Max-Age", "86400");
+		// Inizializzazione parametri
 		String url = null;
 		// checks if the request actually contains upload file
         if (!ServletFileUpload.isMultipartContent(request)) {
@@ -489,6 +486,18 @@ public class RestaurantsController extends AbstractController {
 			response.sendError(500);
             return "";
         }
+		
+		RestaurantDAO restaurantDAO = (RestaurantDAO) request.getServletContext().getAttribute("restaurantdao");
+		int restaurantId = 0;
+		
+		// Fine inizializzazione parametri
+		
+		// Set delle impostazioni della richiesta 
+		response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "POST");
+        response.setHeader("Access-Control-Allow-Headers", "Content-Type");
+        response.setHeader("Access-Control-Max-Age", "86400");
+		
         // configures upload settings
         DiskFileItemFactory factory = new DiskFileItemFactory();
         factory.setSizeThreshold(THRESHOLD_SIZE);
@@ -512,6 +521,9 @@ public class RestaurantsController extends AbstractController {
                     if (item.getFieldName().equalsIgnoreCase(UUID_STRING)) {
                         uuidValue = item.getString();
                     }
+					
+					if(item.getFieldName().equals("id"))
+						restaurantId = Integer.parseInt(item.getString());
                 }
                 // processes only fields that are not form fields
                 if (!item.isFormField()) {
@@ -533,16 +545,23 @@ public class RestaurantsController extends AbstractController {
                     String keyName = uuid + '.' + ext;
  
                     PutObjectResult res = s3client.putObject(new PutObjectRequest(S3_BUCKET_NAME, keyName, itemFile.getInputStream(), om));
-					s3client.setObjectAcl(S3_BUCKET_NAME, keyName, CannedAccessControlList.AuthenticatedRead);
+					s3client.setObjectAcl(S3_BUCKET_NAME, keyName, CannedAccessControlList.PublicRead);
  
+					url = "https://s3.eu-central-1.amazonaws.com/"+S3_BUCKET_NAME+"/"+keyName;
+					
+					Photo photo = new Photo();
+					photo.setRestaurantId(restaurantId);
+					photo.setUrl(url);
+					restaurantDAO.insertPhoto(photo);
+					
                 } catch (AmazonServiceException ase) {
                     LOGGER.log(Level.SEVERE, "{0}:error:{1}", new Object[]{uuidValue, ase.getMessage()});
  
                 } catch (AmazonClientException ace) {
                     LOGGER.log(Level.SEVERE, "{0}:error:{1}", new Object[]{uuidValue, ace.getMessage()});
-                }
- 
- 
+                } catch (SQLException ex) {
+					Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, ex);
+				}
             } else {
                 LOGGER.severe(uuidValue + ":error:" + "No Upload file");
             }

@@ -5,6 +5,7 @@
  */
 package it.unitn.disi.webprog2016.convictor.app.dao.implementation;
 
+import it.unitn.disi.webprog2016.convictor.app.beans.Photo;
 import it.unitn.disi.webprog2016.convictor.app.beans.Restaurant;
 import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.RestaurantDAO;
 import it.unitn.disi.webprog2016.convictor.framework.dao.DatabaseDAO;
@@ -230,5 +231,27 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
         }          
         return listResult;
     }
+
+	@Override
+	public void insertPhoto(Photo photo) throws SQLException {
+		String query = "INSERT INTO photos (url, restaurant_id) VALUES (?,?)";
+		
+		PreparedStatement stmt = this.getDbManager().getConnection().prepareStatement(query);
+		try {
+			stmt.setString(1, photo.getUrl());
+			stmt.setInt(2, photo.getRestaurantId());
+			stmt.execute();
+			ResultSet result;
+			result = stmt.getGeneratedKeys();
+			if(result.next() && result != null){
+				photo.setId(result.getInt(1));
+			}
+		}
+		finally {
+			stmt.close();
+		}
+	}
     
+	
+	
 }
