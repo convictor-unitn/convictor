@@ -57,10 +57,29 @@ public class RestaurantsController extends AbstractController {
             page = Integer.parseInt(request.getParameter("page"));
         }
         
+        // Set the type of sorting
+        String sortMethod = request.getParameter("sorting");
+        if (sortMethod == null) {
+            sortMethod = "";
+        }
+        
         // Retrive restaurants from the database given the query string
         RestaurantDAO restaurantDAO = (RestaurantDAO) request.getServletContext().getAttribute("restaurantdao");
         try {
-            List<Restaurant> tmp = restaurantDAO.getRestaurantByString(query, page);
+            List<Restaurant> tmp;
+            switch(sortMethod) {
+                case "nameSorting":
+                    tmp = restaurantDAO.getRestaurantByStringOrderByName(query, page);
+                    break;
+                case "priceAscSorting":
+                    tmp = restaurantDAO.getRestauranyByStringOrderByPrice(query, page, 1);
+                    break;
+                case "priceDescSorting":
+                    tmp = restaurantDAO.getRestauranyByStringOrderByPrice(query, page, 0);
+                    break;
+                default:
+                    tmp = restaurantDAO.getRestaurantByString(query, page);
+            }
              if (tmp != null) {
                 request.setAttribute("results", tmp);
             } else {
@@ -79,6 +98,9 @@ public class RestaurantsController extends AbstractController {
 		} catch (SQLException ex) {
 			Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, ex);
 		}
+        
+        // Set the search string as page attribute
+        request.setAttribute("queryString", query);
         
         return "/restaurants/index";
 	}
@@ -442,4 +464,8 @@ public class RestaurantsController extends AbstractController {
         }
         return "/restaurants/edit";
 	}
+    
+    private List<Restaurant> sortingQuery(String request, String query, int page) {
+        return new ArrayList<>();
+    }
 }

@@ -273,8 +273,8 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
         List<Restaurant> listResult = new ArrayList<>();
         String fullTextPattern = pattern.replace(" ", "&");
         
-        String queryASC ="SELECT * FROM restaurants WHERE tsv @@ tsquery(?) OR searchable ILIKE ? ORDER BY price ASC LIMIT 10 OFFSET ? ";
-        String queryDESC ="SELECT * FROM restaurants WHERE tsv @@ tsquery(?) OR searchable ILIKE ? ORDER BY price DESC LIMIT 10 OFFSET ?";
+        String queryASC ="SELECT * FROM restaurants WHERE tsv @@ tsquery(?) OR searchable ILIKE ? ORDER BY slot_price ASC LIMIT 10 OFFSET ? ";
+        String queryDESC ="SELECT * FROM restaurants WHERE tsv @@ tsquery(?) OR searchable ILIKE ? ORDER BY slot_price DESC LIMIT 10 OFFSET ?";
         
         PreparedStatement stm;
         if (type == 0) {
