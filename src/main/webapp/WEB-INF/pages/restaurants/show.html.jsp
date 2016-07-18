@@ -9,6 +9,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="l" tagdir="/WEB-INF/tags/layouts/" %>
 <jsp:useBean id="restaurant" scope="request" class="it.unitn.disi.webprog2016.convictor.app.beans.Restaurant" />
+
+<c:set var="bean" value="${requestScope.restaurant}" scope="request" />
+
 <l:main>
     <jsp:attribute name="title"> ${restaurant.name} </jsp:attribute>
 	
@@ -322,15 +325,16 @@
                                Aggiungi Nuova Immagine
                           </div>
                           <div class="content">
-                          <form class="ui form">
-                              <div class="field">
-                                   <input id="fileupload" type="file" name="files[]" data-url="server/php/" multiple >
-                               </div>
-                              <div class="field">
-                                  <div class="ui close button">Close</div>
-                                  <input class="ui button" type="submit"/>
-                              </div>
-                          </form>
+							  <form class="ui form" action="${pageContext.servletContext.contextPath}/restaurants/uploadPhoto" method="POST" enctype="multipart/form-data" action="">
+								  <input type="hidden" value="${bean.id}" name="id" />
+								  <div class="field">
+									  <input id="fileupload" type="file" name="files" />
+								  </div>
+								  <div class="field">
+									  <div class="ui close button">Close</div>
+									  <input class="ui button" type="submit" value="Upload"/>
+								  </div>
+							  </form>
                           </div>
                       </div>
                   </div>

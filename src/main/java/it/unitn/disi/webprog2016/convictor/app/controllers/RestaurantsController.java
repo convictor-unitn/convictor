@@ -25,13 +25,18 @@ import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+import java.io.File;
+import java.util.Enumeration;
+import java.util.UUID;
 
 /**
  * In this controller there add all restaurant management pages
  * @author umberto
  */
 public class RestaurantsController extends AbstractController {
-   
+	
     /**
      * Index method, it handles the search action to find restaurants given
      * a search query.
@@ -441,5 +446,65 @@ public class RestaurantsController extends AbstractController {
             return "";
         }
         return "/restaurants/edit";
+	}
+	
+	public String uploadPhoto(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+		
+		String url = request.getContextPath();
+		
+		
+		String dir = request.getServletContext().getRealPath("/");
+		dir+="../../uploads/restaurantPhotos/";
+		
+		try {
+			// Use an advanced form of the constructor that specifies a character
+			// encoding of the request (not of the file contents) and a file
+			// rename policy.
+
+			MultipartRequest multi = new MultipartRequest(request, dir, 10*1024*1024, "ISO-8859-1", new DefaultFileRenamePolicy());
+			Enumeration params = multi.getParameterNames();
+
+			while (params.hasMoreElements()) {
+				String name = (String)params.nextElement();
+				String value = multi.getParameter(name);
+			}
+
+			Enumeration files = multi.getFileNames();
+
+			while (files.hasMoreElements()) {
+				String uuid = UUID.randomUUID().toString();
+				String name = (String)files.nextElement();
+				String filename = multi.getFilesystemName(name);
+				String ext = null;
+				String defFileName = uuid;
+
+				int dot = filename.lastIndexOf(".");
+				if (dot != -1) {
+					ext = filename.substring(dot);  // includes "."
+				}
+				else {
+					ext = "";
+				}
+				System.err.println(ext+"EXT");
+				defFileName = uuid+ext;
+				
+				File f = multi.getFile(name);
+				if(f!=null) {
+					File tmp = new File(f.getParent(), defFileName);
+					f.renameTo(tmp);
+					System.out.println("f.toString(): " + f.toString());
+					System.out.println("f.getName(): " + f.getName());
+					System.out.println("f.exists(): " + f.exists());
+					System.out.println("f.length(): " + f.length());
+				}
+			}
+		}
+		catch (IOException lEx) {
+			request.getServletContext().log(lEx, "error reading or saving file");
+		}
+		
+		System.out.println(dir);
+		
+		return "/restaurants/upload";
 	}
 }
