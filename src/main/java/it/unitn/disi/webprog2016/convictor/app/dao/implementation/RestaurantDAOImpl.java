@@ -162,44 +162,10 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
         return tmp;
     }
 
-    @Override
-    public List<Restaurant> getRestaurantByString(String pattern, int offset) throws SQLException {
-        
+    private List<Restaurant> getRestaurantDefault(PreparedStatement stm) throws SQLException {
         List<Restaurant> listResult = new ArrayList<>();
-        String fullTextPattern = pattern.replace(" ", "&");
-        int counter=0;
-        
-        // Deleted from these query single quote char. They cause errors when 
-        // stm.setString is called. PreparedStatement should add single quote 
-        // automatically.
-        String count ="SELECT COUNT(*) FROM restaurants WHERE tsv @@ tsquery(?) OR searchable ILIKE ?";
-        String query ="SELECT * FROM restaurants WHERE tsv @@ tsquery(?) OR searchable ILIKE ? LIMIT 10 OFFSET ?";
-        
-        PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(count);
-        PreparedStatement stm2 = this.getDbManager().getConnection().prepareStatement(query);
         try {
-            // Obtain the number of record
-            stm.setString(1, fullTextPattern);
-            
-            // The ILIKE has to be set like this because PreparedStatement
-            // doesn't like %?% this pattern. Therefore, we must concatenate
-            // % at the beginning and at the end of the fullTextPattern.
-            stm.setString(2, "%"+fullTextPattern+"%");
-            
-            ResultSet countSet = stm.executeQuery();
-            try {
-                while(countSet.next()) {
-                    counter = countSet.getInt("count");
-                }
-            } finally {
-                countSet.close();
-            }
-            
-            // Obtain the restaurant paginated 
-            stm2.setString(1, fullTextPattern);
-            stm2.setString(2, "%"+fullTextPattern+"%");
-            stm2.setInt(3, offset);
-            ResultSet restaurantSet = stm2.executeQuery();
+            ResultSet restaurantSet = stm.executeQuery();
             try {
                 while(restaurantSet.next()) {
                     Restaurant tmp = new Restaurant();
@@ -222,12 +188,113 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
                 }
             } finally {
                 restaurantSet.close();
+            }            
+        } catch (SQLException e) {
+            throw new SQLException(e);
+        }     
+        return listResult;
+    }
+    
+    @Override
+    public List<Restaurant> getRestaurantByString(String pattern, int offset) throws SQLException {
+        
+        List<Restaurant> listResult = new ArrayList<>();
+        String fullTextPattern = pattern.replace(" ", "&");
+        //int counter=0;
+        
+        // Deleted from these query single quote char. They cause errors when 
+        // stm.setString is called. PreparedStatement should add single quote 
+        // automatically.
+        //String count ="SELECT COUNT(*) FROM restaurants WHERE tsv @@ tsquery(?) OR searchable ILIKE ?";
+        String query ="SELECT * FROM restaurants WHERE tsv @@ tsquery(?) OR searchable ILIKE ? ORDER BY rating LIMIT 10 OFFSET ?";
+        
+        //PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(count);
+        PreparedStatement stm2 = this.getDbManager().getConnection().prepareStatement(query);
+        try {
+           /* // Obtain the number of record
+            stm.setString(1, fullTextPattern);
+            
+            // The ILIKE has to be set like this because PreparedStatement
+            // doesn't like %?% this pattern. Therefore, we must concatenate
+            // % at the beginning and at the end of the fullTextPattern.
+            stm.setString(2, "%"+fullTextPattern+"%");
+            
+            ResultSet countSet = stm.executeQuery();
+            try {
+                while(countSet.next()) {
+                    counter = countSet.getInt("count");
+                }
+            } finally {
+                countSet.close();
             }
-                
+            
+            */
+            
+            // Obtain the restaurant paginated 
+            stm2.setString(1, fullTextPattern);
+            stm2.setString(2, "%"+fullTextPattern+"%");
+            stm2.setInt(3, offset);
+            
+            listResult = this.getRestaurantDefault(stm2);
+            
+        } finally {
+            stm2.close();
+        }
+        return listResult;
+    }
+
+    @Override
+    public List<Restaurant> getRestaurantByStringOrderByName(String pattern, int offset) throws SQLException {
+        List<Restaurant> listResult = new ArrayList<>();
+        String fullTextPattern = pattern.replace(" ", "&");
+        
+        String query ="SELECT * FROM restaurants WHERE tsv @@ tsquery(?) OR searchable ILIKE ? ORDER BY name LIMIT 10 OFFSET ? ";
+        
+        PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
+        try {
+            
+            // Obtain the restaurant paginated 
+            stm.setString(1, fullTextPattern);
+            stm.setString(2, "%"+fullTextPattern+"%");
+            stm.setInt(3, offset);
+            
+            System.err.println(stm.toString());
+            
+            listResult = this.getRestaurantDefault(stm);
+            
         } finally {
             stm.close();
-            stm2.close();
-        }          
+        }
+        return listResult;
+    }
+
+    @Override
+    public List<Restaurant> getRestauranyByStringOrderByPrice(String pattern, int offset, int type) throws SQLException {
+        List<Restaurant> listResult = new ArrayList<>();
+        String fullTextPattern = pattern.replace(" ", "&");
+        
+        String queryASC ="SELECT * FROM restaurants WHERE tsv @@ tsquery(?) OR searchable ILIKE ? ORDER BY price ASC LIMIT 10 OFFSET ? ";
+        String queryDESC ="SELECT * FROM restaurants WHERE tsv @@ tsquery(?) OR searchable ILIKE ? ORDER BY price DESC LIMIT 10 OFFSET ?";
+        
+        PreparedStatement stm;
+        if (type == 0) {
+            stm = this.getDbManager().getConnection().prepareStatement(queryDESC);
+        } else {
+            stm = this.getDbManager().getConnection().prepareStatement(queryASC);
+        }       
+        
+        try {
+            
+            // Obtain the restaurant paginated 
+            stm.setString(1, fullTextPattern);
+            stm.setString(2, "%"+fullTextPattern+"%");
+            stm.setInt(3, offset);
+            
+            listResult = this.getRestaurantDefault(stm);
+            
+        } finally {
+            stm.close();
+        }
         return listResult;
     }
     
