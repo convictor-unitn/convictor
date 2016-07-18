@@ -58,18 +58,6 @@ public class RestaurantsController extends AbstractController {
 		}
         
         // Set cusine filters (if present)
-        /*int [] cusineFilters = new int[allCusines.size()];
-        boolean thereAreFilters = false;
-        int i=0;
-        for (Cusine c : allCusines) {
-            if (request.getParameter(String.valueOf(c.getId())) != null) {
-                cusineFilters[i] = c.getId();
-                thereAreFilters = true;
-            } else {
-                cusineFilters[i] = -1;
-            }
-            i++;
-        }*/
         List<String> cusineFilters = new ArrayList<>();
         for (Cusine c: allCusines) {
             if (request.getParameter(String.valueOf(c.getId())) != null) {
