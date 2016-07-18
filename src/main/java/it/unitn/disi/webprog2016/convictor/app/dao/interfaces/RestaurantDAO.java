@@ -16,10 +16,9 @@ import java.util.List;
 public interface RestaurantDAO {
     
     List<Restaurant> getRestaurantByString(String pattern, int offset) throws SQLException;
-    List<Restaurant> getRestaurantByString(String pattern, int offset, int [] cusines) throws SQLException;
+    List<Restaurant> getRestaurantByString(String pattern, int offset, List<String >cusines) throws SQLException;
     
     List<Restaurant> getRestaurantByStringOrderByName(String pattern, int offset) throws SQLException;
-    List<Restaurant> getRestaurantByStringOrderByName(String pattern, int offset, int [] cusines) throws SQLException;
     
     List<Restaurant> getRestauranyByStringOrderByPrice(String pattern, int offset, int type) throws SQLException;
     Restaurant getRestaurantById(int id ) throws SQLException;

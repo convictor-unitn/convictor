@@ -58,7 +58,7 @@ public class RestaurantsController extends AbstractController {
 		}
         
         // Set cusine filters (if present)
-        int [] cusineFilters = new int[allCusines.size()];
+        /*int [] cusineFilters = new int[allCusines.size()];
         boolean thereAreFilters = false;
         int i=0;
         for (Cusine c : allCusines) {
@@ -69,6 +69,12 @@ public class RestaurantsController extends AbstractController {
                 cusineFilters[i] = -1;
             }
             i++;
+        }*/
+        List<String> cusineFilters = new ArrayList<>();
+        for (Cusine c: allCusines) {
+            if (request.getParameter(String.valueOf(c.getId())) != null) {
+                cusineFilters.add(String.valueOf(c.getId()));
+            }
         }
         
         // Set the query
@@ -106,7 +112,7 @@ public class RestaurantsController extends AbstractController {
                     tmp = restaurantDAO.getRestauranyByStringOrderByPrice(query, page, 0);
                     break;
                 default:
-                    if (thereAreFilters) {
+                    if (cusineFilters.size() > 0) {
                         tmp = restaurantDAO.getRestaurantByString(query, page, cusineFilters);
                     } else {
                         tmp = restaurantDAO.getRestaurantByString(query, page);

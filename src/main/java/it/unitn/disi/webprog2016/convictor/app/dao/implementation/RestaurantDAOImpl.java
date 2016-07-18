@@ -299,23 +299,20 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
     }
 
     @Override
-    public List<Restaurant> getRestaurantByString(String pattern, int offset, int[] cusines) throws SQLException {
+    public List<Restaurant> getRestaurantByString(String pattern, int offset, List<String> cusines) throws SQLException {
         List<Restaurant> listResult = new ArrayList<>();
         String fullTextPattern = pattern.replace(" ", "&");
         
         // Set how many cusine fields we want to filter on
         String params = "";
         boolean setAND = false;
-        boolean setOR = false;
-        for (int i = 0; i < cusines.length; i++) {
-            if (cusines[i] != -1) {
-                if (!setAND) {
-                    setAND = true; 
-                    params += " AND ";
-                    params += "cusines_restaurants.cusine_id = ? ";
-                } else {
-                    params += "OR cusines_restaurants.cusine_id = ? ";
-                }
+        for (String c : cusines) {
+            if (!setAND) {
+                setAND = true;
+                params += " AND ";
+                params += "cusines_restaurants.cusine_id = ? ";
+            } else {
+                params += "OR cusines_restaurants.cusine_id = ? ";
             }
         }
         
@@ -332,15 +329,11 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
             stm.setString(1, fullTextPattern);
             stm.setString(2, "%"+fullTextPattern+"%");
             int counter = 1;
-            for (int i=0; i < cusines.length; i++) {
-                if (cusines[i] != -1) {
-                    stm.setInt(2+counter, cusines[i]);
-                    counter++;
-                }
+            for (String c : cusines) {
+                stm.setInt(2+counter, Integer.valueOf(c));
+                counter++;
             }
             stm.setInt(2+counter, offset);
-            
-            System.err.println(stm.toString());
             
             listResult = this.getRestaurantDefault(stm);
             
