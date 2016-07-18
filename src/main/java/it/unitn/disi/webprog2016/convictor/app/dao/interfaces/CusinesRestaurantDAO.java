@@ -18,4 +18,6 @@ public interface CusinesRestaurantDAO {
     Cusine getCusinebyName(String name) throws SQLException;
     List<Cusine> getCusinesByRestaurantId(int restaurant_id) throws SQLException;
     void insertRestaurantCusines(int restaurant_id, List<Cusine> cusines) throws SQLException;
+    void updateRestaurantCusines(int restaurant_id, List<Cusine> cusines) throws SQLException;
 }
+
