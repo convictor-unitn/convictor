@@ -19,7 +19,6 @@ import it.unitn.disi.webprog2016.convictor.framework.controllers.AbstractControl
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -32,15 +31,33 @@ import javax.servlet.http.HttpServletResponse;
  * @author umberto
  */
 public class RestaurantsController extends AbstractController {
-    
+   
+    /**
+     * Index method, it handles the search action to find restaurants given
+     * a search query.
+     * @param request Object representing the request made
+     * @param response Object representing the response that will be sent to
+     * the client
+     * @return A string representing the view and it sets a "results" var that
+     * can be used inside a JSP. 
+     * @throws IOException
+     * @throws ServletException 
+     */
     public String index(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		
+        // Set the query
         String query = request.getParameter("query");
+        if (query==null) {
+            query = "";
+        }
+        
+        // Set the page index (pagination)
         int page=0;
         if (request.getParameter("page") != null ){
             page = Integer.parseInt(request.getParameter("page"));
         }
         
+        // Retrive restaurants from the database given the query string
         RestaurantDAO restaurantDAO = (RestaurantDAO) request.getServletContext().getAttribute("restaurantdao");
         try {
             List<Restaurant> tmp = restaurantDAO.getRestaurantByString(query, page);
@@ -66,26 +83,37 @@ public class RestaurantsController extends AbstractController {
         return "/restaurants/index";
 	}
     
+    /**
+     * Show method, it show the restaurant page given its id.
+     * @param request Object representing the request made
+     * @param response Object representing the response that will be sent to
+     * the client
+     * @return A string representing the view and it sets a "restaurant" variable  
+     * that can be used inside a JSP. 
+     * @throws IOException
+     * @throws ServletException
+     */
     public String show(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         
         int id = Integer.parseInt(request.getParameter("id"));
-        int reviewPage = 0;
         
+        int reviewPage = 0;        
         if (request.getParameter("reviewPage") != null) {
             reviewPage = Integer.parseInt(request.getParameter("reviewPage"));
         }
         
+        // Retrive the restaurant from the database given its id 
         RestaurantDAO restaurantDAO = (RestaurantDAO) request.getServletContext().getAttribute("restaurantdao");
         ReviewDAO reviewDAO = (ReviewDAO) request.getServletContext().getAttribute("reviewdao");
         CusinesRestaurantDAO cusinesRestaurantDAO = (CusinesRestaurantDAO) request.getServletContext().getAttribute("cusinesrestaurantdao");
         OpeningTimesDAO openingTimeDAO = (OpeningTimesDAO) request.getServletContext().getAttribute("openingtimesdao");
         try {
-            Restaurant tmp = restaurantDAO.getRestaurantById(id);
-            tmp.setCusine(cusinesRestaurantDAO.getCusinesByRestaurantId(id));
-            tmp.setReviews(reviewDAO.getRestaurantReviews(id, reviewPage));
-            tmp.setOpeningTimes(openingTimeDAO.getResaurantOpeningTimes(id));
             
+            Restaurant tmp = restaurantDAO.getRestaurantById(id);
             if (tmp != null) {
+                tmp.setCusine(cusinesRestaurantDAO.getCusinesByRestaurantId(id));
+                tmp.setReviews(reviewDAO.getRestaurantReviews(id, reviewPage));
+                tmp.setOpeningTimes(openingTimeDAO.getResaurantOpeningTimes(id));
                 request.setAttribute("restaurant", tmp);
             } else {
                 response.sendError(404);
@@ -101,8 +129,20 @@ public class RestaurantsController extends AbstractController {
         }
 	}
     
+    /**
+     * New method, it show the page used to insert a new restaurant.
+     * @param request Object representing the request made
+     * @param response Object representing the response that will be sent to
+     * the client
+     * @return A string representing the view and it sets an "allCusines" variable  
+     * and an "allPriceSlot" variable that can be used inside a JSP. 
+     * @throws IOException
+     * @throws ServletException
+     */
     public String new_(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		CusineDAO cusineDAO = (CusineDAO) request.getServletContext().getAttribute("cusinedao");
+		
+        // Get all cusines available to make them available inside the JSP
+        CusineDAO cusineDAO = (CusineDAO) request.getServletContext().getAttribute("cusinedao");
 		try {
 			List<Cusine> allCusines = cusineDAO.getAllCusines();
 			request.setAttribute("allCusines", allCusines);
@@ -110,6 +150,7 @@ public class RestaurantsController extends AbstractController {
 			Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, ex);
 		}
 		
+        // Get all price slots available to make them available inside the JSP
 		PriceSlotDAO priceSlotDAO = (PriceSlotDAO) request.getServletContext().getAttribute("priceslotdao");
 		try {
 			List<PriceSlot> allPriceSlot = priceSlotDAO.getAllPriceSlots();
@@ -121,7 +162,17 @@ public class RestaurantsController extends AbstractController {
         return "/restaurants/new";
 	}
     
-    // Mancano i campi del website e dello slot price
+    /**
+     * Create method, it create the Restaurant object that will be saved, if valid,
+     * inside the database.
+     * @param request Object representing the request made
+     * @param response Object representing the response that will be sent to
+     * the client
+     * @return A string representing the view and it sets an "allCusines" variable  
+     * and an "allPriceSlot" variable that can be used inside a JSP. 
+     * @throws IOException
+     * @throws ServletException
+     */
     public String create(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		
         Restaurant tmp = new Restaurant();
@@ -132,7 +183,10 @@ public class RestaurantsController extends AbstractController {
 			request.setAttribute("allCusines", allCusines);
 		} catch (SQLException ex) {
 			Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, ex);
+            response.sendError(500);
+            return "";
 		}
+        
         tmp.setName(request.getParameter("name"));
         tmp.setCity(request.getParameter("city"));
         tmp.setStreet(request.getParameter("street"));
@@ -142,7 +196,6 @@ public class RestaurantsController extends AbstractController {
         tmp.setPhone(request.getParameter("phone"));
         tmp.setEmail(request.getParameter("email"));
         tmp.setWebsite(request.getParameter("website"));
-		//add slot price field
 		tmp.setSlotPrice(request.getParameter("priceslotselected"));
         
         String[] cusines = request.getParameterValues("cusines");
@@ -175,15 +228,22 @@ public class RestaurantsController extends AbstractController {
             if (request.getParameter("dayoff_"+day) != null) {
                 tmpTime.setDayoff(true);
             } else {
-                tmpTime.setOpenAt(request.getParameter("open_at_"+day));
-                tmpTime.setCloseAt(request.getParameter("close_at_"+day));
-                tmpTime.setOpenAtAfternoon(request.getParameter("open_at_afternoon_"+day));
-                tmpTime.setCloseAtAfternoon(request.getParameter("close_at_afternoon"+day));
-                tmpTime.setDayoff(false);
-            }
-            if (tmpTime.validate()) {
-                listTime.add(tmpTime);
-            }
+                if (!"".equals(request.getParameter("open_at_"+day)) &&
+                    !"".equals(request.getParameter("close_at_"+day)) &&  
+                    !"".equals(request.getParameter("open_at_afternoon_"+day)) &&
+                    !"".equals(request.getParameter("close_at_afternoon_"+day)) 
+                    ) {
+                    Logger.getLogger("TEST").log(Level.SEVERE,request.getParameter("close_at_afternoon_"+day));
+                    tmpTime.setOpenAt(request.getParameter("open_at_"+day));
+                    tmpTime.setCloseAt(request.getParameter("close_at_"+day));
+                    tmpTime.setOpenAtAfternoon(request.getParameter("open_at_afternoon_"+day));
+                    tmpTime.setCloseAtAfternoon(request.getParameter("close_at_afternoon_"+day));
+                    tmpTime.setDayoff(false);
+                    if (tmpTime.validate()) {
+                        listTime.add(tmpTime);
+                    }
+                }
+            }         
         }
         tmp.setOpeningTimes(listTime);
         
@@ -192,11 +252,14 @@ public class RestaurantsController extends AbstractController {
             if (tmp.isValid()) {
                 int id = ((RestaurantDAO) request.getServletContext().getAttribute("restaurantdao")).insertRestaurant(tmp);
                 ((CusinesRestaurantDAO)request.getServletContext().getAttribute("cusinesrestaurantdao")).insertRestaurantCusines(id, list);
+                ((OpeningTimesDAO) request.getServletContext().getAttribute("openingtimesdao")).insertRestaurantOpeningTimes(id, listTime);
                 response.sendRedirect(request.getContextPath()+"/restaurants/show?id="+id);
 				return "";
             }
 			else
 			{
+                // So we can give to the user the same page, with already datas
+                // filled and also the errors made. 
 				request.setAttribute("restaurant", tmp);
 			}
         } catch (SQLException ex) {
@@ -207,12 +270,24 @@ public class RestaurantsController extends AbstractController {
         return "/restaurants/new";
 	}
     
+    /**
+     * Edit method, it show the page used to edit a restaurant.
+     * @param request Object representing the request made
+     * @param response Object representing the response that will be sent to
+     * the client
+     * @return A string representing the view and it sets an "allCusines" variable,  
+     * an "allPriceSlot" variable and a "restaurant" variable that can be 
+     * used inside a JSP.
+     * @throws IOException
+     * @throws ServletException
+     */
     public String edit(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {        
         
-        int id = Integer.parseInt(request.getParameter("id"));
         RestaurantDAO restaurantDAO = (RestaurantDAO) request.getServletContext().getAttribute("restaurantdao");
         CusinesRestaurantDAO cusinesRestaurantDAO = (CusinesRestaurantDAO) request.getServletContext().getAttribute("cusinesrestaurantdao");
         OpeningTimesDAO openingTimeDAO = (OpeningTimesDAO) request.getServletContext().getAttribute("openingtimesdao");
+        
+        int id = Integer.parseInt(request.getParameter("id"));
         
 		//Retrieve cusines list from database to fill restaurant edit form - GR
 		CusineDAO cusineDAO = (CusineDAO) request.getServletContext().getAttribute("cusinedao");
@@ -222,6 +297,8 @@ public class RestaurantsController extends AbstractController {
 			request.setAttribute("allCusines", allCusines);
 		} catch (SQLException ex) {
 			Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, ex);
+            response.sendError(500);
+            return "";
 		}
 		
 		//Retrieve priceSlot list from database to fill restaurant edit form - GR
@@ -231,7 +308,9 @@ public class RestaurantsController extends AbstractController {
 			request.setAttribute("allPriceSlot", allPriceSlot);
 		} catch (SQLException ex) {
 			Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, ex);
-		}	
+            response.sendError(500);
+            return "";
+        }	
 		
 		try {
             Restaurant tmp = restaurantDAO.getRestaurantById(id);
@@ -254,9 +333,31 @@ public class RestaurantsController extends AbstractController {
         }
 	}
     
+    /**
+     * Update method, it updates the Restaurant object that will be saved, if valid,
+     * inside the database.
+     * @param request Object representing the request made
+     * @param response Object representing the response that will be sent to
+     * the client
+     * @return Send to the restaurant page modified 
+     * @throws IOException
+     * @throws ServletException
+     */
     public String update(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		
         int id = Integer.parseInt(request.getParameter("id")); 
+        
+        // Set all cusines 
+        CusineDAO cusineDAO = (CusineDAO) request.getServletContext().getAttribute("cusinedao");
+		List<Cusine> allCusines=null;
+		try {
+			allCusines = cusineDAO.getAllCusines();
+			request.setAttribute("allCusines", allCusines);
+		} catch (SQLException ex) {
+			Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, ex);
+            response.sendError(500);
+            return "";
+		}
         
         Restaurant tmp = new Restaurant();
         tmp.setName(request.getParameter("name"));
@@ -271,24 +372,69 @@ public class RestaurantsController extends AbstractController {
 		tmp.setSlotPrice(request.getParameter("priceslotselected"));
         
         String[] cusines = request.getParameterValues("cusines");
-        List<Cusine> list = new ArrayList<>();		
+        List<Cusine> list = new ArrayList<>();
+        List<OpeningTime> listTime = new ArrayList<>();
         
-        if (cusines != null) {
-            for(int i=0; i< cusines.length; i++) {
-                Cusine tmpCusine = new Cusine();
-                tmpCusine.setName(cusines[i]);
-                list.add(tmpCusine);
-            }
-        }
         
-        tmp.setCusine(list);
-        tmp.validate();
-
         try {
-            int id_rest = ((RestaurantDAO) request.getServletContext().getAttribute("restaurantdao")).updateRestaurant(tmp);
-            if (tmp.isValid()) {
-                response.sendRedirect("/restaurants/show?id="+id_rest);
+            for (String name : cusines) {
+				if(allCusines==null) break;
+                for(Cusine c : allCusines) {
+					if(c.getId()==Integer.parseInt(name)) {
+						list.add(c);
+					}
+				}               
             }
+        } catch (Exception e) {
+            // If somebody doesn't insert cusines, List<Cusine> will
+            // be inserted empty. The validate procedure will discover
+            // the error. 
+            // This catch exists only to ensure that the exception doesn't
+            // kill the request.
+        }
+        tmp.setCusine(list); 
+        
+       // Set the opening times
+        String[] days = {"monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"};
+        for (String day : days) {
+            OpeningTime tmpTime = new OpeningTime();
+            tmpTime.setDay(day);
+            if (request.getParameter("dayoff_"+day) != null) {
+                tmpTime.setDayoff(true);
+            } else {
+                if (!"".equals(request.getParameter("open_at_"+day)) &&
+                    !"".equals(request.getParameter("close_at_"+day)) &&  
+                    !"".equals(request.getParameter("open_at_afternoon_"+day)) &&
+                    !"".equals(request.getParameter("close_at_afternoon_"+day)) 
+                    ) {
+                    tmpTime.setOpenAt(request.getParameter("open_at_"+day));
+                    tmpTime.setCloseAt(request.getParameter("close_at_"+day));
+                    tmpTime.setOpenAtAfternoon(request.getParameter("open_at_afternoon_"+day));
+                    tmpTime.setCloseAtAfternoon(request.getParameter("close_at_afternoon_"+day));
+                    tmpTime.setDayoff(false);
+                    if (tmpTime.validate()) {
+                        listTime.add(tmpTime);
+                    }
+                }
+            }         
+        }
+        tmp.setOpeningTimes(listTime);
+        
+        tmp.validate();
+        
+        try {
+            if (tmp.isValid()) {
+                int id_rest = ((RestaurantDAO) request.getServletContext().getAttribute("restaurantdao")).updateRestaurant(tmp, id);
+                ((CusinesRestaurantDAO)request.getServletContext().getAttribute("cusinesrestaurantdao")).updateRestaurantCusines(id, list);
+                ((OpeningTimesDAO) request.getServletContext().getAttribute("openingtimesdao")).updateRestaurantOpeningTimes(id, listTime);
+                response.sendRedirect(request.getContextPath()+"/restaurants/show?id="+id_rest);
+                return "";
+            }else
+			{
+                // So we can give to the user the same page, with already datas
+                // filled and also the errors made. 
+				request.setAttribute("restaurant", tmp);
+			}
         } catch (SQLException ex) {
             Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, ex);
             response.sendError(500);

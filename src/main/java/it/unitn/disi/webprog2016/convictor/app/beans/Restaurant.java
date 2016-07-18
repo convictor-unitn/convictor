@@ -172,7 +172,7 @@ public class Restaurant extends AbstractBean {
             this.slotPrice = Integer.parseInt(slotPrice);
         } catch (Exception e) {
             this.setSlotPrice(-1);
-            this.setError("slotPrice", email);
+            this.setError("slotPrice", "Non è stata scelta la fascia di prezzo");
         }
     } 
 
@@ -344,7 +344,7 @@ public class Restaurant extends AbstractBean {
             this.setError("cusines", "Non sono state scelte le tipologie di cucina");
         }
         
-        if (this.getOpeningTimes().isEmpty()) {
+        if (this.getOpeningTimes().isEmpty() && this.getOpeningTimes().size() < 7) {
             status = false;
             this.setError("openingTimes", "Non sono stati inseriti gli orari del ristorante");
         }
