@@ -45,6 +45,32 @@ public class RestaurantsController extends AbstractController {
      */
     public String index(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		
+        // Retrive all cusines 
+        CusineDAO cusineDAO = (CusineDAO) request.getServletContext().getAttribute("cusinedao");
+		List<Cusine> allCusines;
+        try {
+			allCusines = cusineDAO.getAllCusines();
+			request.setAttribute("allCusines", allCusines);
+		} catch (SQLException ex) {
+			Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, ex);
+            response.sendError(500);
+            return "";
+		}
+        
+        // Set cusine filters (if present)
+        int [] cusineFilters = new int[allCusines.size()];
+        boolean thereAreFilters = false;
+        int i=0;
+        for (Cusine c : allCusines) {
+            if (request.getParameter(String.valueOf(c.getId())) != null) {
+                cusineFilters[i] = c.getId();
+                thereAreFilters = true;
+            } else {
+                cusineFilters[i] = -1;
+            }
+            i++;
+        }
+        
         // Set the query
         String query = request.getParameter("query");
         if (query==null) {
@@ -67,6 +93,8 @@ public class RestaurantsController extends AbstractController {
         RestaurantDAO restaurantDAO = (RestaurantDAO) request.getServletContext().getAttribute("restaurantdao");
         try {
             List<Restaurant> tmp;
+            
+            // Switch sort method and 
             switch(sortMethod) {
                 case "nameSorting":
                     tmp = restaurantDAO.getRestaurantByStringOrderByName(query, page);
@@ -78,9 +106,14 @@ public class RestaurantsController extends AbstractController {
                     tmp = restaurantDAO.getRestauranyByStringOrderByPrice(query, page, 0);
                     break;
                 default:
-                    tmp = restaurantDAO.getRestaurantByString(query, page);
-            }
-             if (tmp != null) {
+                    if (thereAreFilters) {
+                        tmp = restaurantDAO.getRestaurantByString(query, page, cusineFilters);
+                    } else {
+                        tmp = restaurantDAO.getRestaurantByString(query, page);
+                    }
+                }
+            
+            if (tmp != null) {
                 request.setAttribute("results", tmp);
             } else {
                 request.setAttribute("results", new ArrayList<>());
@@ -90,14 +123,6 @@ public class RestaurantsController extends AbstractController {
             response.sendError(500);
             return "";
         } 
-		
-		CusineDAO cusineDAO = (CusineDAO) request.getServletContext().getAttribute("cusinedao");
-		try {
-			List<Cusine> allCusines = cusineDAO.getAllCusines();
-			request.setAttribute("allCusines", allCusines);
-		} catch (SQLException ex) {
-			Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, ex);
-		}
         
         // Set the search string as page attribute
         request.setAttribute("queryString", query);
