@@ -23,14 +23,8 @@
                         <div id="s_text" class="content">
                             Crea un nuovo account
                         </div>
-                    </h2>
-                    
-                    <form class="ui large form" method="POST" action="${pageContext.servletContext.contextPath}/registrations/create">
-                        <div class="ui stacked segment">                            
-                            <f:registrationForm />
-                            
-                        </div>
-                    </form>
+                    </h2>			
+					<f:registrationForm />
                 </div>
             </div>	
         </jsp:attribute>
