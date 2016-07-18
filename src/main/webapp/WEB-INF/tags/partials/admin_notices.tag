@@ -1,7 +1,7 @@
 <%-- 
     Document   : admin_notices
     Created on : 22-giu-2016, 14.14.14
-    Author     : Giovanni M Riva
+    Author     : Giovanni M Riva/Federica Balliana
 --%>
 
 <%@tag description="admin notifications list partial" pageEncoding="UTF-8"%>
