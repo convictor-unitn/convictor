@@ -83,10 +83,10 @@ public class OpeningTimeDAOImpl extends DatabaseDAO implements OpeningTimesDAO {
         try {
             stm.setInt(1, restaurant_id);
             stm.executeUpdate();
+            this.insertRestaurantOpeningTimes(restaurant_id, times);
         } finally {
             stm.close();
         }
-        //this.insertRestaurantOpeningTimes(restaurant_id, times);
     }
     
 }
