@@ -22,6 +22,8 @@ import java.util.List;
  */
 public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
 
+    private int MAX_RESULTS = 10;
+    
     public RestaurantDAOImpl(DatabaseConnectionManager c) {
         super(c);
     }
@@ -206,7 +208,7 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
         // stm.setString is called. PreparedStatement should add single quote 
         // automatically.
         //String count ="SELECT COUNT(*) FROM restaurants WHERE tsv @@ tsquery(?) OR searchable ILIKE ?";
-        String query ="SELECT * FROM restaurants WHERE tsv @@ tsquery(?) OR searchable ILIKE ? ORDER BY rating LIMIT 10 OFFSET ?";
+        String query ="SELECT * FROM restaurants WHERE tsv @@ tsquery(?) OR searchable ILIKE ? ORDER BY rating LIMIT ? OFFSET ?";
         
         //PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(count);
         PreparedStatement stm2 = this.getDbManager().getConnection().prepareStatement(query);
@@ -233,7 +235,8 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
             // Obtain the restaurant paginated 
             stm2.setString(1, fullTextPattern);
             stm2.setString(2, "%"+fullTextPattern+"%");
-            stm2.setInt(3, offset);
+            stm2.setInt(3, MAX_RESULTS);
+            stm2.setInt(4, offset*MAX_RESULTS);
             
             listResult = this.getRestaurantDefault(stm2);
             
@@ -248,7 +251,7 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
         List<Restaurant> listResult = new ArrayList<>();
         String fullTextPattern = pattern.replace(" ", "&");
         
-        String query ="SELECT * FROM restaurants WHERE tsv @@ tsquery(?) OR searchable ILIKE ? ORDER BY name LIMIT 10 OFFSET ? ";
+        String query ="SELECT * FROM restaurants WHERE tsv @@ tsquery(?) OR searchable ILIKE ? ORDER BY name LIMIT ? OFFSET ? ";
         
         PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
         try {
@@ -256,7 +259,9 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
             // Obtain the restaurant paginated 
             stm.setString(1, fullTextPattern);
             stm.setString(2, "%"+fullTextPattern+"%");
-            stm.setInt(3, offset);
+            stm.setInt(3, MAX_RESULTS);
+            stm.setInt(4, offset*MAX_RESULTS);
+            
             
             System.err.println(stm.toString());
             
@@ -288,7 +293,8 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
             // Obtain the restaurant paginated 
             stm.setString(1, fullTextPattern);
             stm.setString(2, "%"+fullTextPattern+"%");
-            stm.setInt(3, offset);
+            stm.setInt(3, MAX_RESULTS);
+            stm.setInt(3, offset*MAX_RESULTS);
             
             listResult = this.getRestaurantDefault(stm);
             
@@ -320,7 +326,7 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
         // the string concatenated are fixed and cannot be modified.
         String query ="SELECT * FROM restaurants INNER JOIN cusines_restaurants ON restaurants.id = restaurant_id WHERE tsv @@ tsquery(?) OR searchable ILIKE ? "+
                 params
-                +"ORDER BY restaurants.rating LIMIT 10 OFFSET ? ";
+                +"ORDER BY restaurants.rating LIMIT ? OFFSET ? ";
         
         PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
         try {
@@ -333,7 +339,8 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
                 stm.setInt(2+counter, Integer.valueOf(c));
                 counter++;
             }
-            stm.setInt(2+counter, offset);
+            stm.setInt(2+counter, MAX_RESULTS);
+            stm.setInt(3+counter, offset*MAX_RESULTS);
             
             listResult = this.getRestaurantDefault(stm);
             
@@ -365,7 +372,7 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
         // the string concatenated are fixed and cannot be modified.
         String query ="SELECT * FROM restaurants INNER JOIN cusines_restaurants ON restaurants.id = restaurant_id WHERE tsv @@ tsquery(?) OR searchable ILIKE ? "+
                 params
-                +"ORDER BY restaurants.name LIMIT 10 OFFSET ? ";
+                +"ORDER BY restaurants.name LIMIT ? OFFSET ? ";
         
         PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
         try {
@@ -378,7 +385,8 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
                 stm.setInt(2+counter, Integer.valueOf(c));
                 counter++;
             }
-            stm.setInt(2+counter, offset);
+            stm.setInt(2+counter, MAX_RESULTS);
+            stm.setInt(3+counter, offset*MAX_RESULTS);
             
             listResult = this.getRestaurantDefault(stm);
             
@@ -410,10 +418,10 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
         // the string concatenated are fixed and cannot be modified.
         String queryDESC ="SELECT * FROM restaurants INNER JOIN cusines_restaurants ON restaurants.id = restaurant_id WHERE tsv @@ tsquery(?) OR searchable ILIKE ? "+
                 params
-                +"ORDER BY restaurants.slot_price DESC LIMIT 10 OFFSET ? ";
+                +"ORDER BY restaurants.slot_price DESC LIMIT ? OFFSET ? ";
         String queryASC ="SELECT * FROM restaurants INNER JOIN cusines_restaurants ON restaurants.id = restaurant_id WHERE tsv @@ tsquery(?) OR searchable ILIKE ? "+
                 params
-                +"ORDER BY restaurants.slot_price ASC LIMIT 10 OFFSET ? ";
+                +"ORDER BY restaurants.slot_price ASC LIMIT ? OFFSET ? ";
         
         PreparedStatement stm;
         if (type == 0) {
@@ -432,7 +440,8 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
                 stm.setInt(2+counter, Integer.valueOf(c));
                 counter++;
             }
-            stm.setInt(2+counter, offset);
+            stm.setInt(2+counter, MAX_RESULTS);
+            stm.setInt(3+counter, offset*MAX_RESULTS);
             
             listResult = this.getRestaurantDefault(stm);
             

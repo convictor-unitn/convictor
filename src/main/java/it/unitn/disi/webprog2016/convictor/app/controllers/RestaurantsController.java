@@ -71,10 +71,16 @@ public class RestaurantsController extends AbstractController {
             query = "";
         }
         
-        // Set the page index (pagination)
+        // Set the page index (pagination) and set a try-catch
+        // block to block parsing exception.
         int page=0;
-        if (request.getParameter("page") != null ){
-            page = Integer.parseInt(request.getParameter("page"));
+        if (request.getParameter("page") != null){
+            try {
+                page = Integer.parseInt(request.getParameter("page"));
+            } catch (Exception e) {
+                Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, e);
+                page = 0;
+            }
         }
         
         // Set the type of sorting
