@@ -18,57 +18,65 @@
 	
 	<jsp:attribute name="body">
             <div class="ui two column stackable grid container">
-
-            
                 <div class="three wide column">
                 <form class="form" method="GET" action="${pageContext.servletContext.contextPath}/restaurants">
-                <input type="hidden" value="${queryString}" name="query"/>
-                <div id="choices" class="ui form">
-                  <div class="grouped fields">
-                    <label>Ordina per:</label>
-                    <div class="field">
-                      <div class="ui radio checkbox">
-                        <input name="sorting" value="nameSorting" type="radio">
-                        <label>nome</label>
-                      </div>
-                    </div>              
-                    <div class="field">
-                      <div class="ui radio checkbox">
-                        <input name="sorting" value="priceAscSorting" type="radio">
-                        <label>prezzo (dal piu' basso al piu' alto)</label>
-                      </div>
+                    <input type="hidden" value="${queryString}" name="query"/>
+                    <div id="choices" class="ui form">
+                        <div class="grouped fields">
+                            <label>Ordina per:</label>
+                        <div class="field">
+                        <div class="ui radio checkbox">
+                            <input name="sorting" value="nameSorting" type="radio">
+                            <label>nome</label>
+                        </div>
+                        </div>              
+                        <div class="field">
+                            <div class="ui radio checkbox">
+                                <input name="sorting" value="priceAscSorting" type="radio">
+                                <label>prezzo (dal piu' basso al piu' alto)</label>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="ui radio checkbox">
+                                <input name="sorting" value="priceDescSorting" type="radio">
+                                <label>prezzo (dal piu' alto al piu' basso)</label>
+                            </div>
+                        </div>
                     </div>
-                    <div class="field">
-                      <div class="ui radio checkbox">
-                        <input name="sorting" value="priceDescSorting" type="radio">
-                        <label>prezzo (dal piu' alto al piu' basso)</label>
-                      </div>
                     </div>
-                  </div>
-                </div>
-
-                </br>
-
-                <div id="choices" class="ui form">
-                  <div class="grouped fields">
-                    <label>Filtra per tipologia di cucina:</label>
-                    <c:forEach var="cusine" items="${allCusines}">
-                       <div class="field">
-                          <div class="ui checkbox">
-                            <input name="${cusine.id}" type="checkbox">
-                            <label>${cusine.name}</label>
-                          </div>
-                        </div> 
-                    </c:forEach>                
-                  </div>
-                </div>
-
+                    </br>
+                    <div id="choices" class="ui form">
+                    <div class="grouped fields">
+                        <label>Filtra per tipologia di cucina:</label>
+                        <c:forEach var="cusine" items="${allCusines}">
+                        <div class="field">
+                            <div class="ui checkbox">
+                                <input name="${cusine.id}" type="checkbox">
+                                <label>${cusine.name}</label>
+                            </div>
+                            </div> 
+                        </c:forEach>                
+                    </div>
+                    </div>
                     </br>
                     <input class="ui fluid basic black button" type="submit" value="Filtra">                    
                 </form>
+                <div class="column">
+                    <div class="ui buttons">
+                        <div class="ui button">
+                            <i class="left arrow icon"></i>
+                        </div>
+                    </div>
+                    <div class="ui button">                      
+                        <i class="right arrow icon"></i>                      
+                    </div>
+                    <div class="ui basic label">
+                        2,048
+                    </div>
                 </div>
+            </div>
 
-              <div class="thirteen wide column">
+            <div class="thirteen wide column">
 
                 <div id="results" class="ui three stackable cards">
                     <c:forEach var="rest" items="${results}">
@@ -106,6 +114,7 @@
                 </div>
               </div>
             </div>
+>>>>>>> development
 	</jsp:attribute>
 		
 </l:main>
