@@ -100,16 +100,28 @@ public class RestaurantsController extends AbstractController {
         try {
             List<Restaurant> tmp;
             
-            // Switch sort method and 
+            // Switch sort method and check if there are cusine filters on
             switch(sortMethod) {
                 case "nameSorting":
-                    tmp = restaurantDAO.getRestaurantByStringOrderByName(query, page);
+                    if (cusineFilters.size() > 0 ) {
+                        tmp = restaurantDAO.getRestaurantByStringOrderByName(query, page, cusineFilters);
+                    } else {
+                        tmp = restaurantDAO.getRestaurantByStringOrderByName(query, page);
+                    }
                     break;
                 case "priceAscSorting":
-                    tmp = restaurantDAO.getRestauranyByStringOrderByPrice(query, page, 1);
+                    if (cusineFilters.size() > 0) {
+                        tmp = restaurantDAO.getRestauranyByStringOrderByPrice(query, page, 1, cusineFilters);
+                    } else {
+                        tmp = restaurantDAO.getRestauranyByStringOrderByPrice(query, page, 1);
+                    }
                     break;
                 case "priceDescSorting":
-                    tmp = restaurantDAO.getRestauranyByStringOrderByPrice(query, page, 0);
+                    if (cusineFilters.size() > 0) {
+                        tmp = restaurantDAO.getRestauranyByStringOrderByPrice(query, page, 0, cusineFilters);
+                    } else {
+                        tmp = restaurantDAO.getRestauranyByStringOrderByPrice(query, page, 0);
+                    }
                     break;
                 default:
                     if (cusineFilters.size() > 0) {

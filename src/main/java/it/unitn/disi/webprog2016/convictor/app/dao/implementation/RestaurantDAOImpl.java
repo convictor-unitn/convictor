@@ -342,5 +342,104 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
         }
         return listResult;
     }
+
+    @Override
+    public List<Restaurant> getRestaurantByStringOrderByName(String pattern, int offset, List<String> cusines) throws SQLException {
+         List<Restaurant> listResult = new ArrayList<>();
+        String fullTextPattern = pattern.replace(" ", "&");
+        
+        // Set how many cusine fields we want to filter on
+        String params = "";
+        boolean setAND = false;
+        for (String c : cusines) {
+            if (!setAND) {
+                setAND = true;
+                params += " AND ";
+                params += "cusines_restaurants.cusine_id = ? ";
+            } else {
+                params += "OR cusines_restaurants.cusine_id = ? ";
+            }
+        }
+        
+        // Set up everything inside the query. This should be safe because
+        // the string concatenated are fixed and cannot be modified.
+        String query ="SELECT * FROM restaurants INNER JOIN cusines_restaurants ON restaurants.id = restaurant_id WHERE tsv @@ tsquery(?) OR searchable ILIKE ? "+
+                params
+                +"ORDER BY restaurants.name LIMIT 10 OFFSET ? ";
+        
+        PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
+        try {
+            
+            // Obtain the restaurant paginated 
+            stm.setString(1, fullTextPattern);
+            stm.setString(2, "%"+fullTextPattern+"%");
+            int counter = 1;
+            for (String c : cusines) {
+                stm.setInt(2+counter, Integer.valueOf(c));
+                counter++;
+            }
+            stm.setInt(2+counter, offset);
+            
+            listResult = this.getRestaurantDefault(stm);
+            
+        } finally {
+            stm.close();
+        }
+        return listResult;
+    }
+
+    @Override
+    public List<Restaurant> getRestauranyByStringOrderByPrice(String pattern, int offset, int type, List<String> cusines) throws SQLException {
+        List<Restaurant> listResult = new ArrayList<>();
+        String fullTextPattern = pattern.replace(" ", "&");
+        
+        // Set how many cusine fields we want to filter on
+        String params = "";
+        boolean setAND = false;
+        for (String c : cusines) {
+            if (!setAND) {
+                setAND = true;
+                params += " AND ";
+                params += "cusines_restaurants.cusine_id = ? ";
+            } else {
+                params += "OR cusines_restaurants.cusine_id = ? ";
+            }
+        }
+        
+        // Set up everything inside the query. This should be safe because
+        // the string concatenated are fixed and cannot be modified.
+        String queryDESC ="SELECT * FROM restaurants INNER JOIN cusines_restaurants ON restaurants.id = restaurant_id WHERE tsv @@ tsquery(?) OR searchable ILIKE ? "+
+                params
+                +"ORDER BY restaurants.slot_price DESC LIMIT 10 OFFSET ? ";
+        String queryASC ="SELECT * FROM restaurants INNER JOIN cusines_restaurants ON restaurants.id = restaurant_id WHERE tsv @@ tsquery(?) OR searchable ILIKE ? "+
+                params
+                +"ORDER BY restaurants.slot_price ASC LIMIT 10 OFFSET ? ";
+        
+        PreparedStatement stm;
+        if (type == 0) {
+            stm = this.getDbManager().getConnection().prepareStatement(queryDESC);
+        } else {
+            stm = this.getDbManager().getConnection().prepareStatement(queryASC);
+        }
+        
+        try {
+            
+            // Obtain the restaurant paginated 
+            stm.setString(1, fullTextPattern);
+            stm.setString(2, "%"+fullTextPattern+"%");
+            int counter = 1;
+            for (String c : cusines) {
+                stm.setInt(2+counter, Integer.valueOf(c));
+                counter++;
+            }
+            stm.setInt(2+counter, offset);
+            
+            listResult = this.getRestaurantDefault(stm);
+            
+        } finally {
+            stm.close();
+        }
+        return listResult;
+    }
     
 }
