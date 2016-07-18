@@ -421,7 +421,12 @@ public class RestaurantsController extends AbstractController {
                 ((OpeningTimesDAO) request.getServletContext().getAttribute("openingtimesdao")).updateRestaurantOpeningTimes(id, listTime);
                 response.sendRedirect(request.getContextPath()+"/restaurants/show?id="+id_rest);
                 return "";
-            }
+            }else
+			{
+                // So we can give to the user the same page, with already datas
+                // filled and also the errors made. 
+				request.setAttribute("restaurant", tmp);
+			}
         } catch (SQLException ex) {
             Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, ex);
             response.sendError(500);
