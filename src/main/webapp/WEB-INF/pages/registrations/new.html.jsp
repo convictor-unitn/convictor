@@ -28,33 +28,7 @@
                     <form class="ui large form" method="POST" action="${pageContext.servletContext.contextPath}/registrations/create">
                         <div class="ui stacked segment">                            
                             <f:registrationForm />
-                            <div class="field">
-                                <div class="ui left icon input">
-                                    <i class="lock icon"></i>
-                                    <input type="password" name="passwordNew" placeholder="Password">
-                                </div>
-                            </div>
-                            <div class="field">
-                                <div class="ui left icon input">
-                                    <i class="lock icon"></i>
-                                    <input type="password" name="passwordConfirmation" placeholder="Conferma password">
-                                </div>
-                            </div>
-
-                            <div  align="left">
-                                <div class="ui slider checkbox">
-                                    <input type="checkbox" name="privacy">
-                                    <label>Accettazione privacy</label>
-                                </div>
-                            </div>
-
-                            </br>
-
-                            <input id="p_button" class="ui fluid large submit button" type="submit"></input>
-
-                            </br>
-
-                            <a href="javascript:history.back()" class="ui fluid submit button">Annulla</a>
+                            
                         </div>
                     </form>
                 </div>
