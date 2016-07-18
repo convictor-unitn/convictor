@@ -90,7 +90,8 @@ public class CusinesRestaurantDAOImpl extends DatabaseDAO implements CusinesRest
 
     @Override
     public void updateRestaurantCusines(int restaurant_id, List<Cusine> cusines) throws SQLException {
-        String query = "BEGIN; DELETE FROM cusines_restaurants WHERE restaurant_id = ?; COMMIT;";
+		System.out.println(restaurant_id+"REST_ID");
+        String query = "DELETE FROM cusines_restaurants WHERE restaurant_id = ?;";
         PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
         try {
             stm.setInt(1, restaurant_id);
