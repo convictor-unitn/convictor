@@ -9,6 +9,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="l" tagdir="/WEB-INF/tags/layouts/" %>
 <jsp:useBean id="restaurant" scope="request" class="it.unitn.disi.webprog2016.convictor.app.beans.Restaurant" />
+
+<c:set var="bean" value="${requestScope.restaurant}" scope="request" />
+
 <l:main>
     <jsp:attribute name="title"> ${restaurant.name} </jsp:attribute>
 	
@@ -23,21 +26,21 @@
           </div>
         </div>
       </div>
-
       <!-- Restaurant Image -->
       <div class="ui stackable two column centered grid">
         <div class="column">
-            <img class="ui centered image mySlides" src="../images/rest0.jpg">
-            <img class="ui centered image mySlides" src="../images/rest1.jpg">
-            <img class="ui centered image mySlides" src="../images/rest2.jpg">
-            <img class="ui centered image mySlides" src="../images/rest3.jpg">
+			<c:forEach var="photo" items="${bean.photos}">
+				<img class="ui centered image mySlides" src="${photo.url}">
+			</c:forEach>
+            
             <div class="w3-center w3-section w3-large w3-text-white w3-display-bottomleft" style="width:100%">
               <div class="w3-left w3-padding-left w3-hover-text-white w3-text-white" onclick="plusDivs(-1)">&#10094;</div>
               <div class="w3-right w3-padding-right w3-hover-text-white" onclick="plusDivs(1)">&#10095;</div>
-              <span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(1)"></span>
-              <span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(2)"></span>
-              <span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(3)"></span>
-              <span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(4)"></span>
+			  <c:set var="photoCounter" value="1" scope="page" />
+			  <c:forEach var="photo" items="${bean.photos}">
+				<span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(${photoCounter})"></span>
+				<c:set var="photoCounter" value="${photoCounter+1}" />
+			  </c:forEach>
             </div>
         </div>
       </div>
@@ -332,21 +335,23 @@
               <div class="ui center aligned grid">
                   <div class="column">
                       <button class="ui button add_image">Aggiungi Immagine</button>
-                      <div class="ui modal add_image">
+                      <div class="ui modal add_image_modal">
                           <div class="header center">
                                Aggiungi Nuova Immagine
                           </div>
                           <div class="content">
-                          <form class="ui form">
-                              <div class="field">
-                                   <input id="fileupload" type="file" name="files[]" data-url="server/php/" multiple >
-                               </div>
-                              <div class="field">
-                                  <div class="ui close button">Close</div>
-                                  <input class="ui button" type="submit"/>
-                              </div>
-                          </form>
+							  <form class="ui form" action="${pageContext.servletContext.contextPath}/restaurants/uploadPhoto" method="POST" enctype="multipart/form-data" action="">
+								  <input type="hidden" value="${bean.id}" name="id" />
+								  <div class="field">
+									  <input id="fileupload" type="file" name="files" />
+								  </div>
+								  <div class="field actions">
+									  <div class="ui cancel button">Close</div>
+									  <input class="ui button" type="submit" value="Upload"/>
+								  </div>
+							  </form>
                           </div>
+								  
                       </div>
                   </div>
               </div>
