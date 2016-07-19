@@ -18,6 +18,7 @@ import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.ReviewDAO;
 import it.unitn.disi.webprog2016.convictor.framework.controllers.AbstractController;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -133,7 +134,7 @@ public class RestaurantsController extends AbstractController {
             }
             
             // Set the next pagination 
-            if (tmp.size() <= 10 && tmp.size() > 0) {
+            if (tmp.size() > 0) {
                 request.setAttribute("nextPagination", page+1);
             } else {
                 request.setAttribute("nextPagination", page);
@@ -167,7 +168,12 @@ public class RestaurantsController extends AbstractController {
         
         int reviewPage = 0;        
         if (request.getParameter("reviewPage") != null) {
-            reviewPage = Integer.parseInt(request.getParameter("reviewPage"));
+            try {
+                reviewPage = Integer.parseInt(request.getParameter("reviewPage"));
+                if (reviewPage < 0) {reviewPage = 0;}
+            } catch (Exception e) {
+                reviewPage = 0;
+            }
         }
         
         // Retrive the restaurant from the database given its id 
@@ -182,11 +188,19 @@ public class RestaurantsController extends AbstractController {
                 tmp.setCusine(cusinesRestaurantDAO.getCusinesByRestaurantId(id));
                 tmp.setReviews(reviewDAO.getRestaurantReviews(id, reviewPage));
                 tmp.setOpeningTimes(openingTimeDAO.getResaurantOpeningTimes(id));
-                request.setAttribute("restaurant", tmp);
+                request.setAttribute("restaurant", tmp);           
             } else {
                 response.sendError(404);
                 return "";
             }
+            
+            // Set the next pagination 
+            if (tmp.getReviews().size() > 0) {
+                request.setAttribute("nextPagination", reviewPage+1);
+            } else {
+                request.setAttribute("nextPagination", reviewPage);
+            }
+            
             
             return "/restaurants/show";
             

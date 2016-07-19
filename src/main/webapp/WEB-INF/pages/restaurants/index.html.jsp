@@ -11,9 +11,9 @@
 
 <c:set var="results" scope="request" value="${requestScope.results}" />
 <c:set var="query" scope="request" value="${requestScope.queryString}" />
-<c:set var="nextPagination" scope="request" value="${requestScope.nextPagination}" />
 
 <%-- These JSTL tag are used to set correctly the pagination URL request --%>
+<c:set var="nextPagination" scope="request" value="${requestScope.nextPagination}" />
 <c:set var="requestURL" scope="request" value="${requestScope['javax.servlet.forward.query_string']}" />
 <c:if test="${empty param.page}">
   <c:set var="requestURLFilters" scope="request" value="${requestURL}" />  

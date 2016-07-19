@@ -6,8 +6,21 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="l" tagdir="/WEB-INF/tags/layouts/" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
+<%-- These JSTL tag are used to set correctly the pagination URL request --%>
+<c:set var="nextPagination" scope="request" value="${requestScope.nextPagination}" />
+<c:set var="requestURL" scope="request" value="${requestScope['javax.servlet.forward.query_string']}" />
+<c:if test="${empty param.reviewPage}">
+  <c:set var="requestURLFilters" scope="request" value="${requestURL}" />  
+</c:if>
+<c:if test="${!empty param.reviewPage}">
+  <c:set var="requestURLFilters" scope="request" value="${fn:substringBefore(requestURL, '&reviewPage')}" />  
+</c:if>
+
+
 <jsp:useBean id="restaurant" scope="request" class="it.unitn.disi.webprog2016.convictor.app.beans.Restaurant" />
 <l:main>
     <jsp:attribute name="title"> ${restaurant.name} </jsp:attribute>
@@ -192,12 +205,23 @@
             <div class="row">
               <div class="column">
                   <div class="ui buttons">
-                      <div class="ui button">
-                          <i class="left arrow icon"></i>
-                      </div>
+                    <div class="ui button">
+                        <c:if test="${requestScope.nextPagination-2 < 0}">
+                            <a href="?${requestURLFilters}&reviewPage=0"> 
+                                <i class="left arrow icon"></i>
+                            </a>
+                        </c:if>
+                        <c:if test="${requestScope.nextPagination-2 >= 0}">
+                            <a href="?${requestURLFilters}&reviewPage=${requestScope.nextPagination-2}"> 
+                                <i class="left arrow icon"></i>
+                            </a>
+                        </c:if>
+                    </div>
                   </div>
                   <div class="ui button">                      
-                        <i class="right arrow icon"></i>                      
+                        <a href="?${requestURLFilters}&reviewPage=${requestScope.nextPagination}"> 
+                            <i class="right arrow icon"></i>
+                        </a>                      
                   </div>
                       <div class="ui basic label">
                         2,048
