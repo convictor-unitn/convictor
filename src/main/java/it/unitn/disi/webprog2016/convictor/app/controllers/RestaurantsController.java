@@ -532,10 +532,7 @@ public class RestaurantsController extends AbstractController {
             }
  
             if (itemFile != null) {
-                // get item inputstream to upload file into s3 aws
- 
                 BasicAWSCredentials awsCredentials = new BasicAWSCredentials(AMAZON_ACCESS_KEY, AMAZON_SECRET_KEY);
- 
                 AmazonS3 s3client = new AmazonS3Client(awsCredentials);
                 try {
 					String uuid = UUID.randomUUID().toString();
@@ -563,67 +560,14 @@ public class RestaurantsController extends AbstractController {
 					Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, ex);
 				}
             } else {
-                LOGGER.severe(uuidValue + ":error:" + "No Upload file");
+                LOGGER.log(Level.SEVERE,"{0}" + ":error:" + "No Upload file", uuidValue);
             }
  
         } catch (FileUploadException | IOException ex) {
-            LOGGER.severe(uuidValue + ":" + ":error: " + ex.getMessage());
+            LOGGER.log(Level.SEVERE,"{0}" + ":" + ":error: {1}", new Object[]{uuidValue, ex.getMessage()});
         }
-        LOGGER.info(uuidValue + ":Upload done");
+        LOGGER.log(Level.INFO, "{0}:Upload done", uuidValue);
 		
-		/*String dir = request.getServletContext().getRealPath("/");
-		dir+="../../uploads/restaurantPhotos/";
-		
-		try {
-			// Use an advanced form of the constructor that specifies a character
-			// encoding of the request (not of the file contents) and a file
-			// rename policy.
-
-			MultipartRequest multi = new MultipartRequest(request, dir, 10*1024*1024, "ISO-8859-1", new DefaultFileRenamePolicy());
-			Enumeration params = multi.getParameterNames();
-
-			while (params.hasMoreElements()) {
-				String name = (String)params.nextElement();
-				String value = multi.getParameter(name);
-			}
-
-			Enumeration files = multi.getFileNames();
-
-			while (files.hasMoreElements()) {
-				String uuid = UUID.randomUUID().toString();
-				String name = (String)files.nextElement();
-				String filename = multi.getFilesystemName(name);
-				String type = multi.getContentType(name);
-				String ext = null;
-				String defFileName = uuid;
-
-				int dot = filename.lastIndexOf(".");
-				if (dot != -1) {
-					ext = filename.substring(dot);  // includes "."
-				}
-				else {
-					ext = "";
-				}
-				System.err.println(ext+"EXT");
-				defFileName = uuid+ext;
-				
-				File f = multi.getFile(name);
-				if(f!=null) {
-					File tmp = new File(f.getParent(), defFileName);
-					f.renameTo(tmp);
-					System.out.println("f.toString(): " + f.toString());
-					System.out.println("f.getName(): " + f.getName());
-					System.out.println("f.exists(): " + f.exists());
-					System.out.println("f.length(): " + f.length());
-				}
-			}
-		}
-		catch (IOException lEx) {
-			request.getServletContext().log(lEx, "error reading or saving file");
-		}
-		
-		System.out.println(dir);
-		*/
 		return "/restaurants/upload";
 	}
 }
