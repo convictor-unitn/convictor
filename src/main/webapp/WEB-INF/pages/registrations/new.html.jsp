@@ -24,7 +24,7 @@
                             Crea un nuovo account
                         </div>
                     </h2>			
-					<f:registrationForm />
+                    <f:registrationForm />
                 </div>
             </div>	
         </jsp:attribute>

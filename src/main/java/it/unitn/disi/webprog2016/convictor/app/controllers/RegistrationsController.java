@@ -24,12 +24,13 @@ public class RegistrationsController extends AbstractController{
         }
     
     public String create(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-                User user = new User();
-                
+                User user = new User();            
+                               
                 user.setName(request.getParameter("name"));
 		user.setSurname(request.getParameter("surname"));
 		user.setEmail(request.getParameter("email"));
-		user.setPassword(request.getParameter("password"));
+		user.setPassword(request.getParameter("passwordNew"));
+                user.setPasswordConfirmation(request.getParameter("passwordConfirmation")); 
                 
 		return "/registrations/new";
 	}
