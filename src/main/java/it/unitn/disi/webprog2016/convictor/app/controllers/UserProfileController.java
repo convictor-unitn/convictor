@@ -75,6 +75,17 @@ public class UserProfileController extends AbstractController {
         if (user.getNotices() != null) {
             if (user.getNotices().size() > 0) {
                 request.setAttribute("nextPagination", noticePage+1);
+            } else if (request.getParameter("noticePage") != null) {
+                // This logic block exist to ensure that the user doesn't
+                // navigate to a blank page because there are no more result
+                // to show.
+                int pageIndex = request.getQueryString().indexOf("&noticePage=");
+                String queryString = request.getQueryString().substring(0, pageIndex);
+                request.setAttribute("nextPagination", noticePage-1);
+                response.sendRedirect(request.getContextPath()+"/userProfile/show?"
+                        + queryString +"&noticePage="
+                        + String.valueOf(noticePage-1));
+                return "";
             } else {
                 request.setAttribute("nextPagination", noticePage);
             }

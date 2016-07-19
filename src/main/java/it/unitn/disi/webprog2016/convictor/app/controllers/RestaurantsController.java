@@ -135,7 +135,7 @@ public class RestaurantsController extends AbstractController {
             // Set the next pagination 
             if (tmp.size() > 0) {
                 request.setAttribute("nextPagination", page+1);
-            } else if (request.getAttribute("page") != null) {
+            } else if (request.getParameter("page") != null) {
                 // This logic block exist to ensure that the user doesn't
                 // navigate to a blank page because there are no more result
                 // to show.
@@ -216,6 +216,17 @@ public class RestaurantsController extends AbstractController {
             // Set the next pagination 
             if (tmp.getReviews().size() > 0) {
                 request.setAttribute("nextPagination", reviewPage+1);
+            } else if (request.getParameter("reviewPage") != null) {
+                // This logic block exist to ensure that the user doesn't
+                // navigate to a blank page because there are no more result
+                // to show.
+                int pageIndex = request.getQueryString().indexOf("&reviewPage=");
+                String queryString = request.getQueryString().substring(0, pageIndex);
+                request.setAttribute("nextPagination", reviewPage-1);
+                response.sendRedirect(request.getContextPath()+"/restaurants/show?"
+                        + queryString +"&reviewPage="
+                        + String.valueOf(reviewPage-1));
+                return "";
             } else {
                 request.setAttribute("nextPagination", reviewPage);
             }
