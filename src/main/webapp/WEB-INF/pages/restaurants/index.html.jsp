@@ -13,6 +13,16 @@
 <c:set var="query" scope="request" value="${requestScope.queryString}" />
 <c:set var="nextPagination" scope="request" value="${requestScope.nextPagination}" />
 
+<%-- These JSTL tag are used to set correctly the pagination URL request --%>
+<c:set var="requestURL" scope="request" value="${requestScope['javax.servlet.forward.query_string']}" />
+<c:if test="${empty param.page}">
+  <c:set var="requestURLFilters" scope="request" value="${requestURL}" />  
+</c:if>
+<c:if test="${!empty param.page}">
+  <c:set var="requestURLFilters" scope="request" value="${fn:substringBefore(requestURL, '&page')}" />  
+</c:if>
+
+
 <l:main>
 	
 	<jsp:attribute name="title">Lista risultati</jsp:attribute>
@@ -66,12 +76,12 @@
             <div class="ui buttons">
                             <div class="ui button">
                                 <c:if test="${requestScope.nextPagination-2 < 0}">
-                                    <a href="?query=${queryString}&page=0"> 
+                                    <a href="?${requestURLFilters}&page=0"> 
                                         <i class="left arrow icon"></i>
                                     </a>
                                 </c:if>
                                 <c:if test="${requestScope.nextPagination-2 >= 0}">
-                                    <a href="?query=${queryString}&page=${requestScope.nextPagination-2}"> 
+                                    <a href="?${requestURLFilters}&page=${requestScope.nextPagination-2}"> 
                                         <i class="left arrow icon"></i>
                                     </a>
                                 </c:if>
@@ -79,7 +89,7 @@
                             </div>
                         </div>
                         <div class="ui button">
-                            <a href="?query=${queryString}&page=${requestScope.nextPagination}"> 
+                            <a href="?${requestURLFilters}&page=${requestScope.nextPagination}"> 
                                 <i class="right arrow icon"></i>
                             </a>
                         </div>
