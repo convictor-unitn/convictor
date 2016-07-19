@@ -114,7 +114,6 @@
                 </div>
               </div>
             </div>
->>>>>>> development
 	</jsp:attribute>
 		
 </l:main>
