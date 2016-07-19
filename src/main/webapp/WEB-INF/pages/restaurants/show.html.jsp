@@ -320,7 +320,7 @@
               <div class="ui center aligned grid">
                   <div class="column">
                       <button class="ui button add_image">Aggiungi Immagine</button>
-                      <div class="ui modal add_image">
+                      <div class="ui modal add_image_modal">
                           <div class="header center">
                                Aggiungi Nuova Immagine
                           </div>
@@ -330,12 +330,13 @@
 								  <div class="field">
 									  <input id="fileupload" type="file" name="files" />
 								  </div>
-								  <div class="field">
-									  <div class="ui close button">Close</div>
+								  <div class="field actions">
+									  <div class="ui cancel button">Close</div>
 									  <input class="ui button" type="submit" value="Upload"/>
 								  </div>
 							  </form>
                           </div>
+								  
                       </div>
                   </div>
               </div>

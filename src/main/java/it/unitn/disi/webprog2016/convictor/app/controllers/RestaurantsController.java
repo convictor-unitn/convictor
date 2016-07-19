@@ -522,16 +522,18 @@ public class RestaurantsController extends AbstractController {
                         uuidValue = item.getString();
                     }
 					
-					if(item.getFieldName().equals("id"))
+					if(item.getFieldName().equals("id")) {
 						restaurantId = Integer.parseInt(item.getString());
+						request.setAttribute("restaurantId", restaurantId);
+					}
                 }
                 // processes only fields that are not form fields
                 if (!item.isFormField()) {
                     itemFile = item;
                 }
             }
- 
-            if (itemFile != null) {
+			 
+            if (itemFile != null && itemFile.getSize() != 0) {
                 BasicAWSCredentials awsCredentials = new BasicAWSCredentials(AMAZON_ACCESS_KEY, AMAZON_SECRET_KEY);
                 AmazonS3 s3client = new AmazonS3Client(awsCredentials);
                 try {
@@ -550,23 +552,28 @@ public class RestaurantsController extends AbstractController {
 					photo.setRestaurantId(restaurantId);
 					photo.setUrl(url);
 					restaurantDAO.insertPhoto(photo);
+					request.setAttribute("uploadStatus", "success");
+					LOGGER.log(Level.INFO, "{0}:Upload done", uuidValue);
 					
                 } catch (AmazonServiceException ase) {
                     LOGGER.log(Level.SEVERE, "{0}:error:{1}", new Object[]{uuidValue, ase.getMessage()});
- 
+					request.setAttribute("uploadStatus", "failure");
                 } catch (AmazonClientException ace) {
                     LOGGER.log(Level.SEVERE, "{0}:error:{1}", new Object[]{uuidValue, ace.getMessage()});
+					request.setAttribute("uploadStatus", "failure");
                 } catch (SQLException ex) {
 					Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, ex);
+					request.setAttribute("uploadStatus", "failure");
 				}
             } else {
                 LOGGER.log(Level.SEVERE,"{0}" + ":error:" + "No Upload file", uuidValue);
+				request.setAttribute("uploadStatus", "failure");
             }
  
         } catch (FileUploadException | IOException ex) {
             LOGGER.log(Level.SEVERE,"{0}" + ":" + ":error: {1}", new Object[]{uuidValue, ex.getMessage()});
+			request.setAttribute("uploadStatus", "failure");
         }
-        LOGGER.log(Level.INFO, "{0}:Upload done", uuidValue);
 		
 		return "/restaurants/upload";
 	}
