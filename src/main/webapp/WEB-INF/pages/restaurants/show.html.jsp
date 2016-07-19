@@ -26,21 +26,21 @@
           </div>
         </div>
       </div>
-
       <!-- Restaurant Image -->
       <div class="ui stackable two column centered grid">
         <div class="column">
-            <img class="ui centered image mySlides" src="../images/rest0.jpg">
-            <img class="ui centered image mySlides" src="../images/rest1.jpg">
-            <img class="ui centered image mySlides" src="../images/rest2.jpg">
-            <img class="ui centered image mySlides" src="../images/rest3.jpg">
+			<c:forEach var="photo" items="${bean.photos}">
+				<img class="ui centered image mySlides" src="${photo.url}">
+			</c:forEach>
+            
             <div class="w3-center w3-section w3-large w3-text-white w3-display-bottomleft" style="width:100%">
               <div class="w3-left w3-padding-left w3-hover-text-white w3-text-white" onclick="plusDivs(-1)">&#10094;</div>
               <div class="w3-right w3-padding-right w3-hover-text-white" onclick="plusDivs(1)">&#10095;</div>
-              <span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(1)"></span>
-              <span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(2)"></span>
-              <span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(3)"></span>
-              <span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(4)"></span>
+			  <c:set var="photoCounter" value="1" scope="page" />
+			  <c:forEach var="photo" items="${bean.photos}">
+				<span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(${photoCounter})"></span>
+				<c:set var="photoCounter" value="${photoCounter+1}" />
+			  </c:forEach>
             </div>
         </div>
       </div>

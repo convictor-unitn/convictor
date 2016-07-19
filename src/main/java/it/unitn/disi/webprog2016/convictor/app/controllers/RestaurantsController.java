@@ -37,6 +37,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import it.unitn.disi.webprog2016.convictor.app.beans.Photo;
+import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.PhotoDAO;
 import java.io.File;
 import java.util.Enumeration;
 import java.util.Iterator;
@@ -141,6 +142,7 @@ public class RestaurantsController extends AbstractController {
         ReviewDAO reviewDAO = (ReviewDAO) request.getServletContext().getAttribute("reviewdao");
         CusinesRestaurantDAO cusinesRestaurantDAO = (CusinesRestaurantDAO) request.getServletContext().getAttribute("cusinesrestaurantdao");
         OpeningTimesDAO openingTimeDAO = (OpeningTimesDAO) request.getServletContext().getAttribute("openingtimesdao");
+		PhotoDAO photoDAO = (PhotoDAO) request.getServletContext().getAttribute("photodao");
         try {
             
             Restaurant tmp = restaurantDAO.getRestaurantById(id);
@@ -148,6 +150,7 @@ public class RestaurantsController extends AbstractController {
                 tmp.setCusine(cusinesRestaurantDAO.getCusinesByRestaurantId(id));
                 tmp.setReviews(reviewDAO.getRestaurantReviews(id, reviewPage));
                 tmp.setOpeningTimes(openingTimeDAO.getResaurantOpeningTimes(id));
+				tmp.setPhotos(photoDAO.getRestaurantPhotos(id));
                 request.setAttribute("restaurant", tmp);
             } else {
                 response.sendError(404);
@@ -487,7 +490,7 @@ public class RestaurantsController extends AbstractController {
             return "";
         }
 		
-		RestaurantDAO restaurantDAO = (RestaurantDAO) request.getServletContext().getAttribute("restaurantdao");
+		PhotoDAO photoDAO = (PhotoDAO) request.getServletContext().getAttribute("photodao");
 		int restaurantId = 0;
 		
 		// Fine inizializzazione parametri
@@ -551,7 +554,7 @@ public class RestaurantsController extends AbstractController {
 					Photo photo = new Photo();
 					photo.setRestaurantId(restaurantId);
 					photo.setUrl(url);
-					restaurantDAO.insertPhoto(photo);
+					photoDAO.insertPhoto(photo);
 					request.setAttribute("uploadStatus", "success");
 					LOGGER.log(Level.INFO, "{0}:Upload done", uuidValue);
 					
