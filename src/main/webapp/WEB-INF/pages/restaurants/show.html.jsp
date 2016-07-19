@@ -194,6 +194,21 @@
           <div class="ui grid">
             <div class="row">
               <div class="column">
+                  <div class="ui buttons">
+                      <div class="ui button">
+                          <i class="left arrow icon"></i>
+                      </div>
+                  </div>
+                  <div class="ui button">                      
+                        <i class="right arrow icon"></i>                      
+                  </div>
+                      <div class="ui basic label">
+                        2,048
+                  </div>
+              </div>  
+            </div>   
+            <div class="row">
+              <div class="column">
                   <div class="ui comments">
                 <!-- Reviews List -->
                   <c:forEach var="review" items="${restaurant.reviews}">
