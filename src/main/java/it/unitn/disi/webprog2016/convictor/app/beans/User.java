@@ -24,6 +24,7 @@ public class User extends AbstractBean {
 	private boolean admin;
 	private List<Notice> notices;
 	private List<Review> reviews;
+	private String privacy;
 
 	/**
 	 * @return the email
@@ -122,6 +123,17 @@ public class User extends AbstractBean {
             this.setError("admin", "Il valore di admin non è valido");
         }
 	}
+
+	public String getPrivacy() {
+		return privacy;
+	}
+
+	public void setPrivacy(String privacy) {
+		if(privacy==null) privacy="";
+		this.privacy = privacy;
+	}
+	
+	
 	
     @Override
     public boolean validate() {

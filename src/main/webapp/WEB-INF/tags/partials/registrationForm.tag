@@ -14,19 +14,19 @@
 		<div class="field">
 			<div class="ui left icon input">
 				<i class="user icon"></i>
-				<input type="text" name="name" placeholder="Nome" value="${user.name}">
+				<input type="text" name="name" placeholder="Nome" value="${bean.name}">
 			</div>
 		</div>
 		<div class="field">
 			<div class="ui left icon input">
 				<i class="user icon"></i>
-				<input type="text" name="surname" placeholder="Cognome" value="${user.surname}">
+				<input type="text" name="surname" placeholder="Cognome" value="${bean.surname}">
 			</div>
 		</div>
 		<div class="field">
 			<div class="ui left icon input">
 				<i class="user icon"></i>
-				<input type="text" name="email" placeholder="Email" value="${user.email}">
+				<input type="text" name="email" placeholder="Email" value="${bean.email}">
 			</div>
 		</div>
 		<div class="field">
@@ -44,7 +44,7 @@
 
 		<div  align="left">
 			<div class="ui slider checkbox">
-				<input type="checkbox" name="privacy">
+				<input type="checkbox" name="privacy" value="checked" ${bean.privacy} />
 				<label>Accettazione privacy</label>
 			</div>
 		</div>

@@ -16,17 +16,17 @@
 	<jsp:attribute name="title">Nuovo Utente</jsp:attribute>
 	<jsp:attribute name="bodyBackground">url("${pageContext.servletContext.contextPath}/images/background.png")</jsp:attribute>
 	<jsp:attribute name="body">
-            <div class="ui middle aligned center aligned grid">
-                <div class="column myform">
-                    <h2 class="ui header">
+		<div class="ui middle aligned center aligned grid">
+			<div class="column myform">
+				<h2 class="ui header">
 
-                        <div id="s_text" class="content">
-                            Crea un nuovo account
-                        </div>
-                    </h2>			
-                    <f:registrationForm />
-                </div>
-            </div>	
-        </jsp:attribute>
+					<div id="s_text" class="content">
+						Crea un nuovo account
+					</div>
+				</h2>			
+				<f:registrationForm />
+			</div>
+		</div>	
+	</jsp:attribute>
 		
 </l:main>
