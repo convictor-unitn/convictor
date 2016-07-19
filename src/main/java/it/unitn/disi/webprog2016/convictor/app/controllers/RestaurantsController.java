@@ -77,6 +77,7 @@ public class RestaurantsController extends AbstractController {
         if (request.getParameter("page") != null){
             try {
                 page = Integer.parseInt(request.getParameter("page"));
+                if (page < 0) {page=0;}
             } catch (Exception e) {
                 Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, e);
                 page = 0;
@@ -130,6 +131,14 @@ public class RestaurantsController extends AbstractController {
             } else {
                 request.setAttribute("results", new ArrayList<>());
             }
+            
+            // Set the next pagination 
+            if (tmp.size() <= 10 && tmp.size() > 0) {
+                request.setAttribute("nextPagination", page+1);
+            } else {
+                request.setAttribute("nextPagination", page);
+            }
+            
         } catch (SQLException ex) {
             Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, ex);
             response.sendError(500);
