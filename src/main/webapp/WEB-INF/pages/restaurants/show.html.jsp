@@ -272,7 +272,7 @@
                             <textarea name="reviewText"></textarea>
                           </div>
                           <div class="ui basic submit labeled icon button">
-                            <input type="submit" class="icon edit"> Add new review
+                            <input class="ui button" type="submit" value="Recensisci" class="icon edit">
                           </div>
                         </form>
                       </div>
