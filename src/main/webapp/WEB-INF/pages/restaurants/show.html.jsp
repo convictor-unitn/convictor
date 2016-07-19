@@ -8,7 +8,9 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="l" tagdir="/WEB-INF/tags/layouts/" %>
+<%@taglib prefix="p" tagdir="/WEB-INF/tags/partials//" %>
 <jsp:useBean id="restaurant" scope="request" class="it.unitn.disi.webprog2016.convictor.app.beans.Restaurant" />
+<%--<c:set var="bean" value="${requestScope.review}" scope="request" />--%>
 <l:main>
     <jsp:attribute name="title"> ${restaurant.name} </jsp:attribute>
 	
@@ -258,7 +260,7 @@
                 <!-- End Reviews List -->
             </div>
               <!-- Add a review textbox -->
-              
+              <%--<p:formerrors /> --%>
               <div class="sixteen wide column">
                 <div class="ui center aligned grid">
                   <div class="column">

@@ -535,7 +535,7 @@ public class RestaurantsController extends AbstractController {
             response.sendRedirect(request.getContextPath()+"/restaurants/show?id="+tmp.getRestaurantId());
             return "";
           } else {
-            request.setAttribute("review", tmp);
+            //request.setAttribute("review", tmp);
             response.sendRedirect(request.getContextPath()+"/restaurants/show?id="+tmp.getRestaurantId());
             return "";
           }
@@ -545,6 +545,5 @@ public class RestaurantsController extends AbstractController {
             return "";
         }
         
-        //return "/restaurants/show";
     }
 }
