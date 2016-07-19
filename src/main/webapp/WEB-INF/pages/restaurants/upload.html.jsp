@@ -12,6 +12,27 @@
 	<jsp:attribute name="title">Upload Status</jsp:attribute>
 		
 	<jsp:attribute name="body">
+            
+            <div class="ui blue icon message">
+              <i class="check circle icon"></i>
+              <div class="content">
+                <div class="header">
+                  L'immagine è stata caricata correttamente!
+                </div>
+              </div>
+              <div class="ui blue submit button">Indietro</div>
+            </div>
+
+            <div class="ui negative icon message">
+              <i class="Frown icon"></i>
+              <div class="content">
+                <div class="header">
+                  Oh Oh, c'è stato un errore!
+                </div>
+                <p>Non è stato possibile caricare l'immagine.</p>
+              </div>
+              <div class="ui red submit button">Indietro</div>
+            </div>
 		
 	</jsp:attribute>
 </l:main>
