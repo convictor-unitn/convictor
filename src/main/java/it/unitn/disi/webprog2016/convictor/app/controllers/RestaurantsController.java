@@ -500,6 +500,15 @@ public class RestaurantsController extends AbstractController {
         return "/restaurants/edit";
 	}
     
+    /**
+     * Method to add a review to a specific restaurant
+     * @param request Object representing the request made
+     * @param response Object representing the response that will be sent to
+     * the client
+     * @return Send to the restaurant page
+     * @throws IOException
+     * @throws ServletException
+     */
     public String addReview(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         
         // Get the user and popolate a Review bean
