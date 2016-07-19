@@ -266,13 +266,13 @@
                       <div class="ui header">Write a review</div>
                       <div class="ui large center rating" data-rating="1" data-max-rating="5"></div>
                       <div class="ui center comment">
-                        <form class="ui small reply form">
+                        <form class="ui small reply form" method="POST" action="${pageContext.servletContext.contextPath}/restaurants/addReview">
                           <input type="hidden" name="idRestaurant" value="${restaurant.id}"/>
                           <div class="field">
                             <textarea name="reviewText"></textarea>
                           </div>
                           <div class="ui basic submit labeled icon button">
-                            <i class="icon edit"></i> Add new review
+                            <input type="submit" class="icon edit"> Add new review
                           </div>
                         </form>
                       </div>

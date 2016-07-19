@@ -71,7 +71,7 @@ public class ReviewDAOImpl extends DatabaseDAO implements ReviewDAO {
             stm.setInt(2, review.getRestaurantId());
             stm.setString(3, review.getDescription());
             stm.setInt(4, review.getRating());
-            stm.executeQuery();
+            stm.executeUpdate();
         } finally {
             stm.close();
         }

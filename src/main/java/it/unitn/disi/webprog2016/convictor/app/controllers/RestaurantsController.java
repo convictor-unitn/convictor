@@ -10,6 +10,7 @@ import it.unitn.disi.webprog2016.convictor.app.beans.OpeningTime;
 import it.unitn.disi.webprog2016.convictor.app.beans.PriceSlot;
 import it.unitn.disi.webprog2016.convictor.app.beans.Restaurant;
 import it.unitn.disi.webprog2016.convictor.app.beans.Review;
+import it.unitn.disi.webprog2016.convictor.app.beans.User;
 import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.CusineDAO;
 import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.CusinesRestaurantDAO;
 import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.OpeningTimesDAO;
@@ -499,32 +500,24 @@ public class RestaurantsController extends AbstractController {
     
     public String addReview(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         
-        // Check if the restaurant id is correct
-        int id = 0;
-        try {
-            id = Integer.parseInt(request.getParameter("id"));
-            if (id <=0 ) {
-              response.sendError(500);
-              return "";
-            }
-        } catch (Exception ex) {
-            Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, ex);
-            response.sendError(500);
-            return "";
-        }
-        
+        // Get the user and popolate a Review bean
+        User tmpUser = (User) request.getSession(false).getAttribute("user");
         Review tmp = new Review();
         tmp.setRestaurantId(request.getParameter("idRestaurant"));
-        //tmp.setRegisteredUserId(req);
+        tmp.setRegisteredUserId(tmpUser.getId());
         //tmp.setRating(request.getParameter("rating"));
+        tmp.setRating(2); /*ONLY FOR DEBUG PURPOSE*/
         tmp.setDescription(request.getParameter("reviewText"));
         
         tmp.validate();
         
-        
         try {
           if (tmp.isValid()) {
             ((ReviewDAO)request.getServletContext().getAttribute("reviewdao")).insertReview(tmp);
+            response.sendRedirect(request.getContextPath()+"/restaurants/show?id="+tmp.getRestaurantId());
+            return "";
+          } else {
+            request.setAttribute("review", tmp);
             response.sendRedirect(request.getContextPath()+"/restaurants/show?id="+tmp.getRestaurantId());
             return "";
           }
@@ -534,6 +527,6 @@ public class RestaurantsController extends AbstractController {
             return "";
         }
         
-        return "/restaurants/show";
+        //return "/restaurants/show";
     }
 }
