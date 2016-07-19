@@ -10,9 +10,11 @@ import it.unitn.disi.webprog2016.convictor.app.beans.OpeningTime;
 import it.unitn.disi.webprog2016.convictor.app.beans.PriceSlot;
 import it.unitn.disi.webprog2016.convictor.app.beans.Restaurant;
 import it.unitn.disi.webprog2016.convictor.app.beans.Review;
+import it.unitn.disi.webprog2016.convictor.app.beans.ReviewNotice;
 import it.unitn.disi.webprog2016.convictor.app.beans.User;
 import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.CusineDAO;
 import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.CusinesRestaurantDAO;
+import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.NoticeDAO;
 import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.OpeningTimesDAO;
 import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.PriceSlotDAO;
 import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.RestaurantDAO;
@@ -513,7 +515,14 @@ public class RestaurantsController extends AbstractController {
         
         try {
           if (tmp.isValid()) {
-            ((ReviewDAO)request.getServletContext().getAttribute("reviewdao")).insertReview(tmp);
+            
+            // Insert the review and the notice
+            ReviewNotice tmpNotice = new ReviewNotice();
+            int reviewId = ((ReviewDAO)request.getServletContext().getAttribute("reviewdao")).insertReview(tmp);
+            tmpNotice.setRegisteredUserId(tmpUser.getId());
+            tmpNotice.setReviewId(reviewId);
+            ((NoticeDAO) request.getServletContext().getAttribute("noticedao")).insertReviewNotice(tmpNotice);
+            
             response.sendRedirect(request.getContextPath()+"/restaurants/show?id="+tmp.getRestaurantId());
             return "";
           } else {

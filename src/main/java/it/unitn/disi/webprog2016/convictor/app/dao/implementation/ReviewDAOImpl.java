@@ -12,6 +12,7 @@ import it.unitn.disi.webprog2016.convictor.framework.utils.DatabaseConnectionMan
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,22 +60,25 @@ public class ReviewDAOImpl extends DatabaseDAO implements ReviewDAO {
     }
 
     @Override
-    public void insertReview(Review review) throws SQLException {
-        
-        // Check if valid
-        if (!review.validate()) return;
-        
+    public int insertReview(Review review) throws SQLException {
+        int restaurant_id = -1;
         String query = "INSERT INTO reviews (registered_user_id, restaurant_id, description, rating) VALUES(?, ?, ?, ?)";
-        PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
+        PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
         try {
             stm.setInt(1, review.getRegisteredUserId());
             stm.setInt(2, review.getRestaurantId());
             stm.setString(3, review.getDescription());
             stm.setInt(4, review.getRating());
             stm.executeUpdate();
+            ResultSet result;
+			result = stm.getGeneratedKeys();
+			if(result.next() && result != null){
+				restaurant_id=result.getInt(1);
+			}
         } finally {
             stm.close();
         }
+        return restaurant_id;
     }
     
 }
