@@ -164,14 +164,23 @@ public class RestaurantsController extends AbstractController {
      */
     public String show(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         
-        int id = Integer.parseInt(request.getParameter("id"));
+        // Try catch to avoid parsing errors
+        int id;
+        try {
+            id = Integer.parseInt(request.getParameter("id"));
+        } catch (Exception ex) {
+            Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, ex);
+            response.sendError(404);
+            return "";
+        }
         
         int reviewPage = 0;        
         if (request.getParameter("reviewPage") != null) {
             try {
                 reviewPage = Integer.parseInt(request.getParameter("reviewPage"));
                 if (reviewPage < 0) {reviewPage = 0;}
-            } catch (Exception e) {
+            } catch (Exception ex) {
+                Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, ex);
                 reviewPage = 0;
             }
         }
