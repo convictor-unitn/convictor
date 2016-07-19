@@ -135,6 +135,17 @@ public class RestaurantsController extends AbstractController {
             // Set the next pagination 
             if (tmp.size() > 0) {
                 request.setAttribute("nextPagination", page+1);
+            } else if (request.getAttribute("page") != null) {
+                // This logic block exist to ensure that the user doesn't
+                // navigate to a blank page because there are no more result
+                // to show.
+                int pageIndex = request.getQueryString().indexOf("&page=");
+                String queryString = request.getQueryString().substring(0, pageIndex);
+                request.setAttribute("nextPagination", page-1);
+                response.sendRedirect(request.getContextPath()+"/restaurants?"
+                        + queryString +"&page="
+                        + String.valueOf(page-1));
+                return "";
             } else {
                 request.setAttribute("nextPagination", page);
             }
