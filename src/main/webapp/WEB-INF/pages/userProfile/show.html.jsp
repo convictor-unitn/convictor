@@ -19,10 +19,12 @@
 <c:set var="nextPagination" scope="request" value="${requestScope.nextPagination}" />
 <c:set var="requestURL" scope="request" value="${requestScope['javax.servlet.forward.query_string']}" />
 <c:if test="${empty param.noticePage}">
-  <c:set var="requestURLFilters" scope="request" value="${requestURL}" />  
+  <c:set var="requestURLFilters" scope="request" value="${requestURL}" />
+  <c:set var="actualPage" scope="request" value="0" />  
 </c:if>
 <c:if test="${!empty param.noticePage}">
   <c:set var="requestURLFilters" scope="request" value="${fn:substringBefore(requestURL, '&noticePage')}" />  
+  <c:set var="actualPage" scope="request" value="${param.noticePage}" />
 </c:if>
 
 <c:set var="bean" scope="request" value="${requestScope.user}" />

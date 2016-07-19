@@ -14,10 +14,12 @@
 <c:set var="nextPagination" scope="request" value="${requestScope.nextPagination}" />
 <c:set var="requestURL" scope="request" value="${requestScope['javax.servlet.forward.query_string']}" />
 <c:if test="${empty param.reviewPage}">
-  <c:set var="requestURLFilters" scope="request" value="${requestURL}" />  
+  <c:set var="requestURLFilters" scope="request" value="${requestURL}" />
+  <c:set var="actualPage" scope="request" value="0" />
 </c:if>
 <c:if test="${!empty param.reviewPage}">
   <c:set var="requestURLFilters" scope="request" value="${fn:substringBefore(requestURL, '&reviewPage')}" />  
+  <c:set var="actualPage" scope="request" value="${param.reviewPage}" />
 </c:if>
 
 
@@ -206,13 +208,13 @@
               <div class="column">
                   <div class="ui buttons">
                     <div class="ui button">
-                        <c:if test="${requestScope.nextPagination-2 < 0}">
+                        <c:if test="${actualPage-1 < 0}">
                             <a href="?${requestURLFilters}&reviewPage=0"> 
                                 <i class="left arrow icon"></i>
                             </a>
                         </c:if>
-                        <c:if test="${requestScope.nextPagination-2 >= 0}">
-                            <a href="?${requestURLFilters}&reviewPage=${requestScope.nextPagination-2}"> 
+                        <c:if test="${actualPage-1 >= 0}">
+                            <a href="?${requestURLFilters}&reviewPage=${actualPage-1}"> 
                                 <i class="left arrow icon"></i>
                             </a>
                         </c:if>

@@ -35,13 +35,13 @@
               <div class="column">
                   <div class="ui buttons">
                       <div class="ui button">
-                        <c:if test="${requestScope.nextPagination-2 < 0}">
+                        <c:if test="${actualPage-1 < 0}">
                             <a href="?${requestURLFilters}&noticePage=0"> 
                                 <i class="left arrow icon"></i>
                             </a>
                             </c:if>
-                            <c:if test="${requestScope.nextPagination-2 >= 0}">
-                                <a href="?${requestURLFilters}&noticePage=${requestScope.nextPagination-2}"> 
+                            <c:if test="${actualPage-1 >= 0}">
+                                <a href="?${requestURLFilters}&noticePage=${actualPage-1}"> 
                                    <i class="left arrow icon"></i>
                                 </a>
                             </c:if>   
