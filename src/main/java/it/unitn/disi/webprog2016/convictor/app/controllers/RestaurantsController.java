@@ -9,6 +9,7 @@ import it.unitn.disi.webprog2016.convictor.app.beans.Cusine;
 import it.unitn.disi.webprog2016.convictor.app.beans.OpeningTime;
 import it.unitn.disi.webprog2016.convictor.app.beans.PriceSlot;
 import it.unitn.disi.webprog2016.convictor.app.beans.Restaurant;
+import it.unitn.disi.webprog2016.convictor.app.beans.Review;
 import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.CusineDAO;
 import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.CusinesRestaurantDAO;
 import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.OpeningTimesDAO;
@@ -496,7 +497,43 @@ public class RestaurantsController extends AbstractController {
         return "/restaurants/edit";
 	}
     
-    private List<Restaurant> sortingQuery(String request, String query, int page) {
-        return new ArrayList<>();
+    public String addReview(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        
+        // Check if the restaurant id is correct
+        int id = 0;
+        try {
+            id = Integer.parseInt(request.getParameter("id"));
+            if (id <=0 ) {
+              response.sendError(500);
+              return "";
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, ex);
+            response.sendError(500);
+            return "";
+        }
+        
+        Review tmp = new Review();
+        tmp.setRestaurantId(request.getParameter("idRestaurant"));
+        //tmp.setRegisteredUserId(req);
+        //tmp.setRating(request.getParameter("rating"));
+        tmp.setDescription(request.getParameter("reviewText"));
+        
+        tmp.validate();
+        
+        
+        try {
+          if (tmp.isValid()) {
+            ((ReviewDAO)request.getServletContext().getAttribute("reviewdao")).insertReview(tmp);
+            response.sendRedirect(request.getContextPath()+"/restaurants/show?id="+tmp.getRestaurantId());
+            return "";
+          }
+        } catch (SQLException ex) {
+            Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, ex);
+            response.sendError(500);
+            return "";
+        }
+        
+        return "/restaurants/show";
     }
 }

@@ -267,8 +267,9 @@
                       <div class="ui large center rating" data-rating="1" data-max-rating="5"></div>
                       <div class="ui center comment">
                         <form class="ui small reply form">
+                          <input type="hidden" name="idRestaurant" value="${restaurant.id}"/>
                           <div class="field">
-                            <textarea></textarea>
+                            <textarea name="reviewText"></textarea>
                           </div>
                           <div class="ui basic submit labeled icon button">
                             <i class="icon edit"></i> Add new review
