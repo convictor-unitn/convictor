@@ -29,7 +29,10 @@ public interface RestaurantDAO {
     int insertRestaurant(Restaurant restaurant) throws SQLException;
     int updateRestaurant(Restaurant restaurant, int id) throws SQLException;
     List<Restaurant> getRestaurantByUserId(int id) throws SQLException;
-	@Deprecated
+	
+    void computeRating(int restaurant_id) throws SQLException;
+    
+    @Deprecated
 	void insertPhoto(Photo photo) throws SQLException;
 	
 }
