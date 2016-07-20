@@ -24,6 +24,7 @@ public class User extends AbstractBean {
 	private boolean admin;
 	private List<Notice> notices;
 	private List<Review> reviews;
+	private String privacy;
 
 	/**
 	 * @return the email
@@ -122,6 +123,17 @@ public class User extends AbstractBean {
             this.setError("admin", "Il valore di admin non è valido");
         }
 	}
+
+	public String getPrivacy() {
+		return privacy;
+	}
+
+	public void setPrivacy(String privacy) {
+		if(privacy==null) privacy="";
+		this.privacy = privacy;
+	}
+	
+	
 	
     @Override
     public boolean validate() {
@@ -131,7 +143,7 @@ public class User extends AbstractBean {
         final String EMAIL_PATTERN = 
 		"^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
 		+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-        final String PASSWORD_PATTERN = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,10}$";
+        final String PASSWORD_PATTERN = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$";
         
         boolean status = true;
         if (this.getName().equals("")) {
@@ -164,13 +176,13 @@ public class User extends AbstractBean {
         // * One numeric digit
         if (this.getPassword().equals("")) {
             status = false;
-            this.setError("password", "La password deve avere dai 6 ai 10 caratteri e deve includere almeno una lettera maiuscola, una lettera minuscola, e un numero");
+            this.setError("password", "La password deve avere almeno 6 caratteri e deve includere almeno una lettera maiuscola, una lettera minuscola, e un numero");
         } else {
             pattern = Pattern.compile(PASSWORD_PATTERN);
             matcher = pattern.matcher(this.getPassword());
             if (!matcher.matches()) {
                 status = false;
-                this.setError("password", "La password deve avere dai 6 ai 10 caratteri e deve includere almeno una lettera maiuscola, una lettera minuscola, e un numero");
+                this.setError("password", "La password deve avere almeno 6 caratteri e deve includere almeno una lettera maiuscola, una lettera minuscola, e un numero");
             }
         }
 		

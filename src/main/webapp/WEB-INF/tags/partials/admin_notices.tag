@@ -3,7 +3,7 @@
     Created on : 22-giu-2016, 14.14.14
     Author     : Giovanni M Riva/Federica Balliana
 --%>
-
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@tag description="admin notifications list partial" pageEncoding="UTF-8"%>
 
     <div class="ui container">
@@ -14,15 +14,27 @@
           <div class="row">
               <div class="column">
                   <div class="ui buttons">
+
                       <div class="ui basic black button">
-                          <i class="left arrow icon"></i>
-                      </div>
-                  </div>
-                  <div class="ui basic black button">                      
-                        <i class="right arrow icon"></i>                      
-                  </div>
-                      <div class="ui basic label"  id="bg_cream">
+                        <c:if test="${actualPage-1 < 0}">
+                            <a href="?${requestURLFilters}&noticePage=0"> 
+                                <i class="left arrow icon"></i>
+                            </a>
+                            </c:if>
+                            <c:if test="${actualPage-1 >= 0}">
+                                <a href="?${requestURLFilters}&noticePage=${actualPage-1}"> 
+                                   <i class="left arrow icon"></i>
+                                </a>
+                            </c:if>   
+                        </div>
+                        <div class="ui basic black button">
+                            <a href="?${requestURLFilters}&noticePage=${requestScope.nextPagination}"> 
+                                <i class="right arrow icon"></i>
+                            </a>
+                        </div>
+                      <div class="ui basic label" id="bg_cream">
                         2,048
+                      </div>
                   </div>
               </div>  
           </div>        
