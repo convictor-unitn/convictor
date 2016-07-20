@@ -5,8 +5,17 @@
  */
 package it.unitn.disi.webprog2016.convictor.app.controllers;
 
+import it.unitn.disi.webprog2016.convictor.app.beans.User;
+import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.UserDAO;
 import it.unitn.disi.webprog2016.convictor.framework.controllers.AbstractController;
+import it.unitn.disi.webprog2016.convictor.framework.mailer.EmailMessage;
+import it.unitn.disi.webprog2016.convictor.framework.mailer.Mailer;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.mail.MessagingException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -38,8 +47,38 @@ public class PasswordsController extends AbstractController  {
      * @throws IOException
      */
     public String getResetToken(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.sendRedirect(request.getContextPath()+"/");
-		return "";
+		UserDAO userDAO = (UserDAO) request.getServletContext().getAttribute("userdao");
+		Mailer mailer = (Mailer) request.getServletContext().getAttribute("mailer");
+		String email = request.getParameter("email");
+		String status = "";
+		
+		try {
+			User user = userDAO.getResetPasswordToken(email);
+			if(user==null) {
+				status = "failure";
+			} else {
+				status = "success";
+				String uri = request.getScheme() + "://" +   // "http" + "://
+				request.getServerName() +       // "myhost"
+				":" +                           // ":"
+				request.getServerPort() +       // "8080"
+				request.getContextPath() +       // "/people"
+				"/passwords/new?" +                           // "?"
+				"reset_password_token="+user.getResetPasswordToken();
+				
+				EmailMessage mail = mailer.createEmailMessage(new ArrayList<String>() {{this.add(user.getEmail());}});
+				mail.setSubject("Recupero password");
+				mail.setText("Per recuperare la password clicca su questo link: "+uri);
+				mailer.sendEmailMessage(mail);
+			}
+		} catch (SQLException ex) {
+			Logger.getLogger(PasswordsController.class.getName()).log(Level.SEVERE, null, ex);
+		} catch (MessagingException ex) {
+			Logger.getLogger(PasswordsController.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		
+		request.setAttribute("status", status);
+		return "/passwords/getResetToken";
 	}
     
     /**
