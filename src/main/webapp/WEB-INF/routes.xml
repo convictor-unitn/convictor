@@ -93,6 +93,13 @@
         <action>update</action>
         <format>html</format>            
     </route>
+    <route>
+        <method>POST</method>
+        <url>/restaurants/addReview</url>
+        <controller>Restaurants</controller>
+        <action>addReview</action>
+        <format>html</format>            
+    </route>
     
 	<route>
         <method>POST</method>
