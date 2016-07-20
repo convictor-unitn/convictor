@@ -1,4 +1,4 @@
-<%-- 
+  <%-- 
     Document   : restaurant_profile.html
     Created on : 14-giu-2016, 15.29.02
     Author     : Giovanni Maria Riva
@@ -8,8 +8,8 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="l" tagdir="/WEB-INF/tags/layouts/" %>
+<%@taglib prefix="p" tagdir="/WEB-INF/tags/partials//" %>
 <jsp:useBean id="restaurant" scope="request" class="it.unitn.disi.webprog2016.convictor.app.beans.Restaurant" />
-
 <c:set var="bean" value="${requestScope.restaurant}" scope="request" />
 
 <l:main>
@@ -261,23 +261,35 @@
                 <!-- End Reviews List -->
             </div>
               <!-- Add a review textbox -->
-              
+              <%--<p:formerrors /> --%>
               <div class="sixteen wide column">
                 <div class="ui center aligned grid">
                   <div class="column">
                     <div class="ui segment">
-                      <div class="ui header">Write a review</div>
-                      <div class="ui large center rating" data-rating="1" data-max-rating="5"></div>
-                      <div class="ui center comment">
-                        <form class="ui small reply form">
-                          <div class="field">
-                            <textarea></textarea>
-                          </div>
-                          <div class="ui basic submit labeled icon button">
-                            <i class="icon edit"></i> Add new review
-                          </div>
-                        </form>
-                      </div>
+                    <c:choose>    
+                      <c:when test="${!empty sessionScope.user}">
+                        <div class="ui header">Write a review</div>
+                        <div id="rating-selector" class="ui large center rating" data-rating="1" data-max-rating="5"></div>
+                        <div class="ui center comment">
+                          <form class="ui small reply form" method="POST" action="${pageContext.servletContext.contextPath}/restaurants/addReview">
+                            <input type="hidden" name="idRestaurant" value="${restaurant.id}"/>
+                            <input type="hidden" id="ratingFormHidden" name="rating" value="" />
+                            <div class="field">
+                              <textarea name="reviewText"></textarea>
+                            </div>
+                            <div class="ui basic submit button">
+                              <input class="ui button" type="submit" onclick="setInputValue()" value="Inserisci una recensione" class="icon edit">
+                            </div>
+                          </form>
+                        </div>
+                      </c:when>
+                      <c:otherwise>
+                        <div class="ui header">
+                          <a href="${pageContext.servletContext.contextPath}/sign_in">Accedi</a>
+                          per recensire questo ristorante!
+                        </div>
+                      </c:otherwise>
+                    </c:choose>
                     </div>
                   </div>
                 </div>
@@ -409,6 +421,13 @@
 
             }
 
+        </script>
+        <script type="text/javascript">
+          // Use to load the rating inside the form
+          function setInputValue() {
+            var val = document.getElementById("rating-selector").getElementsByClassName("icon active").length;
+            document.getElementById("ratingFormHidden").setAttribute('value', val);
+          }
         </script>
         <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBbiud33G2KsodO5JvP-5HQzoSTuWiI0a8&callback=initMap" type="text/javascript"></script>
 
