@@ -17,7 +17,10 @@ import it.unitn.disi.webprog2016.convictor.app.dao.implementation.ReviewDAOImpl;
 import it.unitn.disi.webprog2016.convictor.app.dao.implementation.UserDAOImpl;
 import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.CusinesRestaurantDAO;
 import it.unitn.disi.webprog2016.convictor.framework.utils.DatabaseConnectionManager;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.sql.SQLException;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -31,9 +34,27 @@ public class DatabaseListener implements ServletContextListener {
 
 	@Override
 	public void contextInitialized(ServletContextEvent sce) {
-		String dbUrl = sce.getServletContext().getInitParameter("dburl");
-		String dbUsername = sce.getServletContext().getInitParameter("dbUsername");
-		String dbPassword = sce.getServletContext().getInitParameter("dbPassword");
+		String dbUrl;
+		String dbUsername;
+		String dbPassword;
+		
+		if(System.getenv("DATABASE_URL") == null) {
+			dbUrl = sce.getServletContext().getInitParameter("dburl");
+			dbUsername = sce.getServletContext().getInitParameter("dbUsername");
+			dbPassword = sce.getServletContext().getInitParameter("dbPassword");
+		} else {
+			URI dbUri;
+			try {
+				dbUri = new URI(System.getenv("DATABASE_URL"));
+				dbUsername = dbUri.getUserInfo().split(":")[0];
+				dbPassword = dbUri.getUserInfo().split(":")[1];
+				dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath(); 
+			} catch (URISyntaxException ex) {
+				Logger.getLogger(DatabaseListener.class.getName()).log(Level.SEVERE, null, ex);
+				throw new RuntimeException(ex);
+			}	
+		}
+		
 		try {
 			DatabaseConnectionManager manager = new DatabaseConnectionManager(dbUrl, dbUsername, dbPassword);
 			sce.getServletContext().setAttribute("dbmanager", manager);
