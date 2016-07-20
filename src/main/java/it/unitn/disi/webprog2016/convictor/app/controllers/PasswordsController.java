@@ -118,7 +118,7 @@ public class PasswordsController extends AbstractController  {
 					userDAO.updateUser(user);
 					HttpSession session = request.getSession(true);
 					session.setAttribute("user", user);
-					response.sendRedirect(request.getContextPath());
+					response.sendRedirect(request.getContextPath()+"/");
 					return "";
 				} else {
 					response.sendRedirect(request.getContextPath()+"/passwords/new?reset_password_token="+user.getResetPasswordToken());
