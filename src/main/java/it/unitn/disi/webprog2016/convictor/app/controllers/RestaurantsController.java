@@ -67,7 +67,8 @@ public class RestaurantsController extends AbstractController {
     private static final String AMAZON_SECRET_KEY = "9bpzXXs2bls+ghCzZFSGYgzD1IWOGEK+YbbX9Iza";
     private static final String S3_BUCKET_NAME = "convictor";
 	private static final Logger LOGGER = Logger.getLogger(RestaurantsController.class.getName());
-       public RestaurantsController() {
+    
+    public RestaurantsController() {
         super();
     }
 	
@@ -674,9 +675,8 @@ public class RestaurantsController extends AbstractController {
             response.sendRedirect(request.getContextPath()+"/restaurants/show?id="+tmp.getRestaurantId());
             return "";
           } else {
-            //request.setAttribute("review", tmp);
-            response.sendRedirect(request.getContextPath()+"/restaurants/show?id="+tmp.getRestaurantId());
-            return "";
+            request.setAttribute("review", tmp);
+            return "/restaurants/review";
           }
         } catch (SQLException ex) {
             Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, ex);
