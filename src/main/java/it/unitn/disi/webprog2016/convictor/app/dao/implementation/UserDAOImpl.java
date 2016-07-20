@@ -14,8 +14,14 @@ import it.unitn.disi.webprog2016.convictor.framework.utils.DatabaseConnectionMan
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Users DAO implementation
@@ -57,20 +63,21 @@ public class UserDAOImpl extends DatabaseDAO implements UserDAO{
     @Override
     public User getUserById(int id) throws SQLException {
         User user = null;
-        String query = "SELECT * FROM users WHERE id = ?";
+        String query = "SELECT id, email, name, surname, admin, reset_password_token, reset_password_sent_at FROM users WHERE id = ?";
         PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
         try {
 			stm.setInt(1, id);
             ResultSet usersSet = stm.executeQuery();
             try {
                 while(usersSet.next()) {
-                    user= new User();
+                    user = new User();
                     user.setId(usersSet.getInt("id"));
-                    user.setName(usersSet.getString("name"));
                     user.setEmail(usersSet.getString("email"));
+					user.setName(usersSet.getString("name"));
                     user.setSurname(usersSet.getString("surname"));
-                    user.setPassword(usersSet.getString("password"));
                     user.setAdmin(usersSet.getString("admin"));
+					user.setResetPasswordToken(usersSet.getString("reset_password_token"));
+					user.setResetPasswordSentAt(usersSet.getDate("reset_password_sent_at"));
                 }
             } finally {
                 usersSet.close();
@@ -80,6 +87,62 @@ public class UserDAOImpl extends DatabaseDAO implements UserDAO{
         }
         return user;
     }
+	
+	@Override
+	public User getUserByEmail(String email) throws SQLException {
+		User user = null;
+        String query = "SELECT id, email, name, surname, admin, reset_password_token, reset_password_sent_at FROM users WHERE email = ?";
+        PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
+        try {
+			stm.setString(1, email);
+            ResultSet usersSet = stm.executeQuery();
+            try {
+                while(usersSet.next()) {
+                    user = new User();
+                    user.setId(usersSet.getInt("id"));
+                    user.setEmail(usersSet.getString("email"));
+					user.setName(usersSet.getString("name"));
+                    user.setSurname(usersSet.getString("surname"));
+                    user.setAdmin(usersSet.getString("admin"));
+					user.setResetPasswordToken(usersSet.getString("reset_password_token"));
+					user.setResetPasswordSentAt(usersSet.getDate("reset_password_sent_at"));
+                }
+            } finally {
+                usersSet.close();
+            }
+        } finally {
+            stm.close();
+        }
+        return user;
+	}
+	
+	@Override
+	public User getUserByResetToken(String resetToken) throws SQLException {
+		User user = null;
+        String query = "SELECT id, email, name, surname, admin, reset_password_token, reset_password_sent_at FROM users WHERE reset_password_token = ?";
+        PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
+        try {
+			stm.setString(1, resetToken);
+            ResultSet usersSet = stm.executeQuery();
+            try {
+                while(usersSet.next()) {
+                    user = new User();
+                    user.setId(usersSet.getInt("id"));
+                    user.setEmail(usersSet.getString("email"));
+					user.setName(usersSet.getString("name"));
+                    user.setSurname(usersSet.getString("surname"));
+                    user.setAdmin(usersSet.getString("admin"));
+					user.setResetPasswordToken(usersSet.getString("reset_password_token"));
+					user.setResetPasswordSentAt(usersSet.getDate("reset_password_sent_at"));
+                }
+            } finally {
+                usersSet.close();
+            }
+        } finally {
+            stm.close();
+        }
+        return user;
+	}
 
     @Override
     public void updateUser(User user) throws SQLException {
@@ -87,15 +150,16 @@ public class UserDAOImpl extends DatabaseDAO implements UserDAO{
         // Check if the update is permitted
         if (!user.validate()) return;
         
-        String query = "UPDATE users SET name=?, surname=?, password=?, email=?, admin=? WHERE id = ?";
+        String query = "UPDATE users SET name=?, surname=?, password=?, email=?, admin=?, reset_password_token = ?  WHERE id = ?";
         PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
         try {
             stm.setString(1, user.getName());
             stm.setString(2, user.getSurname());
             stm.setString(3, user.getPassword());
             stm.setString(4, user.getEmail());
+			stm.setString(6, user.getResetPasswordToken());
             stm.setBoolean(5, user.isAdmin());
-            stm.setInt(6, user.getId());
+            stm.setInt(7, user.getId());
             stm.execute();
         } finally {
             stm.close();
@@ -166,5 +230,28 @@ public class UserDAOImpl extends DatabaseDAO implements UserDAO{
         return user;
     }
 
+	@Override
+	public User getResetPasswordToken(String email) throws SQLException {
+		User user = this.getUserByEmail(email);
+		
+		if(user==null) {
+			return user;
+		} else {
+			String resetToken = UUID.randomUUID().toString();
+			user.setResetPasswordToken(resetToken);
+			
+			String query = "UPDATE users SET reset_password_token = ?, reset_password_sent_at = now() WHERE id = ?";
+			PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
+			try {
+				stm.setString(1, user.getResetPasswordToken());
+				stm.setInt(2, user.getId());
+				stm.execute();
+			} finally {
+				stm.close();
+			}
+		}
+		
+		return user;
+	}
     
 }

@@ -144,7 +144,7 @@ public class UserProfileController extends AbstractController {
 			user.setPasswordConfirmation(request.getParameter("passwordConfirmation"));
 			
 			userDAO.updateUser(user);
-			if(user.isValid()) {
+			if(user.validate()) {
 				request.getSession().removeAttribute("user");
 				request.getSession().setAttribute("user", user);
 				response.sendRedirect(request.getContextPath()+"/userProfile/show");
