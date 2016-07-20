@@ -74,7 +74,7 @@ public class UserDAOImpl extends DatabaseDAO implements UserDAO{
                     user.setSurname(usersSet.getString("surname"));
                     user.setAdmin(usersSet.getString("admin"));
 					user.setResetPasswordToken(usersSet.getString("reset_password_token"));
-					user.setResetPasswordSentAt(DateTime.parse(usersSet.getString("reset_password_sent_at"), DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss.SSSSS")));
+					user.setResetPasswordSentAt(DateTime.parse(usersSet.getString("reset_password_sent_at"), DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss.SSSSSS")));
                 }
             } finally {
                 usersSet.close();
@@ -102,7 +102,7 @@ public class UserDAOImpl extends DatabaseDAO implements UserDAO{
                     user.setSurname(usersSet.getString("surname"));
                     user.setAdmin(usersSet.getString("admin"));
 					user.setResetPasswordToken(usersSet.getString("reset_password_token"));
-					user.setResetPasswordSentAt(DateTime.parse(usersSet.getString("reset_password_sent_at"), DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss.SSSSS")));
+					user.setResetPasswordSentAt(DateTime.parse(usersSet.getString("reset_password_sent_at"), DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss.SSSSSS")));
                 }
             } finally {
                 usersSet.close();
@@ -131,7 +131,7 @@ public class UserDAOImpl extends DatabaseDAO implements UserDAO{
                     user.setAdmin(usersSet.getString("admin"));
 					System.err.println(usersSet.getString("reset_password_sent_at"));
 					user.setResetPasswordToken(usersSet.getString("reset_password_token"));
-					user.setResetPasswordSentAt(DateTime.parse(usersSet.getString("reset_password_sent_at"), DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss.SSSSS")));
+					user.setResetPasswordSentAt(DateTime.parse(usersSet.getString("reset_password_sent_at"), DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss.SSSSSS")));
                 }
             } finally {
                 usersSet.close();
