@@ -12,6 +12,19 @@
 <c:set var="results" scope="request" value="${requestScope.results}" />
 <c:set var="query" scope="request" value="${requestScope.queryString}" />
 
+<%-- These JSTL tag are used to set correctly the pagination URL request --%>
+<c:set var="nextPagination" scope="request" value="${requestScope.nextPagination}" />
+<c:set var="requestURL" scope="request" value="${requestScope['javax.servlet.forward.query_string']}" />
+<c:if test="${empty param.page}">
+  <c:set var="requestURLFilters" scope="request" value="${requestURL}" />
+  <c:set var="actualPage" scope="request" value="0" />
+</c:if>
+<c:if test="${!empty param.page}">
+  <c:set var="requestURLFilters" scope="request" value="${fn:substringBefore(requestURL, '&page')}" />  
+  <c:set var="actualPage" scope="request" value="${param.page}" />
+</c:if>
+
+
 <l:main>
 	
 	<jsp:attribute name="title">Lista risultati</jsp:attribute>
@@ -59,22 +72,37 @@
                     </div>
                     </div>
                     </br>
-                    <input class="ui fluid basic black button" type="submit" value="Filtra">                    
+                    <input class="ui fluid basic black button" type="submit" value="Filtra">
                 </form>
-                <div class="column">
-                    <div class="ui buttons">
-                        <div class="ui button">
-                            <i class="left arrow icon"></i>
+                 <div class="column">
+            <div class="ui buttons">
+                            <div class="ui button">
+                                <c:if test="${actualPage-1 < 0}">
+                                    <a href="?${requestURLFilters}&page=0"> 
+                                        <i class="left arrow icon"></i>
+                                    </a>
+                                </c:if>
+                                <c:if test="${actualPage-1 >= 0}">
+                                    <a href="?${requestURLFilters}&page=${actualPage-1}"> 
+                                        <i class="left arrow icon"></i>
+                                    </a>
+                                </c:if>
+                                
+                            </div>
                         </div>
-                    </div>
-                    <div class="ui button">                      
-                        <i class="right arrow icon"></i>                      
-                    </div>
-                    <div class="ui basic label">
-                        2,048
-                    </div>
-                </div>
+                        <div class="ui button">
+                            <a href="?${requestURLFilters}&page=${requestScope.nextPagination}"> 
+                                <i class="right arrow icon"></i>
+                            </a>
+                        </div>
+                        <div class="ui basic label">
+                            2,048
+                        </div>            
+            </div>   
+                            
             </div>
+            
+            
 
             <div class="thirteen wide column">
 

@@ -111,10 +111,17 @@ public class RestaurantsController extends AbstractController {
             query = "";
         }
         
-        // Set the page index (pagination)
+        // Set the page index (pagination) and set a try-catch
+        // block to block parsing exception.
         int page=0;
-        if (request.getParameter("page") != null ){
-            page = Integer.parseInt(request.getParameter("page"));
+        if (request.getParameter("page") != null){
+            try {
+                page = Integer.parseInt(request.getParameter("page"));
+                if (page < 0) {page=0;}
+            } catch (Exception e) {
+                Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, e);
+                page = 0;
+            }
         }
         
         // Set the type of sorting
@@ -164,6 +171,25 @@ public class RestaurantsController extends AbstractController {
             } else {
                 request.setAttribute("results", new ArrayList<>());
             }
+            
+            // Set the next pagination 
+            if (tmp.size() > 0) {
+                request.setAttribute("nextPagination", page+1);
+            } else if (request.getParameter("page") != null) {
+                // This logic block exist to ensure that the user doesn't
+                // navigate to a blank page because there are no more result
+                // to show.
+                int pageIndex = request.getQueryString().indexOf("&page=");
+                String queryString = request.getQueryString().substring(0, pageIndex);
+                request.setAttribute("nextPagination", page-1);
+                response.sendRedirect(request.getContextPath()+"/restaurants?"
+                        + queryString +"&page="
+                        + String.valueOf(page-1));
+                return "";
+            } else {
+                request.setAttribute("nextPagination", page);
+            }
+            
         } catch (SQLException ex) {
             Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, ex);
             response.sendError(500);
@@ -188,11 +214,25 @@ public class RestaurantsController extends AbstractController {
      */
     public String show(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         
-        int id = Integer.parseInt(request.getParameter("id"));
+        // Try catch to avoid parsing errors
+        int id;
+        try {
+            id = Integer.parseInt(request.getParameter("id"));
+        } catch (Exception ex) {
+            Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, ex);
+            response.sendError(404);
+            return "";
+        }
         
         int reviewPage = 0;        
         if (request.getParameter("reviewPage") != null) {
-            reviewPage = Integer.parseInt(request.getParameter("reviewPage"));
+            try {
+                reviewPage = Integer.parseInt(request.getParameter("reviewPage"));
+                if (reviewPage < 0) {reviewPage = 0;}
+            } catch (Exception ex) {
+                Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, ex);
+                reviewPage = 0;
+            }
         }
         
         // Retrive the restaurant from the database given its id 
@@ -214,6 +254,25 @@ public class RestaurantsController extends AbstractController {
                 response.sendError(404);
                 return "";
             }
+            
+            // Set the next pagination 
+            if (tmp.getReviews().size() > 0) {
+                request.setAttribute("nextPagination", reviewPage+1);
+            } else if (request.getParameter("reviewPage") != null) {
+                // This logic block exist to ensure that the user doesn't
+                // navigate to a blank page because there are no more result
+                // to show.
+                int pageIndex = request.getQueryString().indexOf("&reviewPage=");
+                String queryString = request.getQueryString().substring(0, pageIndex);
+                request.setAttribute("nextPagination", reviewPage-1);
+                response.sendRedirect(request.getContextPath()+"/restaurants/show?"
+                        + queryString +"&reviewPage="
+                        + String.valueOf(reviewPage-1));
+                return "";
+            } else {
+                request.setAttribute("nextPagination", reviewPage);
+            }
+            
             
             return "/restaurants/show";
             

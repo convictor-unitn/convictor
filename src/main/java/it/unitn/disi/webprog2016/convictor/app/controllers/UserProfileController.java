@@ -40,9 +40,20 @@ public class UserProfileController extends AbstractController {
 			return "";
 		}
 		
+        // Set up notice pagination
+        int noticePage =0;
+        if (request.getParameter("noticePage") != null) {
+            try {
+                noticePage = Integer.valueOf(request.getParameter("noticePage"));
+                if (noticePage < 0) {noticePage = 0;}
+            } catch (Exception e) {
+                noticePage = 0;
+            }
+        }
+        
 		if(user instanceof Administrator) {
 			try {
-				List<Notice> notices = noticeDAO.getAdministratorNotices(user.getId());
+				List<Notice> notices = noticeDAO.getAdministratorNotices(user.getId(), noticePage);
 				user.setNotices(notices);
 			} catch (SQLException ex) {
 				Logger.getLogger(UserProfileController.class.getName()).log(Level.SEVERE, null, ex);
@@ -51,7 +62,7 @@ public class UserProfileController extends AbstractController {
 		
 		if(user instanceof RestaurantOwner) {
 			try {
-				List<Notice> notices = noticeDAO.getRestaurantOwnerNotices(user.getId());
+				List<Notice> notices = noticeDAO.getRestaurantOwnerNotices(user.getId(), noticePage);
 				user.setNotices(notices);
 			} catch (SQLException ex) {
 				Logger.getLogger(UserProfileController.class.getName()).log(Level.SEVERE, null, ex);
@@ -59,6 +70,28 @@ public class UserProfileController extends AbstractController {
 		}
 		
 		request.setAttribute("user", user);
+        
+        // Set the next pagination 
+        if (user.getNotices() != null) {
+            if (user.getNotices().size() > 0) {
+                request.setAttribute("nextPagination", noticePage+1);
+            } else if (request.getParameter("noticePage") != null) {
+                // This logic block exist to ensure that the user doesn't
+                // navigate to a blank page because there are no more result
+                // to show.
+                int pageIndex = request.getQueryString().indexOf("&noticePage=");
+                String queryString = request.getQueryString().substring(0, pageIndex);
+                request.setAttribute("nextPagination", noticePage-1);
+                response.sendRedirect(request.getContextPath()+"/userProfile/show?"
+                        + queryString +"&noticePage="
+                        + String.valueOf(noticePage-1));
+                return "";
+            } else {
+                request.setAttribute("nextPagination", noticePage);
+            }
+        } else {
+            request.setAttribute("nextPagination", noticePage);
+        }
 		
 		return "/userProfile/show";
 	}
