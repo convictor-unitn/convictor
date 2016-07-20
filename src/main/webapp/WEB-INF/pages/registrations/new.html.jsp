@@ -20,7 +20,7 @@
 			<div class="column myform">
 				<h2 class="ui header">
 
-					<div id="s_text" class="content">
+					<div id="s_text" class="content" id="brown">
 						Crea un nuovo account
 					</div>
 				</h2>			

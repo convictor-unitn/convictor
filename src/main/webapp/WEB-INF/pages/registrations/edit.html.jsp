@@ -15,13 +15,13 @@
 <l:main>
 	
 	<jsp:attribute name="title">Remipostazione Profilo</jsp:attribute>
-	<jsp:attribute name="bodyBackground">#ffffe6</jsp:attribute>
+	<jsp:attribute name="bodyBackground">#eaeaea</jsp:attribute>
 	<jsp:attribute name="body">
             <div class="ui middle aligned center aligned grid">
                 <div class="column myform">
                     <h2 class="ui header">
 
-                        <div id="s_text" class="content">
+                        <div id="s_text" class="content" id="brown">
                             Reimpostazione profilo
                         </div>
                     </h2>

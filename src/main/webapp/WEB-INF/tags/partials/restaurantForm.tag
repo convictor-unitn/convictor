@@ -20,7 +20,7 @@
 
       <div class="ui segment">
         <!-- Name Field -->
-        <label>Informazioni Personali</label>
+        <label id="brown">Informazioni Personali</label>
         <div class="ui divider"></div>
         <div class="field">
             <input type="text" name="name" placeholder="Nome" value="${bean.name}" >
@@ -55,7 +55,7 @@
       </div>
           
           <div class="ui segment">
-              <label>Fascia di Prezzo</label>
+              <label id="brown">Fascia di Prezzo</label>
               <div class="ui divider"></div>
               <div class="five fields">                  
                       <c:forEach var="slotprice" items="${allPriceSlot}">
@@ -89,11 +89,11 @@
 
       <!-- Cuisines Field -->
       <div class="ui segment">
-        <label>Tipologia Piatti</label>
+        <label id="brown">Tipologia Piatti</label>
         <div class="ui divider"></div>
         <div class="field">
           <select multiple="" class="ui dropdown" name="cusines">
-              <option value="">Seleziona Cucine</option>
+              <option value="" id="brown">Seleziona Cucine</option>
               <c:forEach var="cusine" items="${allCusines}">
                   <!-- If on edit page -->                  
                   <c:choose>    
@@ -122,7 +122,7 @@
       <!-- Description Field -->
 
       <div class="ui segment">
-        <label>Descrizione</label>
+        <label id="brown">Descrizione</label>
         <div class="ui divider"></div>
         <div class="field">
             <input class="ui textbox" type="text" name="description" rows="2" placeholder="Aggiungi breve descrizione" value="${restaurant.description}"/>
@@ -134,10 +134,10 @@
       <div class="ui segment">
 
         <!-- Opening Hours -->
-        <label>Informazioni Orari</label>
+        <label id="brown">Informazioni Orari</label>
         <div class="ui divider"></div>
 
-        <div class="ui segment">
+        <div class="ui segment" id="brown">
             <div class="field">
                 <div class="ui small label">
                     Lunedi'
@@ -200,7 +200,7 @@
         </div>
         </div>
 
-        <div class="ui segment">
+        <div class="ui segment" id="brown">
             <div class="field">
                 <div class="ui small label">
                     Martedi'
@@ -262,7 +262,7 @@
              </div>
         </div>
         </div>
-        <div class="ui segment">
+        <div class="ui segment" id="brown">
             <div class="ui small label">
                     Mercoledi'
                 </div>
@@ -322,7 +322,7 @@
              </div>
         </div>
         </div>
-        <div class="ui segment">
+        <div class="ui segment" id="brown">
             <div class="ui small label">
                     Giovedi'
                 </div>
@@ -382,7 +382,7 @@
              </div>
         </div>
         </div>
-        <div class="ui segment">
+        <div class="ui segment" id="brown">
             <div class="ui small label">
                     Venerdi'
                 </div>
@@ -442,7 +442,7 @@
              </div>
         </div>
         </div>
-        <div class="ui segment">
+        <div class="ui segment" id="brown">
             <div class="ui small label">
                     Sabato
                 </div>
@@ -502,7 +502,7 @@
              </div>
         </div>
         </div>
-        <div class="ui segment">
+        <div class="ui segment" id="brown">
             <div class="ui small label">
                     Domenica
                 </div>
