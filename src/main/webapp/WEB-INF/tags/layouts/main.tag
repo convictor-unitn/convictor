@@ -32,7 +32,7 @@
 
             <title>${title}</title>
 	</head>
-	<body style="background: <c:out value="${bodyBackground}" />">
+	<body style="background: <c:out value="${bodyBackground}" />" >
             <partials:topNavbar />
             <jsp:invoke fragment="body" />
             <script type="text/javascript" src="${context}/js/jquery-2.2.4.js"></script>

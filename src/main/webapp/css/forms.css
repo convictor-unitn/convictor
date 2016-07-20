@@ -59,3 +59,7 @@ and open the template in the editor.
 .ui.black.segment:not(.inverted) {
   border-top: 2px solid #4f3e3e;
 }
+
+.ui.black.divider {
+    color: #4f3e3e;
+}
