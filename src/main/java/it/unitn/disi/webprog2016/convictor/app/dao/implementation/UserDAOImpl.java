@@ -131,7 +131,6 @@ public class UserDAOImpl extends DatabaseDAO implements UserDAO{
                     user.setEmail(usersSet.getString("email"));
 					user.setName(usersSet.getString("name"));
                     user.setSurname(usersSet.getString("surname"));
-                    user.setPassword(usersSet.getString("password"));
                     user.setAdmin(usersSet.getString("admin"));
 					user.setResetPasswordToken(usersSet.getString("reset_password_token"));
 					user.setResetPasswordSentAt(usersSet.getDate("reset_password_sent_at"));
@@ -151,15 +150,16 @@ public class UserDAOImpl extends DatabaseDAO implements UserDAO{
         // Check if the update is permitted
         if (!user.validate()) return;
         
-        String query = "UPDATE users SET name=?, surname=?, password=?, email=?, admin=? WHERE id = ?";
+        String query = "UPDATE users SET name=?, surname=?, password=?, email=?, admin=?, reset_password_token = ?  WHERE id = ?";
         PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
         try {
             stm.setString(1, user.getName());
             stm.setString(2, user.getSurname());
             stm.setString(3, user.getPassword());
             stm.setString(4, user.getEmail());
+			stm.setString(6, user.getResetPasswordToken());
             stm.setBoolean(5, user.isAdmin());
-            stm.setInt(6, user.getId());
+            stm.setInt(7, user.getId());
             stm.execute();
         } finally {
             stm.close();

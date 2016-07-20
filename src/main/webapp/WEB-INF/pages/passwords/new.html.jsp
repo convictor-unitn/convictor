@@ -20,7 +20,8 @@
 					  Reimpostazione password
 					</div>
 				</h2>
-				<form class="ui large form" method="POST" action="${url}">
+				<form class="ui large form" method="POST" action="${pageContext.servletContext.contextPath}/passwords/create">
+					<input type="hidden" name="reset_password_token" value="${requestScope.resetPasswordToken}" />
 					<div class="ui stacked segment">
 						<div class="field">
 							<div class="ui left icon input">
@@ -31,7 +32,7 @@
 						<div class="field">
 						  <div class="ui left icon input">
 							<i class="lock icon"></i>
-							<input type="password" name="password" placeholder="Conferma password">
+							<input type="password" name="passwordConfirmation" placeholder="Conferma password">
 						  </div>
 						</div>
 						<input id="p_button" class="ui fluid large submit button" type="submit" />
