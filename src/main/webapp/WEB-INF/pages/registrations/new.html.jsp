@@ -16,49 +16,17 @@
 	<jsp:attribute name="title">Nuovo Utente</jsp:attribute>
 	<jsp:attribute name="bodyBackground">url("${pageContext.servletContext.contextPath}/images/background.png")</jsp:attribute>
 	<jsp:attribute name="body">
-            <div class="ui middle aligned center aligned grid">
-                <div class="column myform">
-                    <h2 class="ui header">
+		<div class="ui middle aligned center aligned grid">
+			<div class="column myform">
+				<h2 class="ui header">
 
-                        <div id="s_text" class="content">
-                            Crea un nuovo account
-                        </div>
-                    </h2>
-                    
-                    <form class="ui large form" method="POST" action="${pageContext.servletContext.contextPath}/registrations/create">
-                        <div class="ui stacked segment">                            
-                            <f:registrationForm />
-                            <div class="field">
-                                <div class="ui left icon input">
-                                    <i class="lock icon"></i>
-                                    <input type="password" name="passwordNew" placeholder="Password">
-                                </div>
-                            </div>
-                            <div class="field">
-                                <div class="ui left icon input">
-                                    <i class="lock icon"></i>
-                                    <input type="password" name="passwordConfirmation" placeholder="Conferma password">
-                                </div>
-                            </div>
-
-                            <div  align="left">
-                                <div class="ui slider checkbox">
-                                    <input type="checkbox" name="privacy">
-                                    <label>Accettazione privacy</label>
-                                </div>
-                            </div>
-
-                            </br>
-
-                            <input id="p_button" class="ui fluid large submit button" type="submit"></input>
-
-                            </br>
-
-                            <a href="javascript:history.back()" class="ui fluid submit button">Annulla</a>
-                        </div>
-                    </form>
-                </div>
-            </div>	
-        </jsp:attribute>
+					<div id="s_text" class="content">
+						Crea un nuovo account
+					</div>
+				</h2>			
+				<f:registrationForm />
+			</div>
+		</div>	
+	</jsp:attribute>
 		
 </l:main>

@@ -108,14 +108,14 @@ public class UserDAOImpl extends DatabaseDAO implements UserDAO{
         // Check if the user is valid
         if (!user.validate()) return;
         
-        String query = "INSERT INTO users (name, surname, password, email, admin) VALUES (?, ?, ?, ? ?)";
+        String query = "INSERT INTO users (name, surname, password, email, admin) VALUES (?, ?, ?, ?, ?)";
         PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
         try {
-            stm.setString(0, user.getName());
-            stm.setString(1, user.getSurname());
-            stm.setString(2, user.getPassword());
-            stm.setString(3, user.getEmail());
-            stm.setBoolean(4, user.isAdmin());
+            stm.setString(1, user.getName());
+            stm.setString(2, user.getSurname());
+            stm.setString(3, user.getPassword());
+            stm.setString(4, user.getEmail());
+            stm.setBoolean(5, user.isAdmin());
             stm.execute();
         } finally {
             stm.close();
