@@ -24,7 +24,7 @@ $(document).ready(function(){
 
   //Add new image modal initializer
  $(".add_image").click(function(){
-    $('.ui.modal.add_image').modal('show');
+    $('.ui.modal.add_image_modal').modal('show');
   });
 
   //Ownership form modal initializer

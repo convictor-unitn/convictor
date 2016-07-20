@@ -5,6 +5,7 @@
  */
 package it.unitn.disi.webprog2016.convictor.app.dao.interfaces;
 
+import it.unitn.disi.webprog2016.convictor.app.beans.Photo;
 import it.unitn.disi.webprog2016.convictor.app.beans.Restaurant;
 import java.sql.SQLException;
 import java.util.List;
@@ -28,5 +29,7 @@ public interface RestaurantDAO {
     int insertRestaurant(Restaurant restaurant) throws SQLException;
     int updateRestaurant(Restaurant restaurant, int id) throws SQLException;
     List<Restaurant> getRestaurantByUserId(int id) throws SQLException;
-    
+	@Deprecated
+	void insertPhoto(Photo photo) throws SQLException;
+	
 }

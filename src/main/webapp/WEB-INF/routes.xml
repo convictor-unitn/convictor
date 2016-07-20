@@ -101,6 +101,14 @@
         <format>html</format>            
     </route>
     
+	<route>
+        <method>POST</method>
+        <url>/restaurants/uploadPhoto</url>
+        <controller>Restaurants</controller>
+        <action>uploadPhoto</action>
+        <format>html</format>            
+    </route>
+	
     <!-- Session routes -->
     <route>
         <method>GET</method>
