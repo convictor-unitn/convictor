@@ -46,6 +46,7 @@
                           </form>
                         </div>
                     </div>
+                    <a href="${pageContext.servletContext.contextPath}/restaurants/show?id=${bean.restaurantId}" class="ui blue submit button">Indietro</a>
                   </div>
                 </div>
               </div>
