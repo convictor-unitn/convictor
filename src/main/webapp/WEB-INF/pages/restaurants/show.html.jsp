@@ -266,19 +266,29 @@
                 <div class="ui center aligned grid">
                   <div class="column">
                     <div class="ui segment">
-                      <div class="ui header">Write a review</div>
-                      <div class="ui large center rating" data-rating="1" data-max-rating="5"></div>
-                      <div class="ui center comment">
-                        <form class="ui small reply form" method="POST" action="${pageContext.servletContext.contextPath}/restaurants/addReview">
-                          <input type="hidden" name="idRestaurant" value="${restaurant.id}"/>
-                          <div class="field">
-                            <textarea name="reviewText"></textarea>
-                          </div>
-                          <div class="ui basic submit labeled icon button">
-                            <input class="ui button" type="submit" value="Recensisci" class="icon edit">
-                          </div>
-                        </form>
-                      </div>
+                    <c:choose>    
+                      <c:when test="${!empty sessionScope.user}">
+                        <div class="ui header">Write a review</div>
+                        <div class="ui large center rating" data-rating="1" data-max-rating="5"></div>
+                        <div class="ui center comment">
+                          <form class="ui small reply form" method="POST" action="${pageContext.servletContext.contextPath}/restaurants/addReview">
+                            <input type="hidden" name="idRestaurant" value="${restaurant.id}"/>
+                            <div class="field">
+                              <textarea name="reviewText"></textarea>
+                            </div>
+                            <div class="ui basic submit labeled icon button">
+                              <input class="ui button" type="submit" value="Recensisci" class="icon edit">
+                            </div>
+                          </form>
+                        </div>
+                      </c:when>
+                      <c:otherwise>
+                        <div class="ui header">
+                          <a href="${pageContext.servletContext.contextPath}/sign_in">Accedi</a>
+                          per recensire questo ristorante!
+                        </div>
+                      </c:otherwise>
+                    </c:choose>
                     </div>
                   </div>
                 </div>
