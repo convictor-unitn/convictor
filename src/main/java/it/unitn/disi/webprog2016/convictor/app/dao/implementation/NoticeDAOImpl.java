@@ -162,15 +162,12 @@ public class NoticeDAOImpl extends DatabaseDAO implements NoticeDAO {
     @Override
     public void insertReviewNotice(ReviewNotice notice) throws SQLException {
         
-        // Check if valid
-        if (!notice.validate()) return;
-        
-        String query = "INSERT INTO review_notices VALUES(?, ?, ?, ?);";
+        String query = "INSERT INTO review_notices (review_id, registered_user_id) VALUES(?, ?);";
         PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
         try {
+            stm.setInt(1, notice.getReviewId());
             stm.setInt(2, notice.getRegisteredUserId());
-            stm.setInt(3, notice.getReviewId());
-            stm.executeQuery();
+            stm.executeUpdate();
         } finally {
             stm.close();
         }

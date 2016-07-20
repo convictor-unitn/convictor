@@ -5,7 +5,9 @@
  */
 package it.unitn.disi.webprog2016.convictor.app.dao.implementation;
 
+import it.unitn.disi.webprog2016.convictor.app.beans.Photo;
 import it.unitn.disi.webprog2016.convictor.app.beans.Restaurant;
+import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.PhotoDAO;
 import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.RestaurantDAO;
 import it.unitn.disi.webprog2016.convictor.framework.dao.DatabaseDAO;
 import it.unitn.disi.webprog2016.convictor.framework.utils.DatabaseConnectionManager;
@@ -451,5 +453,13 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
         }
         return listResult;
     }
+
+	@Override
+	public void insertPhoto(Photo photo) throws SQLException {
+		PhotoDAO photoDao = new PhotoDAOImpl(this.getDbManager());
+		photoDao.insertPhoto(photo);
+	}
     
+	
+	
 }

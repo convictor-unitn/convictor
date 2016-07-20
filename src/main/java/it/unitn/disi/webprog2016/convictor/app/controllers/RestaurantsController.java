@@ -5,12 +5,25 @@
  */
 package it.unitn.disi.webprog2016.convictor.app.controllers;
 
+import com.amazonaws.AmazonClientException;
+import com.amazonaws.AmazonServiceException;
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.model.CannedAccessControlList;
+import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.amazonaws.services.s3.model.PutObjectResult;
 import it.unitn.disi.webprog2016.convictor.app.beans.Cusine;
 import it.unitn.disi.webprog2016.convictor.app.beans.OpeningTime;
 import it.unitn.disi.webprog2016.convictor.app.beans.PriceSlot;
 import it.unitn.disi.webprog2016.convictor.app.beans.Restaurant;
+import it.unitn.disi.webprog2016.convictor.app.beans.Review;
+import it.unitn.disi.webprog2016.convictor.app.beans.ReviewNotice;
+import it.unitn.disi.webprog2016.convictor.app.beans.User;
 import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.CusineDAO;
 import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.CusinesRestaurantDAO;
+import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.NoticeDAO;
 import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.OpeningTimesDAO;
 import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.PriceSlotDAO;
 import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.RestaurantDAO;
@@ -25,13 +38,40 @@ import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+import it.unitn.disi.webprog2016.convictor.app.beans.Photo;
+import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.PhotoDAO;
+import java.io.File;
+import java.util.Enumeration;
+import java.util.Iterator;
+import java.util.UUID;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.io.FilenameUtils;
 
 /**
  * In this controller there add all restaurant management pages
  * @author umberto
  */
 public class RestaurantsController extends AbstractController {
-   
+	
+	private static final long serialVersionUID = -7720246048637220075L;
+    private static final int THRESHOLD_SIZE = 1024 * 1024 * 3;  // 3MB
+    private static final int MAX_FILE_SIZE = 1024 * 1024 * 140; // 140MB
+    private static final int MAX_REQUEST_SIZE = 1024 * 1024 * 150; // 150MB
+    private static final String UUID_STRING = "uuid";
+	private static final String AMAZON_ACCESS_KEY = "AKIAINLCB7W3V5KLNOHQ";
+    private static final String AMAZON_SECRET_KEY = "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";
+    private static final String S3_BUCKET_NAME = "convictor";
+	private static final Logger LOGGER = Logger.getLogger(RestaurantsController.class.getName());
+    
+    public RestaurantsController() {
+        super();
+    }
+	
     /**
      * Index method, it handles the search action to find restaurants given
      * a search query.
@@ -200,6 +240,7 @@ public class RestaurantsController extends AbstractController {
         ReviewDAO reviewDAO = (ReviewDAO) request.getServletContext().getAttribute("reviewdao");
         CusinesRestaurantDAO cusinesRestaurantDAO = (CusinesRestaurantDAO) request.getServletContext().getAttribute("cusinesrestaurantdao");
         OpeningTimesDAO openingTimeDAO = (OpeningTimesDAO) request.getServletContext().getAttribute("openingtimesdao");
+		PhotoDAO photoDAO = (PhotoDAO) request.getServletContext().getAttribute("photodao");
         try {
             
             Restaurant tmp = restaurantDAO.getRestaurantById(id);
@@ -207,7 +248,8 @@ public class RestaurantsController extends AbstractController {
                 tmp.setCusine(cusinesRestaurantDAO.getCusinesByRestaurantId(id));
                 tmp.setReviews(reviewDAO.getRestaurantReviews(id, reviewPage));
                 tmp.setOpeningTimes(openingTimeDAO.getResaurantOpeningTimes(id));
-                request.setAttribute("restaurant", tmp);           
+				tmp.setPhotos(photoDAO.getRestaurantPhotos(id));
+                request.setAttribute("restaurant", tmp);
             } else {
                 response.sendError(404);
                 return "";
@@ -554,8 +596,149 @@ public class RestaurantsController extends AbstractController {
         }
         return "/restaurants/edit";
 	}
+	
+	public String uploadPhoto(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+		// Inizializzazione parametri
+		String url = null;
+		// checks if the request actually contains upload file
+        if (!ServletFileUpload.isMultipartContent(request)) {
+            LOGGER.severe("Nessun file caricato");
+			response.sendError(500);
+            return "";
+        }
+		
+		PhotoDAO photoDAO = (PhotoDAO) request.getServletContext().getAttribute("photodao");
+		int restaurantId = 0;
+		
+		// Fine inizializzazione parametri
+		
+		// Set delle impostazioni della richiesta 
+		response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "POST");
+        response.setHeader("Access-Control-Allow-Headers", "Content-Type");
+        response.setHeader("Access-Control-Max-Age", "86400");
+		
+        // configures upload settings
+        DiskFileItemFactory factory = new DiskFileItemFactory();
+        factory.setSizeThreshold(THRESHOLD_SIZE);
+ 
+        ServletFileUpload upload = new ServletFileUpload(factory);
+        upload.setFileSizeMax(MAX_FILE_SIZE);
+        upload.setSizeMax(MAX_REQUEST_SIZE);
+ 
+        String uuidValue = "";
+        FileItem itemFile = null;
+ 
+        try {
+            // parses the request's content to extract file data
+            List formItems = upload.parseRequest(request);
+            Iterator iter = formItems.iterator();
+ 
+            // iterates over form's fields to get UUID Value
+            while (iter.hasNext()) {
+                FileItem item = (FileItem) iter.next();
+                if (item.isFormField()) {
+                    if (item.getFieldName().equalsIgnoreCase(UUID_STRING)) {
+                        uuidValue = item.getString();
+                    }
+					
+					if(item.getFieldName().equals("id")) {
+						restaurantId = Integer.parseInt(item.getString());
+						request.setAttribute("restaurantId", restaurantId);
+					}
+                }
+                // processes only fields that are not form fields
+                if (!item.isFormField()) {
+                    itemFile = item;
+                }
+            }
+			 
+            if (itemFile != null && itemFile.getSize() != 0) {
+                BasicAWSCredentials awsCredentials = new BasicAWSCredentials(AMAZON_ACCESS_KEY, AMAZON_SECRET_KEY);
+                AmazonS3 s3client = new AmazonS3Client(awsCredentials);
+                try {
+					String uuid = UUID.randomUUID().toString();
+                    ObjectMetadata om = new ObjectMetadata();
+                    om.setContentLength(itemFile.getSize());
+                    String ext = FilenameUtils.getExtension(itemFile.getName());
+                    String keyName = uuid + '.' + ext;
+ 
+                    PutObjectResult res = s3client.putObject(new PutObjectRequest(S3_BUCKET_NAME, keyName, itemFile.getInputStream(), om));
+					s3client.setObjectAcl(S3_BUCKET_NAME, keyName, CannedAccessControlList.PublicRead);
+ 
+					url = "https://s3.eu-central-1.amazonaws.com/"+S3_BUCKET_NAME+"/"+keyName;
+					
+					Photo photo = new Photo();
+					photo.setRestaurantId(restaurantId);
+					photo.setUrl(url);
+					photoDAO.insertPhoto(photo);
+					request.setAttribute("uploadStatus", "success");
+					LOGGER.log(Level.INFO, "{0}:Upload done", uuidValue);
+					
+                } catch (AmazonServiceException ase) {
+                    LOGGER.log(Level.SEVERE, "{0}:error:{1}", new Object[]{uuidValue, ase.getMessage()});
+					request.setAttribute("uploadStatus", "failure");
+                } catch (AmazonClientException ace) {
+                    LOGGER.log(Level.SEVERE, "{0}:error:{1}", new Object[]{uuidValue, ace.getMessage()});
+					request.setAttribute("uploadStatus", "failure");
+                } catch (SQLException ex) {
+					Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, ex);
+					request.setAttribute("uploadStatus", "failure");
+				}
+            } else {
+                LOGGER.log(Level.SEVERE,"{0}" + ":error:" + "No Upload file", uuidValue);
+				request.setAttribute("uploadStatus", "failure");
+            }
+ 
+        } catch (FileUploadException | IOException ex) {
+            LOGGER.log(Level.SEVERE,"{0}" + ":" + ":error: {1}", new Object[]{uuidValue, ex.getMessage()});
+			request.setAttribute("uploadStatus", "failure");
+        }
+		
+		return "/restaurants/upload";
+	}
+
     
-    private List<Restaurant> sortingQuery(String request, String query, int page) {
-        return new ArrayList<>();
+    /**
+     * Method to add a review to a specific restaurant
+     * @param request Object representing the request made
+     * @param response Object representing the response that will be sent to
+     * the client
+     * @return Send to the restaurant page
+     * @throws IOException
+     * @throws ServletException
+     */
+    public String addReview(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        
+        // Get the user and popolate a Review bean
+        User tmpUser = (User) request.getSession(false).getAttribute("user");
+        Review tmp = new Review();
+        tmp.setRestaurantId(request.getParameter("idRestaurant"));
+        tmp.setRegisteredUserId(tmpUser.getId());
+        tmp.setRating(request.getParameter("rating"));
+        tmp.setDescription(request.getParameter("reviewText"));
+        
+        tmp.validate();
+        
+        try {
+          if (tmp.isValid()) {
+            
+            // Insert the review and the notice
+            ReviewNotice tmpNotice = new ReviewNotice();
+            int reviewId = ((ReviewDAO)request.getServletContext().getAttribute("reviewdao")).insertReview(tmp);
+            tmpNotice.setRegisteredUserId(tmpUser.getId());
+            tmpNotice.setReviewId(reviewId);
+            ((NoticeDAO) request.getServletContext().getAttribute("noticedao")).insertReviewNotice(tmpNotice);
+            
+            request.setAttribute("review", tmp);
+          } else {
+            request.setAttribute("review", tmp);
+          }
+        } catch (SQLException ex) {
+            Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, ex);
+            response.sendError(500);
+            return "";
+        }
+      return "/restaurants/review";
     }
 }
