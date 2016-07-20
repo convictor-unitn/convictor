@@ -14,14 +14,11 @@ import it.unitn.disi.webprog2016.convictor.framework.utils.DatabaseConnectionMan
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.ZonedDateTime;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
 
 /**
  * Users DAO implementation
@@ -77,7 +74,7 @@ public class UserDAOImpl extends DatabaseDAO implements UserDAO{
                     user.setSurname(usersSet.getString("surname"));
                     user.setAdmin(usersSet.getString("admin"));
 					user.setResetPasswordToken(usersSet.getString("reset_password_token"));
-					user.setResetPasswordSentAt(usersSet.getDate("reset_password_sent_at"));
+					user.setResetPasswordSentAt(DateTime.parse(usersSet.getString("reset_password_sent_at"), DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss.SSSSS")));
                 }
             } finally {
                 usersSet.close();
@@ -105,7 +102,7 @@ public class UserDAOImpl extends DatabaseDAO implements UserDAO{
                     user.setSurname(usersSet.getString("surname"));
                     user.setAdmin(usersSet.getString("admin"));
 					user.setResetPasswordToken(usersSet.getString("reset_password_token"));
-					user.setResetPasswordSentAt(usersSet.getDate("reset_password_sent_at"));
+					user.setResetPasswordSentAt(DateTime.parse(usersSet.getString("reset_password_sent_at"), DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss.SSSSS")));
                 }
             } finally {
                 usersSet.close();
@@ -132,8 +129,9 @@ public class UserDAOImpl extends DatabaseDAO implements UserDAO{
 					user.setName(usersSet.getString("name"));
                     user.setSurname(usersSet.getString("surname"));
                     user.setAdmin(usersSet.getString("admin"));
+					System.err.println(usersSet.getString("reset_password_sent_at"));
 					user.setResetPasswordToken(usersSet.getString("reset_password_token"));
-					user.setResetPasswordSentAt(usersSet.getDate("reset_password_sent_at"));
+					user.setResetPasswordSentAt(DateTime.parse(usersSet.getString("reset_password_sent_at"), DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss.SSSSS")));
                 }
             } finally {
                 usersSet.close();

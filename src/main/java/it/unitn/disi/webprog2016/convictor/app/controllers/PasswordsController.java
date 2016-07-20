@@ -20,6 +20,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeUtils;
 
 /**
  *
@@ -105,11 +107,19 @@ public class PasswordsController extends AbstractController  {
      */
     public String create(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		UserDAO userDAO = (UserDAO) request.getServletContext().getAttribute("userdao");
+		
 		try {
 			User user = userDAO.getUserByResetToken(request.getParameter("reset_password_token"));
 			request.setAttribute("resetPasswordToken", request.getParameter("reset_password_token"));
 			
-			if(user.getResetPasswordToken().equals(request.getParameter("reset_password_token"))) {
+			DateTime nowPlus30Min = DateTime.now();
+			DateTime resetPasswordSentAt = new DateTime(user.getResetPasswordSentAt());
+			boolean validDate = nowPlus30Min.isBefore(user.getResetPasswordSentAt().plusMinutes(15));
+			//boolean validDate = nowPlus30Min.toInstant().getMillis() <= (user.getResetPasswordSentAt().getTime()+1800000);
+			
+			System.err.println(nowPlus30Min.toString() + "   "+ resetPasswordSentAt.toString());
+			
+			if(user.getResetPasswordToken().equals(request.getParameter("reset_password_token")) && validDate) {
 				user.setPassword(request.getParameter("password"));
 				user.setPasswordConfirmation(request.getParameter("passwordConfirmation"));
 				user.validate();
