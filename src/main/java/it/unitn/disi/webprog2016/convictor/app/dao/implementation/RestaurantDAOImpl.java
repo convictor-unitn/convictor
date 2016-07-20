@@ -459,6 +459,42 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
 		PhotoDAO photoDao = new PhotoDAOImpl(this.getDbManager());
 		photoDao.insertPhoto(photo);
 	}
+
+  @Override
+  public void computeRating(int restaurant_id) throws SQLException {
+    String query ="SELECT rating, count(*) FROM reviews WHERE restaurant_id= ? GROUP BY rating";
+    String update = "UPDATE restaurants SET rating=? WHERE id=?";
+    PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
+    PreparedStatement stm2 = this.getDbManager().getConnection().prepareStatement(update);
+    int [] counterRatings = new int[5];
+    for (int i=0; i<5; i++) counterRatings[i]=0;
+    try { 
+      stm.setInt(1, restaurant_id);
+      ResultSet ratings = stm.executeQuery();
+      try {
+        while(ratings.next()) {
+          counterRatings[ratings.getInt("rating")-1] = ratings.getInt("count"); 
+        }
+      } finally {
+        ratings.close();
+      }
+      
+      // Compute the total rating
+      int numerator =0; int denominator=0;
+      for (int i = 0; i < 5; i++) {
+        numerator += counterRatings[i]*(i+1);
+        denominator += counterRatings[i];
+      }
+      
+      // Set the rating
+      stm2.setInt(1, numerator/denominator);
+      stm2.setInt(2, restaurant_id);
+      stm2.executeUpdate();
+          
+    } finally {
+      stm.close();
+    }
+  }
     
 	
 	
