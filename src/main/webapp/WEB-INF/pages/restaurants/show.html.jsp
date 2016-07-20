@@ -246,7 +246,7 @@
                                   <div class="ui horizontal list">
                                       <c:forEach var="i" begin="0" end="${review.rating}" step="1">
                                       <c:if test="${i!=0}">
-                                          <div class="item">
+                                         <div class="item">
                                               <i class="star icon" id="brown"> </i>
                                           </div>
                                       </c:if>
@@ -381,7 +381,7 @@
 								  </div>
 								  <div class="field actions">
 									  <div class="ui cancel basic black button" id="brown">Close</div>
-									  <input class="ui basic black button" type="submit" value="Upload"/>
+									  <input class="ui black button" type="submit" value="Upload"/>
 								  </div>
 							  </form>
                           </div>
