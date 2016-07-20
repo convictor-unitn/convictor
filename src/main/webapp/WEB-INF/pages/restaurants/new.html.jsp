@@ -13,7 +13,7 @@
 <c:set var="allCusines" value="${requestScope.allCusines}" scope="request" />
 
 <l:main>
-	<jsp:attribute name="bodyBackground">#ffffcc</jsp:attribute>
+	<jsp:attribute name="bodyBackground">#eaeaea</jsp:attribute>
 	<jsp:attribute name="title">Nuovo Ristorante</jsp:attribute>
 	
 	<jsp:attribute name="body">
@@ -22,7 +22,7 @@
                   <div class="column">
                      
                     <h2 class="ui header">
-                      <div id="s_text" class="content">
+                      <div id="s_text" class="content" id="brown">
                         Aggiungi Ristorante
                       </div>
                     </h2>

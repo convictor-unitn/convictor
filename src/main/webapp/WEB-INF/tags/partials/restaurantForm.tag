@@ -558,7 +558,7 @@
         <div class="field">
           <div class="ui checkbox mycheckbox">
                 <input type="checkbox" name="dayoff_sunday" >
-                <label >Seleziona come giorno di chiusura</label>
+                <label id="brown">Seleziona come giorno di chiusura</label>
              </div>
         </div>
         </div>
