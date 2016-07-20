@@ -18,8 +18,12 @@ import it.unitn.disi.webprog2016.convictor.app.beans.Cusine;
 import it.unitn.disi.webprog2016.convictor.app.beans.OpeningTime;
 import it.unitn.disi.webprog2016.convictor.app.beans.PriceSlot;
 import it.unitn.disi.webprog2016.convictor.app.beans.Restaurant;
+import it.unitn.disi.webprog2016.convictor.app.beans.Review;
+import it.unitn.disi.webprog2016.convictor.app.beans.ReviewNotice;
+import it.unitn.disi.webprog2016.convictor.app.beans.User;
 import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.CusineDAO;
 import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.CusinesRestaurantDAO;
+import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.NoticeDAO;
 import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.OpeningTimesDAO;
 import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.PriceSlotDAO;
 import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.RestaurantDAO;
@@ -63,7 +67,8 @@ public class RestaurantsController extends AbstractController {
     private static final String AMAZON_SECRET_KEY = "9bpzXXs2bls+ghCzZFSGYgzD1IWOGEK+YbbX9Iza";
     private static final String S3_BUCKET_NAME = "convictor";
 	private static final Logger LOGGER = Logger.getLogger(RestaurantsController.class.getName());
-       public RestaurantsController() {
+    
+    public RestaurantsController() {
         super();
     }
 	
@@ -635,7 +640,46 @@ public class RestaurantsController extends AbstractController {
 	}
 
     
-    private List<Restaurant> sortingQuery(String request, String query, int page) {
-        return new ArrayList<>();
+    /**
+     * Method to add a review to a specific restaurant
+     * @param request Object representing the request made
+     * @param response Object representing the response that will be sent to
+     * the client
+     * @return Send to the restaurant page
+     * @throws IOException
+     * @throws ServletException
+     */
+    public String addReview(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        
+        // Get the user and popolate a Review bean
+        User tmpUser = (User) request.getSession(false).getAttribute("user");
+        Review tmp = new Review();
+        tmp.setRestaurantId(request.getParameter("idRestaurant"));
+        tmp.setRegisteredUserId(tmpUser.getId());
+        tmp.setRating(request.getParameter("rating"));
+        tmp.setDescription(request.getParameter("reviewText"));
+        
+        tmp.validate();
+        
+        try {
+          if (tmp.isValid()) {
+            
+            // Insert the review and the notice
+            ReviewNotice tmpNotice = new ReviewNotice();
+            int reviewId = ((ReviewDAO)request.getServletContext().getAttribute("reviewdao")).insertReview(tmp);
+            tmpNotice.setRegisteredUserId(tmpUser.getId());
+            tmpNotice.setReviewId(reviewId);
+            ((NoticeDAO) request.getServletContext().getAttribute("noticedao")).insertReviewNotice(tmpNotice);
+            
+            request.setAttribute("review", tmp);
+          } else {
+            request.setAttribute("review", tmp);
+          }
+        } catch (SQLException ex) {
+            Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, ex);
+            response.sendError(500);
+            return "";
+        }
+      return "/restaurants/review";
     }
 }
