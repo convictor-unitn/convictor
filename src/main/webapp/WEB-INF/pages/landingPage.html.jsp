@@ -49,11 +49,11 @@
                
                     <div class="ui mobile only row">
                         <div class="column">
-                            <form class="ui stark basic segment" method="POST" action="${pageContext.request.contextPath}/restaurants/index" >                           
+                            <form class="ui black basic segment" method="POST" action="${pageContext.request.contextPath}/restaurants/index" >                           
                                 <div class="ui fluid input">
                                     <input placeholder="Cerca.." type="text" name="name">                            
                                 </div>                        
-                                <button class="ui stark submit fluid button" type=submit>Cerca</button>
+                                <button class="ui black submit fluid button" type=submit>Cerca</button>
                             </form>
                         </div>
                     </div>
