@@ -17,14 +17,33 @@ and open the template in the editor.
 }
 
 #p_button {
-    background-color: #ffbf66;
+    background-color: #eac57f;
 }
 
-#bg_cream {
-    background-color: #ffffcc;
+#brown {
+    color: #4f3e3e;
+}
+
+#br_brown {
+    background-color: #4f3e3e;
 }
 
 /*#s_text{
     background-color:rgba(256,256,256,0.6)
 }*/
 
+.text {
+    color: #4f3e3e;
+}
+
+.ui.basic.black.buttons .button,
+.ui.basic.black.button {
+  box-shadow: 0px 0px 0px 1px #4f3e3e inset !important;
+  color: #4f3e3e !important;
+}
+
+.ui.inverted.menu {
+  border: 0px solid transparent;
+  background: #4f3e3e;
+  box-shadow: none;
+}

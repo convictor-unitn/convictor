@@ -32,7 +32,7 @@
 <l:main>
 	
 	<jsp:attribute name="title">Accedi</jsp:attribute>
-	<jsp:attribute name="bodyBackground">#ffffcc</jsp:attribute>
+	<jsp:attribute name="bodyBackground">#ffffff</jsp:attribute>
 	<jsp:attribute name="body">
             <div class="ui container">
 

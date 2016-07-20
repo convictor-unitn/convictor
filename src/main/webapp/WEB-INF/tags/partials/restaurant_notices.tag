@@ -36,6 +36,7 @@
                   <div class="ui buttons">
 
                       <div class="ui basic black button">
+<<<<<<< Updated upstream
                         <c:if test="${actualPage-1 < 0}">
                             <a href="?${requestURLFilters}&noticePage=0"> 
                                 <i class="left arrow icon"></i>
@@ -54,6 +55,7 @@
                             </a>
                         </div>
                       <div class="ui basic label" id="bg_cream">
+
 
                         2,048
                       </div>
