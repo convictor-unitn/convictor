@@ -32,25 +32,32 @@
                   <div class="column">
                     <div class="ui segment">
                       <div class="ui header">Inserisci una recensione</div>
-                      <div class="ui large center rating" data-rating="1" data-max-rating="5"></div>
+                      <div id="rating-selector" class="ui large center rating" data-rating="1" data-max-rating="5"></div>
                       <div class="ui center comment">
-                        <form class="ui small reply form" method="POST" action="${pageContext.servletContext.contextPath}/restaurants/addReview">
-                          <input type="hidden" name="idRestaurant" value="${bean.restaurantId}"/>
-                          <div class="field">
-                            <textarea name="reviewText"></textarea>
-                          </div>
-                          <div class="ui basic submit labeled icon button">
-                            <input class="ui button" type="submit" value="Recensisci" class="icon edit">
-                          </div>
-                        </form>
-                      </div>
+                          <form class="ui small reply form" method="POST" action="${pageContext.servletContext.contextPath}/restaurants/addReview">
+                            <input type="hidden" name="idRestaurant" value="${bean.restaurantId}"/>
+                            <input type="hidden" id="ratingFormHidden" name="rating" value="" />
+                            <div class="field">
+                              <textarea name="reviewText"></textarea>
+                            </div>
+                            <div class="ui basic submit labeled icon button">
+                              <input class="ui button" type="submit" onclick="setInputValue()" value="Recensisci" class="icon edit">
+                            </div>
+                          </form>
+                        </div>
                     </div>
                   </div>
                 </div>
               </div>
         </c:otherwise>
       </c:choose>
-      
+      <script type="text/javascript">
+          // Use to load the rating inside the form
+          function setInputValue() {
+            var val = document.getElementById("rating-selector").getElementsByClassName("icon active").length;
+            document.getElementById("ratingFormHidden").setAttribute('value', val);
+          }
+      </script>
       
     </jsp:attribute>
 </l:main>

@@ -269,15 +269,16 @@
                     <c:choose>    
                       <c:when test="${!empty sessionScope.user}">
                         <div class="ui header">Write a review</div>
-                        <div class="ui large center rating" data-rating="1" data-max-rating="5"></div>
+                        <div id="rating-selector" class="ui large center rating" data-rating="1" data-max-rating="5"></div>
                         <div class="ui center comment">
                           <form class="ui small reply form" method="POST" action="${pageContext.servletContext.contextPath}/restaurants/addReview">
                             <input type="hidden" name="idRestaurant" value="${restaurant.id}"/>
+                            <input type="hidden" id="ratingFormHidden" name="rating" value="" />
                             <div class="field">
                               <textarea name="reviewText"></textarea>
                             </div>
                             <div class="ui basic submit labeled icon button">
-                              <input class="ui button" type="submit" value="Recensisci" class="icon edit">
+                              <input class="ui button" type="submit" onclick="setInputValue()" value="Recensisci" class="icon edit">
                             </div>
                           </form>
                         </div>
@@ -420,6 +421,13 @@
 
             }
 
+        </script>
+        <script type="text/javascript">
+          // Use to load the rating inside the form
+          function setInputValue() {
+            var val = document.getElementById("rating-selector").getElementsByClassName("icon active").length;
+            document.getElementById("ratingFormHidden").setAttribute('value', val);
+          }
         </script>
         <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBbiud33G2KsodO5JvP-5HQzoSTuWiI0a8&callback=initMap" type="text/javascript"></script>
 

@@ -656,8 +656,7 @@ public class RestaurantsController extends AbstractController {
         Review tmp = new Review();
         tmp.setRestaurantId(request.getParameter("idRestaurant"));
         tmp.setRegisteredUserId(tmpUser.getId());
-        //tmp.setRating(request.getParameter("rating"));
-        tmp.setRating(2); /*ONLY FOR DEBUG PURPOSE*/
+        tmp.setRating(request.getParameter("rating"));
         tmp.setDescription(request.getParameter("reviewText"));
         
         tmp.validate();
