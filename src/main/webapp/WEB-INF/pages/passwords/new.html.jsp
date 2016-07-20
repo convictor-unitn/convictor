@@ -35,7 +35,7 @@
 							<input type="password" name="passwordConfirmation" placeholder="Conferma password">
 						  </div>
 						</div>
-						<input id="p_button" class="ui fluid large submit button" type="submit" />
+						<input id="p_button" class="ui fluid large submit button" type="submit" value="Cambia passowrd" />
 						</br>
 						<a href="javascript:history.back()" class="ui fluid submit button">Annulla</a>
 					</div>
