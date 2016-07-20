@@ -39,7 +39,7 @@
                          <form class="ui very padded black basic segment" style="color: #4f3e3e;" method="POST" action="${pageContext.request.contextPath}/restaurants/index" >   
                         <div class="ui mysegment">
                           <div class="ui medium fluid action input">
-                            <input placeholder="Cerca.." type="text" name="name">
+                            <input placeholder="Cerca.." type="text" name="name" style="color: #4f3e3e;">
                             <button class="ui black submit button" type=submit>Cerca</button>
                           </div>
                         </div>
