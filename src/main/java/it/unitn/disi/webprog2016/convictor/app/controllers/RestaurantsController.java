@@ -672,17 +672,15 @@ public class RestaurantsController extends AbstractController {
             tmpNotice.setReviewId(reviewId);
             ((NoticeDAO) request.getServletContext().getAttribute("noticedao")).insertReviewNotice(tmpNotice);
             
-            response.sendRedirect(request.getContextPath()+"/restaurants/show?id="+tmp.getRestaurantId());
-            return "";
+            request.setAttribute("review", tmp);
           } else {
             request.setAttribute("review", tmp);
-            return "/restaurants/review";
           }
         } catch (SQLException ex) {
             Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, ex);
             response.sendError(500);
             return "";
         }
-        
+      return "/restaurants/review";
     }
 }
