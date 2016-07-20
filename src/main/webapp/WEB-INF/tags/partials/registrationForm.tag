@@ -45,13 +45,13 @@
 		<div  align="left">
 			<div class="ui slider checkbox">
 				<input type="checkbox" name="privacy" value="checked" ${bean.privacy} />
-				<label>Accettazione privacy</label>
+				<label>Accetto le condizioni d'uso di servizio</label>
 			</div>
 		</div>
 			
 		</br>
 		
-		<input id="p_button" class="ui fluid large submit button" type="submit"></input>
+		<input id="p_button" class="ui fluid large submit button" type="submit" value="Registrati" />
 		
 		</br>
 		
