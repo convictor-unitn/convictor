@@ -176,13 +176,13 @@ public class User extends AbstractBean {
         // * One numeric digit
         if (this.getPassword().equals("")) {
             status = false;
-            this.setError("password", "La password deve avere dai 6 ai 10 caratteri e deve includere almeno una lettera maiuscola, una lettera minuscola, e un numero");
+            this.setError("password", "La password deve avere almeno 6 caratteri e deve includere almeno una lettera maiuscola, una lettera minuscola, e un numero");
         } else {
             pattern = Pattern.compile(PASSWORD_PATTERN);
             matcher = pattern.matcher(this.getPassword());
             if (!matcher.matches()) {
                 status = false;
-                this.setError("password", "La password deve avere dai 6 ai 10 caratteri e deve includere almeno una lettera maiuscola, una lettera minuscola, e un numero");
+                this.setError("password", "La password deve avere almeno 6 caratteri e deve includere almeno una lettera maiuscola, una lettera minuscola, e un numero");
             }
         }
 		
