@@ -664,13 +664,13 @@ public class RestaurantsController extends AbstractController {
         try {
           if (tmp.isValid()) {
             
-            // Insert the review and the notice
+            // Insert the review, the notice and update the restaurant rating
             ReviewNotice tmpNotice = new ReviewNotice();
             int reviewId = ((ReviewDAO)request.getServletContext().getAttribute("reviewdao")).insertReview(tmp);
             tmpNotice.setRegisteredUserId(tmpUser.getId());
             tmpNotice.setReviewId(reviewId);
             ((NoticeDAO) request.getServletContext().getAttribute("noticedao")).insertReviewNotice(tmpNotice);
-            
+            ((RestaurantDAO) request.getServletContext().getAttribute("restaurantdao")).computeRating(tmp.getRestaurantId());
             request.setAttribute("review", tmp);
           } else {
             request.setAttribute("review", tmp);

@@ -472,7 +472,7 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
       // Compute the total rating
       int numerator =0; int denominator=0;
       for (int i = 0; i < 5; i++) {
-        numerator += counterRatings[i]*i;
+        numerator += counterRatings[i]*(i+1);
         denominator += counterRatings[i];
       }
       
