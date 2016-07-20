@@ -19,7 +19,7 @@
 <l:main>
 	
 	<jsp:attribute name="title">Accedi</jsp:attribute>
-	
+	<jsp:attribute name="bodyBackground">#ffffcc</jsp:attribute>
 	<jsp:attribute name="body">
             <div class="ui container">
 
@@ -30,13 +30,13 @@
                 </br>
 
                 <div class="text"> Nome: </div> 
-                <div class="ui segment"> ${bean.name} </div>
+                <div class="ui segment" id="bg_cream"> ${bean.name} </div>
                 <div class="text"> Cognome: </div> 
-                <div class="ui segment"> ${bean.surname} </div>
-                <div class="text"> Email: </div> 
-                <div class="ui segment"> ${bean.email} </div>
+                <div class="ui segment"  id="bg_cream"> ${bean.surname} </div>
+                <div class="text" > Email: </div> 
+                <div class="ui segment"  id="bg_cream"> ${bean.email} </div>
                 </br>
-                <a href="${pageContext.request.contextPath}/userProfile/edit" class="fluid basic black ui button">Modifica le informazioni del profilo</a>
+                <a href="${pageContext.request.contextPath}/userProfile/edit" class="fluid ui button" id="p_button">Modifica le informazioni del profilo</a>
             </div>
             <div class="ui divider"></div>
             

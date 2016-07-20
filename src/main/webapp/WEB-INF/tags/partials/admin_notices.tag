@@ -14,20 +14,20 @@
           <div class="row">
               <div class="column">
                   <div class="ui buttons">
-                      <div class="ui button">
+                      <div class="ui basic black button">
                           <i class="left arrow icon"></i>
                       </div>
                   </div>
-                  <div class="ui button">                      
+                  <div class="ui basic black button">                      
                         <i class="right arrow icon"></i>                      
                   </div>
-                      <div class="ui basic label">
+                      <div class="ui basic label"  id="bg_cream">
                         2,048
                   </div>
               </div>  
           </div>        
             <div class="column">
-              <div class="ui segment feed">
+              <div class="ui segment feed"  id="bg_cream">
                 <div class="event">
                   <div class="content">
                     <div class="date">

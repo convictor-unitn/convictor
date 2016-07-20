@@ -20,6 +20,11 @@ and open the template in the editor.
     background-color: #ffbf66;
 }
 
-#s_text{
-    background-color:rgba(256,256,256,0.6)
+#bg_cream {
+    background-color: #ffffcc;
 }
+
+/*#s_text{
+    background-color:rgba(256,256,256,0.6)
+}*/
+

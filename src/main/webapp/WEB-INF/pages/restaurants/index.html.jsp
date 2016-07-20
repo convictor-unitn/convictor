@@ -13,7 +13,7 @@
 <c:set var="query" scope="request" value="${requestScope.queryString}" />
 
 <l:main>
-	
+	<jsp:attribute name="bodyBackground">#ffffcc</jsp:attribute>
 	<jsp:attribute name="title">Lista risultati</jsp:attribute>
 	
 	<jsp:attribute name="body">

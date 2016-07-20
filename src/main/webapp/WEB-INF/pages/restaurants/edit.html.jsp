@@ -14,7 +14,7 @@
 <c:set var="bean" scope="request" value="${requestScope.restaurant}" />
 
 <l:main>
-	
+	<jsp:attribute name="bodyBackground">#ffffcc</jsp:attribute>
 	<jsp:attribute name="title">Modifica Ristorante</jsp:attribute>
 	
 	<jsp:attribute name="body">
