@@ -19,8 +19,8 @@ import java.util.List;
  */
 public interface NoticeDAO {
     
-    List<Notice> getAdministratorNotices(int id) throws SQLException;
-    List<Notice> getRestaurantOwnerNotices(int id) throws SQLException;
+    List<Notice> getAdministratorNotices(int id, int offset) throws SQLException;
+    List<Notice> getRestaurantOwnerNotices(int id, int offset) throws SQLException;
     
     void insertPhotoNotice(PhotoNotice notice) throws SQLException;
     void insertPhotoRemovalNotice(PhotoRemovalNotice notice)throws SQLException;
