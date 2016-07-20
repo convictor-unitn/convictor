@@ -40,7 +40,7 @@
                             <div class="field">
                               <textarea name="reviewText"></textarea>
                             </div>
-                            <div class="ui basic submit labeled icon button">
+                            <div class="ui basic submit button">
                               <input class="ui button" type="submit" onclick="setInputValue()" value="Recensisci" class="icon edit">
                             </div>
                           </form>
