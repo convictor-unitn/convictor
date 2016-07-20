@@ -35,8 +35,8 @@
               <div class="column">
                   <div class="ui buttons">
 
-                      <div class="ui basic black button">
-<<<<<<< Updated upstream
+                      <div class="ui basic stark button">
+
                         <c:if test="${actualPage-1 < 0}">
                             <a href="?${requestURLFilters}&noticePage=0"> 
                                 <i class="left arrow icon"></i>
@@ -49,13 +49,12 @@
                             </c:if>   
                             </div>
                         </div>
-                        <div class="ui basic black button">
+                        <div class="ui basic stark button">
                             <a href="?${requestURLFilters}&noticePage=${requestScope.nextPagination}"> 
                                 <i class="right arrow icon"></i>
                             </a>
                         </div>
                       <div class="ui basic label" id="bg_cream">
-
 
                         2,048
                       </div>
@@ -74,7 +73,7 @@
                     </div>
                     <div class="extra">
                       <div class="ui right floated buttons">
-                        <button class="ui basic black button">Visualizza</button>
+                        <button class="ui basic stark button">Visualizza</button>
                       </div>
                     </div>
                   </div>
@@ -91,7 +90,7 @@
                     </div>
                     <div class="extra">
                       <div class="ui right floated buttons">
-                        <button class="ui basic black button">Visualizza</button>
+                        <button class="ui basic stark button">Visualizza</button>
                       </div>
                     </div>
                   </div>
