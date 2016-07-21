@@ -162,8 +162,8 @@
               <div class="ui basic label">
                 Apertura
               </div>
-                <input type="text" name="open_at_${optime.dayString}" placeholder="Ora" value="${openAtHour}">
-                <input type="text" name="openH" placeholder="Minuti" value="${openAtMinute}">
+                <input type="text" name="open_at_${optime.dayString}_hour" placeholder="Ora" value="${openAtHour}">
+                <input type="text" name="open_at_${optime.dayString}_minute" placeholder="Minuti" value="${openAtMinute}">
             </div>
           </div>
 
@@ -173,8 +173,8 @@
               <div class="ui basic label">
                 Chiusura
               </div>
-              <input type="text" name="close_at_${optime.dayString}" placeholder="Ora" value="${closeAtHour}">
-              <input type="text" name="closeM" placeholder="Minuti" value="${closeAtMinute}">
+              <input type="text" name="close_at_${optime.dayString}_hour" placeholder="Ora" value="${closeAtHour}">
+              <input type="text" name="close_at_${optime.dayString}_minute" placeholder="Minuti" value="${closeAtMinute}">
             </div>
           </div>
         </div>
@@ -186,8 +186,8 @@
               <div class="ui basic label">
                 Apertura
               </div>
-				<input type="text" name="open_at_afternoon_${optime.dayString}" placeholder="Ora" value="${openAtAfternoonHour}">
-				<input type="text" name="openH" placeholder="Minuti" value="${openAtAfternoonMinute}">
+				<input type="text" name="open_at_afternoon_${optime.dayString}_hour" placeholder="Ora" value="${openAtAfternoonHour}">
+				<input type="text" name="open_at_afternoon_${optime.dayString}_minute" placeholder="Minuti" value="${openAtAfternoonMinute}">
             </div>
           </div>
 
@@ -197,8 +197,8 @@
               <div class="ui basic label">
                 Chiusura
               </div>
-              <input type="text" name="close_at_afternoon_${optime.dayString}" placeholder="Ora" ${closeAtAfternoonHour}>
-              <input type="text" name="closeM" placeholder="Minuti" value="${closeAtAfternoonMinute}">
+              <input type="text" name="close_at_afternoon_${optime.dayString}_hour" placeholder="Ora" ${closeAtAfternoonHour}>
+              <input type="text" name="close_at_afternoon_${optime.dayString}_minute" placeholder="Minuti" value="${closeAtAfternoonMinute}">
             </div>
           </div>
         </div>

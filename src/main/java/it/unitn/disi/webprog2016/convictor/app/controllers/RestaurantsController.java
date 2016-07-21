@@ -382,20 +382,40 @@ public class RestaurantsController extends AbstractController {
             if (request.getParameter("dayoff_"+day) != null) {
                 tmpTime.setDayoff(true);
             } else {
-                if (!"".equals(request.getParameter("open_at_"+day)) &&
-                    !"".equals(request.getParameter("close_at_"+day)) &&  
-                    !"".equals(request.getParameter("open_at_afternoon_"+day)) &&
-                    !"".equals(request.getParameter("close_at_afternoon_"+day)) 
+                if (!"".equals(request.getParameter("open_at_"+day+"_hour")) &&
+                    !"".equals(request.getParameter("close_at_"+day+"_hour")) &&  
+                    !"".equals(request.getParameter("open_at_afternoon_"+day+"_hour")) &&
+                    !"".equals(request.getParameter("close_at_afternoon_"+day+"_hour")) &&
+					!"".equals(request.getParameter("open_at_"+day+"_minute")) &&
+                    !"".equals(request.getParameter("close_at_"+day+"_minute")) &&  
+                    !"".equals(request.getParameter("open_at_afternoon_"+day+"_minute")) &&
+                    !"".equals(request.getParameter("close_at_afternoon_"+day+"_minute"))
                     ) {
-                    Logger.getLogger("TEST").log(Level.SEVERE,request.getParameter("close_at_afternoon_"+day));
-                    tmpTime.setOpenAt(request.getParameter("open_at_"+day));
-                    tmpTime.setCloseAt(request.getParameter("close_at_"+day));
-                    tmpTime.setOpenAtAfternoon(request.getParameter("open_at_afternoon_"+day));
-                    tmpTime.setCloseAtAfternoon(request.getParameter("close_at_afternoon_"+day));
-                    tmpTime.setDayoff(false);
-                    if (tmpTime.validate()) {
+                    
+					// Set the time correctly inside the bean
+					tmpTime.setOpenAt(
+							request.getParameter("open_at_"+day+"_hour")+
+							":"+request.getParameter("open_at_"+day+"_minute")
+					);
+                    tmpTime.setCloseAt(
+							request.getParameter("close_at_"+day+"_hour")+
+							":"+request.getParameter("close_at_"+day+"_minute")
+					);
+                    tmpTime.setOpenAtAfternoon(
+							request.getParameter("open_at_afternoon_"+day+"_hour")+
+							":"+request.getParameter("open_at_afternoon_"+day+"_minute")
+					);
+                    tmpTime.setCloseAtAfternoon(
+							request.getParameter("close_at_afternoon_"+day+"_hour")+
+							":"+request.getParameter("close_at_afternoon_"+day+"_minute")
+					);
+                    
+					tmpTime.setDayoff(false);
+                    
+					if (tmpTime.validate()) {
                         listTime.add(tmpTime);
                     }
+					
                 }
             }         
         }
@@ -556,19 +576,40 @@ public class RestaurantsController extends AbstractController {
             if (request.getParameter("dayoff_"+day) != null) {
                 tmpTime.setDayoff(true);
             } else {
-                if (!"".equals(request.getParameter("open_at_"+day)) &&
-                    !"".equals(request.getParameter("close_at_"+day)) &&  
-                    !"".equals(request.getParameter("open_at_afternoon_"+day)) &&
-                    !"".equals(request.getParameter("close_at_afternoon_"+day)) 
+                if (!"".equals(request.getParameter("open_at_"+day+"_hour")) &&
+                    !"".equals(request.getParameter("close_at_"+day+"_hour")) &&  
+                    !"".equals(request.getParameter("open_at_afternoon_"+day+"_hour")) &&
+                    !"".equals(request.getParameter("close_at_afternoon_"+day+"_hour")) &&
+					!"".equals(request.getParameter("open_at_"+day+"_minute")) &&
+                    !"".equals(request.getParameter("close_at_"+day+"_minute")) &&  
+                    !"".equals(request.getParameter("open_at_afternoon_"+day+"_minute")) &&
+                    !"".equals(request.getParameter("close_at_afternoon_"+day+"_minute"))
                     ) {
-                    tmpTime.setOpenAt(request.getParameter("open_at_"+day));
-                    tmpTime.setCloseAt(request.getParameter("close_at_"+day));
-                    tmpTime.setOpenAtAfternoon(request.getParameter("open_at_afternoon_"+day));
-                    tmpTime.setCloseAtAfternoon(request.getParameter("close_at_afternoon_"+day));
-                    tmpTime.setDayoff(false);
-                    if (tmpTime.validate()) {
+                    
+					// Set the time correctly inside the bean
+					tmpTime.setOpenAt(
+							request.getParameter("open_at_"+day+"_hour")+
+							":"+request.getParameter("open_at_"+day+"_minute")
+					);
+                    tmpTime.setCloseAt(
+							request.getParameter("close_at_"+day+"_hour")+
+							":"+request.getParameter("close_at_"+day+"_minute")
+					);
+                    tmpTime.setOpenAtAfternoon(
+							request.getParameter("open_at_afternoon_"+day+"_hour")+
+							":"+request.getParameter("open_at_afternoon_"+day+"_minute")
+					);
+                    tmpTime.setCloseAtAfternoon(
+							request.getParameter("close_at_afternoon_"+day+"_hour")+
+							":"+request.getParameter("close_at_afternoon_"+day+"_minute")
+					);
+                    
+					tmpTime.setDayoff(false);
+                    
+					if (tmpTime.validate()) {
                         listTime.add(tmpTime);
                     }
+					
                 }
             }         
         }
