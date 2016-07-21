@@ -61,7 +61,13 @@ public class PasswordsController extends AbstractController  {
 				status = "failure";
 			} else {
 				status = "success";
-				String uri = request.getScheme() + "://" +   // "http" + "://
+				String uri, scheme;
+				if(request.isSecure()) {
+					scheme = "https";
+				} else {
+					scheme = "http";
+				}
+				uri = scheme + "://" +   // "http" + "://
 				request.getServerName() +       // "myhost"
 				":" +                           // ":"
 				request.getServerPort() +       // "8080"
