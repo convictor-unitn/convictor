@@ -27,7 +27,7 @@
             <link rel="stylesheet" type="text/css" href="${context}/css/forms.css" media="all" />
             <link rel="stylesheet" type="text/css" href="${context}/css/mainStyle.css" media="all" />
             <link rel="stylesheet" type="text/css" href="${context}/css/main.css" media="all" />            
-            <link rel="icon" href="${context}/images/favicon.ico" />
+            <link rel="icon" href="${context}/images/favicon.ico" /> 
 
 
 

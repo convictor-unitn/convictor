@@ -82,6 +82,15 @@
     color: #4f3e3e;
 }
 
+.ui.big.images .image,
+.ui.big.images img,
+.ui.big.images svg,
+.ui.big.image {
+  width: 525px;
+  height: auto;
+  font-size: 1.28571429rem;
+}
+
 #p_button {
     background-color: #eac57f;
 }

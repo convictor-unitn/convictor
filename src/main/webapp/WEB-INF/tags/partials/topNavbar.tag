@@ -25,7 +25,7 @@
       <!-- Left -->
       <!-- Logo  -->
       <a href="${pageContext.request.contextPath}/" class="brand item">
-        <img class="ui avatar image" src="${pageContext.servletContext.contextPath}/images/logo.png">
+        <img class="ui avatar image" src="${pageContext.servletContext.contextPath}/images/logo_menu.png">
         <span>Convictor</span>
       </a>
 
@@ -103,7 +103,7 @@
       <!-- Anonymous User -->
       <div class="right item">
          
-        <a class="ui basic button inverted" href="${pageContext.request.contextPath}/sign_in">Accedi</a>
+        <a class="ui basic button inverted" style="margin-right: 3%" href="${pageContext.request.contextPath}/sign_in">Accedi</a>
       <!--</div>
       <div class="item">-->
         <a class="ui basic button inverted " href="${pageContext.request.contextPath}/sign_up">Registrati</a>
@@ -121,7 +121,7 @@
       <!-- Left -->
       <!-- Logo  -->
       <a href="${pageContext.request.contextPath}/" class="brand item">
-        <img class="logo" src="${pageContext.request.contextPath}/images/logo.png">
+        <img class="logo" src="${pageContext.request.contextPath}/images/logo_menu.png">
       </a>
 
       <!-- Center -->
