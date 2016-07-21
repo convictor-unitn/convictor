@@ -21,6 +21,7 @@ public interface UserDAO {
 	User getUserByResetToken(String resetToken) throws SQLException;
 	
     void updateUser(User user) throws SQLException;
+	void updateUserPassword(User user) throws Exception;
     void insertUser(User user) throws SQLException;
 	
     User authenticate(String email, String password) throws SQLException;
