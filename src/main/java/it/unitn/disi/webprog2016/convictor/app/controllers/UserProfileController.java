@@ -139,6 +139,8 @@ public class UserProfileController extends AbstractController {
 			
 			// Cerco l'utente nel db
 			user = userDAO.getUserById(((User) request.getSession().getAttribute("user")).getId());
+			// Current email
+			String oldEmail = user.getEmail();
 			
 			if( user == null ) {
 				response.sendError(401);
@@ -155,6 +157,16 @@ public class UserProfileController extends AbstractController {
 				user.getErrors().remove("passwordConfirmation");
 				
 				if(user.isValid()) {
+					
+					// Check if the user has inserted an existing email
+					User testEmail = userDAO.getUserByEmail(user.getEmail());
+					if (testEmail != null) {
+						if (!oldEmail.equals(user.getEmail())) {
+							user.setError("email", "La mail inserita è già presente");
+							return "/userProfile/edit";
+						}
+					}
+					
 					userDAO.updateUser(user);
 					request.getSession().removeAttribute("user");
 					request.getSession().setAttribute("user", user);
@@ -174,6 +186,16 @@ public class UserProfileController extends AbstractController {
 				user.setPasswordConfirmation(passwordConfirmation);
 				
 				if(user.isValid()) {
+					
+					// Check if the user has inserted an existing email
+					User testEmail = userDAO.getUserByEmail(user.getEmail());
+					if (testEmail != null) {
+						if (!oldEmail.equals(user.getEmail())) {
+							user.setError("email", "La mail inserita è già presente");
+							return "/userProfile/edit";
+						}
+					}
+					
 					userDAO.updateUser(user);
 					userDAO.updateUserPassword(user);
 					request.getSession().removeAttribute("user");
