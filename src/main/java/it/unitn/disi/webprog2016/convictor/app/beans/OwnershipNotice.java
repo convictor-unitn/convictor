@@ -12,23 +12,22 @@ import it.unitn.disi.webprog2016.convictor.framework.beans.AbstractBean;
  */
 public class OwnershipNotice extends AbstractBean implements Notice, Approvable {
     
-    private Integer registeredUserId;
-    private Integer restaurantId;
+    private int registeredUserId;
+    private int restaurantId;
 	private boolean approved;
 	private User registeredUser;
-	private Photo photo;
 
     /**
      * @return the registeredUserId
      */
-    public Integer getRegisteredUserId() {
+    public int getRegisteredUserId() {
         return registeredUserId;
     }
 
     /**
      * @param registeredUserId the registeredUserId to set
      */
-    public void setRegisteredUserId(Integer registeredUserId) {
+    public void setRegisteredUserId(int registeredUserId) {
         this.registeredUserId = registeredUserId;
     }
     
@@ -37,20 +36,25 @@ public class OwnershipNotice extends AbstractBean implements Notice, Approvable 
      * @param registeredUserId the registeredUserId to set
      */
     public void setRegisteredUserId(String registeredUserId) {
-        this.registeredUserId = Integer.parseInt(registeredUserId);
+        try {
+            this.registeredUserId = Integer.parseInt(registeredUserId);
+        } catch (Exception e) {
+            this.setRegisteredUserId(-1);
+            this.setError("user_id", "L'id utente inserito non è valido");
+        }
     }
 
     /**
      * @return the restaurantId
      */
-    public Integer getRestaurantId() {
+    public int getRestaurantId() {
         return restaurantId;
     }
 
     /**
      * @param restaurantId the restaurantId to set
      */
-    public void setRestaurantId(Integer restaurantId) {
+    public void setRestaurantId(int restaurantId) {
         this.restaurantId = restaurantId;
     }
     
@@ -59,8 +63,21 @@ public class OwnershipNotice extends AbstractBean implements Notice, Approvable 
      * @param restaurantId the restaurantId to set
      */
     public void setRestaurantId(String restaurantId) {
-        this.restaurantId = Integer.parseInt(restaurantId);
+        try {
+            this.setRestaurantId(Integer.parseInt(restaurantId));
+        } catch (Exception e) {
+            this.setError("restaurant_id", "L'id del ristorante non è valido");
+            this.setRestaurantId(-1);
+        }
     }
+    
+    public User getRegisteredUser() {
+		return registeredUser;
+	}
+
+	public void setRegisteredUser(User registeredUser) {
+		this.registeredUser = registeredUser;
+	}
 
 	public boolean isApproved() {
 		return approved;
@@ -70,10 +87,18 @@ public class OwnershipNotice extends AbstractBean implements Notice, Approvable 
 		this.approved = approved;
 	}
 	
+    /**
+     * Return the viewable message representing this notice.
+     * @return A string message
+     */
 	@Override
 	public String getDescription() {
-		return "DA IMPLEMENTARE";
-	}
+		String userName = registeredUser.getName() + " " + registeredUser.getSurname();
+        String userProfile = "<a href=\"/userProfile/show?id="+ registeredUserId + "\">"+userName+"</a>";
+        String restaurantProfile ="<a href=\"/restaurants/show?id="+restaurantId + "\">"+restaurantId+"</a>";
+        String message = userProfile + " ha richiesto l'assegnazione del ristorante " + restaurantProfile;
+        return message;
+    }
 
 	@Override
 	public String getNoticeType() {
@@ -100,30 +125,15 @@ public class OwnershipNotice extends AbstractBean implements Notice, Approvable 
         boolean status=true;
         if (this.getRegisteredUserId() <= 0) {
             status = false;
-            this.setError("user_id","The user_id is equal or less than zero");
+            this.setError("user_id","L'id utente è minore o uguale a zero");
         }
         if (this.getRestaurantId() <= 0) {
             status = false;
-            this.setError("restaurant_id","The restaurant_id is equal or less than zero");
+            this.setError("restaurant_id","L'id del ristorante è minore o uguale a zero");
         }
         return status;
     }
 
-	public User getRegisteredUser() {
-		return registeredUser;
-	}
-
-	public void setRegisteredUser(User registeredUser) {
-		this.registeredUser = registeredUser;
-	}
-
-	public Photo getPhoto() {
-		return photo;
-	}
-
-	public void setPhoto(Photo photo) {
-		this.photo = photo;
-	}
-    
+	
     
 }

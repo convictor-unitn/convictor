@@ -5,17 +5,17 @@
  */
 package it.unitn.disi.webprog2016.convictor.app.dao.interfaces;
 
-import it.unitn.disi.webprog2016.convictor.app.beans.Review;
+import it.unitn.disi.webprog2016.convictor.app.beans.Photo;
 import java.sql.SQLException;
 import java.util.List;
 
 /**
- * Review DAO.
- * @author Giovanni De Toni
+ *
+ * @author umberto
  */
-public interface ReviewDAO {
-    
-    List<Review> getRestaurantReviews(int restaurant_id, int offset) throws SQLException;
-    int insertReview(Review review) throws SQLException;
-    
+public interface PhotoDAO {
+	
+	List<Photo> getRestaurantPhotos(int restaurant_id) throws SQLException; 
+	void insertPhoto(Photo photo) throws SQLException;
+	
 }

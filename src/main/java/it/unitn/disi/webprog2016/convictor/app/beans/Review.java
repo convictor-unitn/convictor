@@ -37,7 +37,12 @@ public class Review extends AbstractBean {
      * @param registeredUserId the registeredUserId to set
      */
     public void setRegisteredUserId(String registeredUserId) {
-        this.registeredUserId = Integer.parseInt(registeredUserId);
+        try {
+            this.registeredUserId = Integer.parseInt(registeredUserId);
+        } catch (Exception e) {
+            this.setRegisteredUserId(-1);
+            this.setError("user_id", "L'id utente non è valido");
+        }
     }
 
     /**
@@ -59,7 +64,13 @@ public class Review extends AbstractBean {
      * @param restaurantId the restaurantId to set
      */
     public void setRestaurantId(String restaurantId) {
-        this.restaurantId = Integer.parseInt(restaurantId);
+        try {
+            this.restaurantId = Integer.parseInt(restaurantId);
+        } catch (Exception e) {
+            this.setRegisteredUserId(-1);
+            this.setError("restaurant_id", "L'id del ristorante non è valido");
+        }
+        
     }
     
 
@@ -96,7 +107,12 @@ public class Review extends AbstractBean {
      * @param rating the rating to set
      */
     public void setRating(String rating) {
-        this.rating = Integer.parseInt(rating);
+        try {
+           this.rating = Integer.parseInt(rating); 
+        } catch (Exception e) {
+            this.setRating(-1);
+            this.setError("rating", "Il rating non è un valore valido");
+        }
     }
     
     
@@ -113,19 +129,19 @@ public class Review extends AbstractBean {
         boolean status = true;
         if (this.getDescription().equals("")) {
             status = false;
-            this.setError("description", "The description is not valid.");
+            this.setError("description", "La descrizione non è valida");
         }
         if (this.getRating() < 1 || this.getRating() > 5) {
             status = false;
-            this.setError("rating", "The rating is not inside the valid range!");
+            this.setError("rating", "Il rating inserito non è compreso tra i valori corretti");
         }
         if (this.getRegisteredUserId() <= 0) {
             status = false;
-            this.setError("user_id", "The user_id is equal or less than zero");
+            this.setError("user_id", "L'id utente è minore o uguale a zero");
         }
         if (this.getRestaurantId() <= 0) {
             status = false;
-            this.setError("restaurant_id", "The restaurant_id is equal or less than zero");
+            this.setError("restaurant_id", "Il restaurant_id è minore o uguale a zero");
         }
         return status;
     }

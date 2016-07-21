@@ -168,7 +168,12 @@ public class Restaurant extends AbstractBean {
      * @param slotPrice 
      */
     public void setSlotPrice(String slotPrice) {
-        this.slotPrice = Integer.parseInt(slotPrice);
+        try {
+            this.slotPrice = Integer.parseInt(slotPrice);
+        } catch (Exception e) {
+            this.setSlotPrice(-1);
+            this.setError("slotPrice", "Non è stata scelta la fascia di prezzo");
+        }
     } 
 
     /**
@@ -194,7 +199,8 @@ public class Restaurant extends AbstractBean {
 			this.rating = Integer.parseInt(rating);
 		}
 		catch(NumberFormatException e) {
-			this.rating = 0;
+			this.rating = -1;
+            this.setError("slotPrice", "Lo slot price non è valido");
 		}
         
     }
@@ -219,7 +225,12 @@ public class Restaurant extends AbstractBean {
      * @param mainPhotoId the mainPhotoId to set
      */
     public void setMainPhotoId(String mainPhotoId) {
-        this.mainPhotoId = Integer.parseInt(mainPhotoId);
+        try {
+            this.setMainPhotoId(Integer.parseInt(mainPhotoId));
+        } catch (Exception e) {
+            this.setMainPhotoId(-1);
+            this.setError("photo_id", "L'id della foto principale non è valido");
+        }
     }
 
     /**
@@ -241,7 +252,12 @@ public class Restaurant extends AbstractBean {
      * @param restaurantOwnerId the restaurantOwnerId to set
      */
     public void setRestaurantOwnerId(String restaurantOwnerId) {
-        this.restaurantOwnerId = Integer.parseInt(restaurantOwnerId);
+        try {
+            this.setRestaurantOwnerId(Integer.parseInt(restaurantOwnerId));
+        } catch (Exception e) {
+            this.setRestaurantOwnerId(-1);
+            this.setError("restaurant_owner_id", "L'id del proprietario non è valido");
+        }
     }
     
     
@@ -280,56 +296,57 @@ public class Restaurant extends AbstractBean {
         
         if (this.getName().equals("")) {
             status=false;
-            this.setError("name", "The name is not valid!");
+            this.setError("name", "Il nome del ristorante non è valido");
         }
         
         if (this.getDescription().equals("")) {
             status = false;
-            this.setError("description", "The description is not valid!");
+            this.setError("description", "La descrizione del ristorante non è valida");
         }
         
         if (this.getStreet().equals("")) {
             status = false;
-            this.setError("street", "The street is not valid!");
+            this.setError("street", "La via inserita non è valida");
         }
         
         if (this.getCity().equals("")) {
             status = false;
-            this.setError("city", "The city is not valid!");
+            this.setError("city", "La città inserita non è valida");
         }
         
         if (this.getZipCode().equals("")) {
             status = false;
-            this.setError("zip", "The zip is not valid!");
+            this.setError("zip", "Il codice postale inserito non è valido");
         }
         
         if (this.getProvince().equals("")) {
             status = false;
-            this.setError("province", "The province is not valid!");
+            this.setError("province", "La provincia inserita non è valida");
         } 
         
         if (this.getSlotPrice() == 0) {
-            setSlotPrice(3);
+            status = false;
+            this.setError("slotPrice", "La fascia di prezzo selezionata non è valida");
         }
         
         if (this.getEmail().equals("")) {
             status = false;
-            this.setError("email", "The email is not valid!");
+            this.setError("email", "L'email inserita non è valida");
         }
         
         if (this.getPhone().equals("")) {
             status = false;
-            this.setError("phone", "The phone number is not valid!");
+            this.setError("phone", "Il numero di telefono inserito non è valido");
         }
         
         if (this.getCusine().isEmpty()) {
             status = false;
-            this.setError("cusines", "You didn't choose any cusines!");
+            this.setError("cusines", "Non sono state scelte le tipologie di cucina");
         }
         
-        if (this.getOpeningTimes().isEmpty()) {
+        if (this.getOpeningTimes().isEmpty() && this.getOpeningTimes().size() < 7) {
             status = false;
-            this.setError("openingTimes", "You didn't choose any opening times!");
+            this.setError("openingTimes", "Non sono stati inseriti gli orari del ristorante");
         }
         
         return status;

@@ -1,11 +1,13 @@
-/*
+    /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 package it.unitn.disi.webprog2016.convictor.app.dao.implementation;
 
+import it.unitn.disi.webprog2016.convictor.app.beans.Photo;
 import it.unitn.disi.webprog2016.convictor.app.beans.Restaurant;
+import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.PhotoDAO;
 import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.RestaurantDAO;
 import it.unitn.disi.webprog2016.convictor.framework.dao.DatabaseDAO;
 import it.unitn.disi.webprog2016.convictor.framework.utils.DatabaseConnectionManager;
@@ -14,7 +16,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -23,6 +24,9 @@ import java.util.List;
  */
 public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
 
+    // Max number of query result
+    private int MAX_RESULTS = 10;
+    
     public RestaurantDAOImpl(DatabaseConnectionManager c) {
         super(c);
     }
@@ -64,12 +68,9 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
     }
 
     @Override
-    public int updateRestaurant(Restaurant restaurant) throws SQLException {
-        
-        // Check if restaurant is valid
-        if (!restaurant.validate()) return -1;   
+    public int updateRestaurant(Restaurant restaurant, int id) throws SQLException {
          
-        String query = "UPDATE restaurants  SET name=?, description=?, street=?, city=?, zip_code=?, province=?, full_address=?, website=?, slot_price=? , phone=?, email=?   WHERE id=?";
+        String query = "UPDATE restaurants  SET name=?, description=?, street=?, city=?, zip_code=?, province=?, full_address=?, website=?, slot_price=? , phone=?, email=? WHERE id=?";
         PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
         try {
             stm.setString(1, restaurant.getName());
@@ -81,14 +82,14 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
             stm.setString(7, restaurant.getStreet() + restaurant.getCity() + restaurant.getZipCode() + restaurant.getProvince());
             stm.setString(8, restaurant.getWebsite());
             stm.setInt(9, restaurant.getSlotPrice());
-            stm.setInt(10, restaurant.getId());
-            stm.setString(11, restaurant.getPhone());
-            stm.setString(12, restaurant.getEmail());
-            stm.execute();
+            stm.setString(10, restaurant.getPhone());
+            stm.setString(11, restaurant.getEmail());
+            stm.setInt(12, id);
+            stm.executeUpdate();
         } finally {
             stm.close();
         }
-        return restaurant.getId();
+        return id;
     }
 
     @Override
@@ -166,35 +167,10 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
         return tmp;
     }
 
-    @Override
-    public HashMap<Integer, List<Restaurant>> getRestaurantByString(String pattern, int offset) throws SQLException {
-        
-        HashMap<Integer, List<Restaurant>> result = new HashMap<>();
+    private List<Restaurant> getRestaurantDefault(PreparedStatement stm) throws SQLException {
         List<Restaurant> listResult = new ArrayList<>();
-        Integer counter = 0;
-        String fullTextPattern = pattern.replace(" ", "&");
-        String count ="SELECT COUNT(*) FROM restaurants WHERE tsv @@ tsquery(?) OR searchable ILIKE '%?%';";
-        String query ="SELECT * FROM restaurants WHERE tsv @@ tsquery(?) OR searchable ILIKE '%?%' LIMIT 10 OFFSET ?";
-        PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(count);
-        PreparedStatement stm2 = this.getDbManager().getConnection().prepareStatement(query);
         try {
-            // Obtain the number of record
-            stm.setString(1, fullTextPattern);
-            stm.setString(2, fullTextPattern);
-            ResultSet countSet = stm.executeQuery();
-            try {
-                while(countSet.next()) {
-                    counter = countSet.getInt("count");
-                }
-            } finally {
-                countSet.close();
-            }
-            
-            // Obtain the restaurant paginated 
-            stm2.setString(1, fullTextPattern);
-            stm2.setString(2, fullTextPattern);
-            stm2.setInt(3, counter);
-            ResultSet restaurantSet = stm2.executeQuery();
+            ResultSet restaurantSet = stm.executeQuery();
             try {
                 while(restaurantSet.next()) {
                     Restaurant tmp = new Restaurant();
@@ -213,18 +189,313 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
                     tmp.setRestaurantOwnerId(restaurantSet.getInt("restaurant_owner_id"));
                     tmp.setEmail(restaurantSet.getString("email"));
                     tmp.setPhone(restaurantSet.getString("phone"));
-                    listResult.add(tmp);   
+                    listResult.add(tmp);
                 }
             } finally {
                 restaurantSet.close();
-            }
-            result.put(counter, listResult);
-                
-        } finally {
-            stm.close();
-            stm2.close();
-        }
-        return result;
+            }            
+        } catch (SQLException e) {
+            throw new SQLException(e);
+        }     
+        return listResult;
     }
     
+    @Override
+    public List<Restaurant> getRestaurantByString(String pattern, int offset) throws SQLException {
+        
+        List<Restaurant> listResult = new ArrayList<>();
+        String fullTextPattern = pattern.replace(" ", "&");
+        //int counter=0;
+        
+        // Deleted from these query single quote char. They cause errors when 
+        // stm.setString is called. PreparedStatement should add single quote 
+        // automatically.
+        //String count ="SELECT COUNT(*) FROM restaurants WHERE tsv @@ tsquery(?) OR searchable ILIKE ?";
+        String query ="SELECT * FROM restaurants WHERE tsv @@ tsquery(?) OR searchable ILIKE ? ORDER BY rating LIMIT ? OFFSET ?";
+        
+        //PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(count);
+        PreparedStatement stm2 = this.getDbManager().getConnection().prepareStatement(query);
+        try {
+           /* // Obtain the number of record
+            stm.setString(1, fullTextPattern);
+            
+            // The ILIKE has to be set like this because PreparedStatement
+            // doesn't like %?% this pattern. Therefore, we must concatenate
+            // % at the beginning and at the end of the fullTextPattern.
+            stm.setString(2, "%"+fullTextPattern+"%");
+            
+            ResultSet countSet = stm.executeQuery();
+            try {
+                while(countSet.next()) {
+                    counter = countSet.getInt("count");
+                }
+            } finally {
+                countSet.close();
+            }
+            
+            */
+            
+            // Obtain the restaurant paginated 
+            stm2.setString(1, fullTextPattern);
+            stm2.setString(2, "%"+fullTextPattern+"%");
+            stm2.setInt(3, MAX_RESULTS);
+            stm2.setInt(4, offset*MAX_RESULTS);
+            
+            listResult = this.getRestaurantDefault(stm2);
+            
+        } finally {
+            stm2.close();
+        }
+        return listResult;
+    }
+
+    @Override
+    public List<Restaurant> getRestaurantByStringOrderByName(String pattern, int offset) throws SQLException {
+        List<Restaurant> listResult = new ArrayList<>();
+        String fullTextPattern = pattern.replace(" ", "&");
+        
+        String query ="SELECT * FROM restaurants WHERE tsv @@ tsquery(?) OR searchable ILIKE ? ORDER BY name LIMIT ? OFFSET ? ";
+        
+        PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
+        try {
+            
+            // Obtain the restaurant paginated 
+            stm.setString(1, fullTextPattern);
+            stm.setString(2, "%"+fullTextPattern+"%");
+            stm.setInt(3, MAX_RESULTS);
+            stm.setInt(4, offset*MAX_RESULTS);
+            
+            
+            System.err.println(stm.toString());
+            
+            listResult = this.getRestaurantDefault(stm);
+            
+        } finally {
+            stm.close();
+        }
+        return listResult;
+    }
+
+    @Override
+    public List<Restaurant> getRestauranyByStringOrderByPrice(String pattern, int offset, int type) throws SQLException {
+        List<Restaurant> listResult = new ArrayList<>();
+        String fullTextPattern = pattern.replace(" ", "&");
+        
+        String queryASC ="SELECT * FROM restaurants WHERE tsv @@ tsquery(?) OR searchable ILIKE ? ORDER BY slot_price ASC LIMIT 10 OFFSET ? ";
+        String queryDESC ="SELECT * FROM restaurants WHERE tsv @@ tsquery(?) OR searchable ILIKE ? ORDER BY slot_price DESC LIMIT 10 OFFSET ?";
+        
+        PreparedStatement stm;
+        if (type == 0) {
+            stm = this.getDbManager().getConnection().prepareStatement(queryDESC);
+        } else {
+            stm = this.getDbManager().getConnection().prepareStatement(queryASC);
+        }       
+        
+        try {
+            
+            // Obtain the restaurant paginated 
+            stm.setString(1, fullTextPattern);
+            stm.setString(2, "%"+fullTextPattern+"%");
+            stm.setInt(3, MAX_RESULTS);
+            stm.setInt(3, offset*MAX_RESULTS);
+            
+            listResult = this.getRestaurantDefault(stm);
+            
+        } finally {
+            stm.close();
+        }
+        return listResult;
+    }
+
+    @Override
+    public List<Restaurant> getRestaurantByString(String pattern, int offset, List<String> cusines) throws SQLException {
+        List<Restaurant> listResult = new ArrayList<>();
+        String fullTextPattern = pattern.replace(" ", "&");
+        
+        // Set how many cusine fields we want to filter on
+        String params = "";
+        boolean setAND = false;
+        for (String c : cusines) {
+            if (!setAND) {
+                setAND = true;
+                params += " AND ";
+                params += "cusines_restaurants.cusine_id = ? ";
+            } else {
+                params += "OR cusines_restaurants.cusine_id = ? ";
+            }
+        }
+        
+        // Set up everything inside the query. This should be safe because
+        // the string concatenated are fixed and cannot be modified.
+        String query ="SELECT * FROM restaurants INNER JOIN cusines_restaurants ON restaurants.id = restaurant_id WHERE tsv @@ tsquery(?) OR searchable ILIKE ? "+
+                params
+                +"ORDER BY restaurants.rating LIMIT ? OFFSET ? ";
+        
+        PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
+        try {
+            
+            // Obtain the restaurant paginated 
+            stm.setString(1, fullTextPattern);
+            stm.setString(2, "%"+fullTextPattern+"%");
+            int counter = 1;
+            for (String c : cusines) {
+                stm.setInt(2+counter, Integer.valueOf(c));
+                counter++;
+            }
+            stm.setInt(2+counter, MAX_RESULTS);
+            stm.setInt(3+counter, offset*MAX_RESULTS);
+            
+            listResult = this.getRestaurantDefault(stm);
+            
+        } finally {
+            stm.close();
+        }
+        return listResult;
+    }
+
+    @Override
+    public List<Restaurant> getRestaurantByStringOrderByName(String pattern, int offset, List<String> cusines) throws SQLException {
+         List<Restaurant> listResult = new ArrayList<>();
+        String fullTextPattern = pattern.replace(" ", "&");
+        
+        // Set how many cusine fields we want to filter on
+        String params = "";
+        boolean setAND = false;
+        for (String c : cusines) {
+            if (!setAND) {
+                setAND = true;
+                params += " AND ";
+                params += "cusines_restaurants.cusine_id = ? ";
+            } else {
+                params += "OR cusines_restaurants.cusine_id = ? ";
+            }
+        }
+        
+        // Set up everything inside the query. This should be safe because
+        // the string concatenated are fixed and cannot be modified.
+        String query ="SELECT * FROM restaurants INNER JOIN cusines_restaurants ON restaurants.id = restaurant_id WHERE tsv @@ tsquery(?) OR searchable ILIKE ? "+
+                params
+                +"ORDER BY restaurants.name LIMIT ? OFFSET ? ";
+        
+        PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
+        try {
+            
+            // Obtain the restaurant paginated 
+            stm.setString(1, fullTextPattern);
+            stm.setString(2, "%"+fullTextPattern+"%");
+            int counter = 1;
+            for (String c : cusines) {
+                stm.setInt(2+counter, Integer.valueOf(c));
+                counter++;
+            }
+            stm.setInt(2+counter, MAX_RESULTS);
+            stm.setInt(3+counter, offset*MAX_RESULTS);
+            
+            listResult = this.getRestaurantDefault(stm);
+            
+        } finally {
+            stm.close();
+        }
+        return listResult;
+    }
+
+    @Override
+    public List<Restaurant> getRestauranyByStringOrderByPrice(String pattern, int offset, int type, List<String> cusines) throws SQLException {
+        List<Restaurant> listResult = new ArrayList<>();
+        String fullTextPattern = pattern.replace(" ", "&");
+        
+        // Set how many cusine fields we want to filter on
+        String params = "";
+        boolean setAND = false;
+        for (String c : cusines) {
+            if (!setAND) {
+                setAND = true;
+                params += " AND ";
+                params += "cusines_restaurants.cusine_id = ? ";
+            } else {
+                params += "OR cusines_restaurants.cusine_id = ? ";
+            }
+        }
+        
+        // Set up everything inside the query. This should be safe because
+        // the string concatenated are fixed and cannot be modified.
+        String queryDESC ="SELECT * FROM restaurants INNER JOIN cusines_restaurants ON restaurants.id = restaurant_id WHERE tsv @@ tsquery(?) OR searchable ILIKE ? "+
+                params
+                +"ORDER BY restaurants.slot_price DESC LIMIT ? OFFSET ? ";
+        String queryASC ="SELECT * FROM restaurants INNER JOIN cusines_restaurants ON restaurants.id = restaurant_id WHERE tsv @@ tsquery(?) OR searchable ILIKE ? "+
+                params
+                +"ORDER BY restaurants.slot_price ASC LIMIT ? OFFSET ? ";
+        
+        PreparedStatement stm;
+        if (type == 0) {
+            stm = this.getDbManager().getConnection().prepareStatement(queryDESC);
+        } else {
+            stm = this.getDbManager().getConnection().prepareStatement(queryASC);
+        }
+        
+        try {
+            
+            // Obtain the restaurant paginated 
+            stm.setString(1, fullTextPattern);
+            stm.setString(2, "%"+fullTextPattern+"%");
+            int counter = 1;
+            for (String c : cusines) {
+                stm.setInt(2+counter, Integer.valueOf(c));
+                counter++;
+            }
+            stm.setInt(2+counter, MAX_RESULTS);
+            stm.setInt(3+counter, offset*MAX_RESULTS);
+            
+            listResult = this.getRestaurantDefault(stm);
+            
+        } finally {
+            stm.close();
+        }
+        return listResult;
+    }
+
+	@Override
+	public void insertPhoto(Photo photo) throws SQLException {
+		PhotoDAO photoDao = new PhotoDAOImpl(this.getDbManager());
+		photoDao.insertPhoto(photo);
+	}
+
+  @Override
+  public void computeRating(int restaurant_id) throws SQLException {
+    String query ="SELECT rating, count(*) FROM reviews WHERE restaurant_id= ? GROUP BY rating";
+    String update = "UPDATE restaurants SET rating=? WHERE id=?";
+    PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
+    PreparedStatement stm2 = this.getDbManager().getConnection().prepareStatement(update);
+    int [] counterRatings = new int[5];
+    for (int i=0; i<5; i++) counterRatings[i]=0;
+    try { 
+      stm.setInt(1, restaurant_id);
+      ResultSet ratings = stm.executeQuery();
+      try {
+        while(ratings.next()) {
+          counterRatings[ratings.getInt("rating")-1] = ratings.getInt("count"); 
+        }
+      } finally {
+        ratings.close();
+      }
+      
+      // Compute the total rating
+      int numerator =0; int denominator=0;
+      for (int i = 0; i < 5; i++) {
+        numerator += counterRatings[i]*(i+1);
+        denominator += counterRatings[i];
+      }
+      
+      // Set the rating
+      stm2.setInt(1, numerator/denominator);
+      stm2.setInt(2, restaurant_id);
+      stm2.executeUpdate();
+          
+    } finally {
+      stm.close();
+    }
+  }
+    
+	
+	
 }

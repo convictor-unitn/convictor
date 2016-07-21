@@ -101,12 +101,16 @@
                   <c:choose>    
                       <c:when test="${!empty bean.id && bean.id != 0}">
                           <!--finds which cusines belongs to restaurant already-->
+                          <c:set var="alreadyChosen" value="false" />
                             <c:forEach var="restCusine" items="${bean.cusine}">
                                 <c:if test="${cusine.id == restCusine.id}">
                                     <option  value="${cusine.id}" selected>${cusine.name}</option>
-                                </c:if>                                    
+                                    <c:set var="alreadyChosen" value="true" />
+                                </c:if>
                             </c:forEach>
-                            <option  value="${cusine.id}" >${cusine.name}</option>
+                            <c:if test="${alreadyChosen != 'true' }">
+                                <option  value="${cusine.id}" >${cusine.name}</option>
+                            </c:if>
                       </c:when>
                     <c:otherwise>
                         <option  value="${cusine.id}" >${cusine.name}</option>
@@ -191,7 +195,7 @@
 
         <!-- Days Opening -->
         <div class="field">
-            <div class="ui checkbox">
+            <div class="ui checkbox mycheckbox">
                 <input type="checkbox" name="dayoff_monday">
                 <label >Seleziona come giorno di chiusura</label>
              </div>
@@ -254,8 +258,8 @@
 
         <!-- Days Opening -->
         <div class="field">
-            <div >
-                <input type="checkbox" name="dayoff_tuesday" class="ui checkbox" >
+            <div class="ui checkbox mycheckbox">
+                <input type="checkbox" name="dayoff_monday">
                 <label >Seleziona come giorno di chiusura</label>
              </div>
         </div>
@@ -314,7 +318,7 @@
 
         <!-- Days Opening -->
         <div class="field">
-          <div class="ui checkbox">
+          <div class="ui checkbox mycheckbox">
                 <input type="checkbox" name="dayoff_wednesday" >
                 <label >Seleziona come giorno di chiusura</label>
              </div>
@@ -374,7 +378,7 @@
 
         <!-- Days Opening -->
         <div class="field">
-          <div class="ui checkbox">
+          <div class="ui checkbox mycheckbox">
                 <input type="checkbox" name="dayoff_thursday" >
                 <label >Seleziona come giorno di chiusura</label>
              </div>
@@ -434,7 +438,7 @@
 
         <!-- Days Opening -->
         <div class="field">
-          <div class="ui checkbox">
+          <div class="ui checkbox mycheckbox">
                 <input type="checkbox" name="dayoff_friday"  >
                 <label >Seleziona come giorno di chiusura</label>
              </div>
@@ -494,7 +498,7 @@
 
         <!-- Days Opening -->
         <div class="field">
-          <div class="ui checkbox">
+          <div class="ui checkbox mycheckbox">
                 <input type="checkbox" name="dayoff_saturday"  >
                 <label >Seleziona come giorno di chiusura</label>
              </div>
@@ -554,7 +558,7 @@
 
         <!-- Days Opening -->
         <div class="field">
-          <div class="ui checkbox">
+          <div class="ui checkbox mycheckbox">
                 <input type="checkbox" name="dayoff_sunday" >
                 <label >Seleziona come giorno di chiusura</label>
              </div>

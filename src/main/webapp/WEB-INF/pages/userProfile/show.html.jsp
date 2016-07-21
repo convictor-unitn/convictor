@@ -13,6 +13,19 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="l" tagdir="/WEB-INF/tags/layouts/" %>
 <%@taglib prefix="partials" tagdir="/WEB-INF/tags/partials/" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
+<%-- These JSTL tag are used to set correctly the pagination URL request --%>
+<c:set var="nextPagination" scope="request" value="${requestScope.nextPagination}" />
+<c:set var="requestURL" scope="request" value="${requestScope['javax.servlet.forward.query_string']}" />
+<c:if test="${empty param.noticePage}">
+  <c:set var="requestURLFilters" scope="request" value="${requestURL}" />
+  <c:set var="actualPage" scope="request" value="0" />  
+</c:if>
+<c:if test="${!empty param.noticePage}">
+  <c:set var="requestURLFilters" scope="request" value="${fn:substringBefore(requestURL, '&noticePage')}" />  
+  <c:set var="actualPage" scope="request" value="${param.noticePage}" />
+</c:if>
 
 <c:set var="bean" scope="request" value="${requestScope.user}" />
 
@@ -23,6 +36,8 @@
 	<jsp:attribute name="body">
             <div class="ui container">
 
+                </br>
+                
                 <div class="text"> <h2> Il mio profilo </h2> </div>
 
                 </br>

@@ -8,6 +8,7 @@
 
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<<<<<<< HEAD
     <c:if test="${empty bean.id || bean.id == 0}">
         <c:set var="url" value="${pageContext.servletContext.contextPath}/registrations/create" />
     </c:if>
