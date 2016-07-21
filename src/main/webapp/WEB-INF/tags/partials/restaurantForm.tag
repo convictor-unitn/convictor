@@ -148,7 +148,7 @@
         <!-- Opening Hours -->
         <label>Informazioni Orari</label>
         <div class="ui divider"></div>
-
+		<partials:formerrors field="openingTimes"/>
         <div class="ui segment">
             <div class="field">
                 <div class="ui small label">
