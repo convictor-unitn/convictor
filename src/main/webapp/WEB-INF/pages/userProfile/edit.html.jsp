@@ -18,7 +18,7 @@
 <l:main>
 	
 	<jsp:attribute name="title">Reimposta Profilo Utente</jsp:attribute>
-	<jsp:attribute name="bodyBackground">#eaeaea</jsp:attribute>
+	<jsp:attribute name="bodyBackground">#ffdfe9</jsp:attribute>
 	<jsp:attribute name="body">
             <div class="ui middle aligned center aligned grid">
                 <div class="column myform">

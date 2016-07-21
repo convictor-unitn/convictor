@@ -64,10 +64,10 @@
         <div class="stretched column">
           <div class="row">
             <div class="ui small statistic">
-              <div class="value" style="color: #ff6395;">
+              <div class="value" id="brown">
                 5
               </div>
-              <div class="label" style="color: #ff6395;">
+              <div class="label" id="brown">
                 Posizione in Lombardia
               </div>
             </div>
@@ -87,7 +87,7 @@
                         </div>
                 </c:forEach>
               </div>
-              <div class="label" style="color: #ff6395;">
+              <div class="label" id="brown">
                 Valutazione media
               </div>
           </div>
@@ -190,10 +190,10 @@
         <div class="row">
           <div class="column">
             <div class="ui four item tabular menu">
-              <a class="item active" data-tab="recensioni" style="color: #ff6395;">Recensioni</a>
-              <a class="item " data-tab="mappa" style="color: #ff6395;">Mappa</a>
-              <a class="item" data-tab="reclama" style="color: #ff6395;">Reclama</a>
-              <a class="item" data-tab="addimage" style="color: #ff6395;">Carica Immagine</a>
+              <a class="item active" data-tab="recensioni" id="brown">Recensioni</a>
+              <a class="item " data-tab="mappa" id="brown">Mappa</a>
+              <a class="item" data-tab="reclama" id="brown">Reclama</a>
+              <a class="item" data-tab="addimage" id="brown">Carica Immagine</a>
             </div>
           </div>
         </div>
@@ -239,9 +239,9 @@
                   <c:forEach var="review" items="${restaurant.reviews}">
                       <div class="comment">
                       <div class="content">
-                          <a class="author" style="color: #ff6395;">${review.registeredUserName}</a>
+                          <a class="author" id="brown"">${review.registeredUserName}</a>
                           <div class="metadata">
-                              <div class="date" style="color: #ff6395;">2 days ago</div>
+                              <div class="date" id="brown"">2 days ago</div>
                               <div class="rating">
                                   <div class="ui horizontal list">
                                       <c:forEach var="i" begin="0" end="${review.rating}" step="1">
@@ -259,7 +259,7 @@
                                   </div>                                    
                               </div>
                           </div>
-                      <div class="text" style="color: #ff6395;">
+                      <div class="text" id="brown">
                         ${review.description}
                       </div>
                       <div class="actions">

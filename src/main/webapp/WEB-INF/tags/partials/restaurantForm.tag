@@ -68,17 +68,17 @@
                               <c:choose>
                                   <c:when test="${slotprice.slot == bean.slotPrice}">
                                       <input type="radio" name="priceslotselected" checked="checked" value="${slotprice.slot}">
-                                      <label style="color: #ff6395;">${slotprice.name}</label>
+                                      <label id="brown">${slotprice.name}</label>
                                   </c:when>
                                   <c:otherwise>
                                       <input type="radio" name="priceslotselected" value="${slotprice.slot}">
-                                      <label style="color: #ff6395;">${slotprice.name}</label>
+                                      <label id="brown">${slotprice.name}</label>
                                   </c:otherwise>
                               </c:choose>                                                                                
                           </c:when>
                         <c:otherwise>
                             <input type="radio" name="priceslotselected" value="${slotprice.slot}">
-                            <label style="color: #ff6395;">${slotprice.name}</label>
+                            <label id="brown">${slotprice.name}</label>
                         </c:otherwise>
                       </c:choose> 
                          </div>
@@ -195,7 +195,7 @@
         <div class="field">
             <div class="ui checkbox mycheckbox">
                 <input type="checkbox" name="dayoff_monday">
-                <label style="color: #ff6395;">Seleziona come giorno di chiusura</label>
+                <label id="brown">Seleziona come giorno di chiusura</label>
              </div>
         </div>
         </div>
@@ -258,7 +258,7 @@
         <div class="field">
             <div class="ui checkbox mycheckbox">
                 <input type="checkbox" name="dayoff_monday">
-                <label style="color: #ff6395;">Seleziona come giorno di chiusura</label>
+                <label id="brown">Seleziona come giorno di chiusura</label>
              </div>
         </div>
         </div>
@@ -318,7 +318,7 @@
         <div class="field">
           <div class="ui checkbox mycheckbox">
                 <input type="checkbox" name="dayoff_wednesday" >
-                <label style="color: #ff6395;">Seleziona come giorno di chiusura</label>
+                <label id="brown">Seleziona come giorno di chiusura</label>
              </div>
         </div>
         </div>
@@ -378,7 +378,7 @@
         <div class="field">
           <div class="ui checkbox mycheckbox">
                 <input type="checkbox" name="dayoff_thursday" >
-                <label style="color: #ff6395;">Seleziona come giorno di chiusura</label>
+                <label id="brown">Seleziona come giorno di chiusura</label>
              </div>
         </div>
         </div>
@@ -438,7 +438,7 @@
         <div class="field">
           <div class="ui checkbox mycheckbox">
                 <input type="checkbox" name="dayoff_friday"  >
-                <label style="color: #ff6395;">Seleziona come giorno di chiusura</label>
+                <label id="brown">Seleziona come giorno di chiusura</label>
              </div>
         </div>
         </div>
@@ -498,7 +498,7 @@
         <div class="field">
           <div class="ui checkbox mycheckbox">
                 <input type="checkbox" name="dayoff_saturday"  >
-                <label style="color: #ff6395;">Seleziona come giorno di chiusura</label>
+                <label id="brown">Seleziona come giorno di chiusura</label>
              </div>
         </div>
         </div>
@@ -558,7 +558,7 @@
         <div class="field">
           <div class="ui checkbox mycheckbox">
                 <input type="checkbox" name="dayoff_sunday" >
-                <label style="color: #ff6395;">Seleziona come giorno di chiusura</label>
+                <label id="brown">Seleziona come giorno di chiusura</label>
              </div>
         </div>
         </div>

@@ -11,7 +11,7 @@
 <l:main>
 	
 	<jsp:attribute name="title">Recupero Password</jsp:attribute>
-	<jsp:attribute name="bodyBackground">#eaeaea</jsp:attribute>
+	<jsp:attribute name="bodyBackground">#ffb1ca</jsp:attribute>
 	<jsp:attribute name="body">
 
 		<div class="ui middle aligned center aligned grid">
