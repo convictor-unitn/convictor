@@ -36,10 +36,10 @@
                 <div class="ui grid">
                     <div class="ui computer tablet only row">
                      <div class="ui container">
-                         <form class="ui very padded black basic segment" method="POST" action="${pageContext.request.contextPath}/restaurants/index" >   
+                         <form class="ui very padded black basic segment" method="GET" action="${pageContext.request.contextPath}/restaurants" >   
                         <div class="ui mysegment">
                           <div class="ui medium fluid action input">
-                            <input placeholder="Cerca.." type="text" name="name">
+                            <input placeholder="Cerca.." type="text" name="query">
                             <button class="ui black submit button" type=submit>Cerca</button>
                           </div>
                         </div>
@@ -49,9 +49,9 @@
                
                     <div class="ui mobile only row">
                         <div class="column">
-                            <form class="ui black basic segment" method="POST" action="${pageContext.request.contextPath}/restaurants/index" >                           
+                            <form class="ui black basic segment" method="GET" action="${pageContext.request.contextPath}/restaurants" >                           
                                 <div class="ui fluid input">
-                                    <input placeholder="Cerca.." type="text" name="name">                            
+                                    <input placeholder="Cerca.." type="text" name="query">                            
                                 </div>                        
                                 <button class="ui black submit fluid button" type=submit>Cerca</button>
                             </form>
