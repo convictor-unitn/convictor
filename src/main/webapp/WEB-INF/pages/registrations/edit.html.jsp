@@ -7,7 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="l" tagdir="/WEB-INF/tags/layouts/" %>
-<%@taglib prefix="f" tagdir="/WEB-INF/tags/partials/" %>
+<%@taglib prefix="partials" tagdir="/WEB-INF/tags/partials/" %>
 
 
 <c:set var="bean" value="${requestScope.user}" scope="request" />
@@ -28,21 +28,21 @@
                       
                     <form class="ui large form" method="POST" action="${url}">
                         <div class="ui stacked segment">
-                            <f:formerrors />                            
-                            <f:registrationForm />
+                            <partials:formerrors />                            
+                            <partials:registrationForm />
                             <div class="field">
-                                <div class="field <c:if test="${bean.valid == false and not bean.errors['passwordOld'] == null}" >error</c:if>">
+                                <div class="field <c:if test="${bean.valid == false and !(bean.errors['password'] == null)}" >error</c:if>">
                                     <i class="lock icon"></i>
                                     <input type="password" name="passwordOld" placeholder="Vecchia password">
                                 </div>
                             </div>
-                            <div class="field <c:if test="${bean.valid == false and not bean.errors['passwordNew'] == null}" >error</c:if>">
+                            <div class="field <c:if test="${bean.valid == false and !(bean.errors['password'] == null)}" >error</c:if>">
                                 <div class="ui left icon input">
                                     <i class="lock icon"></i>
                                     <input type="password" name="passwordNew" placeholder="Nuova password">
                                 </div>
                             </div>
-                             <div class="field <c:if test="${bean.valid == false and not bean.errors['passwordConfirmation'] == null}" >error</c:if>">
+                             <div class="field <c:if test="${bean.valid == false and !(bean.errors['password'] == null)}" >error</c:if>">
                                 <div class="ui left icon input">
                                     <i class="lock icon"></i>
                                     <input type="password" name="passwordConfirmation" placeholder="Conferma password">
