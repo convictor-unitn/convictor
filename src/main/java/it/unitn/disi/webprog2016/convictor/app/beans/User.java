@@ -9,6 +9,7 @@ import it.unitn.disi.webprog2016.convictor.framework.beans.AbstractBean;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import org.joda.time.DateTime;
 
 /**
  *
@@ -25,6 +26,8 @@ public class User extends AbstractBean {
 	private List<Notice> notices;
 	private List<Review> reviews;
 	private String privacy;
+	private String resetPasswordToken;
+	private DateTime resetPasswordSentAt;
 
 	/**
 	 * @return the email
@@ -61,8 +64,22 @@ public class User extends AbstractBean {
 	public void setPasswordConfirmation(String passwordConfirmation) {
 		this.passwordConfirmation = passwordConfirmation;
 	}
-	
-	
+
+	public String getResetPasswordToken() {
+		return resetPasswordToken;
+	}
+
+	public void setResetPasswordToken(String resetPasswordToken) {
+		this.resetPasswordToken = resetPasswordToken;
+	}
+
+	public DateTime getResetPasswordSentAt() {
+		return resetPasswordSentAt;
+	}
+
+	public void setResetPasswordSentAt(DateTime resetPasswordSentAt) {
+		this.resetPasswordSentAt = resetPasswordSentAt;
+	}
 
 	/**
 	 * @return the name
