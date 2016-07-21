@@ -62,7 +62,7 @@ public class PasswordsController extends AbstractController  {
 			} else {
 				status = "success";
 				String uri, scheme;
-				if(request.isSecure()) {
+				if(System.getenv("DATABASE_URL") != null) {
 					scheme = "https";
 				} else {
 					scheme = "http";
