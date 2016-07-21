@@ -24,7 +24,7 @@
                 <div class="column myform">
                     <h2 class="ui header">
 
-                        <div id="s_text" class="content" id="brown">
+                        <div id="s_text" class="content">
                             Reimpostazione profilo utente
                         </div>
                     </h2>

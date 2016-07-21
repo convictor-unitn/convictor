@@ -19,7 +19,7 @@
         <div class="ui middle aligned center aligned grid">
           <div class="column myform">
             <h2 class="ui header">
-              <div id="s_text" class="content" id="brown">
+              <div id="s_text" class="content">
                 Accedi
               </div>
             </h2>
@@ -50,7 +50,7 @@
               </div>
             </form>
             </br>
-            <div id="s_text" class="ui text">
+            <div class="text">
               Non hai ancora un account? <a href="form_registrazione.html">Registrati</a>
             </div>
           </div>

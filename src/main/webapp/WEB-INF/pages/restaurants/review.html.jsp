@@ -31,18 +31,18 @@
                 <div class="ui center aligned grid">
                   <div class="column">
                     <div class="ui segment">
-                      <div class="ui header" id="brown">Inserisci una recensione</div>
-                      <div id="rating-selector" class="ui large center rating" data-rating="1" data-max-rating="5" id="brown"></div>
+                      <div class="ui header">Inserisci una recensione</div>
+                      <div id="rating-selector" class="ui large center rating" data-rating="1" data-max-rating="5"></div>
                       <div class="ui center comment">
                           <form class="ui small reply form" method="POST" action="${pageContext.servletContext.contextPath}/restaurants/addReview">
                             <input type="hidden" name="idRestaurant" value="${bean.restaurantId}"/>
                             <input type="hidden" id="ratingFormHidden" name="rating" value="" />
                             <div class="field">
-                              <textarea name="reviewText" id="brown"></textarea>
+                              <textarea name="reviewText"></textarea>
                             </div>
-                            <div class="ui basic black submit button">
-                              <input class="ui black button" type="submit" onclick="setInputValue()" value="Recensisci" class="icon edit">
-                            </div>
+                            
+                              <input class="ui black button" type="submit" onclick="setInputValue()" value="Inserisci una recensione" class="icon edit">
+                           
                           </form>
                         </div>
                     </div>

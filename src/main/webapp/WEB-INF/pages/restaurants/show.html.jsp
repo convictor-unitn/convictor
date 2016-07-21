@@ -35,7 +35,7 @@
       <!-- Restaurant's Name -->
       <div class="ui center aligned grid">
         <div class="column">
-          <div class="ui header large" id="brown">
+          <div class="ui header large">
             ${restaurant.name}
           </div>
         </div>
@@ -64,10 +64,10 @@
         <div class="stretched column">
           <div class="row">
             <div class="ui small statistic">
-              <div class="value">
+              <div class="value" style="color: #ff6395;">
                 5
               </div>
-              <div class="label" id="brown">
+              <div class="label" style="color: #ff6395;">
                 Posizione in Lombardia
               </div>
             </div>
@@ -77,7 +77,7 @@
                 <c:forEach var="i" begin="0" end="${restaurant.rating}" step="1">
                     <c:if test="${i!=0}">
                         <div class="item">
-                            <i class="star icon" id="brown"> </i>
+                            <i class="star icon"> </i>
                         </div>
                     </c:if>
                 </c:forEach>
@@ -87,7 +87,7 @@
                         </div>
                 </c:forEach>
               </div>
-              <div class="label" id="brown">
+              <div class="label" style="color: #ff6395;">
                 Valutazione media
               </div>
           </div>
@@ -98,19 +98,19 @@
         <div class="stretched column">
           <div class="ui list">
             <div class="item">
-              <div class="meta" id="brown">
+              <div class="meta">
                 <span>${restaurant.street}</span>
                 <span>${restaurant.zipCode}</span>
                 <span>${restaurant.city}</span>
               </div>
             </div>
-            <div class="item" id="brown">
+            <div class="item">
               <div class="meta">${restaurant.email}</div>
             </div>
-            <div class="item" id="brown">
-              <div class="meta" id="brown">${restaurant.phone}</div>
+            <div class="item">
+              <div class="meta">${restaurant.phone}</div>
             </div>
-            <div class="item" id="brown">
+            <div class="item">
               <div class="meta"><a href="#">${restaurant.website}</a></div>
             </div>
           </div>
@@ -124,13 +124,13 @@
           <div class="column">
             <div clas="ui grid">
               <div class="column">
-                <div class="ui sub header" id="brown">Cucina</div>
+                <div class="ui sub header">Cucina</div>
               </div>
               <div class="ui divider"></div>
               <div class="column">
                 <div class="ui list">
                     <c:forEach var="cusine" items="${restaurant.cusine}">
-                        <div class="item" id="brown">
+                        <div class="item">
                             ${cusine.name}
                         </div>
                     </c:forEach>
@@ -142,11 +142,11 @@
           <div class="column">
             <div clas="ui center aligned grid">
               <div class="column">
-                <div class="ui sub header" id="brown">Fascia di prezzo</div>
+                <div class="ui sub header">Fascia di prezzo</div>
               </div>
               <div class="ui divider"></div>
               <div class="column">
-                <div class="ui list" id="brown">
+                <div class="ui list">
                   ${restaurant.slotPrice}
                 </div>
               </div>
@@ -156,13 +156,13 @@
           <div class="column">
             <div clas="ui  grid">
               <div class="column">
-                <div class="ui sub header" id="brown">Orari di apertura</div>
+                <div class="ui sub header">Orari di apertura</div>
               </div>
               <div class="ui divider"></div>
               <div class="column">
                 <div class="ui list">
                     <c:forEach var="openingTime" items="${restaurant.openingTimes}">
-                        <div class="item" id="brown">
+                        <div class="item">
                             ${openingTime.dayString}
                             <c:if test="${openingTime.dayoff != true}">
                                 <p>${openingTime.openAt}
@@ -190,10 +190,10 @@
         <div class="row">
           <div class="column">
             <div class="ui four item tabular menu">
-              <a class="item active" data-tab="recensioni" id="brown">Recensioni</a>
-              <a class="item " data-tab="mappa" id="brown">Mappa</a>
-              <a class="item" data-tab="reclama" id="brown">Reclama</a>
-              <a class="item" data-tab="addimage" id="brown">Carica Immagine</a>
+              <a class="item active" data-tab="recensioni" style="color: #ff6395;">Recensioni</a>
+              <a class="item " data-tab="mappa" style="color: #ff6395;">Mappa</a>
+              <a class="item" data-tab="reclama" style="color: #ff6395;">Reclama</a>
+              <a class="item" data-tab="addimage" style="color: #ff6395;">Carica Immagine</a>
             </div>
           </div>
         </div>
@@ -209,25 +209,25 @@
             <div class="row">
               <div class="column">
                   <div class="ui buttons">
-                    <div class="ui basic black button" id="brown">
+                    <div class="ui basic black button">
                         <c:if test="${actualPage-1 < 0}">
                             <a href="?${requestURLFilters}&reviewPage=0"> 
-                                <i class="left arrow icon" id="brown"></i>
+                                <i class="left arrow icon"></i>
                             </a>
                         </c:if>
                         <c:if test="${actualPage-1 >= 0}">
                             <a href="?${requestURLFilters}&reviewPage=${actualPage-1}"> 
-                                <i class="left arrow icon" id="brown"></i>
+                                <i class="left arrow icon"></i>
                             </a>
                         </c:if>
                     </div>
                   </div>
                   <div class="ui basic black button">                      
                         <a href="?${requestURLFilters}&reviewPage=${requestScope.nextPagination}"> 
-                            <i class="right arrow icon" id="brown"></i>
+                            <i class="right arrow icon"></i>
                         </a>                      
                   </div>
-                      <div class="ui basic label" id="brown">
+                      <div class="ui basic label">
                         2,048
                   </div>
               </div>  
@@ -239,38 +239,38 @@
                   <c:forEach var="review" items="${restaurant.reviews}">
                       <div class="comment">
                       <div class="content">
-                          <a class="author">${review.registeredUserName}</a>
+                          <a class="author" style="color: #ff6395;">${review.registeredUserName}</a>
                           <div class="metadata">
-                              <div class="date" id="brown">2 days ago</div>
+                              <div class="date" style="color: #ff6395;">2 days ago</div>
                               <div class="rating">
                                   <div class="ui horizontal list">
                                       <c:forEach var="i" begin="0" end="${review.rating}" step="1">
                                       <c:if test="${i!=0}">
                                          <div class="item">
-                                              <i class="star icon" id="brown"> </i>
+                                              <i class="star icon"> </i>
                                           </div>
                                       </c:if>
                                   </c:forEach>
                                   <c:forEach begin="${review.rating}" end="4" step="1">
                                       <div class="item">
-                                          <i class="empty star icon" id="brown"> </i>
+                                          <i class="empty star icon"> </i>
                                       </div>
                                   </c:forEach>
                                   </div>                                    
                               </div>
                           </div>
-                      <div class="text">
+                      <div class="text" style="color: #ff6395;">
                         ${review.description}
                       </div>
                       <div class="actions">
-                        <a class="reply" id="brown">Reply</a>
+                        <a class="reply">Reply</a>
                       </div>                            
                       <form class="ui reply form">
                         <div class="field">
                           <textarea></textarea>
                         </div>
                         <div class="ui basic black submit labeled icon button">
-                          <i class="icon edit" id="brown"></i> Add Reply
+                          <i class="icon edit"></i> Add Reply
                         </div>
                       </form>
                     </div>
@@ -290,23 +290,23 @@
                     <div class="ui segment">
                     <c:choose>    
                       <c:when test="${!empty sessionScope.user}">
-                        <div class="ui header" id="brown">Write a review</div>
+                        <div class="ui header">Write a review</div>
                         <div id="rating-selector" class="ui large center rating" data-rating="1" data-max-rating="5"></div>
                         <div class="ui center comment">
                           <form class="ui small reply form" method="POST" action="${pageContext.servletContext.contextPath}/restaurants/addReview">
                             <input type="hidden" name="idRestaurant" value="${restaurant.id}"/>
                             <input type="hidden" id="ratingFormHidden" name="rating" value="" />
                             <div class="field">
-                              <textarea name="reviewText" id="brown"></textarea>
+                              <textarea name="reviewText"></textarea>
                             </div>
-                            <div class="ui basic black submit button">
+                            <!--<div class="ui basic black submit button">-->
                               <input class="ui black button" type="submit" onclick="setInputValue()" value="Inserisci una recensione" class="icon edit">
-                            </div>
+                            <!--</div>-->
                           </form>
                         </div>
                       </c:when>
                       <c:otherwise>
-                        <div class="ui header" id="brown">
+                        <div class="ui header">
                           <a href="${pageContext.servletContext.contextPath}/sign_in">Accedi</a>
                           per recensire questo ristorante!
                         </div>
@@ -323,7 +323,7 @@
           <!-- Mappa Tab -->
           <div class="ui tab" data-tab="mappa">
             <div class="ui center aligned grid">
-              <div id="map" class="column" id="brown">
+              <div id="map" class="column">
                 Mappa
               </div>
             </div>
@@ -335,9 +335,9 @@
               <div class="column">
                 <div class="ui center aligned grid">
                     <div class="column">
-                        <button class="ui basic black button ownership" id="brown">Reclama Ristorante</button>
+                        <button class="ui basic black button ownership">Reclama Ristorante</button>
                         <div class="ui modal ownership">
-                            <div class="header center" id="brown">
+                            <div class="header center">
                                  Richiesta Reclamo
                             </div>
                             <div class="content">
@@ -352,7 +352,7 @@
                                     <input type="text" name="cf" placeholder="Codice Fiscale">
                                    </div>
                                 <div class="field">
-                                    <div class="ui close basic black button" id="brown">Close</div>
+                                    <div class="ui close basic black button">Close</div>
                                     <input class="ui basic black button" type="submit"/>
                                 </div>
                             </form>
@@ -370,7 +370,7 @@
                   <div class="column">
                       <button class="ui basic black button add_image">Aggiungi Immagine</button>
                       <div class="ui modal add_image_modal">
-                          <div class="header center" id="brown">
+                          <div class="header center">
                                Aggiungi Nuova Immagine
                           </div>
                           <div class="content">
@@ -380,7 +380,7 @@
 									  <input id="fileupload" type="file" name="files" />
 								  </div>
 								  <div class="field actions">
-									  <div class="ui cancel basic black button" id="brown">Close</div>
+									  <div class="ui cancel basic black button">Close</div>
 									  <input class="ui black button" type="submit" value="Upload"/>
 								  </div>
 							  </form>

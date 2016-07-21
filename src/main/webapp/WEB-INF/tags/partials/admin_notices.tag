@@ -18,34 +18,34 @@
                       <div class="ui basic black button">
                         <c:if test="${actualPage-1 < 0}">
                             <a href="?${requestURLFilters}&noticePage=0"> 
-                                <i class="left arrow icon" id="brown"></i>
+                                <i class="left arrow icon"></i>
                             </a>
                             </c:if>
                             <c:if test="${actualPage-1 >= 0}">
                                 <a href="?${requestURLFilters}&noticePage=${actualPage-1}"> 
-                                   <i class="left arrow icon" id="brown"></i>
+                                   <i class="left arrow icon"></i>
                                 </a>
                             </c:if>   
                         </div>
                         <div class="ui basic black button">
                             <a href="?${requestURLFilters}&noticePage=${requestScope.nextPagination}"> 
-                                <i class="right arrow icon" id="brown"></i>
+                                <i class="right arrow icon"></i>
                             </a>
                         </div>
-                      <div class="ui basic label" id="brown">
+                      <div class="ui basic label">
                         2,048
                       </div>
                   </div>
               </div>  
           </div>        
             <div class="column">
-              <div class="ui segment feed" id="brown">
+              <div class="ui segment feed">
                 <div class="event">
                   <div class="content">
                     <div class="date">
                       Ieri
                     </div>
-                    <div class="summary" id="brown">
+                    <div class="summary">
                       <a>Utente</a> ha reclamato <a>Ristorante</a>
                     </div>
                     <div class="extra">

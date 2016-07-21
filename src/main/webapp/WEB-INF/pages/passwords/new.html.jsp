@@ -17,7 +17,7 @@
 		<div class="ui middle aligned center aligned grid">
 			<div class="column myform">
 				<h2 class="ui header">
-					<div id="s_text" class="content" id="brown">
+					<div id="s_text" class="content">
 					  Reimpostazione password
 					</div>
 				</h2>

@@ -11,7 +11,7 @@
     <div class="ui stackable two column equal width center aligned grid">
       <!-- My Restaurants list-->
       <div class="stretched column">
-        <div class="ui segment" id="brown">
+        <div class="ui segment">
           <div class="text"> <h2> I miei ristoranti: </h2> </div>
 
           </br>
@@ -39,23 +39,23 @@
 
                         <c:if test="${actualPage-1 < 0}">
                             <a href="?${requestURLFilters}&noticePage=0"> 
-                                <i class="left arrow icon" id="brown"></i>
+                                <i class="left arrow icon"></i>
                             </a>
            
                         </c:if>
                             <c:if test="${actualPage-1 >= 0}">
                                 <a href="?${requestURLFilters}&noticePage=${actualPage-1}"> 
-                                   <i class="left arrow icon" id="brown"></i>
+                                   <i class="left arrow icon"></i>
                                 </a>
                             </c:if>   
                             </div>
                         </div>
                         <div class="ui basic black button">
                             <a href="?${requestURLFilters}&noticePage=${requestScope.nextPagination}"> 
-                                <i class="right arrow icon" id="brown"></i>
+                                <i class="right arrow icon"></i>
                             </a>
                         </div>
-                      <div class="ui basic label" id="brown">
+                      <div class="ui basic label">
 
                         2,048
                       </div>
@@ -69,7 +69,7 @@
                     <div class="date">
                       Ieri
                     </div>
-                    <div class="summary" id="brown">
+                    <div class="summary">
                       <a>Utente</a> ha recensito <a>Ristorante</a>
                     </div>
                     <div class="extra">
@@ -86,7 +86,7 @@
                     <div class="date">
                       Ieri
                     </div>
-                    <div class="summary" id="brown">
+                    <div class="summary">
                       <a>Utente</a> ha aggiunto una foto a <a>Ristorante</a>
                     </div>
                     <div class="extra">

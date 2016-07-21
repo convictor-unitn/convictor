@@ -25,6 +25,7 @@
             <link rel="stylesheet" type="text/css" href="${context}/css/topNavbar.css" media="all" />
             <link rel="stylesheet" type="text/css" href="${context}/css/landingPage.css" media="all" />
             <link rel="stylesheet" type="text/css" href="${context}/css/forms.css" media="all" />
+            <link rel="stylesheet" type="text/css" href="${context}/css/mainStyle.css" media="all" />
             <link rel="stylesheet" type="text/css" href="${context}/css/main.css" media="all" />            
             <link rel="icon" href="${context}/images/favicon.ico" />
 
@@ -32,7 +33,7 @@
 
             <title>${title}</title>
 	</head>
-	<body style="background: <c:out value="${bodyBackground}" />" >
+	<body style="background: <c:out value="${bodyBackground}" />">
             <partials:topNavbar />
             <jsp:invoke fragment="body" />
             <script type="text/javascript" src="${context}/js/jquery-2.2.4.js"></script>

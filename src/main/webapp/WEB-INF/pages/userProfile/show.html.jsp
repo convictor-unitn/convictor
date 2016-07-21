@@ -43,11 +43,11 @@
                 </br>
 
                 <div class="text"> Nome: </div> 
-                <div class="ui segment" id="brown"> ${bean.name} </div>
+                <div class="ui segment"> ${bean.name} </div>
                 <div class="text"> Cognome: </div> 
-                <div class="ui segment" id="brown"> ${bean.surname} </div>
+                <div class="ui segment"> ${bean.surname} </div>
                 <div class="text" > Email: </div> 
-                <div class="ui segment" id="brown"> ${bean.email} </div>
+                <div class="ui segment"> ${bean.email} </div>
                 </br>
                 <a href="${pageContext.request.contextPath}/userProfile/edit" class="fluid ui button" id="p_button">Modifica le informazioni del profilo</a>
             </div>

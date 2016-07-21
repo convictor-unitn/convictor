@@ -20,7 +20,7 @@
 
       <div class="ui segment">
         <!-- Name Field -->
-        <label id="brown">Informazioni Personali</label>
+        <label>Informazioni Personali</label>
         <div class="ui divider"></div>
         <div class="field">
             <input type="text" name="name" placeholder="Nome" value="${bean.name}" >
@@ -55,7 +55,7 @@
       </div>
           
           <div class="ui segment">
-              <label id="brown">Fascia di Prezzo</label>
+              <label>Fascia di Prezzo</label>
               <div class="ui divider"></div>
               <div class="five fields">                  
                       <c:forEach var="slotprice" items="${allPriceSlot}">
@@ -68,17 +68,17 @@
                               <c:choose>
                                   <c:when test="${slotprice.slot == bean.slotPrice}">
                                       <input type="radio" name="priceslotselected" checked="checked" value="${slotprice.slot}">
-                                      <label>${slotprice.name}</label>
+                                      <label style="color: #ff6395;">${slotprice.name}</label>
                                   </c:when>
                                   <c:otherwise>
                                       <input type="radio" name="priceslotselected" value="${slotprice.slot}">
-                                      <label>${slotprice.name}</label>
+                                      <label style="color: #ff6395;">${slotprice.name}</label>
                                   </c:otherwise>
                               </c:choose>                                                                                
                           </c:when>
                         <c:otherwise>
                             <input type="radio" name="priceslotselected" value="${slotprice.slot}">
-                            <label>${slotprice.name}</label>
+                            <label style="color: #ff6395;">${slotprice.name}</label>
                         </c:otherwise>
                       </c:choose> 
                          </div>
@@ -89,11 +89,11 @@
 
       <!-- Cuisines Field -->
       <div class="ui segment">
-        <label id="brown">Tipologia Piatti</label>
+        <label>Tipologia Piatti</label>
         <div class="ui divider"></div>
         <div class="field">
           <select multiple="" class="ui dropdown" name="cusines">
-              <option value="" id="brown">Seleziona Cucine</option>
+              <option value="">Seleziona Cucine</option>
               <c:forEach var="cusine" items="${allCusines}">
                   <!-- If on edit page -->                  
                   <c:choose>    
@@ -122,7 +122,7 @@
       <!-- Description Field -->
 
       <div class="ui segment">
-        <label id="brown">Descrizione</label>
+        <label>Descrizione</label>
         <div class="ui divider"></div>
         <div class="field">
             <input class="ui textbox" type="text" name="description" rows="2" placeholder="Aggiungi breve descrizione" value="${restaurant.description}"/>
@@ -134,10 +134,10 @@
       <div class="ui segment">
 
         <!-- Opening Hours -->
-        <label id="brown">Informazioni Orari</label>
+        <label>Informazioni Orari</label>
         <div class="ui divider"></div>
 
-        <div class="ui segment" id="brown">
+        <div class="ui segment">
             <div class="field">
                 <div class="ui small label">
                     Lunedi'
@@ -195,12 +195,12 @@
         <div class="field">
             <div class="ui checkbox mycheckbox">
                 <input type="checkbox" name="dayoff_monday">
-                <label >Seleziona come giorno di chiusura</label>
+                <label style="color: #ff6395;">Seleziona come giorno di chiusura</label>
              </div>
         </div>
         </div>
 
-        <div class="ui segment" id="brown">
+        <div class="ui segment">
             <div class="field">
                 <div class="ui small label">
                     Martedi'
@@ -258,11 +258,11 @@
         <div class="field">
             <div class="ui checkbox mycheckbox">
                 <input type="checkbox" name="dayoff_monday">
-                <label >Seleziona come giorno di chiusura</label>
+                <label style="color: #ff6395;">Seleziona come giorno di chiusura</label>
              </div>
         </div>
         </div>
-        <div class="ui segment" id="brown">
+        <div class="ui segment">
             <div class="ui small label">
                     Mercoledi'
                 </div>
@@ -318,11 +318,11 @@
         <div class="field">
           <div class="ui checkbox mycheckbox">
                 <input type="checkbox" name="dayoff_wednesday" >
-                <label >Seleziona come giorno di chiusura</label>
+                <label style="color: #ff6395;">Seleziona come giorno di chiusura</label>
              </div>
         </div>
         </div>
-        <div class="ui segment" id="brown">
+        <div class="ui segment">
             <div class="ui small label">
                     Giovedi'
                 </div>
@@ -378,11 +378,11 @@
         <div class="field">
           <div class="ui checkbox mycheckbox">
                 <input type="checkbox" name="dayoff_thursday" >
-                <label >Seleziona come giorno di chiusura</label>
+                <label style="color: #ff6395;">Seleziona come giorno di chiusura</label>
              </div>
         </div>
         </div>
-        <div class="ui segment" id="brown">
+        <div class="ui segment">
             <div class="ui small label">
                     Venerdi'
                 </div>
@@ -438,11 +438,11 @@
         <div class="field">
           <div class="ui checkbox mycheckbox">
                 <input type="checkbox" name="dayoff_friday"  >
-                <label >Seleziona come giorno di chiusura</label>
+                <label style="color: #ff6395;">Seleziona come giorno di chiusura</label>
              </div>
         </div>
         </div>
-        <div class="ui segment" id="brown">
+        <div class="ui segment">
             <div class="ui small label">
                     Sabato
                 </div>
@@ -498,11 +498,11 @@
         <div class="field">
           <div class="ui checkbox mycheckbox">
                 <input type="checkbox" name="dayoff_saturday"  >
-                <label >Seleziona come giorno di chiusura</label>
+                <label style="color: #ff6395;">Seleziona come giorno di chiusura</label>
              </div>
         </div>
         </div>
-        <div class="ui segment" id="brown">
+        <div class="ui segment">
             <div class="ui small label">
                     Domenica
                 </div>
@@ -558,7 +558,7 @@
         <div class="field">
           <div class="ui checkbox mycheckbox">
                 <input type="checkbox" name="dayoff_sunday" >
-                <label id="brown">Seleziona come giorno di chiusura</label>
+                <label style="color: #ff6395;">Seleziona come giorno di chiusura</label>
              </div>
         </div>
         </div>

@@ -7,63 +7,8 @@ and open the template in the editor.
     Created on : 22-giu-2016, 13.15.58
     Author     : Federica
 */
-
-/*body > .grid {
-    height: 100%;
-}*/
         
 .myform {
     max-width: 450px;
 }
 
-#p_button {
-    background-color: #eac57f;
-}
-
-#brown {
-    color: #4f3e3e;
-}
-
-#br_brown {
-    background-color: #4f3e3e;
-}
-
-/*#s_text{
-    background-color:rgba(256,256,256,0.6)
-}*/
-
-.text {
-    color: #4f3e3e;
-}
-
-.ui.black.buttons .button,
-.ui.black.button {
-  background-color: #4f3e3e;
-  color: #FFFFFF;
-  text-shadow: none;
-  background-image: none;
-}
-
-.ui.basic.black.buttons .button,
-.ui.basic.black.button {
-  box-shadow: 0px 0px 0px 1px #4f3e3e inset !important;
-  color: #4f3e3e !important;
-}
-
-.ui.inverted.menu {
-  border: 0px solid transparent;
-  background: #4f3e3e;
-  box-shadow: none;
-}
-
-.ui.black.segment:not(.inverted) {
-  border-top: 2px solid #4f3e3e;
-}
-
-.ui.black.divider {
-    color: #4f3e3e;
-}
-
-.ui.basic.label {
-    color: #4f3e3e;
-}

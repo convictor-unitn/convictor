@@ -22,7 +22,7 @@
                   <div class="column">
                      
                     <h2 class="ui header">
-                      <div id="s_text" class="content" id="brown">
+                      <div id="s_text" class="content">
                         Aggiungi Ristorante
                       </div>
                     </h2>
