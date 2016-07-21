@@ -26,7 +26,7 @@
 
 
 <l:main>
-	<jsp:attribute name="bodyBackground">#ffffcc</jsp:attribute>
+	<jsp:attribute name="bodyBackground"></jsp:attribute>
 	<jsp:attribute name="title">Lista risultati</jsp:attribute>
 	
 	<jsp:attribute name="body">

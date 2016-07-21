@@ -3,52 +3,52 @@
     Author     : Federica
 */
 .body{
-    color: #ff6395;
+    color: #4f3e3e;
 }
 
 .ui.list{
-    color: #ff6395;
+    color: #4f3e3e;
 }
 
 .ui.header{
-    color: #ff6395;
+    color: #4f3e3e;
 }
 
 .a.author{
-    color: #ff6395;
+    color: #4f3e3e;
 }
 
 .content{
-    color: #ff6395;
+    color: #4f3e3e;
 }
 
 .ui.slider.checkbox{
-    color: #ff6395;
+    color: #4f3e3e;
 }
 
 .arrow.icon{
-    color: #ff6395;
+    color: #4f3e3e;
 }
 
 .ui.segment{
-    color: #ff6395;
+    color: #4f3e3e;
 }
 
 .ui.rating{
-    color: #ff6395;
+    color: #4f3e3e;
 }
 
 .ui.dropdown.item{
-    color: #ff6395;
+    color: #4f3e3e;
 }
 
 .text {
-    color: #ff6395;
+    color: #4f3e3e;
 }
 
 .ui.black.buttons .button,
 .ui.black.button {
-  background-color: #ff6395;
+  background-color: #4f3e3e;
   color: #FFFFFF;
   text-shadow: none;
   background-image: none;
@@ -56,41 +56,41 @@
 
 .ui.basic.black.buttons .button,
 .ui.basic.black.button {
-  box-shadow: 0px 0px 0px 1px #ff6395 inset !important;
-  color: #ff6395 !important;
+  box-shadow: 0px 0px 0px 1px #4f3e3e inset !important;
+  color: #4f3e3e !important;
 }
 
 .ui.inverted.menu {
   border: 0px solid transparent;
-  background: #ff6395;
+  background: #4f3e3e;
   box-shadow: none;
 }
 
 .ui.black.segment:not(.inverted) {
-  border-top: 2px solid #ff6395;
+  border-top: 2px solid #4f3e3e;
 }
 
 .ui.black.divider {
-    color: #ff6395;
+    color: #4f3e3e;
 }
 
 .ui.basic.label {
-    color: #ff6395;
+    color: #4f3e3e;
 }
 
 .ui.label {
-    color: #ff6395;
+    color: #4f3e3e;
 }
 
 #p_button {
-    background-color: #ff6395;
+    background-color: #eac57f;
 }
 
 #brown {
-    color: #ff6395;
+    color: #4f3e3e;
 }
 
 #br_brown {
-    background-color: #ff6395;
+    background-color: #4f3e3e;
 }
 

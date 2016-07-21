@@ -10,7 +10,7 @@
 <jsp:useBean id="restaurant" scope="request" class="it.unitn.disi.webprog2016.convictor.app.beans.Restaurant" />
 
 <l:main>
-	<jsp:attribute name="bodyBackground">url("${pageContext.servletContext.contextPath}/images/citch-bg.jpg")</jsp:attribute>
+	<jsp:attribute name="bodyBackground">url("${pageContext.servletContext.contextPath}/images/background.png")</jsp:attribute>
 	<jsp:attribute name="title">Landing Page</jsp:attribute>	
 	<jsp:attribute name="body">
            
