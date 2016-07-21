@@ -7,7 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="l" tagdir="/WEB-INF/tags/layouts/" %>
-<%@taglib prefix="f" tagdir="/WEB-INF/tags/partials" %>
+<%@taglib prefix="partials" tagdir="/WEB-INF/tags/partials" %>
 
 <c:if test="${empty bean.id || bean.id == 0}">
     <c:set var="url" value="${pageContext.servletContext.contextPath}/registrations/create" />
@@ -30,21 +30,22 @@
                             Crea un nuovo account<br>
                         </div>
                     </h2>
-                    <form class="ui large form" method="POST" action="${url}">
+                    <form class="ui large form error" method="POST" action="${url}">
                         <div class="ui stacked segment">
-                            <f:formerrors />
-                            <f:registrationForm />
+                            <partials:registrationForm />
                             <div class="field <c:if test="${bean.valid == false and  !(bean.errors['password'] == null)}" >error</c:if>">
-                                <div class="ui left icon input">
+								<div class="ui left icon input">
                                     <i class="lock icon"></i>
-                                    <input type="password" name="passwordNew" placeholder="Password">
+                                    <input type="password" name="passwordNew" placeholder="Password">																	
                                 </div>
+								<partials:formerrors field="password"/>	
                             </div>
                             <div class="field <c:if test="${bean.valid == false and !(bean.errors['password'] == null)}" >error</c:if>">
                                 <div class="ui left icon input">
                                     <i class="lock icon"></i>
                                     <input type="password" name="passwordConfirmation" placeholder="Conferma password">
                                 </div>
+								<partials:formerrors field="passwordConfirmation"/>
                             </div>
 
                             <div  align="left">
@@ -53,7 +54,7 @@
                                     <label>Accettazione privacy</label>
                                 </div>
                             </div>
-
+							<partials:formerrors field="privacy"/>	
                             </br>
 
                             <input id="p_button" class="ui fluid large submit button" type="submit"></input>

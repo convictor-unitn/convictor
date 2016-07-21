@@ -17,7 +17,7 @@
 	<jsp:attribute name="title">Remipostazione Profilo</jsp:attribute>
 	<jsp:attribute name="bodyBackground">url("${pageContext.servletContext.contextPath}/images/background.png")</jsp:attribute>
 	<jsp:attribute name="body">
-            <div class="ui middle aligned center aligned grid">
+<!--            <div class="ui middle aligned center aligned grid">
                 <div class="column myform">
                     <h2 class="ui header">
 
@@ -28,7 +28,6 @@
                       
                     <form class="ui large form" method="POST" action="${url}">
                         <div class="ui stacked segment">
-                            <partials:formerrors />                            
                             <partials:registrationForm />
                             <div class="field">
                                 <div class="field <c:if test="${bean.valid == false and !(bean.errors['password'] == null)}" >error</c:if>">
@@ -64,7 +63,7 @@
                     </form>
 
                   </div>
-            </div>
+            </div>-->
             
         </jsp:attribute>
 		

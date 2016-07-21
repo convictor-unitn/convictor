@@ -26,7 +26,7 @@
                             
               <form method="POST" class="ui large form error" action="${pageContext.servletContext.contextPath}/sessions/create">
               <div class="ui stacked segment">
-                <partials:formerrors/>
+				  <partials:formerrors field="loginError"/>
                 
                 <div class="field <c:if test="${bean.valid == false and not (bean.errors['loginError'] == null)}" >error</c:if>">
                   <div class="ui left icon input">

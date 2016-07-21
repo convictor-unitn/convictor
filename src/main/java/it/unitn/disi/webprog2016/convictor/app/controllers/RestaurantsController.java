@@ -513,6 +513,17 @@ public class RestaurantsController extends AbstractController {
             return "";
 		}
         
+		//Retrieve priceSlot list from database to fill restaurant edit form - GR
+		PriceSlotDAO priceSlotDAO = (PriceSlotDAO) request.getServletContext().getAttribute("priceslotdao");
+		try {
+			List<PriceSlot> allPriceSlot = priceSlotDAO.getAllPriceSlots();
+			request.setAttribute("allPriceSlot", allPriceSlot);
+		} catch (SQLException ex) {
+			Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, ex);
+            response.sendError(500);
+            return "";
+        }	
+		
         Restaurant tmp = new Restaurant();
         tmp.setName(request.getParameter("name"));
         tmp.setCity(request.getParameter("city"));

@@ -14,54 +14,61 @@
 <c:if test="${!empty bean.id && bean.id != 0}">
     <c:set var="url" value="${pageContext.servletContext.contextPath}/restaurants/update?id=${bean.id}" />
 </c:if>
-<form class="ui large form" method="POST" action="${url}">
-    <div class="ui tertiary segment">
-        <partials:formerrors/>
-
-      <!-- Personal Infos -->
+<form class="ui large form error" method="POST" action="${url}">
+    <div class="ui tertiary segment">		
+		<!-- Personal Infos -->
 
       <div class="ui segment">
         <!-- Name Field -->
         <label>Informazioni Personali</label>
         <div class="ui divider"></div>
-        <div class="field <c:if test="${bean.valid == false and not bean.errors['name'] == null}" >error</c:if>">
+        <div class="field <c:if test="${bean.valid == false and !( bean.errors['name'] == null)}" >error</c:if>">
             <input type="text" name="name" placeholder="Nome" value="${bean.name}" >
+			<partials:formerrors field="name"/>
         </div>
 
         <!-- Location Fields -->
         <div class="four fields">
-          <div class="field <c:if test="${bean.valid == false and not bean.errors['street'] == null}" >error</c:if>">
+          <div class="field <c:if test="${bean.valid == false and !( bean.errors['street'] == null)}" >error</c:if>">
               <input type="text" name="street" placeholder="Via" value="${bean.street}">
+			<partials:formerrors field="street"/>
           </div>
-          <div class="field <c:if test="${bean.valid == false and not bean.errors['city'] == null}" >error</c:if>">
+          <div class="field <c:if test="${bean.valid == false and !( bean.errors['city'] == null)}" >error</c:if>">
               <input type="text" name="city" placeholder="Città" value="${bean.city}">
-          </div>
-          <div class="field <c:if test="${bean.valid == false and not bean.errors['zipCode'] == null}" >error</c:if>">
+			<partials:formerrors field="city"/>			  
+		  </div>
+          <div class="field <c:if test="${bean.valid == false and !( bean.errors['zip'] == null)}" >error</c:if>">
               <input type="text" name="zipcode" placeholder="CAP" value="${bean.zipCode}">
-          </div>
-          <div class="field <c:if test="${bean.valid == false and not bean.errors['province'] == null}" >error</c:if>">
+			  <partials:formerrors field="zip"/>          
+		  </div>
+          <div class="field <c:if test="${bean.valid == false and !( bean.errors['province'] == null)}" >error</c:if>">
               <input type="text" name="province" placeholder="Provincia" value="${bean.province}">
-          </div>
+			  <partials:formerrors field="province"/>
+		  </div>
         </div>
         <div class="three fields">
-          <div class="field <c:if test="${bean.valid == false and not bean.errors['email'] == null}" >error</c:if>">
+          <div class="field <c:if test="${bean.valid == false and !( bean.errors['email'] == null)}" >error</c:if>">
               <input type="text" name="email" placeholder="Email" value="${bean.email}">
-          </div>
-          <div class="field <c:if test="${bean.valid == false and not bean.errors['phone'] == null}" >error</c:if>">
+              <partials:formerrors field="email"/>
+		  </div>
+          <div class="field <c:if test="${bean.valid == false and !( bean.errors['phone'] == null)}" >error</c:if>">
               <input type="text" name="phone" placeholder="Telefono" value="${bean.phone}">
-          </div>
-          <div class="field <c:if test="${bean.valid == false and not bean.errors['website'] == null}" >error</c:if>">
+			  <partials:formerrors field="phone"/>
+		  </div>
+          <div class="field <c:if test="${bean.valid == false and !( bean.errors['website'] == null)}" >error</c:if>">
               <input type="text" name="website" placeholder="Pagina Web" value="${bean.website}">
-          </div>
+			  <partials:formerrors field="website"/>
+		  </div>
         </div>
       </div>
           
           <div class="ui segment">
               <label>Fascia di Prezzo</label>
               <div class="ui divider"></div>
+			  <partials:formerrors field="slotPrice"/>
               <div class="five fields">                  
                       <c:forEach var="slotprice" items="${allPriceSlot}">
-                         <div class="field <c:if test="${bean.valid == false and not bean.errors['slotPrice'] == null}" >error</c:if>">
+                         <div class="field <c:if test="${bean.valid == false and !( bean.errors['slotPrice'] == null)}" >error</c:if>">
                              <div class="ui radio checkbox">
                       <!-- If on edit page -->                  
                       <c:choose>    
@@ -93,9 +100,11 @@
       <div class="ui segment">
         <label>Tipologia Piatti</label>
         <div class="ui divider"></div>
-        <div class="field">
+		<partials:formerrors field="cusines"/>
+        <div class="field <c:if test="${bean.valid == false and !( bean.errors['cusines'] == null)}" >error</c:if>">
           <select multiple="" class="ui dropdown" name="cusines">
               <option value="">Seleziona Cucine</option>
+		  <c:out value="${bean.id}"/>
               <c:forEach var="cusine" items="${allCusines}">
                   <!-- If on edit page -->                  
                   <c:choose>    
@@ -126,9 +135,10 @@
       <div class="ui segment">
         <label>Descrizione</label>
         <div class="ui divider"></div>
-        <div class="field">
+        <div class="field <c:if test="${bean.valid == false and !( bean.errors['description'] == null)}" >error</c:if>">
             <input class="ui textbox" type="text" name="description" rows="2" placeholder="Aggiungi breve descrizione" value="${restaurant.description}"/>
-        </div>
+			<partials:formerrors field="description"/>		
+		</div>
       </div>     
       
       <!-- Timing Infos -->
@@ -570,5 +580,5 @@
     </div>
       <input id="p_button" class="ui fluid large submit button" type="submit"></input>
     </br>
-    <div class="ui fluid submit button">Annulla</div>
+    <div class="ui fluid submit button">Annull)a</div>
   </form>
