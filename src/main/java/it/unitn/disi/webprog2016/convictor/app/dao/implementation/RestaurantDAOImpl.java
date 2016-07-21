@@ -204,7 +204,7 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
     public List<Restaurant> getRestaurantByString(String pattern, int offset) throws SQLException {
         
         List<Restaurant> listResult = new ArrayList<>();
-        String fullTextPattern = pattern.replace(" ", "&");
+        String fullTextPattern = pattern.replace(" ", " & ");
         //int counter=0;
         
         // Deleted from these query single quote char. They cause errors when 
@@ -237,7 +237,7 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
             
             // Obtain the restaurant paginated 
             stm2.setString(1, fullTextPattern);
-            stm2.setString(2, "%"+fullTextPattern+"%");
+            stm2.setString(2, "%"+pattern+"%");
             stm2.setInt(3, MAX_RESULTS);
             stm2.setInt(4, offset*MAX_RESULTS);
             
@@ -252,7 +252,7 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
     @Override
     public List<Restaurant> getRestaurantByStringOrderByName(String pattern, int offset) throws SQLException {
         List<Restaurant> listResult = new ArrayList<>();
-        String fullTextPattern = pattern.replace(" ", "&");
+        String fullTextPattern = pattern.replace(" ", " & ");
         
         String query ="SELECT * FROM restaurants WHERE tsv @@ tsquery(?) OR searchable ILIKE ? ORDER BY name LIMIT ? OFFSET ? ";
         
@@ -261,7 +261,7 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
             
             // Obtain the restaurant paginated 
             stm.setString(1, fullTextPattern);
-            stm.setString(2, "%"+fullTextPattern+"%");
+            stm.setString(2, "%"+pattern+"%");
             stm.setInt(3, MAX_RESULTS);
             stm.setInt(4, offset*MAX_RESULTS);
             
@@ -279,7 +279,7 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
     @Override
     public List<Restaurant> getRestauranyByStringOrderByPrice(String pattern, int offset, int type) throws SQLException {
         List<Restaurant> listResult = new ArrayList<>();
-        String fullTextPattern = pattern.replace(" ", "&");
+        String fullTextPattern = pattern.replace(" ", " & ");
         
         String queryASC ="SELECT * FROM restaurants WHERE tsv @@ tsquery(?) OR searchable ILIKE ? ORDER BY slot_price ASC LIMIT 10 OFFSET ? ";
         String queryDESC ="SELECT * FROM restaurants WHERE tsv @@ tsquery(?) OR searchable ILIKE ? ORDER BY slot_price DESC LIMIT 10 OFFSET ?";
@@ -295,7 +295,7 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
             
             // Obtain the restaurant paginated 
             stm.setString(1, fullTextPattern);
-            stm.setString(2, "%"+fullTextPattern+"%");
+            stm.setString(2, "%"+pattern+"%");
             stm.setInt(3, MAX_RESULTS);
             stm.setInt(3, offset*MAX_RESULTS);
             
@@ -310,7 +310,7 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
     @Override
     public List<Restaurant> getRestaurantByString(String pattern, int offset, List<String> cusines) throws SQLException {
         List<Restaurant> listResult = new ArrayList<>();
-        String fullTextPattern = pattern.replace(" ", "&");
+        String fullTextPattern = pattern.replace(" ", " & ");
         
         // Set how many cusine fields we want to filter on
         String params = "";
@@ -335,7 +335,7 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
         try {
             
             // Obtain the restaurant paginated 
-            stm.setString(1, fullTextPattern);
+            stm.setString(1, pattern);
             stm.setString(2, "%"+fullTextPattern+"%");
             int counter = 1;
             for (String c : cusines) {
@@ -356,7 +356,7 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
     @Override
     public List<Restaurant> getRestaurantByStringOrderByName(String pattern, int offset, List<String> cusines) throws SQLException {
          List<Restaurant> listResult = new ArrayList<>();
-        String fullTextPattern = pattern.replace(" ", "&");
+        String fullTextPattern = pattern.replace(" ", " & ");
         
         // Set how many cusine fields we want to filter on
         String params = "";
@@ -381,7 +381,7 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
         try {
             
             // Obtain the restaurant paginated 
-            stm.setString(1, fullTextPattern);
+            stm.setString(1, pattern);
             stm.setString(2, "%"+fullTextPattern+"%");
             int counter = 1;
             for (String c : cusines) {
@@ -402,7 +402,7 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
     @Override
     public List<Restaurant> getRestauranyByStringOrderByPrice(String pattern, int offset, int type, List<String> cusines) throws SQLException {
         List<Restaurant> listResult = new ArrayList<>();
-        String fullTextPattern = pattern.replace(" ", "&");
+        String fullTextPattern = pattern.replace(" ", " & ");
         
         // Set how many cusine fields we want to filter on
         String params = "";
@@ -436,7 +436,7 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
         try {
             
             // Obtain the restaurant paginated 
-            stm.setString(1, fullTextPattern);
+            stm.setString(1, pattern);
             stm.setString(2, "%"+fullTextPattern+"%");
             int counter = 1;
             for (String c : cusines) {
