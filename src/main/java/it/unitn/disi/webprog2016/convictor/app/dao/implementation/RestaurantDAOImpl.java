@@ -25,7 +25,7 @@ import java.util.List;
 public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
 
     // Max number of query result
-    private int MAX_RESULTS = 10;
+    private static final int MAX_RESULTS = 10;
     
     public RestaurantDAOImpl(DatabaseConnectionManager c) {
         super(c);

@@ -10,8 +10,6 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -209,25 +207,25 @@ public class OpeningTime extends AbstractBean {
 
     public void setDay(String day) {
         switch(day){
-            case "monday":
+            case "Lunedì":
                 this.setDay(1);
                 break;
-            case "tuesday":
+            case "Martedì":
                 this.setDay(2);
                 break;
-            case "wednesday":
+            case "Mercoledì":
                 this.setDay(3);
                 break;
-            case "thursday":
+            case "Giovedì":
                 this.setDay(4);
                 break;
-            case "friday":
+            case "Venerdì":
                 this.setDay(5);
                 break;
-            case "saturday":
+            case "Sabato":
                 this.setDay(6);
                 break;
-            case "sunday":
+            case "Domenica":
                 this.setDay(7);
                 break;
             default:
