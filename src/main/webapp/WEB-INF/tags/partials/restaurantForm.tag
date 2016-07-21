@@ -4,7 +4,10 @@
     Author     : umberto
 --%>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<%@taglib prefix="partials" tagdir="/WEB-INF/tags/partials/" %>
 <%@tag description="put the tag description here" pageEncoding="UTF-8"%>
 
 <c:if test="${empty bean.id || bean.id == 0}">
@@ -129,18 +132,27 @@
         </div>
       </div>     
       
-      <!-- Timing Infos -->
+      <!-- Timing Infos -->	  	 
 
       <div class="ui segment">
 
         <!-- Opening Hours -->
         <label>Informazioni Orari</label>
         <div class="ui divider"></div>
-
-        <div class="ui segment">
+		<c:forEach var="optime" items="${bean.openingTimes}">
+		<!-- Set two variables to display only hours or only minutes from opening hours of a restaurant -->
+			<fmt:formatDate var="openAtHour" value="${optime.openAt}" pattern="HH"/>
+			<fmt:formatDate var="openAtMinute" value="${optime.openAt}" pattern="mm"/>
+			<fmt:formatDate var="closeAtHour" value="${optime.closeAt}" pattern="HH"/>
+			<fmt:formatDate var="closeAtMinute" value="${optime.closeAt}" pattern="mm"/>
+			<fmt:formatDate var="openAtAfternoonHour" value="${optime.openAtAfternoon}" pattern="HH"/>
+			<fmt:formatDate var="openAtAfternoonMinute" value="${optime.openAtAfternoon}" pattern="mm"/>
+			<fmt:formatDate var="closeAtAfternoonHour" value="${optime.closeAtAfternoon}" pattern="HH"/>
+			<fmt:formatDate var="closeAtAfternoonMinute" value="${optime.closeAtAfternoon}" pattern="mm"/>
+		<div class="ui segment">
             <div class="field">
                 <div class="ui small label">
-                    Lunedi'
+                    ${optime.dayString}
                 </div>
             </div>
             <div class="field">Mattina</div>
@@ -150,8 +162,8 @@
               <div class="ui basic label">
                 Apertura
               </div>
-                <input type="text" name="open_at_monday" placeholder="Ora">
-                <input type="text" name="openH" placeholder="Minuti">
+                <input type="text" name="open_at_${optime.dayString}" placeholder="Ora" value="${openAtHour}">
+                <input type="text" name="openH" placeholder="Minuti" value="${openAtMinute}">
             </div>
           </div>
 
@@ -161,8 +173,8 @@
               <div class="ui basic label">
                 Chiusura
               </div>
-              <input type="text" name="close_at_monday" placeholder="Ora">
-              <input type="text" name="closeM" placeholder="Minuti">
+              <input type="text" name="close_at_${optime.dayString}" placeholder="Ora" value="${closeAtHour}">
+              <input type="text" name="closeM" placeholder="Minuti" value="${closeAtMinute}">
             </div>
           </div>
         </div>
@@ -174,8 +186,8 @@
               <div class="ui basic label">
                 Apertura
               </div>
-              <input type="text" name="open_at_afternoon_monday" placeholder="Ora">
-              <input type="text" name="openH" placeholder="Minuti">
+				<input type="text" name="open_at_afternoon_${optime.dayString}" placeholder="Ora" value="${openAtAfternoonHour}">
+				<input type="text" name="openH" placeholder="Minuti" value="${openAtAfternoonMinute}">
             </div>
           </div>
 
@@ -185,8 +197,8 @@
               <div class="ui basic label">
                 Chiusura
               </div>
-              <input type="text" name="close_at_afternoon_monday" placeholder="Ora">
-              <input type="text" name="closeM" placeholder="Minuti">
+              <input type="text" name="close_at_afternoon_${optime.dayString}" placeholder="Ora" ${closeAtAfternoonHour}>
+              <input type="text" name="closeM" placeholder="Minuti" value="${closeAtAfternoonMinute}">
             </div>
           </div>
         </div>
@@ -194,378 +206,25 @@
         <!-- Days Opening -->
         <div class="field">
             <div class="ui checkbox mycheckbox">
-                <input type="checkbox" name="dayoff_monday">
-                <label >Seleziona come giorno di chiusura</label>
+				<c:choose>
+					<c:when test="${optime.dayoff == true}">
+						<input type="checkbox" name="dayoff_${optime.dayString}" value="checked">
+					</c:when>
+					<c:otherwise>
+						<input type="checkbox" name="dayoff_${optime.dayString}" value="">
+					</c:otherwise>
+				</c:choose>
+
+					<label >Seleziona come giorno di chiusura</label>
              </div>
         </div>
         </div>
-
-        <div class="ui segment">
-            <div class="field">
-                <div class="ui small label">
-                    Martedi'
-                </div>
-            </div>
-            <div class="field">Mattina</div>
-        <div class="two fields">
-          <div class="field">
-            <div class="ui left labeled input">
-              <div class="ui basic label">
-                Apertura
-              </div>
-              <input type="text" name="open_at_tuesday" placeholder="Ora">
-              <input type="text" name="openM" placeholder="Minuti">
-            </div>
-          </div>
-
-          <!-- Closing Hours -->
-          <div class="field">
-            <div class="ui left labeled input">
-              <div class="ui basic label">
-                Chiusura
-              </div>
-              <input type="text" name="close_at_tuesday" placeholder="Ora">
-              <input type="text" name="closeM" placeholder="Minuti">
-            </div>
-          </div>
-        </div>
-
-        <div class="field">Pomeriggio</div>
-        <div class="two fields">
-          <div class="field">
-            <div class="ui left labeled input">
-              <div class="ui basic label">
-                Apertura
-              </div>
-              <input type="text" name="open_at_afternoon_tuesday" placeholder="Ora">
-              <input type="text" name="openM" placeholder="Minuti">
-            </div>
-          </div>
-
-          <!-- Closing Hours -->
-          <div class="field">
-            <div class="ui left labeled input">
-              <div class="ui basic label">
-                Chiusura
-              </div>
-              <input type="text" name="close_at_afternoon_tuesday" placeholder="Ora">
-              <input type="text" name="closeM" placeholder="Minuti">
-            </div>
-          </div>
-        </div>
-
-        <!-- Days Opening -->
-        <div class="field">
-            <div class="ui checkbox mycheckbox">
-                <input type="checkbox" name="dayoff_monday">
-                <label >Seleziona come giorno di chiusura</label>
-             </div>
-        </div>
-        </div>
-        <div class="ui segment">
-            <div class="ui small label">
-                    Mercoledi'
-                </div>
-            <div class="field">Mattina</div>
-        <div class="two fields">
-          <div class="field">
-            <div class="ui left labeled input">
-              <div class="ui basic label">
-                Apertura
-              </div>
-              <input type="text" name="open_at_wednesday" placeholder="Ora">
-              <input type="text" name="openM" placeholder="Minuti">
-            </div>
-          </div>
-
-          <!-- Closing Hours -->
-          <div class="field">
-            <div class="ui left labeled input">
-              <div class="ui basic label">
-                Chiusura
-              </div>
-              <input type="text" name="close_at_wednesday" placeholder="Ora">
-              <input type="text" name="closeM" placeholder="Minuti">
-            </div>
-          </div>
-        </div>
-
-        <div class="field">Pomeriggio</div>
-        <div class="two fields">
-          <div class="field">
-            <div class="ui left labeled input">
-              <div class="ui basic label">
-                Apertura
-              </div>
-              <input type="text" name="open_at_afternoon_wednesday" placeholder="Ora">
-              <input type="text" name="openM" placeholder="Minuti">
-            </div>
-          </div>
-
-          <!-- Closing Hours -->
-          <div class="field">
-            <div class="ui left labeled input">
-              <div class="ui basic label">
-                Chiusura
-              </div>
-              <input type="text" name="close_at_afternoon_wednesday" placeholder="Ora">
-              <input type="text" name="closeM" placeholder="Minuti">
-            </div>
-          </div>
-        </div>
-
-        <!-- Days Opening -->
-        <div class="field">
-          <div class="ui checkbox mycheckbox">
-                <input type="checkbox" name="dayoff_wednesday" >
-                <label >Seleziona come giorno di chiusura</label>
-             </div>
-        </div>
-        </div>
-        <div class="ui segment">
-            <div class="ui small label">
-                    Giovedi'
-                </div>
-            <div class="field">Mattina</div>
-        <div class="two fields">
-          <div class="field">
-            <div class="ui left labeled input">
-              <div class="ui basic label">
-                Apertura
-              </div>
-              <input type="text" name="open_at_thursday" placeholder="Ora">
-              <input type="text" name="openM" placeholder="Minuti">
-            </div>
-          </div>
-
-          <!-- Closing Hours -->
-          <div class="field">
-            <div class="ui left labeled input">
-              <div class="ui basic label">
-                Chiusura
-              </div>
-              <input type="text" name="close_at_thursday" placeholder="Ora">
-              <input type="text" name="closeM" placeholder="Minuti">
-            </div>
-          </div>
-        </div>
-
-        <div class="field">Pomeriggio</div>
-        <div class="two fields">
-          <div class="field">
-            <div class="ui left labeled input">
-              <div class="ui basic label">
-                Apertura
-              </div>
-              <input type="text" name="open_at_afternoon_thursday" placeholder="Ora">
-              <input type="text" name="openM" placeholder="Minuti">
-            </div>
-          </div>
-
-          <!-- Closing Hours -->
-          <div class="field">
-            <div class="ui left labeled input">
-              <div class="ui basic label">
-                Chiusura
-              </div>
-              <input type="text" name="close_at_afternoon_thursday" placeholder="Ora">
-              <input type="text" name="closeM" placeholder="Minuti">
-            </div>
-          </div>
-        </div>
-
-        <!-- Days Opening -->
-        <div class="field">
-          <div class="ui checkbox mycheckbox">
-                <input type="checkbox" name="dayoff_thursday" >
-                <label >Seleziona come giorno di chiusura</label>
-             </div>
-        </div>
-        </div>
-        <div class="ui segment">
-            <div class="ui small label">
-                    Venerdi'
-                </div>
-            <div class="field">Mattina</div>
-        <div class="two fields">
-          <div class="field">
-            <div class="ui left labeled input">
-              <div class="ui basic label">
-                Apertura
-              </div>
-              <input type="text" name="open_at_friday" placeholder="Ora">
-              <input type="text" name="openM" placeholder="Minuti">
-            </div>
-          </div>
-
-          <!-- Closing Hours -->
-          <div class="field">
-            <div class="ui left labeled input">
-              <div class="ui basic label">
-                Chiusura
-              </div>
-              <input type="text" name="close_at_friday" placeholder="Ora">
-              <input type="text" name="closeM" placeholder="Minuti">
-            </div>
-          </div>
-        </div>
-
-        <div class="field">Pomeriggio</div>
-        <div class="two fields">
-          <div class="field">
-            <div class="ui left labeled input">
-              <div class="ui basic label">
-                Apertura
-              </div>
-              <input type="text" name="open_at_afternoon_friday" placeholder="Ora">
-              <input type="text" name="openM" placeholder="Minuti">
-            </div>
-          </div>
-
-          <!-- Closing Hours -->
-          <div class="field">
-            <div class="ui left labeled input">
-              <div class="ui basic label">
-                Chiusura
-              </div>
-              <input type="text" name="close_at_afternoon_friday" placeholder="Ora">
-              <input type="text" name="closeM" placeholder="Minuti">
-            </div>
-          </div>
-        </div>
-
-        <!-- Days Opening -->
-        <div class="field">
-          <div class="ui checkbox mycheckbox">
-                <input type="checkbox" name="dayoff_friday"  >
-                <label >Seleziona come giorno di chiusura</label>
-             </div>
-        </div>
-        </div>
-        <div class="ui segment">
-            <div class="ui small label">
-                    Sabato
-                </div>
-            <div class="field">Mattina</div>
-        <div class="two fields">
-          <div class="field">
-            <div class="ui left labeled input">
-              <div class="ui basic label">
-                Apertura
-              </div>
-              <input type="text" name="open_at_saturday" placeholder="Ora">
-              <input type="text" name="openM" placeholder="Minuti">
-            </div>
-          </div>
-
-          <!-- Closing Hours -->
-          <div class="field">
-            <div class="ui left labeled input">
-              <div class="ui basic label">
-                Chiusura
-              </div>
-              <input type="text" name="close_at_saturday" placeholder="Ora">
-              <input type="text" name="closeM" placeholder="Minuti">
-            </div>
-          </div>
-        </div>
-
-        <div class="field">Pomeriggio</div>
-        <div class="two fields">
-          <div class="field">
-            <div class="ui left labeled input">
-              <div class="ui basic label">
-                Apertura
-              </div>
-              <input type="text" name="open_at_afternoon_saturday" placeholder="Ora">
-              <input type="text" name="openM" placeholder="Minuti">
-            </div>
-          </div>
-
-          <!-- Closing Hours -->
-          <div class="field">
-            <div class="ui left labeled input">
-              <div class="ui basic label">
-                Chiusura
-              </div>
-              <input type="text" name="close_at_afternoon_saturday" placeholder="Ora">
-              <input type="text" name="closeM" placeholder="Minuti">
-            </div>
-          </div>
-        </div>
-
-        <!-- Days Opening -->
-        <div class="field">
-          <div class="ui checkbox mycheckbox">
-                <input type="checkbox" name="dayoff_saturday"  >
-                <label >Seleziona come giorno di chiusura</label>
-             </div>
-        </div>
-        </div>
-        <div class="ui segment">
-            <div class="ui small label">
-                    Domenica
-                </div>
-            <div class="field">Mattina</div>
-        <div class="two fields">
-          <div class="field">
-            <div class="ui left labeled input">
-              <div class="ui basic label">
-                Apertura
-              </div>
-              <input type="text" name="open_at_sunday" placeholder="Ora">
-              <input type="text" name="openM" placeholder="Minuti">
-            </div>
-          </div>
-
-          <!-- Closing Hours -->
-          <div class="field">
-            <div class="ui left labeled input">
-              <div class="ui basic label">
-                Chiusura
-              </div>
-              <input type="text" name="close_at_sunday" placeholder="Ora">
-              <input type="text" name="closeM" placeholder="Minuti">
-            </div>
-          </div>
-        </div>
-
-        <div class="field">Pomeriggio</div>
-        <div class="two fields">
-          <div class="field">
-            <div class="ui left labeled input">
-              <div class="ui basic label">
-                Apertura
-              </div>
-              <input type="text" name="open_at_afternoon_sunday" placeholder="Ora">
-              <input type="text" name="openM" placeholder="Minuti">
-            </div>
-          </div>
-
-          <!-- Closing Hours -->
-          <div class="field">
-            <div class="ui left labeled input">
-              <div class="ui basic label">
-                Chiusura
-              </div>
-              <input type="text" name="close_at_afternoon_sunday" placeholder="Ora">
-              <input type="text" name="closeM" placeholder="Minuti">
-            </div>
-          </div>
-        </div>
-
-        <!-- Days Opening -->
-        <div class="field">
-          <div class="ui checkbox mycheckbox">
-                <input type="checkbox" name="dayoff_sunday" >
-                <label >Seleziona come giorno di chiusura</label>
-             </div>
-        </div>
-        </div>
+		</c:forEach>
+		
+	  </div>
 
       </div>      
 
-    </div>
       <input id="p_button" class="ui fluid large submit button" type="submit"></input>
     </br>
     <div class="ui fluid submit button">Annulla</div>
