@@ -47,9 +47,9 @@
 				<img class="ui centered image mySlides" src="${photo.url}">
 			</c:forEach>
             
-            <div class="w3-center w3-section w3-large w3-text-white w3-display-bottomleft" style="width:100%">
-              <div class="w3-left w3-padding-left w3-hover-text-blue w3-text-blue" onclick="plusDivs(-1)">&#10094;</div>
-              <div class="w3-right w3-padding-right w3-hover-text-blue w3-text-blue" onclick="plusDivs(1)">&#10095;</div>
+            <div class="w3-center w3-section w3-large w3-text-white w3-display-bottomleft" style="width:100%;" id="trasp">
+              <div class="w3-left w3-padding-left w3-hover-text-blue w3-text-blue" onclick="plusDivs(-1)" style="background-color:rgba(255,255,255,0.8);">&#10094;</div>
+              <div class="w3-right w3-padding-right w3-hover-text-blue w3-text-blue" onclick="plusDivs(1)" style="background-color:rgba(255,255,255,0.8);">&#10095;</div>
 			  <c:set var="photoCounter" value="1" scope="page" />
 			  <c:forEach var="photo" items="${bean.photos}">
 				<span class="w3-badge demo w3-border w3-blue w3-hover-blue" onclick="currentDiv(${photoCounter})"></span>
