@@ -14,7 +14,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="l" tagdir="/WEB-INF/tags/layouts/" %>
 
-<c:set var="bean" scope="request" value="${requestScope.user}" />
+<c:set var="bean" scope="request" value="${sessionScope.user}" />
 <l:main>
 	
 	<jsp:attribute name="title">Reimposta Profilo Utente</jsp:attribute>

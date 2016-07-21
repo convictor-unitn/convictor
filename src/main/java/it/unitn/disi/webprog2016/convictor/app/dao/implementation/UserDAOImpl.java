@@ -60,7 +60,7 @@ public class UserDAOImpl extends DatabaseDAO implements UserDAO{
     @Override
     public User getUserById(int id) throws SQLException {
         User user = null;
-        String query = "SELECT id, email, name, surname, admin, reset_password_token, reset_password_sent_at FROM users WHERE id = ?";
+        String query = "SELECT id, email, name, surname, admin, reset_password_token, reset_password_sent_at, password FROM users WHERE id = ?";
         PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
         try {
 			stm.setInt(1, id);
@@ -76,7 +76,9 @@ public class UserDAOImpl extends DatabaseDAO implements UserDAO{
 					user.setResetPasswordToken(usersSet.getString("reset_password_token"));
 					if(usersSet.getString("reset_password_sent_at")!=null) {
 						user.setResetPasswordSentAt(DateTime.parse(usersSet.getString("reset_password_sent_at"), DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss.SSSSSS")));
-					}                }
+					}
+					user.setPassword(usersSet.getString("password"));
+				}
             } finally {
                 usersSet.close();
             }
@@ -147,20 +149,28 @@ public class UserDAOImpl extends DatabaseDAO implements UserDAO{
 
     @Override
     public void updateUser(User user) throws SQLException {
-        
-        // Check if the update is permitted
-        if (!user.validate()) return;
-        
-        String query = "UPDATE users SET name=?, surname=?, password=?, email=?, admin=?, reset_password_token = ?  WHERE id = ?";
+        String query = "UPDATE users SET name=?, surname=?, email=?, admin=?, reset_password_token = ?  WHERE id = ?";
         PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
         try {
             stm.setString(1, user.getName());
             stm.setString(2, user.getSurname());
-            stm.setString(3, user.getPassword());
-            stm.setString(4, user.getEmail());
-			stm.setString(6, user.getResetPasswordToken());
-            stm.setBoolean(5, user.isAdmin());
-            stm.setInt(7, user.getId());
+            stm.setString(3, user.getEmail());
+			stm.setBoolean(4, user.isAdmin());
+			stm.setString(5, user.getResetPasswordToken());
+            stm.setInt(6, user.getId());
+            stm.execute();
+        } finally {
+            stm.close();
+        }
+    }
+	
+	@Override
+	public void updateUserPassword(User user) throws SQLException {
+        String query = "UPDATE users SET password=? WHERE id = ?";
+        PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
+        try {
+            stm.setString(1, user.getPassword());
+            stm.setInt(2, user.getId());
             stm.execute();
         } finally {
             stm.close();
