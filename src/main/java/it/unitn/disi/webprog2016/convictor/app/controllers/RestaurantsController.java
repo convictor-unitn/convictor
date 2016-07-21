@@ -313,6 +313,9 @@ public class RestaurantsController extends AbstractController {
 			Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, ex);
 		}
 		
+		String[] days = {"Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì", "Sabato", "Domenica"};
+		request.setAttribute("daysOpeningTimes", days);
+		
         return "/restaurants/new";
 	}
     
@@ -375,7 +378,7 @@ public class RestaurantsController extends AbstractController {
         tmp.setCusine(list);        
         
         // Set the opening times
-        String[] days = {"monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"};
+        String[] days = {"Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì", "Sabato", "Domenica"};
         for (String day : days) {
             OpeningTime tmpTime = new OpeningTime();
             tmpTime.setDay(day);
@@ -568,8 +571,8 @@ public class RestaurantsController extends AbstractController {
         }
         tmp.setCusine(list); 
         
-       // Set the opening times
-        String[] days = {"monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"};
+		// Set the opening times
+        String[] days = {"Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì", "Sabato", "Domenica"};
         for (String day : days) {
             OpeningTime tmpTime = new OpeningTime();
             tmpTime.setDay(day);
