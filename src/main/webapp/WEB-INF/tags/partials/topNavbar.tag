@@ -35,8 +35,8 @@
       <c:set value="landingPage.html.jsp" var="root" />
       <c:if test="${not fn:endsWith(pageContext.request.requestURI, root)}">
         <div class="ui search mini item">
-          <form class="ui icon input" method="POST" action="${pageContext.request.contextPath}/restaurants/index" >               
-            <input class = "prompt" type="text" placeholder="Search..." name="name">
+          <form class="ui icon input" method="GET" action="${pageContext.request.contextPath}/restaurants" >               
+            <input class = "prompt" type="text" placeholder="Search..." name="query">
             <i class="search icon"></i>
           </form>
         </div>
