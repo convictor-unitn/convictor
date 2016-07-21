@@ -126,42 +126,71 @@ public class UserProfileController extends AbstractController {
 	 * @throws IOException
 	 */
 	public String update(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		User user = (User) request.getSession().getAttribute("user");
-		if( user == null ) {
-			response.sendError(401);
-			return "";
-		}
-		
 		UserDAO userDAO = (UserDAO) request.getServletContext().getAttribute("userdao");
-		
+		User user;
 		try {
-			user = userDAO.getUserById(user.getId());
+			// Get parameters from request
+			String name = request.getParameter("name");
+			String surname = request.getParameter("surname");
+			String email = request.getParameter("email");
+			String oldPassword = request.getParameter("oldPassword");
+			String password = request.getParameter("password");
+			String passwordConfirmation = request.getParameter("passwordConfirmation");
 			
-			user.setName(request.getParameter("name"));
-			user.setSurname(request.getParameter("surname"));
-			user.setEmail(request.getParameter("email"));
-			user.setPassword(request.getParameter("password"));
-			user.setPasswordConfirmation(request.getParameter("passwordConfirmation"));
+			// Cerco l'utente nel db
+			user = userDAO.getUserById(((User) request.getSession().getAttribute("user")).getId());
 			
-			userDAO.updateUser(user);
-			if(user.validate()) {
-				request.getSession().removeAttribute("user");
-				request.getSession().setAttribute("user", user);
-				response.sendRedirect(request.getContextPath()+"/userProfile/show");
+			if( user == null ) {
+				response.sendError(401);
 				return "";
 			}
-			else
-			{
-				request.getSession().removeAttribute("user");
-				request.getSession().setAttribute("user", user);
-				return "/userProfile/edit";
-			}
 			
-		} catch (SQLException ex) {
+			user.setName(name);
+			user.setSurname(surname);
+			user.setEmail(email);
+			
+			if(password.equals("")) {
+				user.validate();
+				user.getErrors().remove("password");
+				user.getErrors().remove("passwordConfirmation");
+				
+				if(user.isValid()) {
+					userDAO.updateUser(user);
+					request.getSession().removeAttribute("user");
+					request.getSession().setAttribute("user", user);
+					response.sendRedirect(request.getContextPath()+"/userProfile/show");
+					return "";
+				}
+				else
+				{
+					return "/userProfile/edit";
+				}
+				
+			} else {
+				if(!user.getPassword().equals(oldPassword)) {
+					user.setError("oldPassword", "La vecchia password non coincide");
+				}
+				user.setPassword(password);
+				user.setPasswordConfirmation(passwordConfirmation);
+				
+				if(user.isValid()) {
+					userDAO.updateUser(user);
+					userDAO.updateUserPassword(user);
+					request.getSession().removeAttribute("user");
+					request.getSession().setAttribute("user", user);
+					response.sendRedirect(request.getContextPath()+"/userProfile/show");
+					return "";
+				}
+				else
+				{
+					return "/userProfile/edit";
+				}
+				
+			}
+		} catch (Exception ex) {
 			Logger.getLogger(UserProfileController.class.getName()).log(Level.SEVERE, null, ex);
 			response.sendError(500);
 			return "";
 		}
 	}
-    
 }
