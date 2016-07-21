@@ -61,10 +61,17 @@ public class PasswordsController extends AbstractController  {
 				status = "failure";
 			} else {
 				status = "success";
-				String uri = request.getScheme() + "://" +   // "http" + "://
+				String uri, scheme, port;
+				if(System.getenv("DATABASE_URL") != null) {
+					scheme = "https";
+					port = "";
+				} else {
+					scheme = "http";
+					port = ":" + request.getServerPort();
+				}
+				uri = scheme + "://" +   // "http" + "://
 				request.getServerName() +       // "myhost"
-				":" +                           // ":"
-				request.getServerPort() +       // "8080"
+				port +
 				request.getContextPath() +       // "/people"
 				"/passwords/new?" +                           // "?"
 				"reset_password_token="+user.getResetPasswordToken();
