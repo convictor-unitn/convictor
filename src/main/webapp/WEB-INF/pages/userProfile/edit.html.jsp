@@ -15,8 +15,8 @@
 <%@taglib prefix="l" tagdir="/WEB-INF/tags/layouts/" %>
 <%@taglib prefix="partials" tagdir="/WEB-INF/tags/partials/" %>
 
-
 <c:set var="bean" value="${requestScope.user}" scope="request" />
+
 <l:main>
 	
 	<jsp:attribute name="title">Reimposta Profilo Utente</jsp:attribute>
