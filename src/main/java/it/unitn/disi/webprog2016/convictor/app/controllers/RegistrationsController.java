@@ -43,7 +43,8 @@ public class RegistrationsController extends AbstractController{
 			user.setError("privacy", "Devi accettare le condizioni generali di utilizzo del servizio");
 		}
 		
-		if(user.validate()) {
+		user.validate();
+		if(user.isValid()) {
 			try {
 				user.setAdmin(false);
 				userDAO.insertUser(user);
