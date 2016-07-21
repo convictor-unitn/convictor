@@ -67,7 +67,7 @@ public class PasswordsController extends AbstractController  {
 					port = "";
 				} else {
 					scheme = "http";
-					port = "" + request.getServerPort();
+					port = ":" + request.getServerPort();
 				}
 				uri = scheme + "://" +   // "http" + "://
 				request.getServerName() +       // "myhost"
