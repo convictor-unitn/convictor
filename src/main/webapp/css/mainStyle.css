@@ -91,6 +91,10 @@
   font-size: 1.28571429rem;
 }
 
+ui.card {
+	color: #4f3e3e;
+}
+
 #p_button {
     background-color: #eac57f;
 }
