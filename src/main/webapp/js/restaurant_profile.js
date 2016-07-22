@@ -47,5 +47,7 @@ $(document).ready(function(){
                 $(this).parent().parent().parent().toggleClass('disabled'); 
             }
     });
+	
+	$('#myTable').stacktable();
   
 });

@@ -155,8 +155,8 @@
 		</div>	  
 			  
 				
-		  <div class="thirteen wide column">
-            <div clas="ui centeredo one column grid">
+		  <div class="eight wide column">
+            <div clas="ui grid">
 				<div class="row">
 					<div class="column">
 						<div class="ui sub header">Orari di apertura</div>
@@ -167,50 +167,62 @@
 				</div>
 				<div class="row">
 					<div class="column">
-						<table class="ui compact celled definition table">
+						<table id="myTable" class="ui center aligned table">
 							<thead>
-								<tr>  
+								<tr> 
 									<th></th>
-										<c:forEach var="openingTime" items="${restaurant.openingTimes}">
-												<th>${openingTime.dayString}</th>
-										</c:forEach>	
+									<th>
+									  Mattina
+									</th>
+									<th>
+									  Pomeriggio
+									</th>											
 								</tr>  
 							</thead>
-							<tbody>
-							  <tr>
-								<td class="collapsing">
-								  Mattina
-								</td>
-								  <c:forEach var="openingTime" items="${restaurant.openingTimes}">
-								  <td>
-									  <c:if test="${openingTime.dayoff != true}">
+							<tbody>								
+									<c:forEach var="openingTime" items="${restaurant.openingTimes}">
+									<tr>
+										<td>
+										  ${openingTime.dayString}
+										</td>
+										<c:if test="${openingTime.dayoff != true}">
+									  <td>	 
 										  ${openingTime.openAt} - 
-										  ${openingTime.closeAt}                                 
+										  ${openingTime.closeAt} 
+									  </td>
+
 									  </c:if>
 									  <c:if test="${openingTime.dayoff == true}">
-										  CHIUSO
+										  <td>CHIUSO</td>
 									  </c:if>
-								  </td>
-								  </c:forEach>
-							  </tr>	
-							  <tr>
-								<td class="collapsing">
-								  Pomeriggio
-								</td>
+										<c:if test="${openingTime.dayoff != true}">
+										  <td>
+										  ${openingTime.openAtAfternoon} - 
+										  ${openingTime.closeAtAfternoon}  
+										  </td>
+									  </c:if>
+									  <c:if test="${openingTime.dayoff == true}">
+										  <td >CHIUSO</td>
+									  </c:if>  
+									</tr>
+										
+									</c:forEach>
+									
+								</tr>
 								  <c:forEach var="openingTime" items="${restaurant.openingTimes}">
-								  <td>
-									  <c:if test="${openingTime.dayoff != true}">
-										  ${openingTime.openAtAfternoon} -
-										  ${openingTime.closeAtAfternoon}                                 
-									  </c:if>
-									  <c:if test="${openingTime.dayoff == true}">
-										  CHIUSO
-									  </c:if>
-								  </td>
+									  
+								  </c:forEach>
+							  <tr>								
+								  <c:forEach var="openingTime" items="${restaurant.openingTimes}">
+									  
 								  </c:forEach>
 							  </tr>				
 							</tbody>  
 						</table>
+						
+
+						
+						
 					</div>
 				</div>              			  			  			  
             </div>
