@@ -30,7 +30,7 @@ $(document).ready(function(){
   //Ownership form modal initializer
 
   $(".ownership").click(function(){
-    $('.ui.modal.ownership').modal('show');
+    $('.ui.modal.ownership_modal').modal('show');
   });
   
   //New/Edit restaurant day opening checkboxes initializer
