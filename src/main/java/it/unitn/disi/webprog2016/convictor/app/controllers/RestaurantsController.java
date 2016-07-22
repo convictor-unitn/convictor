@@ -442,7 +442,8 @@ public class RestaurantsController extends AbstractController {
 					tmpTime.setDayoff(false);
                 }
             }
-			if (tmpTime.validate()) {
+			tmpTime.validate();
+			if (tmpTime.isValid()) {
                 listTime.add(tmpTime);
             }
 			allTime.add(tmpTime);
@@ -573,6 +574,7 @@ public class RestaurantsController extends AbstractController {
 		}
 		
         Restaurant tmp = new Restaurant();
+		tmp.setId(id);
         tmp.setName(request.getParameter("name"));
         tmp.setCity(request.getParameter("city"));
         tmp.setStreet(request.getParameter("street"));
@@ -650,13 +652,14 @@ public class RestaurantsController extends AbstractController {
 					tmpTime.setDayoff(false);
                 }
             }
-			if (tmpTime.validate()) {
+			tmpTime.validate();
+			if (tmpTime.isValid()) {
                 listTime.add(tmpTime);
             }
 			allTime.add(tmpTime);
         }
         tmp.setOpeningTimes(listTime);
-        
+		
         tmp.validate();
         
         try {
