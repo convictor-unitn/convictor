@@ -10,7 +10,7 @@
 
 <l:main>
 	<jsp:attribute name="title">Upload Status</jsp:attribute>
-		
+	<jsp:attribute name="bodyBackground">#eaeaea</jsp:attribute>	
 	<jsp:attribute name="body">
 		<c:choose>
 			<c:when test="${requestScope.uploadStatus eq 'success'}">

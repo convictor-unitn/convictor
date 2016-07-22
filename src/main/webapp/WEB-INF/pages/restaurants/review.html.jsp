@@ -40,13 +40,13 @@
                             <div class="field">
                               <textarea name="reviewText"></textarea>
                             </div>
-                            <div class="ui basic submit button">
-                              <input class="ui button" type="submit" onclick="setInputValue()" value="Recensisci" class="icon edit">
-                            </div>
+                            
+                              <input class="ui black button" type="submit" onclick="setInputValue()" value="Inserisci una recensione" class="icon edit">
+                           
                           </form>
                         </div>
                     </div>
-                    <a href="${pageContext.servletContext.contextPath}/restaurants/show?id=${bean.restaurantId}" class="ui blue submit button">Indietro</a>
+                    <a href="${pageContext.servletContext.contextPath}/restaurants/show?id=${bean.restaurantId}" class="ui basic black submit button">Indietro</a>
                   </div>
                 </div>
               </div>
