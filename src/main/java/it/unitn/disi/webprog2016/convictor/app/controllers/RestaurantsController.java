@@ -38,12 +38,10 @@ import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.oreilly.servlet.MultipartRequest;
-import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import it.unitn.disi.webprog2016.convictor.app.beans.Photo;
 import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.PhotoDAO;
-import java.io.File;
-import java.util.Enumeration;
+import java.io.ByteArrayOutputStream;
+import java.io.OutputStream;
 import java.util.Iterator;
 import java.util.UUID;
 import org.apache.commons.fileupload.FileItem;
@@ -51,6 +49,8 @@ import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.FilenameUtils;
+import net.glxn.qrgen.QRCode;
+import net.glxn.qrgen.image.ImageType;
 
 /**
  * In this controller there add all restaurant management pages
@@ -697,8 +697,7 @@ public class RestaurantsController extends AbstractController {
 		
 		return "/restaurants/upload";
 	}
-
-    
+  
     /**
      * Method to add a review to a specific restaurant
      * @param request Object representing the request made
@@ -741,4 +740,9 @@ public class RestaurantsController extends AbstractController {
         }
       return "/restaurants/review";
     }
+	
+	public String qrcode(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		return "";	
+	}
+	
 }
