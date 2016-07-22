@@ -119,7 +119,7 @@
 
 
       <!-- Restaurant Infos -->
-      <div class="ui center aligned five column stackable grid">
+      <div class="ui center aligned four column stackable grid">
         <div class="row">
           <div class="column">
             <div clas="ui grid">
@@ -138,50 +138,85 @@
               </div>
             </div>
           </div>
-            
-          <div class="column">
-            <div clas="ui center aligned grid">
-              <div class="column">
-                <div class="ui sub header">Fascia di prezzo</div>
-              </div>
-              <div class="ui divider"></div>
-              <div class="column">
-                <div class="ui list">
-                  ${restaurant.slotPrice}
-                </div>
-              </div>
+           
+			<div class="column">
+				<div clas="ui center aligned grid">
+				  <div class="column">
+					<div class="ui sub header">Fascia di prezzo</div>
+				  </div>
+				  <div class="ui divider"></div>
+				  <div class="column">
+					<div class="ui list">
+					  ${restaurant.slotPrice}
+					</div>
+				  </div>
+				</div>
+			  </div>	
+		</div>	  
+			  
+				
+		  <div class="thirteen wide column">
+            <div clas="ui centeredo one column grid">
+				<div class="row">
+					<div class="column">
+						<div class="ui sub header">Orari di apertura</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="ui divider"></div>
+				</div>
+				<div class="row">
+					<div class="column">
+						<table class="ui compact celled definition table">
+							<thead>
+								<tr>  
+									<th></th>
+										<c:forEach var="openingTime" items="${restaurant.openingTimes}">
+												<th>${openingTime.dayString}</th>
+										</c:forEach>	
+								</tr>  
+							</thead>
+							<tbody>
+							  <tr>
+								<td class="collapsing">
+								  Mattina
+								</td>
+								  <c:forEach var="openingTime" items="${restaurant.openingTimes}">
+								  <td>
+									  <c:if test="${openingTime.dayoff != true}">
+										  ${openingTime.openAt} - 
+										  ${openingTime.closeAt}                                 
+									  </c:if>
+									  <c:if test="${openingTime.dayoff == true}">
+										  CHIUSO
+									  </c:if>
+								  </td>
+								  </c:forEach>
+							  </tr>	
+							  <tr>
+								<td class="collapsing">
+								  Pomeriggio
+								</td>
+								  <c:forEach var="openingTime" items="${restaurant.openingTimes}">
+								  <td>
+									  <c:if test="${openingTime.dayoff != true}">
+										  ${openingTime.openAtAfternoon} -
+										  ${openingTime.closeAtAfternoon}                                 
+									  </c:if>
+									  <c:if test="${openingTime.dayoff == true}">
+										  CHIUSO
+									  </c:if>
+								  </td>
+								  </c:forEach>
+							  </tr>				
+							</tbody>  
+						</table>
+					</div>
+				</div>              			  			  			  
             </div>
+
           </div>
 
-          <div class="column">
-            <div clas="ui  grid">
-              <div class="column">
-                <div class="ui sub header">Orari di apertura</div>
-              </div>
-              <div class="ui divider"></div>
-              <div class="column">
-                <div class="ui list">
-                    <c:forEach var="openingTime" items="${restaurant.openingTimes}">
-                        <div class="item">
-                            ${openingTime.dayString}
-                            <c:if test="${openingTime.dayoff != true}">
-                                <p>${openingTime.openAt}
-                                ${openingTime.closeAt}
-                                ${openingTime.openAtAfternoon}
-                                ${openingTime.closeAtAfternoon}</p>  
-                            </c:if>
-                            <c:if test="${openingTime.dayoff == true}">
-                                CHIUSO
-                            </c:if>
-                        </div>
-                    </c:forEach>
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-        <div class="ui black divider"></div>
       </div>
 
       <!-- Show Reviews/Map Buttons -->
