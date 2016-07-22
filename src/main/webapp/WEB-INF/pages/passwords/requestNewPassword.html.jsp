@@ -10,6 +10,7 @@
 <%@taglib prefix="partials" tagdir="/WEB-INF/tags/partials/" %>
 
 <c:set var="bean" scope="request" value="${requestScope.user}" />
+<partials:passwordForm />
 
 <l:main>
 	
@@ -23,7 +24,7 @@
                     Reimpostazione password
                   </div>
                 </h2>
-                <form class="ui large form error">
+                <form class="ui large form error" action="${url}">
                   <div class="ui stacked segment">
                     <div>Per reimpostare la password del tuo account ti sarà inviato all'indirizzo email che inserirai qui un link per effettuare l'operazione.</div>
                     </br>

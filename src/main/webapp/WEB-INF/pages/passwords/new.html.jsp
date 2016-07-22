@@ -11,7 +11,7 @@
 
 
 <c:set var="bean" scope="request" value="${requestScope.user}" />
-
+<partials:passwordForm />
 
 <l:main>
 	
@@ -25,7 +25,7 @@
                     Reimpostazione password
                   </div>
                 </h2>
-                <form class="ui large form error">
+				  <form class="ui large form error" action="${url}">
                   <div class="ui stacked segment">
                     <div class="field <c:if test="${bean.valid == false and !(bean.errors['password'] == null)}" >error</c:if>">
                       <div class="ui left icon input">
