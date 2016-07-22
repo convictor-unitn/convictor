@@ -628,7 +628,7 @@ public class RestaurantsController extends AbstractController {
                     !"".equals(request.getParameter("open_at_afternoon_"+day+"_minute")) &&
                     !"".equals(request.getParameter("close_at_afternoon_"+day+"_minute"))
                     ) {
-                    
+					
 					// Set the time correctly inside the bean
 					tmpTime.setOpenAt(
 							request.getParameter("open_at_"+day+"_hour")+
@@ -670,7 +670,7 @@ public class RestaurantsController extends AbstractController {
 			{
                 // So we can give to the user the same page, with already datas
                 // filled and also the errors made.
-				tmp.setOpeningTimes(listTime);
+				tmp.setOpeningTimes(allTime);
 				request.setAttribute("restaurant", tmp);
 			}
         } catch (SQLException ex) {
