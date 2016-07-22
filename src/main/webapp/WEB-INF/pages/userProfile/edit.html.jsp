@@ -54,12 +54,12 @@
                                 </div>
 								<partials:formerrors field="email" />
                             </div>
-                            <div class="field <c:if test="${bean.valid == false and ! (bean.errors['password'] == null)}" >error</c:if>">
+                            <div class="field <c:if test="${bean.valid == false and ! (bean.errors['oldPassword'] == null)}" >error</c:if>">
                                 <div class="ui left icon input">
                                     <i class="lock icon"></i>
                                     <input type="password" name="oldPassword" placeholder="Vecchia password">
                                 </div>
-								<partials:formerrors field="password" />
+								<partials:formerrors field="oldPassword" />
                             </div>
                             <div class="field <c:if test="${bean.valid == false and ! (bean.errors['password'] == null)}" >error</c:if>">
                                 <div class="ui left icon input">

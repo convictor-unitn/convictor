@@ -178,9 +178,8 @@
                 </div>
             </div>
             <div class="field">Mattina</div>
-        <div class="two fields">
-          <div class="field">
-            <div class="ui left labeled input">
+          <div class="field <c:if test="${bean.valid == false and !( bean.errors['open_at'] == null)}" >error</c:if>">
+            <div class="ui  left labeled input">
               <div class="ui basic label">
                 Apertura
               </div>
@@ -190,7 +189,7 @@
           </div>
 
           <!-- Closing Hours -->
-          <div class="field">
+          <div class="field <c:if test="${bean.valid == false and !( bean.errors['close_at'] == null)}" >error</c:if>">
             <div class="ui left labeled input">
               <div class="ui basic label">
                 Chiusura
@@ -199,12 +198,11 @@
               <input type="text" name="close_at_${optime.dayString}_minute" placeholder="Minuti" value="${closeAtMinute}">
             </div>
           </div>
-        </div>
 
         <div class="field">Pomeriggio</div>
         <div class="two fields">
-          <div class="field">
-            <div class="ui left labeled input">
+          <div class="field <c:if test="${bean.valid == false and !( bean.errors['open_at_afternoon'] == null)}" >error</c:if>">
+            <div class="ui  left labeled input">
               <div class="ui basic label">
                 Apertura
               </div>
@@ -214,8 +212,8 @@
           </div>
 
           <!-- Closing Hours -->
-          <div class="field">
-            <div class="ui left labeled input">
+          <div class="field <c:if test="${bean.valid == false and !( bean.errors['close_at_afternoon'] == null)}" >error</c:if>">
+            <div class="ui  left labeled input">
               <div class="ui basic label">
                 Chiusura
               </div>
