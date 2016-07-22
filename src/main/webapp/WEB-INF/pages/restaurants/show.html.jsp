@@ -179,7 +179,7 @@
 							<tbody>
 							  <tr>
 								<td class="collapsing">
-								  Apertura
+								  Mattina
 								</td>
 								  <c:forEach var="openingTime" items="${restaurant.openingTimes}">
 								  <td>
@@ -195,7 +195,7 @@
 							  </tr>	
 							  <tr>
 								<td class="collapsing">
-								  Chiusura
+								  Pomeriggio
 								</td>
 								  <c:forEach var="openingTime" items="${restaurant.openingTimes}">
 								  <td>
