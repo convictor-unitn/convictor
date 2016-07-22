@@ -32,7 +32,7 @@ public class OpeningTimeDAOImpl extends DatabaseDAO implements OpeningTimesDAO {
     @Override
     public List<OpeningTime> getResaurantOpeningTimes(int restaurant_id) throws SQLException {
         List<OpeningTime> openingTimes = new ArrayList<>();
-        String query = "SELECT day, open_at, close_at, open_at_afternoon, close_at_afternoon, dayoff FROM opening_times WHERE restaurant_id=?";
+        String query = "SELECT day, open_at, close_at, open_at_afternoon, close_at_afternoon, dayoff FROM opening_times WHERE restaurant_id=? ORDER BY day";
         PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
         try {
             stm.setInt(1, restaurant_id);
