@@ -93,7 +93,7 @@
           </div>
         </div>
         <div class="stretched column">
-          <img class="ui small centered image" src="../images/default_qrcode.png"/>
+			<img class="ui small centered image" src="${pageContext.servletContext.contextPath}/restaurants/qrcode?id=${restaurant.id}" />
         </div>
         <div class="stretched column">
           <div class="ui list">

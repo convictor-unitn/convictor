@@ -34,7 +34,11 @@ public class StaticFilesFilter implements Filter {
 		if (path.startsWith("/css") || path.startsWith("/js") || path.startsWith("/images")) {
 			chain.doFilter(request, response);
 		} else {
-			request.getRequestDispatcher("/pages" + path).forward(request, response);
+			if(path.startsWith("/restaurants/qrcode")) {
+				chain.doFilter(request, response);
+			} else {
+				request.getRequestDispatcher("/pages" + path).forward(request, response);
+			}
 		}
 	}
 

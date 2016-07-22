@@ -36,6 +36,14 @@
         <filter-name>RestrictedAccessFilter</filter-name>
         <filter-class>it.unitn.disi.webprog2016.convictor.app.filters.RestrictedAccessFilter</filter-class>
     </filter>
+	<servlet>
+        <servlet-name>QRcodeServlet</servlet-name>
+        <servlet-class>it.unitn.disi.webprog2016.convictor.framework.servlets.QRcodeServlet</servlet-class>
+    </servlet>
+	<servlet-mapping>
+        <servlet-name>QRcodeServlet</servlet-name>
+        <url-pattern>/restaurants/qrcode</url-pattern>
+    </servlet-mapping>
     <filter-mapping>
         <filter-name>RestrictedAccessFilter</filter-name>
         <url-pattern>/protected</url-pattern>
@@ -60,6 +68,7 @@
         <servlet-name>RouterServlet</servlet-name>
         <url-pattern>/pages/*</url-pattern>
     </servlet-mapping>
+    
     <session-config>
         <session-timeout>30</session-timeout>
     </session-config>
