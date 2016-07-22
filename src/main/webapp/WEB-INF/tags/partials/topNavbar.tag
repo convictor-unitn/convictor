@@ -36,7 +36,7 @@
       <c:if test="${not fn:endsWith(pageContext.request.requestURI, root)}">
         <div class="ui search mini item">
           <form class="ui icon input" method="GET" action="${pageContext.request.contextPath}/restaurants" >               
-            <input class = "prompt" type="text" placeholder="Search..." name="query">
+            <input class = "prompt" type="text" placeholder="Cerca..." name="query">
             <i class="search icon"></i>
           </form>
         </div>
@@ -47,11 +47,11 @@
       <c:if test="${loggedUser.getClass().name == 'it.unitn.disi.webprog2016.convictor.app.beans.RestaurantOwner'}" >
         <!-- Notificazion Dropdown -->
       <div class="ui simple dropdown right item">
-        Notifications <i class="dropdown icon"></i>
+        Notifiche <i class="dropdown icon"></i>
         <div class="menu">
           <a class="item" href="#">notify 1</a>
           <a class="item" href="#">notify 2</a>
-          <a class="item" href="${pageContext.request.contextPath}/userProfile/show">Open</a> 
+          <a class="item" href="${pageContext.request.contextPath}/userProfile/show">Vedi tutte</a> 
         </div>
       </div>
       <!-- Restaurants Dropdown -->
@@ -60,7 +60,7 @@
         <div class="menu">
           <a class="item" href="#">notify 1</a>
           <a class="item" href="#">notify 2</a>
-          <a class="item" href="${pageContext.request.contextPath}/userProfile/show">Lista completa</a>
+          <a class="item" href="${pageContext.request.contextPath}/userProfile/show">Lista</a>
         </div>
       </div>
       </c:if>
@@ -93,7 +93,7 @@
         ${loggedUser.fullName} <i class="dropdown icon"></i>
         <div class="menu">
           <a class="item" href="${pageContext.request.contextPath}/userProfile/show">Pagina Profilo</a> 
-          <a class="item" href="${pageContext.request.contextPath}/sign_out">Log Out</a>
+          <a class="item" href="${pageContext.request.contextPath}/sign_out">Esci</a>
         </div>
       </div>
       </c:if>
@@ -130,7 +130,7 @@
       <c:if test="${not fn:endsWith(pageContext.request.requestURI, root)}">
         <div class="ui search mini item">
           <form class="ui icon input"method="POST" action="${pageContext.request.contextPath}/restaurants/index">
-            <input class = "prompt" type="text" placeholder="Search..." name="name" >
+            <input class = "prompt" type="text" placeholder="Cerca..." name="name" >
             <i class="search icon"></i>
           
       </form>
@@ -138,7 +138,7 @@
       </c:if>
       <div class="right menu open">
         <a href="" class="menu item">
-          <i class="content icon"></i>
+          <i class="content icon" style="color: #ffffff"></i>
         </a>
       </div>
     </div>
@@ -150,11 +150,11 @@
       <c:if test="${loggedUser.getClass().name == 'it.unitn.disi.webprog2016.convictor.app.beans.RestaurantOwner'}" >
         <!-- Notificazion Dropdown -->
       <div class="item">
-        <div class="text">Notifications</div>
+        <div class="text">Notifiche</div>
         <div class="menu">
           <a class="item" href="#">notify 1</a>
           <a class="item" href="#">notify 2</a>
-          <a class="item" href="${pageContext.request.contextPath}/userProfile/show">Open</a> 
+          <a class="item" href="${pageContext.request.contextPath}/userProfile/show">Vedi tutte</a> 
         </div>
       </div>
       <!-- Restaurants Dropdown -->
@@ -163,7 +163,7 @@
         <div class="menu">
           <a class="item" href="#">notify 1</a>
           <a class="item" href="#">notify 2</a>
-          <a class="item" href="${pageContext.request.contextPath}/userProfile/show">Lista completa</a>
+          <a class="item" href="${pageContext.request.contextPath}/userProfile/show">Lista</a>
         </div>
       </div>
       </c:if>
@@ -171,11 +171,11 @@
       <!-- Administrator User -->
       <c:if test="${loggedUser.getClass().name == 'it.unitn.disi.webprog2016.convictor.app.beans.Administrator'}" >
         <div class="ui item">
-            <div class="text">Notifications</div> 
+            <div class="text">Notifiche</div> 
             <div class="menu">
               <a class="item" href="#">notify 1</a>
               <a class="item" href="#">notify 2</a>
-              <a class="item" href="${pageContext.request.contextPath}/userProfile/show">Open</a> 
+              <a class="item" href="${pageContext.request.contextPath}/userProfile/show">Vedi tutte</a> 
             </div>
         </div>
       </c:if>
@@ -186,7 +186,7 @@
         <div class="text">${loggedUser.fullName}</div>
         <div class="menu">
           <a class="item" href="${pageContext.request.contextPath}/userProfile/show">Pagina Profilo</a> 
-          <a class="item" href="${pageContext.request.contextPath}/sign_out">Log Out</a>
+          <a class="item" href="${pageContext.request.contextPath}/sign_out">Esci</a>
         </div>
       </div>  
       </c:if> 

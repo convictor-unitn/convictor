@@ -263,14 +263,14 @@
                         ${review.description}
                       </div>
                       <div class="actions">
-                        <a class="reply">Reply</a>
+                        <a class="reply">Rispondi</a>
                       </div>                            
                       <form class="ui reply form">
                         <div class="field">
                           <textarea></textarea>
                         </div>
                         <div class="ui basic black submit labeled icon button">
-                          <i class="icon edit"></i> Add Reply
+                          <i class="icon edit"></i> Rispondi
                         </div>
                       </form>
                     </div>
@@ -290,7 +290,7 @@
                     <div class="ui segment">
                     <c:choose>    
                       <c:when test="${!empty sessionScope.user}">
-                        <div class="ui header">Write a review</div>
+                        <div class="ui header">Inserisci una recensione</div>
                         <div id="rating-selector" class="ui large center rating" data-rating="1" data-max-rating="5"></div>
                         <div class="ui center comment">
                           <form class="ui small reply form" method="POST" action="${pageContext.servletContext.contextPath}/restaurants/addReview">
