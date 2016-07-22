@@ -149,7 +149,14 @@
 			<fmt:formatDate var="openAtAfternoonMinute" value="${optime.openAtAfternoon}" pattern="mm"/>
 			<fmt:formatDate var="closeAtAfternoonHour" value="${optime.closeAtAfternoon}" pattern="HH"/>
 			<fmt:formatDate var="closeAtAfternoonMinute" value="${optime.closeAtAfternoon}" pattern="mm"/>
-		<div class="ui segment">
+		<c:choose>
+			<c:when test="${optime.dayoff == true}">
+				<div class="ui segment disabled">
+			</c:when>
+			<c:otherwise>
+				<div class="ui segment">
+			</c:otherwise>
+		</c:choose>
             <div class="field">
                 <div class="ui small label">
                     ${optime.dayString}
@@ -205,18 +212,18 @@
 
         <!-- Days Opening -->
         <div class="field">
-            <div class="ui checkbox mycheckbox">
-				<c:choose>
-					<c:when test="${optime.dayoff == true}">
+			<c:choose>
+				<c:when test="${optime.dayoff == true}">
+					<div class="ui checkbox mycheckbox checked">				
 						<input type="checkbox" name="dayoff_${optime.dayString}" value="checked" checked="checked">
-					</c:when>
-					<c:otherwise>
+				</c:when>
+				<c:otherwise>
+					<div class="ui checkbox mycheckbox">				
 						<input type="checkbox" name="dayoff_${optime.dayString}" value="">
-					</c:otherwise>
-				</c:choose>
-
-					<label >Seleziona come giorno di chiusura</label>
-             </div>
+				</c:otherwise>
+			</c:choose>
+				<label >Seleziona come giorno di chiusura</label>
+			</div>
         </div>
         </div>
 		</c:forEach>
