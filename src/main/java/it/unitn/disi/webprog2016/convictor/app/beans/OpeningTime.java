@@ -74,7 +74,7 @@ public class OpeningTime extends AbstractBean {
 			setOpenAt(df.parse(openAt));
 		} catch (ParseException ex) {
 			this.setError("open_at", "L'orario di apertura non è valido");
-            this.setOpenAt(new Date(0,0,0));
+            this.setCloseAtAfternoon("00:00");
 		}
 	}
 
@@ -101,7 +101,7 @@ public class OpeningTime extends AbstractBean {
 			setCloseAt(df.parse(closeAt));
 		} catch (ParseException ex) {
 			this.setError("close_at", "L'orario di chiusura non è valido");
-            this.setCloseAt(new Date(0,0,0));
+            this.setCloseAtAfternoon("00:00");
 		}
 	}
     
@@ -139,7 +139,7 @@ public class OpeningTime extends AbstractBean {
 			setOpenAtAfternoon(df.parse(openAt));
 		} catch (ParseException ex) {
 			this.setError("open_at_afternoon", "L'orario di apertura pomeridiano non è valido");
-            this.setOpenAtAfternoon(new Date(0,0,0));
+            this.setCloseAtAfternoon("00:00");
 		}
 	}
 
@@ -163,7 +163,7 @@ public class OpeningTime extends AbstractBean {
 			setCloseAtAfternoon(df.parse(closeAtAfternoon));
 		} catch (Exception ex) {
 			this.setError("close_at_afternoon", "L'orario di chiusura pomeridiano non è valido");
-            this.setCloseAtAfternoon(new Date(0,0,0));
+            this.setCloseAtAfternoon("00:00");
 		}
 	}
 

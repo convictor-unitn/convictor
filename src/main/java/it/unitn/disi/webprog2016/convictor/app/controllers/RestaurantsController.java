@@ -442,7 +442,8 @@ public class RestaurantsController extends AbstractController {
 					tmpTime.setDayoff(false);
                 }
             }
-			if (tmpTime.validate()) {
+			tmpTime.validate();
+			if (tmpTime.isValid()) {
                 listTime.add(tmpTime);
             }
 			allTime.add(tmpTime);
@@ -576,6 +577,7 @@ public class RestaurantsController extends AbstractController {
 
 		
         Restaurant tmp = new Restaurant();
+		tmp.setId(id);
         tmp.setName(request.getParameter("name"));
         tmp.setCity(request.getParameter("city"));
         tmp.setStreet(request.getParameter("street"));
@@ -631,7 +633,7 @@ public class RestaurantsController extends AbstractController {
                     !"".equals(request.getParameter("open_at_afternoon_"+day+"_minute")) &&
                     !"".equals(request.getParameter("close_at_afternoon_"+day+"_minute"))
                     ) {
-                    
+					
 					// Set the time correctly inside the bean
 					tmpTime.setOpenAt(
 							request.getParameter("open_at_"+day+"_hour")+
@@ -653,13 +655,14 @@ public class RestaurantsController extends AbstractController {
 					tmpTime.setDayoff(false);
                 }
             }
-			if (tmpTime.validate()) {
+			tmpTime.validate();
+			if (tmpTime.isValid()) {
                 listTime.add(tmpTime);
             }
 			allTime.add(tmpTime);
         }
         tmp.setOpeningTimes(listTime);
-        
+		
         tmp.validate();
         
         try {
@@ -673,7 +676,7 @@ public class RestaurantsController extends AbstractController {
 			{
                 // So we can give to the user the same page, with already datas
                 // filled and also the errors made.
-				tmp.setOpeningTimes(listTime);
+				tmp.setOpeningTimes(allTime);
 				request.setAttribute("restaurant", tmp);
 			}
         } catch (SQLException ex) {
