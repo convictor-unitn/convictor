@@ -232,6 +232,7 @@ public class OpeningTime extends AbstractBean {
                 this.setDay(1);
                 break;
         }
+		this.setDayString(this.getDay());
     }
     
     public void setDayString(int day) {

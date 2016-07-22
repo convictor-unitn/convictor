@@ -197,7 +197,7 @@
               <div class="ui basic label">
                 Chiusura
               </div>
-              <input type="text" name="close_at_afternoon_${optime.dayString}_hour" placeholder="Ora" ${closeAtAfternoonHour}>
+              <input type="text" name="close_at_afternoon_${optime.dayString}_hour" placeholder="Ora" value="${closeAtAfternoonHour}">
               <input type="text" name="close_at_afternoon_${optime.dayString}_minute" placeholder="Minuti" value="${closeAtAfternoonMinute}">
             </div>
           </div>

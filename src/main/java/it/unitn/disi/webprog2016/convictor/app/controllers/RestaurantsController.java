@@ -314,7 +314,17 @@ public class RestaurantsController extends AbstractController {
 		}
 		
 		String[] days = {"Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì", "Sabato", "Domenica"};
-		request.setAttribute("daysOpeningTimes", days);
+		
+		Restaurant tmp = new Restaurant();
+		List<OpeningTime> tmp2 = new ArrayList<>();
+		for (String day : days ) {
+			OpeningTime time = new OpeningTime();
+			time.setDay(day);
+			time.setDayString(time.getDay());
+			tmp2.add(time);
+		}
+		tmp.setOpeningTimes(tmp2);
+		request.setAttribute("restaurant", tmp);
 		
         return "/restaurants/new";
 	}
@@ -358,6 +368,7 @@ public class RestaurantsController extends AbstractController {
         String[] cusines = request.getParameterValues("cusines");
         List<Cusine> list = new ArrayList<>();
         List<OpeningTime> listTime = new ArrayList<>();
+		List<OpeningTime> allTime = new ArrayList<>();
        
         try {
             for (String name : cusines) {
@@ -414,13 +425,12 @@ public class RestaurantsController extends AbstractController {
 					);
                     
 					tmpTime.setDayoff(false);
-                    
-					if (tmpTime.validate()) {
-                        listTime.add(tmpTime);
-                    }
-					
                 }
-            }         
+            }
+			if (tmpTime.validate()) {
+                listTime.add(tmpTime);
+            }
+			allTime.add(tmpTime);
         }
         tmp.setOpeningTimes(listTime);
         
@@ -436,7 +446,9 @@ public class RestaurantsController extends AbstractController {
 			else
 			{
                 // So we can give to the user the same page, with already datas
-                // filled and also the errors made. 
+                // filled and also the errors made. We also insert all the opening
+				// times to permit an easy filling.
+				tmp.setOpeningTimes(allTime);
 				request.setAttribute("restaurant", tmp);
 			}
         } catch (SQLException ex) {
@@ -551,7 +563,7 @@ public class RestaurantsController extends AbstractController {
         String[] cusines = request.getParameterValues("cusines");
         List<Cusine> list = new ArrayList<>();
         List<OpeningTime> listTime = new ArrayList<>();
-        
+        List<OpeningTime> allTime = new ArrayList<>();
         
         try {
             for (String name : cusines) {
@@ -571,7 +583,7 @@ public class RestaurantsController extends AbstractController {
         }
         tmp.setCusine(list); 
         
-		// Set the opening times
+		 // Set the opening times
         String[] days = {"Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì", "Sabato", "Domenica"};
         for (String day : days) {
             OpeningTime tmpTime = new OpeningTime();
@@ -608,13 +620,12 @@ public class RestaurantsController extends AbstractController {
 					);
                     
 					tmpTime.setDayoff(false);
-                    
-					if (tmpTime.validate()) {
-                        listTime.add(tmpTime);
-                    }
-					
                 }
-            }         
+            }
+			if (tmpTime.validate()) {
+                listTime.add(tmpTime);
+            }
+			allTime.add(tmpTime);
         }
         tmp.setOpeningTimes(listTime);
         
@@ -630,7 +641,8 @@ public class RestaurantsController extends AbstractController {
             }else
 			{
                 // So we can give to the user the same page, with already datas
-                // filled and also the errors made. 
+                // filled and also the errors made.
+				tmp.setOpeningTimes(listTime);
 				request.setAttribute("restaurant", tmp);
 			}
         } catch (SQLException ex) {
