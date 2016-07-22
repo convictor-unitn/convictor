@@ -554,6 +554,15 @@ public class RestaurantsController extends AbstractController {
             return "";
 		}
         
+		// Get all price slots available to make them available inside the JSP
+		PriceSlotDAO priceSlotDAO = (PriceSlotDAO) request.getServletContext().getAttribute("priceslotdao");
+		try {
+			List<PriceSlot> allPriceSlot = priceSlotDAO.getAllPriceSlots();
+			request.setAttribute("allPriceSlot", allPriceSlot);
+		} catch (SQLException ex) {
+			Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		
         Restaurant tmp = new Restaurant();
         tmp.setName(request.getParameter("name"));
         tmp.setCity(request.getParameter("city"));
