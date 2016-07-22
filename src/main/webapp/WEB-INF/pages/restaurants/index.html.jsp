@@ -26,7 +26,7 @@
 
 
 <l:main>
-	
+	<jsp:attribute name="bodyBackground"></jsp:attribute>
 	<jsp:attribute name="title">Lista risultati</jsp:attribute>
 	
 	<jsp:attribute name="body">
@@ -36,23 +36,23 @@
                     <input type="hidden" value="${queryString}" name="query"/>
                     <div id="choices" class="ui form">
                         <div class="grouped fields">
-                            <label>Ordina per:</label>
+                            <label id="brown">Ordina per:</label>
                         <div class="field">
                         <div class="ui radio checkbox">
                             <input name="sorting" value="nameSorting" type="radio">
-                            <label>nome</label>
+                            <label id="brown">nome</label>
                         </div>
                         </div>              
                         <div class="field">
                             <div class="ui radio checkbox">
                                 <input name="sorting" value="priceAscSorting" type="radio">
-                                <label>prezzo (dal piu' basso al piu' alto)</label>
+                                <label id="brown">prezzo (dal piu' basso al piu' alto)</label>
                             </div>
                         </div>
                         <div class="field">
                             <div class="ui radio checkbox">
                                 <input name="sorting" value="priceDescSorting" type="radio">
-                                <label>prezzo (dal piu' alto al piu' basso)</label>
+                                <label id="brown">prezzo (dal piu' alto al piu' basso)</label>
                             </div>
                         </div>
                     </div>
@@ -60,23 +60,24 @@
                     </br>
                     <div id="choices" class="ui form">
                     <div class="grouped fields">
-                        <label>Filtra per tipologia di cucina:</label>
+                        <label id="brown">Filtra per tipologia di cucina:</label>
                         <c:forEach var="cusine" items="${allCusines}">
                         <div class="field">
                             <div class="ui checkbox">
                                 <input name="${cusine.id}" type="checkbox">
-                                <label>${cusine.name}</label>
+                                <label id="brown">${cusine.name}</label>
                             </div>
                             </div> 
                         </c:forEach>                
                     </div>
                     </div>
                     </br>
-                    <input class="ui fluid basic black button" type="submit" value="Filtra">
+                    <input class="ui fluid black button" type="submit" value="Filtra">
                 </form>
+					</br>
                  <div class="column">
             <div class="ui buttons">
-                            <div class="ui button">
+                            <div class="ui basic black button">
                                 <c:if test="${actualPage-1 < 0}">
                                     <a href="?${requestURLFilters}&page=0"> 
                                         <i class="left arrow icon"></i>
@@ -90,7 +91,7 @@
                                 
                             </div>
                         </div>
-                        <div class="ui button">
+                        <div class="ui basic black button">
                             <a href="?${requestURLFilters}&page=${requestScope.nextPagination}"> 
                                 <i class="right arrow icon"></i>
                             </a>
@@ -114,7 +115,7 @@
                             <img src="${rest.photos[main_p_index]}">
                           </div>
                         <div class="content">
-                          <a class="header" href="restaurants/show?id=${rest.id}">${rest.name}</a>
+                          <a class="header" id="brown" href="restaurants/show?id=${rest.id}">${rest.name}</a>
                             <div class="ui horizontal list">
                                 <c:forEach var="i" begin="0" end="${rest.rating}" step="1">
                                     <c:if test="${i!=0}">

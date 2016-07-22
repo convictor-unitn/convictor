@@ -31,3 +31,4 @@
         </div>
 		<partials:formerrors field="email"/>
     </div>
+

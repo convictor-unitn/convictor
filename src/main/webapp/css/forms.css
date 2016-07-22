@@ -7,19 +7,8 @@ and open the template in the editor.
     Created on : 22-giu-2016, 13.15.58
     Author     : Federica
 */
-
-/*body > .grid {
-    height: 100%;
-}*/
         
 .myform {
     max-width: 450px;
 }
 
-#p_button {
-    background-color: #ffbf66;
-}
-
-#s_text{
-    background-color:rgba(256,256,256,0.6)
-}

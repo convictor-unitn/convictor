@@ -38,12 +38,10 @@ import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.oreilly.servlet.MultipartRequest;
-import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import it.unitn.disi.webprog2016.convictor.app.beans.Photo;
 import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.PhotoDAO;
-import java.io.File;
-import java.util.Enumeration;
+import java.io.ByteArrayOutputStream;
+import java.io.OutputStream;
 import java.util.Iterator;
 import java.util.UUID;
 import org.apache.commons.fileupload.FileItem;
@@ -51,6 +49,8 @@ import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.FilenameUtils;
+import net.glxn.qrgen.QRCode;
+import net.glxn.qrgen.image.ImageType;
 
 /**
  * In this controller there add all restaurant management pages
@@ -313,6 +313,19 @@ public class RestaurantsController extends AbstractController {
 			Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, ex);
 		}
 		
+		String[] days = {"Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì", "Sabato", "Domenica"};
+		
+		Restaurant tmp = new Restaurant();
+		List<OpeningTime> tmp2 = new ArrayList<>();
+		for (String day : days ) {
+			OpeningTime time = new OpeningTime();
+			time.setDay(day);
+			time.setDayString(time.getDay());
+			tmp2.add(time);
+		}
+		tmp.setOpeningTimes(tmp2);
+		request.setAttribute("restaurant", tmp);
+		
         return "/restaurants/new";
 	}
     
@@ -341,6 +354,15 @@ public class RestaurantsController extends AbstractController {
             return "";
 		}
         
+		// Get all price slots available to make them available inside the JSP
+		PriceSlotDAO priceSlotDAO = (PriceSlotDAO) request.getServletContext().getAttribute("priceslotdao");
+		try {
+			List<PriceSlot> allPriceSlot = priceSlotDAO.getAllPriceSlots();
+			request.setAttribute("allPriceSlot", allPriceSlot);
+		} catch (SQLException ex) {
+			Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		
         tmp.setName(request.getParameter("name"));
         tmp.setCity(request.getParameter("city"));
         tmp.setStreet(request.getParameter("street"));
@@ -355,6 +377,7 @@ public class RestaurantsController extends AbstractController {
         String[] cusines = request.getParameterValues("cusines");
         List<Cusine> list = new ArrayList<>();
         List<OpeningTime> listTime = new ArrayList<>();
+		List<OpeningTime> allTime = new ArrayList<>();
        
         try {
             for (String name : cusines) {
@@ -375,29 +398,54 @@ public class RestaurantsController extends AbstractController {
         tmp.setCusine(list);        
         
         // Set the opening times
-        String[] days = {"monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"};
+        String[] days = {"Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì", "Sabato", "Domenica"};
         for (String day : days) {
             OpeningTime tmpTime = new OpeningTime();
             tmpTime.setDay(day);
             if (request.getParameter("dayoff_"+day) != null) {
                 tmpTime.setDayoff(true);
+				
+				tmpTime.setOpenAt("00:00");
+				tmpTime.setCloseAt("00:00");
+				tmpTime.setOpenAtAfternoon("00:00");
+				tmpTime.setCloseAtAfternoon("00:00");
+				
             } else {
-                if (!"".equals(request.getParameter("open_at_"+day)) &&
-                    !"".equals(request.getParameter("close_at_"+day)) &&  
-                    !"".equals(request.getParameter("open_at_afternoon_"+day)) &&
-                    !"".equals(request.getParameter("close_at_afternoon_"+day)) 
+                if (!"".equals(request.getParameter("open_at_"+day+"_hour")) &&
+                    !"".equals(request.getParameter("close_at_"+day+"_hour")) &&  
+                    !"".equals(request.getParameter("open_at_afternoon_"+day+"_hour")) &&
+                    !"".equals(request.getParameter("close_at_afternoon_"+day+"_hour")) &&
+					!"".equals(request.getParameter("open_at_"+day+"_minute")) &&
+                    !"".equals(request.getParameter("close_at_"+day+"_minute")) &&  
+                    !"".equals(request.getParameter("open_at_afternoon_"+day+"_minute")) &&
+                    !"".equals(request.getParameter("close_at_afternoon_"+day+"_minute"))
                     ) {
-                    Logger.getLogger("TEST").log(Level.SEVERE,request.getParameter("close_at_afternoon_"+day));
-                    tmpTime.setOpenAt(request.getParameter("open_at_"+day));
-                    tmpTime.setCloseAt(request.getParameter("close_at_"+day));
-                    tmpTime.setOpenAtAfternoon(request.getParameter("open_at_afternoon_"+day));
-                    tmpTime.setCloseAtAfternoon(request.getParameter("close_at_afternoon_"+day));
-                    tmpTime.setDayoff(false);
-                    if (tmpTime.validate()) {
-                        listTime.add(tmpTime);
-                    }
+                    
+					// Set the time correctly inside the bean
+					tmpTime.setOpenAt(
+							request.getParameter("open_at_"+day+"_hour")+
+							":"+request.getParameter("open_at_"+day+"_minute")
+					);
+                    tmpTime.setCloseAt(
+							request.getParameter("close_at_"+day+"_hour")+
+							":"+request.getParameter("close_at_"+day+"_minute")
+					);
+                    tmpTime.setOpenAtAfternoon(
+							request.getParameter("open_at_afternoon_"+day+"_hour")+
+							":"+request.getParameter("open_at_afternoon_"+day+"_minute")
+					);
+                    tmpTime.setCloseAtAfternoon(
+							request.getParameter("close_at_afternoon_"+day+"_hour")+
+							":"+request.getParameter("close_at_afternoon_"+day+"_minute")
+					);
+                    
+					tmpTime.setDayoff(false);
                 }
-            }         
+            }
+			if (tmpTime.validate()) {
+                listTime.add(tmpTime);
+            }
+			allTime.add(tmpTime);
         }
         tmp.setOpeningTimes(listTime);
         
@@ -413,7 +461,9 @@ public class RestaurantsController extends AbstractController {
 			else
 			{
                 // So we can give to the user the same page, with already datas
-                // filled and also the errors made. 
+                // filled and also the errors made. We also insert all the opening
+				// times to permit an easy filling.
+				tmp.setOpeningTimes(allTime);
 				request.setAttribute("restaurant", tmp);
 			}
         } catch (SQLException ex) {
@@ -513,16 +563,17 @@ public class RestaurantsController extends AbstractController {
             return "";
 		}
         
-		//Retrieve priceSlot list from database to fill restaurant edit form - GR
+
+		// Get all price slots available to make them available inside the JSP
 		PriceSlotDAO priceSlotDAO = (PriceSlotDAO) request.getServletContext().getAttribute("priceslotdao");
 		try {
 			List<PriceSlot> allPriceSlot = priceSlotDAO.getAllPriceSlots();
 			request.setAttribute("allPriceSlot", allPriceSlot);
 		} catch (SQLException ex) {
 			Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, ex);
-            response.sendError(500);
-            return "";
-        }	
+
+		}
+
 		
         Restaurant tmp = new Restaurant();
         tmp.setName(request.getParameter("name"));
@@ -539,7 +590,7 @@ public class RestaurantsController extends AbstractController {
         String[] cusines = request.getParameterValues("cusines");
         List<Cusine> list = new ArrayList<>();
         List<OpeningTime> listTime = new ArrayList<>();
-        
+        List<OpeningTime> allTime = new ArrayList<>();
         
         try {
             for (String name : cusines) {
@@ -559,29 +610,53 @@ public class RestaurantsController extends AbstractController {
         }
         tmp.setCusine(list); 
         
-       // Set the opening times
-        String[] days = {"monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"};
+		 // Set the opening times
+        String[] days = {"Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì", "Sabato", "Domenica"};
         for (String day : days) {
             OpeningTime tmpTime = new OpeningTime();
             tmpTime.setDay(day);
             if (request.getParameter("dayoff_"+day) != null) {
                 tmpTime.setDayoff(true);
+				tmpTime.setOpenAt("00:00");
+				tmpTime.setCloseAt("00:00");
+				tmpTime.setOpenAtAfternoon("00:00");
+				tmpTime.setCloseAtAfternoon("00:00");
             } else {
-                if (!"".equals(request.getParameter("open_at_"+day)) &&
-                    !"".equals(request.getParameter("close_at_"+day)) &&  
-                    !"".equals(request.getParameter("open_at_afternoon_"+day)) &&
-                    !"".equals(request.getParameter("close_at_afternoon_"+day)) 
+                if (!"".equals(request.getParameter("open_at_"+day+"_hour")) &&
+                    !"".equals(request.getParameter("close_at_"+day+"_hour")) &&  
+                    !"".equals(request.getParameter("open_at_afternoon_"+day+"_hour")) &&
+                    !"".equals(request.getParameter("close_at_afternoon_"+day+"_hour")) &&
+					!"".equals(request.getParameter("open_at_"+day+"_minute")) &&
+                    !"".equals(request.getParameter("close_at_"+day+"_minute")) &&  
+                    !"".equals(request.getParameter("open_at_afternoon_"+day+"_minute")) &&
+                    !"".equals(request.getParameter("close_at_afternoon_"+day+"_minute"))
                     ) {
-                    tmpTime.setOpenAt(request.getParameter("open_at_"+day));
-                    tmpTime.setCloseAt(request.getParameter("close_at_"+day));
-                    tmpTime.setOpenAtAfternoon(request.getParameter("open_at_afternoon_"+day));
-                    tmpTime.setCloseAtAfternoon(request.getParameter("close_at_afternoon_"+day));
-                    tmpTime.setDayoff(false);
-                    if (tmpTime.validate()) {
-                        listTime.add(tmpTime);
-                    }
+                    
+					// Set the time correctly inside the bean
+					tmpTime.setOpenAt(
+							request.getParameter("open_at_"+day+"_hour")+
+							":"+request.getParameter("open_at_"+day+"_minute")
+					);
+                    tmpTime.setCloseAt(
+							request.getParameter("close_at_"+day+"_hour")+
+							":"+request.getParameter("close_at_"+day+"_minute")
+					);
+                    tmpTime.setOpenAtAfternoon(
+							request.getParameter("open_at_afternoon_"+day+"_hour")+
+							":"+request.getParameter("open_at_afternoon_"+day+"_minute")
+					);
+                    tmpTime.setCloseAtAfternoon(
+							request.getParameter("close_at_afternoon_"+day+"_hour")+
+							":"+request.getParameter("close_at_afternoon_"+day+"_minute")
+					);
+                    
+					tmpTime.setDayoff(false);
                 }
-            }         
+            }
+			if (tmpTime.validate()) {
+                listTime.add(tmpTime);
+            }
+			allTime.add(tmpTime);
         }
         tmp.setOpeningTimes(listTime);
         
@@ -597,7 +672,8 @@ public class RestaurantsController extends AbstractController {
             }else
 			{
                 // So we can give to the user the same page, with already datas
-                // filled and also the errors made. 
+                // filled and also the errors made.
+				tmp.setOpeningTimes(listTime);
 				request.setAttribute("restaurant", tmp);
 			}
         } catch (SQLException ex) {
@@ -708,8 +784,7 @@ public class RestaurantsController extends AbstractController {
 		
 		return "/restaurants/upload";
 	}
-
-    
+  
     /**
      * Method to add a review to a specific restaurant
      * @param request Object representing the request made
@@ -752,4 +827,9 @@ public class RestaurantsController extends AbstractController {
         }
       return "/restaurants/review";
     }
+	
+	public String qrcode(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		return "";	
+	}
+	
 }

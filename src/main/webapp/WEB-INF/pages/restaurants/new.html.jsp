@@ -13,7 +13,7 @@
 <c:set var="allCusines" value="${requestScope.allCusines}" scope="request" />
 
 <l:main>
-	
+	<jsp:attribute name="bodyBackground">#eaeaea</jsp:attribute>
 	<jsp:attribute name="title">Nuovo Ristorante</jsp:attribute>
 	
 	<jsp:attribute name="body">

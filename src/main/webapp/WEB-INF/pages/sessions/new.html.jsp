@@ -14,7 +14,7 @@
 <l:main>
 	
 	<jsp:attribute name="title">Accedi</jsp:attribute>
-	<jsp:attribute name="bodyBackground">url("${pageContext.servletContext.contextPath}/images/background.png")</jsp:attribute>
+	<jsp:attribute name="bodyBackground">#eaeaea</jsp:attribute>
 	<jsp:attribute name="body">
         <div class="ui middle aligned center aligned grid">
           <div class="column myform">
@@ -50,7 +50,7 @@
               </div>
             </form>
             </br>
-            <div id="s_text" class="ui text">
+            <div class="text">
               Non hai ancora un account? <a href="form_registrazione.html">Registrati</a>
             </div>
           </div>

@@ -14,7 +14,7 @@
 <l:main>
 	
 	<jsp:attribute name="title">Recupero Password</jsp:attribute>
-	<jsp:attribute name="bodyBackground">url("${pageContext.servletContext.contextPath}/images/background.png")</jsp:attribute>
+	<jsp:attribute name="bodyBackground">#eaeaea</jsp:attribute>
 	<jsp:attribute name="body">
             <div class="ui middle aligned center aligned grid">
               <div class="column myform">
@@ -35,13 +35,14 @@
 						<partials:formerrors field="email" />
                     </div>
                     </br>
-                      <input id="p_button" class="ui fluid large submit button" type="submit"></input>
+						<input id="p_button" class="ui fluid large submit button" type="submit" value="Reimposta la password" />
                     </br>
-                    <div class="ui fluid submit button">Annulla</div>
+						<a href="javascript:history.back()" class="ui fluid submit button">Annulla</a>
                   </div>
                 </form>
               </div>
             </div>
+
 
 	</jsp:attribute>
 		

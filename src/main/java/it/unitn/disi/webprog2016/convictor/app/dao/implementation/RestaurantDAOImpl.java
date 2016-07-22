@@ -25,7 +25,7 @@ import java.util.List;
 public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
 
     // Max number of query result
-    private int MAX_RESULTS = 10;
+    private static final int MAX_RESULTS = 10;
     
     public RestaurantDAOImpl(DatabaseConnectionManager c) {
         super(c);
@@ -327,7 +327,21 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
         
         // Set up everything inside the query. This should be safe because
         // the string concatenated are fixed and cannot be modified.
-        String query ="SELECT * FROM restaurants INNER JOIN cusines_restaurants ON restaurants.id = restaurant_id WHERE tsv @@ tsquery(?) OR searchable ILIKE ? "+
+        String query ="SELECT DISTINCT restaurants.id, " +
+				"restaurants.name, " +
+				"restaurants.description, " +
+				"restaurants.street, " +
+				"restaurants.city, " +
+				"restaurants.zip_code, " +
+				"restaurants.province, " +
+				"restaurants.full_address, " +
+				"restaurants.website, " +
+				"restaurants.slot_price, " +
+				"restaurants.rating, " +
+				"restaurants.main_photo_id, " +
+				"restaurants.restaurant_owner_id, " +
+				"restaurants.email, " +
+				"restaurants.phone FROM restaurants INNER JOIN cusines_restaurants ON restaurants.id = restaurant_id WHERE tsv @@ tsquery(?) OR searchable ILIKE ? "+
                 params
                 +"ORDER BY restaurants.rating LIMIT ? OFFSET ? ";
         
@@ -373,7 +387,21 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
         
         // Set up everything inside the query. This should be safe because
         // the string concatenated are fixed and cannot be modified.
-        String query ="SELECT * FROM restaurants INNER JOIN cusines_restaurants ON restaurants.id = restaurant_id WHERE tsv @@ tsquery(?) OR searchable ILIKE ? "+
+        String query ="SELECT DISTINCT restaurants.id, " +
+				"restaurants.name, " +
+				"restaurants.description, " +
+				"restaurants.street, " +
+				"restaurants.city, " +
+				"restaurants.zip_code, " +
+				"restaurants.province, " +
+				"restaurants.full_address, " +
+				"restaurants.website, " +
+				"restaurants.slot_price, " +
+				"restaurants.rating, " +
+				"restaurants.main_photo_id, " +
+				"restaurants.restaurant_owner_id, " +
+				"restaurants.email, " +
+				"restaurants.phone FROM restaurants INNER JOIN cusines_restaurants ON restaurants.id = restaurant_id WHERE tsv @@ tsquery(?) OR searchable ILIKE ? "+
                 params
                 +"ORDER BY restaurants.name LIMIT ? OFFSET ? ";
         
@@ -419,10 +447,38 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
         
         // Set up everything inside the query. This should be safe because
         // the string concatenated are fixed and cannot be modified.
-        String queryDESC ="SELECT * FROM restaurants INNER JOIN cusines_restaurants ON restaurants.id = restaurant_id WHERE tsv @@ tsquery(?) OR searchable ILIKE ? "+
+        String queryDESC ="SELECT DISTINCT restaurants.id, " +
+				"restaurants.name, " +
+				"restaurants.description, " +
+				"restaurants.street, " +
+				"restaurants.city, " +
+				"restaurants.zip_code, " +
+				"restaurants.province, " +
+				"restaurants.full_address, " +
+				"restaurants.website, " +
+				"restaurants.slot_price, " +
+				"restaurants.rating, " +
+				"restaurants.main_photo_id, " +
+				"restaurants.restaurant_owner_id, " +
+				"restaurants.email, " +
+				"restaurants.phone FROM restaurants INNER JOIN cusines_restaurants ON restaurants.id = restaurant_id WHERE tsv @@ tsquery(?) OR searchable ILIKE ? "+
                 params
                 +"ORDER BY restaurants.slot_price DESC LIMIT ? OFFSET ? ";
-        String queryASC ="SELECT * FROM restaurants INNER JOIN cusines_restaurants ON restaurants.id = restaurant_id WHERE tsv @@ tsquery(?) OR searchable ILIKE ? "+
+        String queryASC ="SELECT DISTINCT restaurants.id, " +
+				"restaurants.name, " +
+				"restaurants.description, " +
+				"restaurants.street, " +
+				"restaurants.city, " +
+				"restaurants.zip_code, " +
+				"restaurants.province, " +
+				"restaurants.full_address, " +
+				"restaurants.website, " +
+				"restaurants.slot_price, " +
+				"restaurants.rating, " +
+				"restaurants.main_photo_id, " +
+				"restaurants.restaurant_owner_id, " +
+				"restaurants.email, " +
+				"restaurants.phone FROM restaurants INNER JOIN cusines_restaurants ON restaurants.id = restaurant_id WHERE tsv @@ tsquery(?) OR searchable ILIKE ? "+
                 params
                 +"ORDER BY restaurants.slot_price ASC LIMIT ? OFFSET ? ";
         
