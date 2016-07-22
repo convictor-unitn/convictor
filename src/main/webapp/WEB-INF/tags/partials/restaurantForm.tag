@@ -208,7 +208,7 @@
             <div class="ui checkbox mycheckbox">
 				<c:choose>
 					<c:when test="${optime.dayoff == true}">
-						<input type="checkbox" name="dayoff_${optime.dayString}" value="checked">
+						<input type="checkbox" name="dayoff_${optime.dayString}" value="checked" checked="checked">
 					</c:when>
 					<c:otherwise>
 						<input type="checkbox" name="dayoff_${optime.dayString}" value="">
