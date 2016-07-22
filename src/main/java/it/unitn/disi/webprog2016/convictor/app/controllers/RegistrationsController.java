@@ -51,6 +51,15 @@ public class RegistrationsController extends AbstractController{
 		user.validate();
 		if(user.isValid()) {
 			try {
+				
+				// Check if the user has inserted an existing email
+				User testEmail = userDAO.getUserByEmail(user.getEmail());
+				if (testEmail != null) {
+					user.setError("email", "La mail inserita è già presente");
+					request.setAttribute("user", user);
+					return "/registrations/new";
+				}
+				
 				user.setAdmin(false);
 				userDAO.insertUser(user);
 				HttpSession session = request.getSession(true);
