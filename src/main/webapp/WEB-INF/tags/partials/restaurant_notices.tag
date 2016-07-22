@@ -34,12 +34,15 @@
           <div class="row">
               <div class="column">
                   <div class="ui buttons">
-                      <div class="ui button">
+
+                      <div class="ui basic black button">
+
                         <c:if test="${actualPage-1 < 0}">
                             <a href="?${requestURLFilters}&noticePage=0"> 
                                 <i class="left arrow icon"></i>
                             </a>
-                            </c:if>
+           
+                        </c:if>
                             <c:if test="${actualPage-1 >= 0}">
                                 <a href="?${requestURLFilters}&noticePage=${actualPage-1}"> 
                                    <i class="left arrow icon"></i>
@@ -47,12 +50,13 @@
                             </c:if>   
                             </div>
                         </div>
-                        <div class="ui button">
+                        <div class="ui basic black button">
                             <a href="?${requestURLFilters}&noticePage=${requestScope.nextPagination}"> 
                                 <i class="right arrow icon"></i>
                             </a>
                         </div>
                       <div class="ui basic label">
+
                         2,048
                       </div>
                   </div>

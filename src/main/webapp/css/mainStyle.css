@@ -1,0 +1,104 @@
+/* 
+    Created on : 21-lug-2016, 10.15.58
+    Author     : Federica
+*/
+.body{
+    color: #4f3e3e;
+}
+
+.ui.list{
+    color: #4f3e3e;
+}
+
+.ui.header{
+    color: #4f3e3e;
+}
+
+.a.author{
+    color: #4f3e3e;
+}
+
+.content{
+    color: #4f3e3e;
+}
+
+.ui.slider.checkbox{
+    color: #4f3e3e;
+}
+
+.arrow.icon{
+    color: #4f3e3e;
+}
+
+.ui.segment{
+    color: #4f3e3e;
+}
+
+.ui.rating{
+    color: #4f3e3e;
+}
+
+.ui.dropdown.item{
+    color: #4f3e3e;
+}
+
+.text {
+    color: #4f3e3e;
+}
+
+.ui.black.buttons .button,
+.ui.black.button {
+  background-color: #4f3e3e;
+  color: #FFFFFF;
+  text-shadow: none;
+  background-image: none;
+}
+
+.ui.basic.black.buttons .button,
+.ui.basic.black.button {
+  box-shadow: 0px 0px 0px 1px #4f3e3e inset !important;
+  color: #4f3e3e !important;
+}
+
+.ui.inverted.menu {
+  border: 0px solid transparent;
+  background: #4f3e3e;
+  box-shadow: none;
+}
+
+.ui.black.segment:not(.inverted) {
+  border-top: 2px solid #4f3e3e;
+}
+
+.ui.black.divider {
+    color: #4f3e3e;
+}
+
+.ui.basic.label {
+    color: #4f3e3e;
+}
+
+.ui.label {
+    color: #4f3e3e;
+}
+
+.ui.big.images .image,
+.ui.big.images img,
+.ui.big.images svg,
+.ui.big.image {
+  width: 525px;
+  height: auto;
+  font-size: 1.28571429rem;
+}
+
+ui.card {
+	color: #4f3e3e;
+}
+
+#p_button {
+    background-color: #eac57f;
+}
+
+#brown {
+    color: #4f3e3e;
+}

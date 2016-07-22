@@ -28,7 +28,7 @@
 
 <l:main>
     <jsp:attribute name="title"> ${restaurant.name} </jsp:attribute>
-	
+    <jsp:attribute name="bodyBackground"></jsp:attribute>
 	<jsp:attribute name="body">
     <div class="ui container">
 
@@ -47,12 +47,12 @@
 				<img class="ui centered image mySlides" src="${photo.url}">
 			</c:forEach>
             
-            <div class="w3-center w3-section w3-large w3-text-white w3-display-bottomleft" style="width:100%">
-              <div class="w3-left w3-padding-left w3-hover-text-white w3-text-white" onclick="plusDivs(-1)">&#10094;</div>
-              <div class="w3-right w3-padding-right w3-hover-text-white" onclick="plusDivs(1)">&#10095;</div>
+            <div class="w3-center w3-section w3-large w3-text-white w3-display-bottomleft" style="width:100%;" id="trasp">
+              <div class="w3-left w3-padding-left w3-hover-text-blue w3-text-blue" onclick="plusDivs(-1)" style="background-color:rgba(255,255,255,0.8);">&#10094;</div>
+              <div class="w3-right w3-padding-right w3-hover-text-blue w3-text-blue" onclick="plusDivs(1)" style="background-color:rgba(255,255,255,0.8);">&#10095;</div>
 			  <c:set var="photoCounter" value="1" scope="page" />
 			  <c:forEach var="photo" items="${bean.photos}">
-				<span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(${photoCounter})"></span>
+				<span class="w3-badge demo w3-border w3-blue w3-hover-blue" onclick="currentDiv(${photoCounter})"></span>
 				<c:set var="photoCounter" value="${photoCounter+1}" />
 			  </c:forEach>
             </div>
@@ -64,10 +64,10 @@
         <div class="stretched column">
           <div class="row">
             <div class="ui small statistic">
-              <div class="value">
+              <div class="value" id="brown">
                 5
               </div>
-              <div class="label">
+              <div class="label" id="brown">
                 Posizione in Lombardia
               </div>
             </div>
@@ -77,17 +77,17 @@
                 <c:forEach var="i" begin="0" end="${restaurant.rating}" step="1">
                     <c:if test="${i!=0}">
                         <div class="item">
-                            <i class="heart icon"> </i>
+                            <i class="star icon"> </i>
                         </div>
                     </c:if>
                 </c:forEach>
                     <c:forEach begin="${restaurant.rating}" end="4" step="1">
                         <div class="item">
-                            <i class="empty heart icon"> </i>
+                            <i class="empty star icon"> </i>
                         </div>
                 </c:forEach>
               </div>
-              <div class="label">
+              <div class="label" id="brown">
                 Valutazione media
               </div>
           </div>
@@ -181,7 +181,7 @@
           </div>
 
         </div>
-        <div class="ui divider"></div>
+        <div class="ui black divider"></div>
       </div>
 
       <!-- Show Reviews/Map Buttons -->
@@ -190,10 +190,10 @@
         <div class="row">
           <div class="column">
             <div class="ui four item tabular menu">
-              <a class="item active" data-tab="recensioni">Recensioni</a>
-              <a class="item " data-tab="mappa">Mappa</a>
-              <a class="item" data-tab="reclama">Reclama</a>
-              <a class="item" data-tab="addimage">Carica Immagine</a>
+              <a class="item active" data-tab="recensioni" id="brown">Recensioni</a>
+              <a class="item " data-tab="mappa" id="brown">Mappa</a>
+              <a class="item" data-tab="reclama" id="brown">Reclama</a>
+              <a class="item" data-tab="addimage" id="brown">Carica Immagine</a>
             </div>
           </div>
         </div>
@@ -209,7 +209,7 @@
             <div class="row">
               <div class="column">
                   <div class="ui buttons">
-                    <div class="ui button">
+                    <div class="ui basic black button">
                         <c:if test="${actualPage-1 < 0}">
                             <a href="?${requestURLFilters}&reviewPage=0"> 
                                 <i class="left arrow icon"></i>
@@ -222,7 +222,7 @@
                         </c:if>
                     </div>
                   </div>
-                  <div class="ui button">                      
+                  <div class="ui basic black button">                      
                         <a href="?${requestURLFilters}&reviewPage=${requestScope.nextPagination}"> 
                             <i class="right arrow icon"></i>
                         </a>                      
@@ -238,42 +238,39 @@
                 <!-- Reviews List -->
                   <c:forEach var="review" items="${restaurant.reviews}">
                       <div class="comment">
-                          <a class="avatar">
-                              <img src="#">
-                          </a>
                       <div class="content">
-                          <a class="author">${review.registeredUserName}</a>
+                          <a class="author" id="brown"">${review.registeredUserName}</a>
                           <div class="metadata">
-                              <div class="date">2 days ago</div>
+                              <div class="date" id="brown"">2 days ago</div>
                               <div class="rating">
                                   <div class="ui horizontal list">
                                       <c:forEach var="i" begin="0" end="${review.rating}" step="1">
                                       <c:if test="${i!=0}">
-                                          <div class="item">
-                                              <i class="heart icon"> </i>
+                                         <div class="item">
+                                              <i class="star icon"> </i>
                                           </div>
                                       </c:if>
                                   </c:forEach>
                                   <c:forEach begin="${review.rating}" end="4" step="1">
                                       <div class="item">
-                                          <i class="empty heart icon"> </i>
+                                          <i class="empty star icon"> </i>
                                       </div>
                                   </c:forEach>
                                   </div>                                    
                               </div>
                           </div>
-                      <div class="text">
+                      <div class="text" id="brown">
                         ${review.description}
                       </div>
                       <div class="actions">
-                        <a class="reply">Reply</a>
+                        <a class="reply">Rispondi</a>
                       </div>                            
                       <form class="ui reply form">
                         <div class="field">
                           <textarea></textarea>
                         </div>
-                        <div class="ui basic submit labeled icon button">
-                          <i class="icon edit"></i> Add Reply
+                        <div class="ui basic black submit labeled icon button">
+                          <i class="icon edit"></i> Rispondi
                         </div>
                       </form>
                     </div>
@@ -293,7 +290,7 @@
                     <div class="ui segment">
                     <c:choose>    
                       <c:when test="${!empty sessionScope.user}">
-                        <div class="ui header">Write a review</div>
+                        <div class="ui header">Inserisci una recensione</div>
                         <div id="rating-selector" class="ui large center rating" data-rating="1" data-max-rating="5"></div>
                         <div class="ui center comment">
                           <form class="ui small reply form" method="POST" action="${pageContext.servletContext.contextPath}/restaurants/addReview">
@@ -302,9 +299,9 @@
                             <div class="field">
                               <textarea name="reviewText"></textarea>
                             </div>
-                            <div class="ui basic submit button">
-                              <input class="ui button" type="submit" onclick="setInputValue()" value="Inserisci una recensione" class="icon edit">
-                            </div>
+                            <!--<div class="ui basic black submit button">-->
+                              <input class="ui black button" type="submit" onclick="setInputValue()" value="Inserisci una recensione" class="icon edit">
+                            <!--</div>-->
                           </form>
                         </div>
                       </c:when>
@@ -338,7 +335,7 @@
               <div class="column">
                 <div class="ui center aligned grid">
                     <div class="column">
-                        <button class="ui button ownership">Reclama Ristorante</button>
+                        <button class="ui basic black button ownership">Reclama Ristorante</button>
                         <div class="ui modal ownership">
                             <div class="header center">
                                  Richiesta Reclamo
@@ -355,8 +352,8 @@
                                     <input type="text" name="cf" placeholder="Codice Fiscale">
                                    </div>
                                 <div class="field">
-                                    <div class="ui close button">Close</div>
-                                    <input class="ui button" type="submit"/>
+                                    <div class="ui close basic black button">Close</div>
+                                    <input class="ui basic black button" type="submit"/>
                                 </div>
                             </form>
                             </div>
@@ -371,7 +368,7 @@
           <div class="ui tab" data-tab="addimage">
               <div class="ui center aligned grid">
                   <div class="column">
-                      <button class="ui button add_image">Aggiungi Immagine</button>
+                      <button class="ui basic black button add_image">Aggiungi Immagine</button>
                       <div class="ui modal add_image_modal">
                           <div class="header center">
                                Aggiungi Nuova Immagine
@@ -383,8 +380,8 @@
 									  <input id="fileupload" type="file" name="files" />
 								  </div>
 								  <div class="field actions">
-									  <div class="ui cancel button">Close</div>
-									  <input class="ui button" type="submit" value="Upload"/>
+									  <div class="ui cancel basic black button">Close</div>
+									  <input class="ui black button" type="submit" value="Upload"/>
 								  </div>
 							  </form>
                           </div>

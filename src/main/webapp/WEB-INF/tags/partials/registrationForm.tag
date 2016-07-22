@@ -42,9 +42,9 @@
 			</div>
 		</div>
 
-		<div  align="left">
+		<div align="left">
 			<div class="ui slider checkbox">
-				<input type="checkbox" name="privacy" value="checked" ${bean.privacy} />
+				<input type="checkbox" name="privacy" value="checked" ${bean.privacy}/>
 				<label>Accetto le condizioni d'uso di servizio</label>
 			</div>
 		</div>

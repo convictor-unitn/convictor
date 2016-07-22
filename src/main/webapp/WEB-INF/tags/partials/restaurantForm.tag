@@ -71,17 +71,17 @@
                               <c:choose>
                                   <c:when test="${slotprice.slot == bean.slotPrice}">
                                       <input type="radio" name="priceslotselected" checked="checked" value="${slotprice.slot}">
-                                      <label>${slotprice.name}</label>
+                                      <label id="brown">${slotprice.name}</label>
                                   </c:when>
                                   <c:otherwise>
                                       <input type="radio" name="priceslotselected" value="${slotprice.slot}">
-                                      <label>${slotprice.name}</label>
+                                      <label id="brown">${slotprice.name}</label>
                                   </c:otherwise>
                               </c:choose>                                                                                
                           </c:when>
                         <c:otherwise>
                             <input type="radio" name="priceslotselected" value="${slotprice.slot}">
-                            <label>${slotprice.name}</label>
+                            <label id="brown">${slotprice.name}</label>
                         </c:otherwise>
                       </c:choose> 
                          </div>
@@ -228,7 +228,7 @@
         </div>
 		</c:forEach>
 		
-	  </div>
+	  </div>          
 
       </div>      
 

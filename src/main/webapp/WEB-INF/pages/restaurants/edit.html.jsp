@@ -14,7 +14,7 @@
 <c:set var="bean" scope="request" value="${requestScope.restaurant}" />
 
 <l:main>
-	
+	<jsp:attribute name="bodyBackground">#eaeaea</jsp:attribute>
 	<jsp:attribute name="title">Modifica Ristorante</jsp:attribute>
 	
 	<jsp:attribute name="body">
@@ -23,7 +23,7 @@
                   <div class="column">
                       
                     <h2 class="ui header">
-                      <div id="s_text" class="content">
+                      <div class="content">
                         Modifica Ristorante
                       </div>
                     </h2>
