@@ -148,7 +148,7 @@
 			<fmt:formatDate var="openAtAfternoonHour" value="${optime.openAtAfternoon}" pattern="HH"/>
 			<fmt:formatDate var="openAtAfternoonMinute" value="${optime.openAtAfternoon}" pattern="mm"/>
 			<fmt:formatDate var="closeAtAfternoonHour" value="${optime.closeAtAfternoon}" pattern="HH"/>
-			<fmt:formatDate var="closeAtAfternoonMinute" value="${optime.closeAtAfternoon}" pattern="mm"/>
+			<fmt:formatDate var="closeAtAfternoonMinute" value="${optime.closeAtAfternoon}" pattern="mm"/>			
 		<c:choose>
 			<c:when test="${optime.dayoff == true}">
 				<div class="ui segment disabled">
@@ -157,61 +157,96 @@
 				<div class="ui segment">
 			</c:otherwise>
 		</c:choose>
-            <div class="field">
-                <div class="ui small label">
+			<div class="field">
+                <div class="ui top attached large label">
                     ${optime.dayString}
                 </div>
             </div>
-            <div class="field">Mattina</div>
-        <div class="two fields">
-          <div class="field">
-            <div class="ui left labeled input">
-              <div class="ui basic label">
-                Apertura
-              </div>
-                <input type="text" name="open_at_${optime.dayString}_hour" placeholder="Ora" value="${openAtHour}">
-                <input type="text" name="open_at_${optime.dayString}_minute" placeholder="Minuti" value="${openAtMinute}">
-            </div>
-          </div>
+		
+		<div class="two fields">
+			
+			<!--Mattina-->
+				<div class="field">
+					<div class="ui hidden divider"></div>
+					<div class="ui field small header">Mattina</div>
+				
+				<div class="two fields">
+					<div class="field">
+					<!-- Opening Hours -->
+						<div class="field"><div class="ui label">Apertura</div></div>				
+					<div class="ui hidden divider"></div>
+						<div class="two fields">
+							<div class="field">            
+								<input type="text" name="open_at_afternoon_${optime.dayString}_hour" placeholder="Ora" value="${openAtHourAfternoon}">
+							</div>
+							<div class="field">
+								<input type="text" name="open_at_afternoon_${optime.dayString}_minute" placeholder="Minuti" value="${openAtMinuteAfternoon}">            
+							</div>
+						</div>
+					</div>
+					<div class="field">
+						<!-- Closing Hours -->
+					<div class="field"><div class="ui label">Chiusura</div></div>
+					<div class="ui hidden divider"></div>
+					<div class="two fields">
 
-          <!-- Closing Hours -->
-          <div class="field">
-            <div class="ui left labeled input">
-              <div class="ui basic label">
-                Chiusura
-              </div>
-              <input type="text" name="close_at_${optime.dayString}_hour" placeholder="Ora" value="${closeAtHour}">
-              <input type="text" name="close_at_${optime.dayString}_minute" placeholder="Minuti" value="${closeAtMinute}">
-            </div>
-          </div>
-        </div>
+						<div class="field">            
+							  <input type="text" name="close_at_afternoon_${optime.dayString}_hour" placeholder="Ora" value="${closeAtHourAfternoon}">
+						</div>
+						<div class="field">
+						   <input type="text" name="close_at_afternoon_${optime.dayString}_minute" placeholder="Minuti" value="${closeAtMinuteAfternoon}">            
+						</div>
+					</div>	
+					</div>
+				</div>
+				</div>
+			  
+			  
+			<div class="field">
+					<div class="ui hidden divider"></div>
+					<div class="ui field small header">Pomeriggio</div>
+				
+				<div class="two fields">
+					<div class="field">
+					<!-- Opening Hours -->
+					<div class="field"><div class="ui label">Apertura</div></div>
+					<div class="ui hidden divider"></div>
+					<div class="two fields">
+						<div class="field">            
+							<input type="text" name="open_at_afternoon_${optime.dayString}_hour" placeholder="Ora" value="${openAtHourAfternoon}">
+						</div>
+						<div class="field">
+							<input type="text" name="open_at_afternoon_${optime.dayString}_minute" placeholder="Minuti" value="${openAtMinuteAfternoon}">            
+						</div>
+					</div>
+					</div>
+					<div class="field">
+						<!-- Closing Hours -->
+					<div class="field"><div class="ui label">Chiusura</div></div>
+					<div class="ui hidden divider"></div>
+					<div class="two fields">
 
-        <div class="field">Pomeriggio</div>
-        <div class="two fields">
-          <div class="field">
-            <div class="ui left labeled input">
-              <div class="ui basic label">
-                Apertura
-              </div>
-				<input type="text" name="open_at_afternoon_${optime.dayString}_hour" placeholder="Ora" value="${openAtAfternoonHour}">
-				<input type="text" name="open_at_afternoon_${optime.dayString}_minute" placeholder="Minuti" value="${openAtAfternoonMinute}">
-            </div>
-          </div>
+						<div class="field">            
+							  <input type="text" name="close_at_afternoon_${optime.dayString}_hour" placeholder="Ora" value="${closeAtHourAfternoon}">
+						</div>
+						<div class="field">
+						   <input type="text" name="close_at_afternoon_${optime.dayString}_minute" placeholder="Minuti" value="${closeAtMinuteAfternoon}">            
+						</div>
+					</div>	
+					</div>
+				</div>
+			</div>
+						
+				
+		</div>
+			
+			
+				
 
-          <!-- Closing Hours -->
-          <div class="field">
-            <div class="ui left labeled input">
-              <div class="ui basic label">
-                Chiusura
-              </div>
-              <input type="text" name="close_at_afternoon_${optime.dayString}_hour" placeholder="Ora" value="${closeAtAfternoonHour}">
-              <input type="text" name="close_at_afternoon_${optime.dayString}_minute" placeholder="Minuti" value="${closeAtAfternoonMinute}">
-            </div>
-          </div>
-        </div>
+        
 
-        <!-- Days Opening -->
-        <div class="field">
+		<!-- Days Opening -->
+		<div class="field">
 			<c:choose>
 				<c:when test="${optime.dayoff == true}">
 					<div class="ui checkbox mycheckbox checked">				
@@ -224,8 +259,8 @@
 			</c:choose>
 				<label >Seleziona come giorno di chiusura</label>
 			</div>
-        </div>
-        </div>
+		</div>
+		</div>
 		</c:forEach>
 		
 	  </div>          
