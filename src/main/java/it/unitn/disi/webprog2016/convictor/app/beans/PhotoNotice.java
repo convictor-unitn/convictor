@@ -36,7 +36,12 @@ public class PhotoNotice extends AbstractBean implements Notice {
      * @param registeredUserId the registeredUserId to set
      */
     public void setRegisteredUserId(String registeredUserId) {
-        this.registeredUserId = Integer.parseInt(registeredUserId);
+       try {
+            this.registeredUserId = Integer.parseInt(registeredUserId);
+        } catch (Exception e) {
+            this.setRegisteredUserId(-1);
+            this.setError("user_id", "L'id utente inserito non è valido");
+        }
     }
 
     /**
@@ -58,12 +63,25 @@ public class PhotoNotice extends AbstractBean implements Notice {
      * @param photoId the photoId to set
      */
     public void setPhotoId(String photoId) {
-        this.photoId = Integer.parseInt(photoId);
+        try {
+            this.setPhotoId(Integer.parseInt(photoId));
+        } catch (Exception e) {
+            this.setError("photo_id", "L'id della foto non è valido");
+            this.setPhotoId(-1);
+        }
     }
-
+    
+    /**
+     * Return the viewable message representing this notice.
+     * @return A string message
+     */
 	@Override
 	public String getDescription() {
-		return "DA IMPLEMENTARE";
+		String userName = registeredUser.getName() + " " + registeredUser.getSurname();
+        String userProfile = "<a href=\"/userProfile/show?id="+ registeredUserId + "\">"+userName+"</a>";
+        String photoMessage ="<a href=\"/restaurant/show?id="+ photo.getRestaurantId() + "\">foto</a>";
+        String message = userProfile + " ha inserito una nuova " + photoMessage + "!";
+        return message;
 	}
 
 	@Override
@@ -76,11 +94,11 @@ public class PhotoNotice extends AbstractBean implements Notice {
         boolean status=true;
         if (this.getRegisteredUserId() <= 0) {
             status = false;
-            this.setError("user_id","The user_id is equal or less than zero");
+            this.setError("user_id","L'id utente è minore o uguale a zero");
         }
         if (this.getPhotoId() <= 0) {
             status = false;
-            this.setError("photo_id","The photo_id is equal or less than zero");
+            this.setError("photo_id","L'id della foto è minore o uguale a zero");
         }
         return status;
     }

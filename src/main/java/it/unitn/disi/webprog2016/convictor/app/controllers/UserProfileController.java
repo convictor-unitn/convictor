@@ -40,9 +40,20 @@ public class UserProfileController extends AbstractController {
 			return "";
 		}
 		
+        // Set up notice pagination
+        int noticePage =0;
+        if (request.getParameter("noticePage") != null) {
+            try {
+                noticePage = Integer.valueOf(request.getParameter("noticePage"));
+                if (noticePage < 0) {noticePage = 0;}
+            } catch (Exception e) {
+                noticePage = 0;
+            }
+        }
+        
 		if(user instanceof Administrator) {
 			try {
-				List<Notice> notices = noticeDAO.getAdministratorNotices(user.getId());
+				List<Notice> notices = noticeDAO.getAdministratorNotices(user.getId(), noticePage);
 				user.setNotices(notices);
 			} catch (SQLException ex) {
 				Logger.getLogger(UserProfileController.class.getName()).log(Level.SEVERE, null, ex);
@@ -51,7 +62,7 @@ public class UserProfileController extends AbstractController {
 		
 		if(user instanceof RestaurantOwner) {
 			try {
-				List<Notice> notices = noticeDAO.getRestaurantOwnerNotices(user.getId());
+				List<Notice> notices = noticeDAO.getRestaurantOwnerNotices(user.getId(), noticePage);
 				user.setNotices(notices);
 			} catch (SQLException ex) {
 				Logger.getLogger(UserProfileController.class.getName()).log(Level.SEVERE, null, ex);
@@ -59,6 +70,28 @@ public class UserProfileController extends AbstractController {
 		}
 		
 		request.setAttribute("user", user);
+        
+        // Set the next pagination 
+        if (user.getNotices() != null) {
+            if (user.getNotices().size() > 0) {
+                request.setAttribute("nextPagination", noticePage+1);
+            } else if (request.getParameter("noticePage") != null) {
+                // This logic block exist to ensure that the user doesn't
+                // navigate to a blank page because there are no more result
+                // to show.
+                int pageIndex = request.getQueryString().indexOf("&noticePage=");
+                String queryString = request.getQueryString().substring(0, pageIndex);
+                request.setAttribute("nextPagination", noticePage-1);
+                response.sendRedirect(request.getContextPath()+"/userProfile/show?"
+                        + queryString +"&noticePage="
+                        + String.valueOf(noticePage-1));
+                return "";
+            } else {
+                request.setAttribute("nextPagination", noticePage);
+            }
+        } else {
+            request.setAttribute("nextPagination", noticePage);
+        }
 		
 		return "/userProfile/show";
 	}
@@ -93,42 +126,93 @@ public class UserProfileController extends AbstractController {
 	 * @throws IOException
 	 */
 	public String update(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		User user = (User) request.getSession().getAttribute("user");
-		if( user == null ) {
-			response.sendError(401);
-			return "";
-		}
-		
 		UserDAO userDAO = (UserDAO) request.getServletContext().getAttribute("userdao");
-		
+		User user;
 		try {
-			user = userDAO.getUserById(user.getId());
+			// Get parameters from request
+			String name = request.getParameter("name");
+			String surname = request.getParameter("surname");
+			String email = request.getParameter("email");
+			String oldPassword = request.getParameter("oldPassword");
+			String password = request.getParameter("password");
+			String passwordConfirmation = request.getParameter("passwordConfirmation");
 			
-			user.setName(request.getParameter("name"));
-			user.setSurname(request.getParameter("surname"));
-			user.setEmail(request.getParameter("email"));
-			user.setPassword(request.getParameter("password"));
-			user.setPasswordConfirmation(request.getParameter("passwordConfirmation"));
+			// Cerco l'utente nel db
+			user = userDAO.getUserById(((User) request.getSession().getAttribute("user")).getId());
+			// Current email
+			String oldEmail = user.getEmail();
 			
-			userDAO.updateUser(user);
-			if(user.isValid()) {
-				request.getSession().removeAttribute("user");
-				request.getSession().setAttribute("user", user);
-				response.sendRedirect(request.getContextPath()+"/userProfile/show");
+			if( user == null ) {
+				response.sendError(401);
 				return "";
 			}
-			else
-			{
-				request.getSession().removeAttribute("user");
-				request.getSession().setAttribute("user", user);
-				return "/userProfile/edit";
-			}
 			
-		} catch (SQLException ex) {
+			user.setName(name);
+			user.setSurname(surname);
+			user.setEmail(email);
+			
+			if(password.equals("")) {
+				user.validate();
+				user.getErrors().remove("password");
+				user.getErrors().remove("passwordConfirmation");
+				
+				if(user.isValid()) {
+					
+					// Check if the user has inserted an existing email
+					User testEmail = userDAO.getUserByEmail(user.getEmail());
+					if (testEmail != null) {
+						if (!oldEmail.equals(user.getEmail())) {
+							user.setError("email", "La mail inserita è già presente");
+							return "/userProfile/edit";
+						}
+					}
+					
+					userDAO.updateUser(user);
+					request.getSession().removeAttribute("user");
+					request.getSession().setAttribute("user", user);
+					response.sendRedirect(request.getContextPath()+"/userProfile/show");
+					return "";
+				}
+				else
+				{
+					return "/userProfile/edit";
+				}
+				
+			} else {
+				if(!user.getPassword().equals(oldPassword)) {
+					user.setError("oldPassword", "La vecchia password non coincide");
+				}
+				user.setPassword(password);
+				user.setPasswordConfirmation(passwordConfirmation);
+				
+				if(user.isValid()) {
+					
+					// Check if the user has inserted an existing email
+					User testEmail = userDAO.getUserByEmail(user.getEmail());
+					if (testEmail != null) {
+						if (!oldEmail.equals(user.getEmail())) {
+							user.setError("email", "La mail inserita è già presente");
+							return "/userProfile/edit";
+						}
+					}
+					
+					userDAO.updateUser(user);
+					userDAO.updateUserPassword(user);
+					request.getSession().removeAttribute("user");
+					request.getSession().setAttribute("user", user);
+					response.sendRedirect(request.getContextPath()+"/userProfile/show");
+					return "";
+				}
+				else
+				{
+					return "/userProfile/edit";
+				}
+				
+			}
+		} catch (Exception ex) {
 			Logger.getLogger(UserProfileController.class.getName()).log(Level.SEVERE, null, ex);
 			response.sendError(500);
 			return "";
 		}
 	}
-    
 }

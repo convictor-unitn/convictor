@@ -17,9 +17,14 @@ public interface UserDAO {
     
     List<User> getAllUser() throws SQLException;
     User getUserById(int id) throws SQLException;
+	User getUserByEmail(String email) throws SQLException;
+	User getUserByResetToken(String resetToken) throws SQLException;
+	
     void updateUser(User user) throws SQLException;
+	void updateUserPassword(User user) throws Exception;
     void insertUser(User user) throws SQLException;
-    
+	
     User authenticate(String email, String password) throws SQLException;
-    
+    User getResetPasswordToken(String email) throws SQLException;
+	
 } 

@@ -10,7 +10,7 @@
 <jsp:useBean id="restaurant" scope="request" class="it.unitn.disi.webprog2016.convictor.app.beans.Restaurant" />
 
 <l:main>
-	<jsp:attribute name="bodyBackground">url("${pageContext.servletContext.contextPath}/images/background.png")</jsp:attribute>
+	<jsp:attribute name="bodyBackground">url("${pageContext.servletContext.contextPath}/images/background.jpg")</jsp:attribute>
 	<jsp:attribute name="title">Landing Page</jsp:attribute>	
 	<jsp:attribute name="body">
            
@@ -28,28 +28,42 @@
                 </c:if>
                 <div class="ui text container">
                   <h1 class="ui header">
-                    <img class="ui small middle aligned circular image" src="${pageContext.servletContext.contextPath}/images/logo.png">
-                    <span class="content">Convictor</span>
+                    <img class="ui small middle aligned circular image" src="${pageContext.servletContext.contextPath}/images/logo_landing.png">
+                    <img class="ui middle aligned big image" src="${pageContext.servletContext.contextPath}/images/convictor.png">
                   </h1>
                 </div>
-               
-                 <div class="ui container">
-                     <form class="ui very padded black basic segment" method="POST" action="${pageContext.request.contextPath}/restaurants/index" >   
-                    <div class="ui mysegment">
-                      <div class="ui medium fluid action input">
-                        <input placeholder="Cerca per ristorante" type="text" name="name">
-                        <input placeholder="Cerca per citta'" type="text" name="city">
-                        <button class="ui black submit button" type=submit>Cerca</button>
-                      </div>
+                
+                <div class="ui grid">
+                    <div class="ui computer tablet only row">
+                     <div class="ui container">
+
+                         <form class="ui very padded black basic segment" style="color: #4f3e3e;" method="GET" action="${pageContext.request.contextPath}/restaurants" >   
+                        <div class="ui mysegment">
+                          <div class="ui medium fluid action input">
+                            <input placeholder="Cerca.." type="text" name="query" style="color: #4f3e3e;">
+
+                            <button class="ui black submit button" type=submit>Cerca</button>
+                          </div>
+                        </div>
+                      </form>
+                     </div>
                     </div>
-                  </form>
-                </div>
                
-                  
+                    <div class="ui mobile only row">
+                        <div class="column">
+                            <form class="ui black basic segment" method="GET" action="${pageContext.request.contextPath}/restaurants" >                           
+                                <div class="ui fluid input">
+                                    <input placeholder="Cerca.." type="text" name="query">                            
+                                </div>                        
+                                <button class="ui black submit fluid button" type=submit>Cerca</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+           </div>                
                 
 
-            </div>
-            
+                       
             <div class="ui list">
                 <div class="item">
                 <a href="${pageContext.request.contextPath}/passwords/request_new">Reimposta Password</a>

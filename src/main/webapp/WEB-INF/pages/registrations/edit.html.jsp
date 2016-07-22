@@ -7,13 +7,15 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="l" tagdir="/WEB-INF/tags/layouts/" %>
+<%@taglib prefix="f" tagdir="/WEB-INF/tags/partials/" %>
 
-<jsp:useBean id="user" scope="request" class="it.unitn.disi.webprog2016.convictor.app.beans.User"/>
+
+<c:set var="bean" value="${requestScope.user}" scope="request" />
 
 <l:main>
 	
 	<jsp:attribute name="title">Remipostazione Profilo</jsp:attribute>
-	<jsp:attribute name="bodyBackground">url("${pageContext.servletContext.contextPath}/images/background.png")</jsp:attribute>
+	<jsp:attribute name="bodyBackground">#eaeaea</jsp:attribute>
 	<jsp:attribute name="body">
             <div class="ui middle aligned center aligned grid">
                 <div class="column myform">
@@ -25,25 +27,8 @@
                     </h2>
                       
                     <form class="ui large form" method="POST" action="${pageContext.servletContext.contextPath}/registrations/update">
-                        <div class="ui stacked segment">
-                            <div class="field">
-                                <div class="ui left icon input">
-                                    <i class="user icon"></i>
-                                    <input type="text" name="name" placeholder="Nome" value="${user.name}">
-                                </div>
-                            </div>
-                            <div class="field">
-                                <div class="ui left icon input">
-                                    <i class="user icon"></i>
-                                    <input type="text" name="surname" placeholder="Cognome" value="${user.surname}">
-                                </div>
-                            </div>
-                            <div class="field">
-                                <div class="ui left icon input">
-                                    <i class="user icon"></i>
-                                    <input type="text" name="email" placeholder="Email" value="${user.email}">
-                                </div>
-                            </div>
+                        <div class="ui stacked segment">                            
+                            <f:registrationForm />
                             <div class="field">
                                 <div class="ui left icon input">
                                     <i class="lock icon"></i>
@@ -53,7 +38,7 @@
                             <div class="field">
                                 <div class="ui left icon input">
                                     <i class="lock icon"></i>
-                                    <input type="password" name="password" placeholder="Nuova password">
+                                    <input type="password" name="passwordNew" placeholder="Nuova password">
                                 </div>
                             </div>
                              <div class="field">
@@ -71,7 +56,7 @@
 
                             </br>
 
-                            <div class="ui fluid submit button">Annulla</div>
+                            <a href="javascript:history.back()" class="ui fluid submit button">Annulla</a>
                         </div>
 
 

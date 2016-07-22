@@ -9,6 +9,7 @@ import it.unitn.disi.webprog2016.convictor.framework.beans.AbstractBean;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import org.joda.time.DateTime;
 
 /**
  *
@@ -24,6 +25,9 @@ public class User extends AbstractBean {
 	private boolean admin;
 	private List<Notice> notices;
 	private List<Review> reviews;
+	private String privacy;
+	private String resetPasswordToken;
+	private DateTime resetPasswordSentAt;
 
 	/**
 	 * @return the email
@@ -60,8 +64,22 @@ public class User extends AbstractBean {
 	public void setPasswordConfirmation(String passwordConfirmation) {
 		this.passwordConfirmation = passwordConfirmation;
 	}
-	
-	
+
+	public String getResetPasswordToken() {
+		return resetPasswordToken;
+	}
+
+	public void setResetPasswordToken(String resetPasswordToken) {
+		this.resetPasswordToken = resetPasswordToken;
+	}
+
+	public DateTime getResetPasswordSentAt() {
+		return resetPasswordSentAt;
+	}
+
+	public void setResetPasswordSentAt(DateTime resetPasswordSentAt) {
+		this.resetPasswordSentAt = resetPasswordSentAt;
+	}
 
 	/**
 	 * @return the name
@@ -116,9 +134,22 @@ public class User extends AbstractBean {
 	 * @param admin the admin to set
 	 */
 	public void setAdmin(String admin) {
-		setAdmin(Boolean.valueOf(admin));
+        try {
+           setAdmin(Boolean.valueOf(admin)); 
+        } catch (Exception e) {
+            this.setError("admin", "Il valore di admin non è valido");
+        }
 	}
 
+	public String getPrivacy() {
+		return privacy;
+	}
+
+	public void setPrivacy(String privacy) {
+		if(privacy==null) privacy="";
+		this.privacy = privacy;
+	}
+	
 	
 	
     @Override
@@ -129,28 +160,28 @@ public class User extends AbstractBean {
         final String EMAIL_PATTERN = 
 		"^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
 		+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-        final String PASSWORD_PATTERN = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,10}$";
+        final String PASSWORD_PATTERN = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$";
         
         boolean status = true;
         if (this.getName().equals("")) {
             status = false;
-            this.setError("name", "Surname is not valid");
+            this.setError("name", "Il nome non è valido");
         }
         if (this.getSurname().equals("")) {
             status = false;
-            this.setError("surname", "Surname is not valid");
+            this.setError("surname", "Il cognome non è valido");
         }
         
         // Check if the email is not null and if it is a valid email.
         if (this.getEmail().equals("")) {
             status = false;
-            this.setError("email", "Email is not valid");
+            this.setError("email", "La mail non è valida");
         } else {
             pattern = Pattern.compile(EMAIL_PATTERN);
             matcher = pattern.matcher(this.getEmail());
             if (!matcher.matches()) {
                 status = false;
-                this.setError("email", "Email is not valid");
+                this.setError("email", "La mail non è valida");
             }
         }
         
@@ -162,13 +193,13 @@ public class User extends AbstractBean {
         // * One numeric digit
         if (this.getPassword().equals("")) {
             status = false;
-            this.setError("password", " Password must be at least 6 characters, no more than 10 characters, and must include at least one upper case letter, one lower case letter, and one numeric digit.");
+            this.setError("password", "La password deve avere almeno 6 caratteri e deve includere almeno una lettera maiuscola, una lettera minuscola, e un numero");
         } else {
             pattern = Pattern.compile(PASSWORD_PATTERN);
             matcher = pattern.matcher(this.getPassword());
             if (!matcher.matches()) {
                 status = false;
-                this.setError("password", " Password must be at least 6 characters, no more than 10 characters, and must include at least one upper case letter, one lower case letter, and one numeric digit.");
+                this.setError("password", "La password deve avere almeno 6 caratteri e deve includere almeno una lettera maiuscola, una lettera minuscola, e un numero");
             }
         }
 		

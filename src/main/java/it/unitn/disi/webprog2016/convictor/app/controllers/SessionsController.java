@@ -43,7 +43,7 @@ public class SessionsController extends AbstractController{
 			if(user.isValid()) {
 				HttpSession session = request.getSession(true);
 				session.setAttribute("user", user);
-				response.sendRedirect(request.getContextPath());
+				response.sendRedirect(request.getContextPath()+"/");
 				return "";
 			}
 			
@@ -65,7 +65,7 @@ public class SessionsController extends AbstractController{
             session.removeAttribute("user");
             session.invalidate();
         }
-		response.sendRedirect(request.getContextPath());
+		response.sendRedirect(request.getContextPath()+"/");
 		return "";
 	}
 }

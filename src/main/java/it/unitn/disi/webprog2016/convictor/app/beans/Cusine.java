@@ -48,8 +48,6 @@ public class Cusine extends AbstractBean {
 		return true;
 	}
 
-	
-	
 	@Override
 	public boolean validate() {
 		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

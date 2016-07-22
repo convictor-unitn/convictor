@@ -5,9 +5,9 @@
  */
 package it.unitn.disi.webprog2016.convictor.app.dao.interfaces;
 
+import it.unitn.disi.webprog2016.convictor.app.beans.Photo;
 import it.unitn.disi.webprog2016.convictor.app.beans.Restaurant;
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -16,10 +16,23 @@ import java.util.List;
  */
 public interface RestaurantDAO {
     
-    HashMap<Integer, List<Restaurant>> getRestaurantByString(String pattern, int offset) throws SQLException;
+    List<Restaurant> getRestaurantByString(String pattern, int offset) throws SQLException;
+    List<Restaurant> getRestaurantByString(String pattern, int offset, List<String> cusines) throws SQLException;
+    
+    List<Restaurant> getRestaurantByStringOrderByName(String pattern, int offset) throws SQLException;
+    List<Restaurant> getRestaurantByStringOrderByName(String pattern, int offset, List<String> cusines) throws SQLException;
+    
+    List<Restaurant> getRestauranyByStringOrderByPrice(String pattern, int offset, int type) throws SQLException;
+    List<Restaurant> getRestauranyByStringOrderByPrice(String pattern, int offset, int type, List<String> cusines) throws SQLException;
+    
     Restaurant getRestaurantById(int id ) throws SQLException;
     int insertRestaurant(Restaurant restaurant) throws SQLException;
-    int updateRestaurant(Restaurant restaurant) throws SQLException;
+    int updateRestaurant(Restaurant restaurant, int id) throws SQLException;
     List<Restaurant> getRestaurantByUserId(int id) throws SQLException;
+	
+    void computeRating(int restaurant_id) throws SQLException;
     
+    @Deprecated
+	void insertPhoto(Photo photo) throws SQLException;
+	
 }

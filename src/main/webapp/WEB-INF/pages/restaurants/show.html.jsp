@@ -1,4 +1,4 @@
-<%-- 
+  <%-- 
     Document   : restaurant_profile.html
     Created on : 14-giu-2016, 15.29.02
     Author     : Giovanni Maria Riva
@@ -6,12 +6,29 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="l" tagdir="/WEB-INF/tags/layouts/" %>
+<%@taglib prefix="p" tagdir="/WEB-INF/tags/partials//" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
+<%-- These JSTL tag are used to set correctly the pagination URL request --%>
+<c:set var="nextPagination" scope="request" value="${requestScope.nextPagination}" />
+<c:set var="requestURL" scope="request" value="${requestScope['javax.servlet.forward.query_string']}" />
+<c:if test="${empty param.reviewPage}">
+  <c:set var="requestURLFilters" scope="request" value="${requestURL}" />
+  <c:set var="actualPage" scope="request" value="0" />
+</c:if>
+<c:if test="${!empty param.reviewPage}">
+  <c:set var="requestURLFilters" scope="request" value="${fn:substringBefore(requestURL, '&reviewPage')}" />  
+  <c:set var="actualPage" scope="request" value="${param.reviewPage}" />
+</c:if>
+
 <jsp:useBean id="restaurant" scope="request" class="it.unitn.disi.webprog2016.convictor.app.beans.Restaurant" />
+<c:set var="bean" value="${requestScope.restaurant}" scope="request" />
+
 <l:main>
     <jsp:attribute name="title"> ${restaurant.name} </jsp:attribute>
-	
+    <jsp:attribute name="bodyBackground"></jsp:attribute>
 	<jsp:attribute name="body">
     <div class="ui container">
 
@@ -23,21 +40,21 @@
           </div>
         </div>
       </div>
-
       <!-- Restaurant Image -->
       <div class="ui stackable two column centered grid">
         <div class="column">
-            <img class="ui centered image mySlides" src="../images/rest0.jpg">
-            <img class="ui centered image mySlides" src="../images/rest1.jpg">
-            <img class="ui centered image mySlides" src="../images/rest2.jpg">
-            <img class="ui centered image mySlides" src="../images/rest3.jpg">
-            <div class="w3-center w3-section w3-large w3-text-white w3-display-bottomleft" style="width:100%">
-              <div class="w3-left w3-padding-left w3-hover-text-white w3-text-white" onclick="plusDivs(-1)">&#10094;</div>
-              <div class="w3-right w3-padding-right w3-hover-text-white" onclick="plusDivs(1)">&#10095;</div>
-              <span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(1)"></span>
-              <span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(2)"></span>
-              <span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(3)"></span>
-              <span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(4)"></span>
+			<c:forEach var="photo" items="${bean.photos}">
+				<img class="ui centered image mySlides" src="${photo.url}">
+			</c:forEach>
+            
+            <div class="w3-center w3-section w3-large w3-text-white w3-display-bottomleft" style="width:100%;" id="trasp">
+              <div class="w3-left w3-padding-left w3-hover-text-blue w3-text-blue" onclick="plusDivs(-1)" style="background-color:rgba(255,255,255,0.8);">&#10094;</div>
+              <div class="w3-right w3-padding-right w3-hover-text-blue w3-text-blue" onclick="plusDivs(1)" style="background-color:rgba(255,255,255,0.8);">&#10095;</div>
+			  <c:set var="photoCounter" value="1" scope="page" />
+			  <c:forEach var="photo" items="${bean.photos}">
+				<span class="w3-badge demo w3-border w3-blue w3-hover-blue" onclick="currentDiv(${photoCounter})"></span>
+				<c:set var="photoCounter" value="${photoCounter+1}" />
+			  </c:forEach>
             </div>
         </div>
       </div>
@@ -47,10 +64,10 @@
         <div class="stretched column">
           <div class="row">
             <div class="ui small statistic">
-              <div class="value">
+              <div class="value" id="brown">
                 5
               </div>
-              <div class="label">
+              <div class="label" id="brown">
                 Posizione in Lombardia
               </div>
             </div>
@@ -60,23 +77,23 @@
                 <c:forEach var="i" begin="0" end="${restaurant.rating}" step="1">
                     <c:if test="${i!=0}">
                         <div class="item">
-                            <i class="heart icon"> </i>
+                            <i class="star icon"> </i>
                         </div>
                     </c:if>
                 </c:forEach>
                     <c:forEach begin="${restaurant.rating}" end="4" step="1">
                         <div class="item">
-                            <i class="empty heart icon"> </i>
+                            <i class="empty star icon"> </i>
                         </div>
                 </c:forEach>
               </div>
-              <div class="label">
+              <div class="label" id="brown">
                 Valutazione media
               </div>
           </div>
         </div>
         <div class="stretched column">
-          <img class="ui small centered image" src="../images/default_qrcode.png"/>
+			<img class="ui small centered image" src="${pageContext.servletContext.contextPath}/restaurants/qrcode?id=${restaurant.id}" />
         </div>
         <div class="stretched column">
           <div class="ui list">
@@ -102,7 +119,7 @@
 
 
       <!-- Restaurant Infos -->
-      <div class="ui center aligned five column stackable grid">
+      <div class="ui center aligned four column stackable grid">
         <div class="row">
           <div class="column">
             <div clas="ui grid">
@@ -121,50 +138,85 @@
               </div>
             </div>
           </div>
-            
-          <div class="column">
-            <div clas="ui center aligned grid">
-              <div class="column">
-                <div class="ui sub header">Fascia di prezzo</div>
-              </div>
-              <div class="ui divider"></div>
-              <div class="column">
-                <div class="ui list">
-                  ${restaurant.slotPrice}
-                </div>
-              </div>
+           
+			<div class="column">
+				<div clas="ui center aligned grid">
+				  <div class="column">
+					<div class="ui sub header">Fascia di prezzo</div>
+				  </div>
+				  <div class="ui divider"></div>
+				  <div class="column">
+					<div class="ui list">
+					  ${restaurant.slotPrice}
+					</div>
+				  </div>
+				</div>
+			  </div>	
+		</div>	  
+			  
+				
+		  <div class="thirteen wide column">
+            <div clas="ui centeredo one column grid">
+				<div class="row">
+					<div class="column">
+						<div class="ui sub header">Orari di apertura</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="ui divider"></div>
+				</div>
+				<div class="row">
+					<div class="column">
+						<table class="ui compact celled definition table">
+							<thead>
+								<tr>  
+									<th></th>
+										<c:forEach var="openingTime" items="${restaurant.openingTimes}">
+												<th>${openingTime.dayString}</th>
+										</c:forEach>	
+								</tr>  
+							</thead>
+							<tbody>
+							  <tr>
+								<td class="collapsing">
+								  Mattina
+								</td>
+								  <c:forEach var="openingTime" items="${restaurant.openingTimes}">
+								  <td>
+									  <c:if test="${openingTime.dayoff != true}">
+										  ${openingTime.openAt} - 
+										  ${openingTime.closeAt}                                 
+									  </c:if>
+									  <c:if test="${openingTime.dayoff == true}">
+										  CHIUSO
+									  </c:if>
+								  </td>
+								  </c:forEach>
+							  </tr>	
+							  <tr>
+								<td class="collapsing">
+								  Pomeriggio
+								</td>
+								  <c:forEach var="openingTime" items="${restaurant.openingTimes}">
+								  <td>
+									  <c:if test="${openingTime.dayoff != true}">
+										  ${openingTime.openAtAfternoon} -
+										  ${openingTime.closeAtAfternoon}                                 
+									  </c:if>
+									  <c:if test="${openingTime.dayoff == true}">
+										  CHIUSO
+									  </c:if>
+								  </td>
+								  </c:forEach>
+							  </tr>				
+							</tbody>  
+						</table>
+					</div>
+				</div>              			  			  			  
             </div>
+
           </div>
 
-          <div class="column">
-            <div clas="ui  grid">
-              <div class="column">
-                <div class="ui sub header">Orari di apertura</div>
-              </div>
-              <div class="ui divider"></div>
-              <div class="column">
-                <div class="ui list">
-                    <c:forEach var="openingTime" items="${restaurant.openingTimes}">
-                        <div class="item">
-                            ${openingTime.dayString}
-                            <c:if test="${openingTime.dayoff != true}">
-                                <p>${openingTime.openAt}
-                                ${openingTime.closeAt}
-                                ${openingTime.openAtAfternoon}
-                                ${openingTime.closeAtAfternoon}</p>  
-                            </c:if>
-                            <c:if test="${openingTime.dayoff == true}">
-                                CHIUSO
-                            </c:if>
-                        </div>
-                    </c:forEach>
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-        <div class="ui divider"></div>
       </div>
 
       <!-- Show Reviews/Map Buttons -->
@@ -173,10 +225,10 @@
         <div class="row">
           <div class="column">
             <div class="ui four item tabular menu">
-              <a class="item active" data-tab="recensioni">Recensioni</a>
-              <a class="item " data-tab="mappa">Mappa</a>
-              <a class="item" data-tab="reclama">Reclama</a>
-              <a class="item" data-tab="addimage">Carica Immagine</a>
+              <a class="item active" data-tab="recensioni" id="brown">Recensioni</a>
+              <a class="item " data-tab="mappa" id="brown">Mappa</a>
+              <a class="item" data-tab="reclama" id="brown">Reclama</a>
+              <a class="item" data-tab="addimage" id="brown">Carica Immagine</a>
             </div>
           </div>
         </div>
@@ -191,46 +243,69 @@
           <div class="ui grid">
             <div class="row">
               <div class="column">
+                  <div class="ui buttons">
+                    <div class="ui basic black button">
+                        <c:if test="${actualPage-1 < 0}">
+                            <a href="?${requestURLFilters}&reviewPage=0"> 
+                                <i class="left arrow icon"></i>
+                            </a>
+                        </c:if>
+                        <c:if test="${actualPage-1 >= 0}">
+                            <a href="?${requestURLFilters}&reviewPage=${actualPage-1}"> 
+                                <i class="left arrow icon"></i>
+                            </a>
+                        </c:if>
+                    </div>
+                  </div>
+                  <div class="ui basic black button">                      
+                        <a href="?${requestURLFilters}&reviewPage=${requestScope.nextPagination}"> 
+                            <i class="right arrow icon"></i>
+                        </a>                      
+                  </div>
+                      <div class="ui basic label">
+                        2,048
+                  </div>
+              </div>  
+            </div>   
+            <div class="row">
+              <div class="column">
                   <div class="ui comments">
                 <!-- Reviews List -->
                   <c:forEach var="review" items="${restaurant.reviews}">
                       <div class="comment">
-                          <a class="avatar">
-                              <img src="#">
-                          </a>
                       <div class="content">
-                          <a class="author">${review.registeredUserName}</a>
+                          <a class="author" id="brown"">${review.registeredUserName}</a>
                           <div class="metadata">
-                              <div class="date">2 days ago</div>
+                              <div class="date" id="brown"">2 days ago</div>
                               <div class="rating">
                                   <div class="ui horizontal list">
                                       <c:forEach var="i" begin="0" end="${review.rating}" step="1">
                                       <c:if test="${i!=0}">
-                                          <div class="item">
-                                              <i class="heart icon"> </i>
+                                         <div class="item">
+                                              <i class="star icon"> </i>
                                           </div>
                                       </c:if>
                                   </c:forEach>
                                   <c:forEach begin="${review.rating}" end="4" step="1">
                                       <div class="item">
-                                          <i class="empty heart icon"> </i>
+                                          <i class="empty star icon"> </i>
                                       </div>
                                   </c:forEach>
                                   </div>                                    
                               </div>
                           </div>
-                      <div class="text">
+                      <div class="text" id="brown">
                         ${review.description}
                       </div>
                       <div class="actions">
-                        <a class="reply">Reply</a>
+                        <a class="reply">Rispondi</a>
                       </div>                            
                       <form class="ui reply form">
                         <div class="field">
                           <textarea></textarea>
                         </div>
-                        <div class="ui basic submit labeled icon button">
-                          <i class="icon edit"></i> Add Reply
+                        <div class="ui basic black submit labeled icon button">
+                          <i class="icon edit"></i> Rispondi
                         </div>
                       </form>
                     </div>
@@ -243,23 +318,35 @@
                 <!-- End Reviews List -->
             </div>
               <!-- Add a review textbox -->
-              
+              <%--<p:formerrors /> --%>
               <div class="sixteen wide column">
                 <div class="ui center aligned grid">
                   <div class="column">
                     <div class="ui segment">
-                      <div class="ui header">Write a review</div>
-                      <div class="ui large center rating" data-rating="1" data-max-rating="5"></div>
-                      <div class="ui center comment">
-                        <form class="ui small reply form">
-                          <div class="field">
-                            <textarea></textarea>
-                          </div>
-                          <div class="ui basic submit labeled icon button">
-                            <i class="icon edit"></i> Add new review
-                          </div>
-                        </form>
-                      </div>
+                    <c:choose>    
+                      <c:when test="${!empty sessionScope.user}">
+                        <div class="ui header">Inserisci una recensione</div>
+                        <div id="rating-selector" class="ui large center rating" data-rating="1" data-max-rating="5"></div>
+                        <div class="ui center comment">
+                          <form class="ui small reply form" method="POST" action="${pageContext.servletContext.contextPath}/restaurants/addReview">
+                            <input type="hidden" name="idRestaurant" value="${restaurant.id}"/>
+                            <input type="hidden" id="ratingFormHidden" name="rating" value="" />
+                            <div class="field">
+                              <textarea name="reviewText"></textarea>
+                            </div>
+                            <!--<div class="ui basic black submit button">-->
+                              <input class="ui black button" type="submit" onclick="setInputValue()" value="Inserisci una recensione" class="icon edit">
+                            <!--</div>-->
+                          </form>
+                        </div>
+                      </c:when>
+                      <c:otherwise>
+                        <div class="ui header">
+                          <a href="${pageContext.servletContext.contextPath}/sign_in">Accedi</a>
+                          per recensire questo ristorante!
+                        </div>
+                      </c:otherwise>
+                    </c:choose>
                     </div>
                   </div>
                 </div>
@@ -283,7 +370,7 @@
               <div class="column">
                 <div class="ui center aligned grid">
                     <div class="column">
-                        <button class="ui button ownership">Reclama Ristorante</button>
+                        <button class="ui basic black button ownership">Reclama Ristorante</button>
                         <div class="ui modal ownership">
                             <div class="header center">
                                  Richiesta Reclamo
@@ -300,8 +387,8 @@
                                     <input type="text" name="cf" placeholder="Codice Fiscale">
                                    </div>
                                 <div class="field">
-                                    <div class="ui close button">Close</div>
-                                    <input class="ui button" type="submit"/>
+                                    <div class="ui close basic black button">Close</div>
+                                    <input class="ui basic black button" type="submit"/>
                                 </div>
                             </form>
                             </div>
@@ -316,22 +403,24 @@
           <div class="ui tab" data-tab="addimage">
               <div class="ui center aligned grid">
                   <div class="column">
-                      <button class="ui button add_image">Aggiungi Immagine</button>
-                      <div class="ui modal add_image">
+                      <button class="ui basic black button add_image">Aggiungi Immagine</button>
+                      <div class="ui modal add_image_modal">
                           <div class="header center">
                                Aggiungi Nuova Immagine
                           </div>
                           <div class="content">
-                          <form class="ui form">
-                              <div class="field">
-                                   <input id="fileupload" type="file" name="files[]" data-url="server/php/" multiple >
-                               </div>
-                              <div class="field">
-                                  <div class="ui close button">Close</div>
-                                  <input class="ui button" type="submit"/>
-                              </div>
-                          </form>
+							  <form class="ui form" action="${pageContext.servletContext.contextPath}/restaurants/uploadPhoto" method="POST" enctype="multipart/form-data" action="">
+								  <input type="hidden" value="${bean.id}" name="id" />
+								  <div class="field">
+									  <input id="fileupload" type="file" name="files" />
+								  </div>
+								  <div class="field actions">
+									  <div class="ui cancel basic black button">Close</div>
+									  <input class="ui black button" type="submit" value="Upload"/>
+								  </div>
+							  </form>
                           </div>
+								  
                       </div>
                   </div>
               </div>
@@ -342,27 +431,62 @@
     </div>
     <!-- End Reviews/Map TABS -->
 
-    
-            <script type="text/javascript">
-                function initMap() {
-                    var myLatLng = {lat: -25.363, lng: 131.044};
+        <script type="text/javascript">
+            // Image slider control functions
 
-                    var map = new google.maps.Map(document.getElementById('map'), {
-                      zoom: 4,
-                      center: myLatLng
-                    });
+            var slideIndex = 1;
+            showDivs(slideIndex);
 
-                    var marker = new google.maps.Marker({
-                      position: myLatLng,
-                      map: map,
-                      title: 'Hello World!'
-                    });
+            function plusDivs(n) {
+              showDivs(slideIndex += n);
+            }
 
-                }
+            function currentDiv(n) {
+              showDivs(slideIndex = n);
+            }
 
-            </script>
-            <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBbiud33G2KsodO5JvP-5HQzoSTuWiI0a8&callback=initMap"
-  type="text/javascript"></script>
+            function showDivs(n) {
+              var i;
+              var x = document.getElementsByClassName("mySlides");
+              var dots = document.getElementsByClassName("demo");
+              if (n > x.length) {slideIndex = 1;}
+              if (n < 1) {slideIndex = x.length;}
+              for (i = 0; i < x.length; i++) {
+                x[i].style.display = "none";
+              }
+              for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" w3-white", "");
+              }
+              x[slideIndex-1].style.display = "block";
+              dots[slideIndex-1].className += " w3-white";              
+            }   
+        </script>
+        <script type="text/javascript">
+            function initMap() {
+                var myLatLng = {lat: -25.363, lng: 131.044};
+
+                var map = new google.maps.Map(document.getElementById('map'), {
+                  zoom: 4,
+                  center: myLatLng
+                });
+
+                var marker = new google.maps.Marker({
+                  position: myLatLng,
+                  map: map,
+                  title: 'Hello World!'
+                });
+
+            }
+
+        </script>
+        <script type="text/javascript">
+          // Use to load the rating inside the form
+          function setInputValue() {
+            var val = document.getElementById("rating-selector").getElementsByClassName("icon active").length;
+            document.getElementById("ratingFormHidden").setAttribute('value', val);
+          }
+        </script>
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBbiud33G2KsodO5JvP-5HQzoSTuWiI0a8&callback=initMap" type="text/javascript"></script>
 
 	</jsp:attribute>
                 

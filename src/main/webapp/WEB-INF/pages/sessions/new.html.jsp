@@ -14,7 +14,7 @@
 <l:main>
 	
 	<jsp:attribute name="title">Accedi</jsp:attribute>
-	<jsp:attribute name="bodyBackground">url("${pageContext.servletContext.contextPath}/images/background.png")</jsp:attribute>
+	<jsp:attribute name="bodyBackground">#eaeaea</jsp:attribute>
 	<jsp:attribute name="body">
         <div class="ui middle aligned center aligned grid">
           <div class="column myform">
@@ -41,16 +41,16 @@
                   </div>
                 </div>
                 <div class="ui text" align="right">
-                  <a href="invio_req_pass.html">Password dimenticata?</a>
+                  <a href="${pageContext.servletContext.contextPath}/passwords/request_new">Password dimenticata?</a>
                 </div>
                 </br>
                     <input type="submit" id="p_button" class="ui fluid large submit button"  value="Accedi"/>
                 </br>
-                <div class="ui fluid submit button">Annulla</div>
+                <a href="javascript:history.back()" class="ui fluid submit button">Annulla</a>
               </div>
             </form>
             </br>
-            <div id="s_text" class="ui text">
+            <div class="text">
               Non hai ancora un account? <a href="form_registrazione.html">Registrati</a>
             </div>
           </div>

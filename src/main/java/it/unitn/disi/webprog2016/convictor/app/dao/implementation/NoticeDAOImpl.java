@@ -25,21 +25,27 @@ import java.util.List;
  */
 public class NoticeDAOImpl extends DatabaseDAO implements NoticeDAO {
 
+    int MAX_RESULT = 5;
+    
     public NoticeDAOImpl(DatabaseConnectionManager c) {
         super(c);
     }
 
     @Override
-    public List<Notice> getAdministratorNotices(int id) throws SQLException {
+    public List<Notice> getAdministratorNotices(int id, int offset) throws SQLException {
         List<Notice> notices = new ArrayList<>();
         PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(
-                "SELECT * FROM ownership_notices"
+                "SELECT * FROM ownership_notices LIMIT ? OFFSET ?"
             );
         PreparedStatement stm2 = this.getDbManager().getConnection().prepareStatement(
-                "SELECT * FROM photo_remove_notices"
+                "SELECT * FROM photo_remove_notices LIMIT ? OFFSET ?"
             );
-        try {   
+        try {
+            stm.setInt(1, MAX_RESULT);
+            stm.setInt(2, MAX_RESULT*offset);
             ResultSet ownershipSet = stm.executeQuery();
+            stm2.setInt(1, MAX_RESULT);
+            stm2.setInt(2, MAX_RESULT*offset);
             ResultSet removalSet = stm2.executeQuery();
             
             // Fill the notices list
@@ -73,17 +79,21 @@ public class NoticeDAOImpl extends DatabaseDAO implements NoticeDAO {
     }
 
     @Override
-    public List<Notice> getRestaurantOwnerNotices(int id) throws SQLException {
+    public List<Notice> getRestaurantOwnerNotices(int id, int offset) throws SQLException {
         List<Notice> notices = new ArrayList<>();
-        String queryReviewNotices = "SELECT * FROM review_notices RE INNER JOIN reviews R ON RE.review_id = R.id INNER JOIN restaurant RES ON RES.id = R.restaurant_id INNER JOIN users U ON U.id = RES.restaurant_owner_id WHERE U.id=?";
-        String queryPhotoNotices = "SELECT * FROM photo_notices PN INNER JOIN photos P ON PN.photo_id = P.id INNER JOIN restaurant RES ON RES.id = P.restaurant_id INNER JOIN users U ON U.id = RES.restaurant_owner_id WHERE U.id=?;";
+        String queryReviewNotices = "SELECT * FROM review_notices RE INNER JOIN reviews R ON RE.review_id = R.id INNER JOIN restaurant RES ON RES.id = R.restaurant_id INNER JOIN users U ON U.id = RES.restaurant_owner_id WHERE U.id=? LIMIT ? OFFSET ?";
+        String queryPhotoNotices = "SELECT * FROM photo_notices PN INNER JOIN photos P ON PN.photo_id = P.id INNER JOIN restaurant RES ON RES.id = P.restaurant_id INNER JOIN users U ON U.id = RES.restaurant_owner_id WHERE U.id=? LIMIT ? OFFSET ?";
         
         PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(queryReviewNotices);
         PreparedStatement stm2 = this.getDbManager().getConnection().prepareStatement(queryPhotoNotices);
         
         try {
             stm.setInt(1, id);
+            stm.setInt(2, MAX_RESULT);
+            stm.setInt(3, MAX_RESULT*offset);
             stm2.setInt(1, id);
+            stm2.setInt(2, MAX_RESULT);
+            stm2.setInt(3, MAX_RESULT*offset);
             ResultSet reviewSet = stm.executeQuery();
             ResultSet photoSet = stm.executeQuery();
             try {
@@ -152,15 +162,12 @@ public class NoticeDAOImpl extends DatabaseDAO implements NoticeDAO {
     @Override
     public void insertReviewNotice(ReviewNotice notice) throws SQLException {
         
-        // Check if valid
-        if (!notice.validate()) return;
-        
-        String query = "INSERT INTO review_notices VALUES(?, ?, ?, ?);";
+        String query = "INSERT INTO review_notices (review_id, registered_user_id) VALUES(?, ?);";
         PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
         try {
+            stm.setInt(1, notice.getReviewId());
             stm.setInt(2, notice.getRegisteredUserId());
-            stm.setInt(3, notice.getReviewId());
-            stm.executeQuery();
+            stm.executeUpdate();
         } finally {
             stm.close();
         }

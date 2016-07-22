@@ -9,11 +9,15 @@ import it.unitn.disi.webprog2016.convictor.app.beans.OpeningTime;
 import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.OpeningTimesDAO;
 import it.unitn.disi.webprog2016.convictor.framework.dao.DatabaseDAO;
 import it.unitn.disi.webprog2016.convictor.framework.utils.DatabaseConnectionManager;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -28,7 +32,7 @@ public class OpeningTimeDAOImpl extends DatabaseDAO implements OpeningTimesDAO {
     @Override
     public List<OpeningTime> getResaurantOpeningTimes(int restaurant_id) throws SQLException {
         List<OpeningTime> openingTimes = new ArrayList<>();
-        String query = "SELECT day, open_at, close_at FROM opening_times WHERE restaurant_id=?";
+        String query = "SELECT day, open_at, close_at, open_at_afternoon, close_at_afternoon, dayoff FROM opening_times WHERE restaurant_id=? ORDER BY day";
         PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
         try {
             stm.setInt(1, restaurant_id);
@@ -40,7 +44,10 @@ public class OpeningTimeDAOImpl extends DatabaseDAO implements OpeningTimesDAO {
                     tmp.setDayString(tmp.getDay());
                     tmp.setOpenAt(openingTimesSet.getTime("open_at"));
                     tmp.setCloseAt(openingTimesSet.getTime("close_at"));
-                    openingTimes.add(tmp);
+					tmp.setOpenAtAfternoon(openingTimesSet.getTime("open_at_afternoon"));
+                    tmp.setCloseAtAfternoon(openingTimesSet.getTime("close_at_afternoon"));
+					tmp.setDayoff(openingTimesSet.getBoolean("dayoff"));
+					openingTimes.add(tmp);
                 }
             } finally {
                 openingTimesSet.close();
@@ -50,6 +57,39 @@ public class OpeningTimeDAOImpl extends DatabaseDAO implements OpeningTimesDAO {
             stm.close();
         }
         return openingTimes;
+    }
+
+    @Override
+    public void insertRestaurantOpeningTimes(int restaurant_id, List<OpeningTime> times) throws SQLException {        
+        String query = "INSERT INTO opening_times (restaurant_id, day, open_at, close_at, open_at_afternoon, close_at_afternoon, dayoff) VALUES (?,?,?,?,?,?, ?)";
+        for (OpeningTime time : times) {
+            PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
+            try {
+                stm.setInt(1, restaurant_id);
+                stm.setInt(2, time.getDay());
+                stm.setTime(3, new Time(time.getOpenAt().getTime()));
+                stm.setTime(4, new Time(time.getCloseAt().getTime()));
+                stm.setTime(5, new Time(time.getOpenAtAfternoon().getTime()));
+                stm.setTime(6, new Time(time.getCloseAtAfternoon().getTime()));
+                stm.setBoolean(7, time.isDayoff());
+                stm.executeUpdate();
+            } finally {
+                stm.close();
+            }
+        }
+    }
+
+    @Override
+    public void updateRestaurantOpeningTimes(int restaurant_id, List<OpeningTime> times) throws SQLException {
+        String query = "DELETE FROM opening_times WHERE restaurant_id = ?";
+        PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
+        try {
+            stm.setInt(1, restaurant_id);
+            stm.executeUpdate();
+            this.insertRestaurantOpeningTimes(restaurant_id, times);
+        } finally {
+            stm.close();
+        }
     }
     
 }

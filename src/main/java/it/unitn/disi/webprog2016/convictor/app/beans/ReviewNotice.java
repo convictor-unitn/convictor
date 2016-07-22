@@ -36,7 +36,12 @@ public class ReviewNotice extends AbstractBean implements Notice {
      * @param registeredUserId the registeredUserId to set
      */
     public void setRegisteredUserId(String registeredUserId) {
-        this.registeredUserId = Integer.parseInt(registeredUserId);
+        try {
+            this.registeredUserId = Integer.parseInt(registeredUserId);
+        } catch (Exception e) {
+            this.setRegisteredUserId(-1);
+            this.setError("user_id", "L'id utente inserito non è valido");
+        }
     }
 
     /**
@@ -58,13 +63,25 @@ public class ReviewNotice extends AbstractBean implements Notice {
      * @param reviewId the reviewId to set
      */
     public void setReviewId(String reviewId) {
-		this.reviewId = Integer.parseInt(reviewId);
+        try {
+            this.reviewId = Integer.parseInt(reviewId);
+        } catch (Exception e) {
+            this.setReviewId(-1);
+            this.setError("review_id", "L'id della recensione non è valido.");
+        }
     }
-
+    
+    /**
+     * Return the viewable message representing this notice.
+     * @return A string message
+     */
 	@Override
 	public String getDescription() {
-		//TODO: Implementare la stringa della notifica
-		return "DA IMPLEMENTARE!!!";
+		String userName = registeredUser.getName() + " " + registeredUser.getSurname();
+        String userProfile = "<a href=\"/userProfile/show?id="+ registeredUserId + "\">"+userName+"</a>";
+        String reviewMessage ="<a href=\"/reviews/show?id="+ reviewId + "\"> recensione </a>";
+        String message = userProfile + " ha inserito una nuova " + reviewMessage + "!";
+        return message;
 	}
 
 	@Override
@@ -77,11 +94,11 @@ public class ReviewNotice extends AbstractBean implements Notice {
         boolean status=true;
         if (this.getRegisteredUserId() <= 0) {
             status = false;
-            this.setError("user_id", "The user_id is equal or lessa than zero");
+            this.setError("user_id", "Lo user_id è uguale o minore di zero");
         }
         if (this.getReviewId() <=0) {
             status = false;
-            this.setError("review_id", "The review_id is equal or less than zero");
+            this.setError("review_id", "Lo review_id è uguale o minore di zero");
         }
         return status;
     }
