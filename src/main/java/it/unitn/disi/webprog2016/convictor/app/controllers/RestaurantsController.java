@@ -395,6 +395,12 @@ public class RestaurantsController extends AbstractController {
             tmpTime.setDay(day);
             if (request.getParameter("dayoff_"+day) != null) {
                 tmpTime.setDayoff(true);
+				
+				tmpTime.setOpenAt("00:00");
+				tmpTime.setCloseAt("00:00");
+				tmpTime.setOpenAtAfternoon("00:00");
+				tmpTime.setCloseAtAfternoon("00:00");
+				
             } else {
                 if (!"".equals(request.getParameter("open_at_"+day+"_hour")) &&
                     !"".equals(request.getParameter("close_at_"+day+"_hour")) &&  
@@ -590,6 +596,10 @@ public class RestaurantsController extends AbstractController {
             tmpTime.setDay(day);
             if (request.getParameter("dayoff_"+day) != null) {
                 tmpTime.setDayoff(true);
+				tmpTime.setOpenAt("00:00");
+				tmpTime.setCloseAt("00:00");
+				tmpTime.setOpenAtAfternoon("00:00");
+				tmpTime.setCloseAtAfternoon("00:00");
             } else {
                 if (!"".equals(request.getParameter("open_at_"+day+"_hour")) &&
                     !"".equals(request.getParameter("close_at_"+day+"_hour")) &&  
