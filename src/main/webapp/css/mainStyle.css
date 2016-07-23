@@ -102,3 +102,7 @@ ui.card {
 #brown {
     color: #4f3e3e;
 }
+
+.ui.selection.dropdown {
+	 min-width: 12em;
+}
