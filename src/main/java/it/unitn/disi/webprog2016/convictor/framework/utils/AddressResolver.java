@@ -8,6 +8,7 @@ package it.unitn.disi.webprog2016.convictor.framework.utils;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
@@ -77,7 +78,7 @@ public class AddressResolver {
 		
 	}
 	
-	public void resolveAddress() throws IOException {
+	public void resolveAddress() throws AddressNotFoundException, MalformedURLException, IOException {
 		this.composeAddress();
 		System.out.println(this.address);
 				
@@ -94,8 +95,7 @@ public class AddressResolver {
 
 		// build a JSON object
 		JSONObject obj = new JSONObject(str);
-		if (! obj.getString("status").equals("OK"))
-			return;
+		if (! obj.getString("status").equals("OK")) throw new AddressNotFoundException();
 
 		// get the first result
 		JSONObject res = obj.getJSONArray("results").getJSONObject(0);
@@ -104,7 +104,7 @@ public class AddressResolver {
 		this.latitude = loc.getDouble("lat");
 		this.longitude = loc.getDouble("lng");
 		
-//		System.out.println("lat: " + loc.getDouble("lat") + ", lng: " + loc.getDouble("lng"));
+		System.out.println("lat: " + loc.getDouble("lat") + ", lng: " + loc.getDouble("lng"));
 		
 
 	}
@@ -164,7 +164,7 @@ public class AddressResolver {
 	}
 	
 	// Run this file to test the results
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws IOException, AddressNotFoundException {
 		
 		System.out.println();
 

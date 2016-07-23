@@ -41,6 +41,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import it.unitn.disi.webprog2016.convictor.app.beans.Photo;
 import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.PhotoDAO;
+import it.unitn.disi.webprog2016.convictor.framework.utils.AddressNotFoundException;
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 import java.util.Iterator;
@@ -218,7 +219,7 @@ public class RestaurantsController extends AbstractController {
      * @throws ServletException
      */
     public String show(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        
+        			
         // Try catch to avoid parsing errors
         int id;
         try {
@@ -261,6 +262,8 @@ public class RestaurantsController extends AbstractController {
                 response.sendError(404);
                 return "";
             }
+			
+			System.out.println("lat: " + tmp.getLat() + ", lng: " + tmp.getLng());
             
             // Set the next pagination 
             if (tmp.getReviews().size() > 0) {
@@ -387,12 +390,17 @@ public class RestaurantsController extends AbstractController {
 		ad.setStreet(tmp.getStreet());
 		ad.setCity(tmp.getCity());
 		ad.setState(this.COUNTRY);
-		ad.resolveAddress();
+		try {
+			ad.resolveAddress();
+		} catch (AddressNotFoundException ex) {
+			System.err.println("ERRORE RISOLUZIONE INDIRIZZO");
+		}
+		
+		System.out.println(ad.getLatitude()+" "+ad.getLongitude());
 		
 		tmp.setLat(ad.getLatitude());
 		tmp.setLng(ad.getLongitude());
-		
-		
+				
         String[] cusines = request.getParameterValues("cusines");
         List<Cusine> list = new ArrayList<>();
         List<OpeningTime> listTime = new ArrayList<>();
@@ -576,7 +584,7 @@ public class RestaurantsController extends AbstractController {
         CusineDAO cusineDAO = (CusineDAO) request.getServletContext().getAttribute("cusinedao");
 		List<Cusine> allCusines=null;
 		try {
-			allCusines = cusineDAO.getAllCusines();
+			allCusines = cusineDAO.getAllCusines();	
 			request.setAttribute("allCusines", allCusines);
 		} catch (SQLException ex) {
 			Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, ex);
@@ -606,6 +614,18 @@ public class RestaurantsController extends AbstractController {
         tmp.setWebsite(request.getParameter("website"));
 		tmp.setSlotPrice(request.getParameter("priceslotselected"));
         
+		//Calculate LATITUDE and LONGITUDE for restaurant
+		AddressResolver ad = new AddressResolver();
+		ad.setZipcode(tmp.getZipCode());
+		ad.setStreet(tmp.getStreet());
+		ad.setCity(tmp.getCity());
+		ad.setState(this.COUNTRY);
+		try {
+			ad.resolveAddress();
+		} catch (AddressNotFoundException ex) {
+			System.err.println("ERRORE RISOLUZIONE INDIRIZZO");
+		}
+		
         String[] cusines = request.getParameterValues("cusines");
         List<Cusine> list = new ArrayList<>();
         List<OpeningTime> listTime = new ArrayList<>();

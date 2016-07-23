@@ -39,7 +39,7 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
         
         int restaurant_id = -1;
         
-        String query = "INSERT INTO restaurants (name, description, street, city, zip_code, province, full_address, website, slot_price, email, phone) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO restaurants (name, description, street, city, zip_code, province, full_address, website, slot_price, email, phone, lat, lng) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
         try {
             stm.setString(1, restaurant.getName());
@@ -53,6 +53,10 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
             stm.setInt(9, restaurant.getSlotPrice());
             stm.setString(10, restaurant.getEmail());
             stm.setString(11, restaurant.getPhone());
+			// DA SISTEMARE
+			stm.setString(12, restaurant.getLatString());
+            stm.setString(13, restaurant.getLngString());
+
 			stm.executeUpdate();
 			ResultSet result;
 			result = stm.getGeneratedKeys();

@@ -37,6 +37,7 @@
         <div class="column">
           <div class="ui header large">
             ${restaurant.name}
+			${bean.lat} ${bean.lng}
           </div>
         </div>
       </div>
