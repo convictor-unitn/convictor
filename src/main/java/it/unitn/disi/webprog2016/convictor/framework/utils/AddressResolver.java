@@ -8,14 +8,16 @@ package it.unitn.disi.webprog2016.convictor.framework.utils;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
-import java.util.StringTokenizer;
-import java.util.logging.Logger;
-
+import java.util.Scanner;
+import org.json.*;
+		
 /**
- *
+ * Utility class to resolve a restaurant address into 
+ * LATITUDE and LONGITUDE coordinates
  * @author Giovanni
  */
 public class AddressResolver {
@@ -29,12 +31,13 @@ public class AddressResolver {
 	private double latitude;
 	private double longitude;
 	
-	final int MAX_DIM = 10;
-	
+	private final int MAX_DIM = 10;
+	private final String COUNTRY = "IT";
 	
 	
 	public AddressResolver () {
-		this.API_KEY = "AIzaSyBbiud33G2KsodO5JvP-5HQzoSTuWiI0a8";
+//		this.API_KEY = "AIzaSyBbiud33G2KsodO5JvP-5HQzoSTuWiI0a8";
+		this.API_KEY = "AIzaSyCMJtaVznqkvqvaR1GFfLXkZHyzd4zfbXk";
 		this.street = new ArrayList<String>();
 		this.city = new ArrayList<String>();
 		this.state = new ArrayList<String>();
@@ -46,7 +49,7 @@ public class AddressResolver {
 		String comma = ",";
 		String plus = "+";
 		
-		String component = "&components=country:IT";
+		String component = "&components=country:"+COUNTRY;
 		
 		this.address = this.zipcode+plus;
 		
@@ -75,23 +78,34 @@ public class AddressResolver {
 		
 	}
 	
-	public void resolveAddress() throws IOException {
+	public void resolveAddress() throws AddressNotFoundException, MalformedURLException, IOException {
 		this.composeAddress();
 		System.out.println(this.address);
+				
+		// build a URL
+		String s = "https://maps.googleapis.com/maps/api/geocode/json?"+this.address+"&key="+this.API_KEY;
+		URL url = new URL(s);
 
-		String recv;
-		String recvbuff = null;
-		URL jsonpage = new URL("https://maps.googleapis.com/maps/api/geocode/json?"+this.address+"&key="+this.API_KEY);
-		System.out.println(jsonpage);
-		URLConnection urlcon = jsonpage.openConnection();
-		try (BufferedReader buffread = new BufferedReader(new InputStreamReader(urlcon.getInputStream()))) {
-			while ((recv = buffread.readLine()) != null)
-				recvbuff += recv;
-		} catch (Exception e){
-			
-		}
+		// read from the URL
+		Scanner scan = new Scanner(url.openStream());
+		String str = new String();
+		while (scan.hasNext())
+			str += scan.nextLine();
+		scan.close();
 
-		System.out.println(recvbuff);
+		// build a JSON object
+		JSONObject obj = new JSONObject(str);
+		if (! obj.getString("status").equals("OK")) throw new AddressNotFoundException();
+
+		// get the first result
+		JSONObject res = obj.getJSONArray("results").getJSONObject(0);
+		JSONObject loc = res.getJSONObject("geometry").getJSONObject("location");
+		
+		this.latitude = loc.getDouble("lat");
+		this.longitude = loc.getDouble("lng");
+		
+		System.out.println("lat: " + loc.getDouble("lat") + ", lng: " + loc.getDouble("lng"));
+		
 
 	}
 	
@@ -106,8 +120,8 @@ public class AddressResolver {
 	/**
 	 * @param zipcode the zipcode to set
 	 */
-	public void setZipcode(int zipcode) {
-		this.zipcode = Integer.toString(zipcode);
+	public void setZipcode(String zipcode) {
+		this.zipcode = zipcode;
 	}
 
 	/**
@@ -149,13 +163,14 @@ public class AddressResolver {
 		}
 	}
 	
-	public static void main(String[] args) throws IOException {
+	// Run this file to test the results
+	public static void main(String[] args) throws IOException, AddressNotFoundException {
 		
 		System.out.println();
 
 		
 		AddressResolver ad = new AddressResolver();
-		ad.setZipcode(36043);
+		ad.setZipcode("36043");
 		ad.setStreet("via san michele");
 		ad.setCity("Malo");
 		ad.setState("IT");
