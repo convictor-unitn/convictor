@@ -525,12 +525,13 @@ public class RestaurantsController extends AbstractController {
 		boolean authorized = false;
 		
 		try {
-			currentUser.setRestaurants(restaurantDAO.getRestaurantByUserId(currentUser.getId()));
 			if( currentUser instanceof Administrator ) {
 				authorized = true;
 			} else if( currentUser instanceof RestaurantOwner) {
 				boolean found = false;
-				for(Restaurant r : currentUser.getRestaurants()) {
+				RestaurantOwner restaurantOwner = (RestaurantOwner) currentUser;
+				restaurantOwner.setRestaurants(restaurantDAO.getRestaurantByUserId(currentUser.getId()));
+				for(Restaurant r : restaurantOwner.getRestaurants()) {
 					if(r.getId() == id) {
 						found = true;
 					}
@@ -618,10 +619,10 @@ public class RestaurantsController extends AbstractController {
 			if( currentUser instanceof Administrator ) {
 				authorized = true;
 			} else if( currentUser instanceof RestaurantOwner) {
-				RestaurantOwner restaurantOwner = (RestaurantOwner) currentUser;
-				/*restaurantOwner.setRestaurants(restaurantDAO.getRestaurantByUserId(currentUser.getId()));
 				boolean found = false;
-				for(Restaurant r : currentUser.getRestaurants()) {
+				RestaurantOwner restaurantOwner = (RestaurantOwner) currentUser;
+				restaurantOwner.setRestaurants(restaurantDAO.getRestaurantByUserId(currentUser.getId()));
+				for(Restaurant r : restaurantOwner.getRestaurants()) {
 					if(r.getId() == id) {
 						found = true;
 					}
@@ -629,7 +630,7 @@ public class RestaurantsController extends AbstractController {
 				
 				if(found) {
 					authorized = true;
-				}*/
+				}
 			}
 		} catch (SQLException ex) {
 			Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, ex);
