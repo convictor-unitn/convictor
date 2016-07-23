@@ -383,7 +383,7 @@
                 <div class="ui center aligned grid">
                     <div class="column">
                         <button class="ui basic black button ownership">Reclama Ristorante</button>
-                        <div class="ui modal ownership">
+                        <div class="ui modal ownership_modal">
                             <div class="header center">
                                  Richiesta Reclamo
                             </div>
@@ -398,8 +398,8 @@
                                   <div class="field">
                                     <input type="text" name="cf" placeholder="Codice Fiscale">
                                    </div>
-                                <div class="field">
-                                    <div class="ui close basic black button">Close</div>
+                                <div class="field actions">
+                                    <div class="ui cancel basic black button">Close</div>
                                     <input class="ui basic black button" type="submit"/>
                                 </div>
                             </form>
