@@ -12,14 +12,14 @@
       <!-- My Restaurants list-->
       <div class="stretched column">
         <div class="ui segment">
-          <div class="text"> <h2> I miei ristoranti: </h2> </div>
+          <div class="text" style="float: left"> <h2> I miei ristoranti: </h2> </div>
 
           </br>
-
-          <a class="text" href="#"> <h3> Ristorante 1 <h3> </a>
-          <a class="text" href="#"> <h3> Ristorante 2 <h3> </a>
-          <a class="text" href="#"> <h3> Ristorante 3 <h3> </a>
-          <a class="text" href="#"> <h3> Ristorante 4 <h3> </a>
+		  
+		  <div>		
+		    <a style="display:inline; float: left;" class="ui text" href="#" > <h3> Ristorante 1 <h3> </a>
+			<a style="display:inline;" href="${pageContext.request.contextPath}/restaurants/edit" class="ui basic black right floated button">Modifica</a>
+		 </div>
 
         </div>
       </div>
