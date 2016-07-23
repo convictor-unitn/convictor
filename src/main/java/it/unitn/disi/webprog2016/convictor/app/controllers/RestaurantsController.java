@@ -389,6 +389,9 @@ public class RestaurantsController extends AbstractController {
 		ad.setState(this.COUNTRY);
 		ad.resolveAddress();
 		
+		tmp.setLat(ad.getLatitude());
+		tmp.setLng(ad.getLongitude());
+		
 		
         String[] cusines = request.getParameterValues("cusines");
         List<Cusine> list = new ArrayList<>();
