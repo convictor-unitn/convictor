@@ -11,7 +11,6 @@
 
 
 <c:set var="bean" scope="request" value="${sessionScope.user}" />
-<partials:passwordForm />
 
 <l:main>
 	
@@ -23,11 +22,9 @@
                 <h2 class="ui header">
                   <div id="s_text" class="content">
                     Reimpostazione password
-												<c:out value="${bean.valid}"/>
-
                   </div>
                 </h2>
-				  <form class="ui large form error" method="POST" action="${url}">
+				  <form class="ui large form error" method="POST" action="${pageContext.servletContext.contextPath}/passwords/create" />
                   <input type="hidden" name="reset_password_token" value="${requestScope.resetPasswordToken}" />
 					<div class="ui stacked segment">
                     <div class="field <c:if test="${bean.valid == false and !(bean.errors['password'] == null)}" >error</c:if>">
