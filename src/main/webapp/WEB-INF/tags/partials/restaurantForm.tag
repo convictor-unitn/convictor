@@ -138,9 +138,9 @@
       <div class="ui segment">
         <label>Descrizione</label>
         <div class="ui divider"></div>
+		<partials:formerrors field="description"/>		
         <div class="field <c:if test="${bean.valid == false and !( bean.errors['description'] == null)}" >error</c:if>">
             <input class="ui textbox" type="text" name="description" rows="2" placeholder="Aggiungi breve descrizione" value="${restaurant.description}"/>
-			<partials:formerrors field="description"/>		
 		</div>
       </div>     
       
