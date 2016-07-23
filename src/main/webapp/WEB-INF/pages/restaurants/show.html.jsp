@@ -58,7 +58,9 @@
             </div>
         </div>
       </div>
-
+			  
+	
+			
       <!-- Rating Infos & Reviews Infos & QR Code & Personal Infos -->
       <div class="ui center aligned middle aligned five column stackable grid">
         <div class="stretched column">
@@ -117,14 +119,20 @@
         </div>
       </div>
 			
-			
-			</br>
-			<div class="segment" style="text-align:center">
-		
+		</br> 
+		<div class="ui center aligned two column stackable grid">
+			<!--<div class="stretched computer tablet only column" style="width: 655px; margin: auto;">-->
+			<div class="stretched column">
+				<div class="ui segment" style="text-align:center">		
 					${restaurant.description}
-					</div>
-			</br>
-			</br>
+				</div>
+			</div>
+		</div>	
+		</br>
+		</br>
+
+		  
+			
 
 
       <!-- Restaurant Infos -->
