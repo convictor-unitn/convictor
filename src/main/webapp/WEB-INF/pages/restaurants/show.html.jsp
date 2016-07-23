@@ -326,17 +326,7 @@
                       <div class="text" id="brown">
                         ${review.description}
                       </div>
-                      <div class="actions">
-                        <a class="reply">Rispondi</a>
-                      </div>                            
-                      <form class="ui reply form">
-                        <div class="field">
-                          <textarea></textarea>
-                        </div>
-                        <div class="ui basic black submit labeled icon button">
-                          <i class="icon edit"></i> Rispondi
-                        </div>
-                      </form>
+                      
                     </div>
                       </div>                      
                   </c:forEach>
