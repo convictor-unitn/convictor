@@ -25,6 +25,7 @@ public class User extends AbstractBean {
 	private boolean admin;
 	private List<Notice> notices;
 	private List<Review> reviews;
+	private List<Restaurant> restaurants;
 	private String privacy;
 	private String resetPasswordToken;
 	private DateTime resetPasswordSentAt;
@@ -239,4 +240,13 @@ public class User extends AbstractBean {
 	public void setReviews(List<Review> reviews) {
 		this.reviews = reviews;
 	}
+
+	public List<Restaurant> getRestaurants() {
+		return restaurants;
+	}
+
+	public void setRestaurants(List<Restaurant> restaurants) {
+		this.restaurants = restaurants;
+	}
+	
 }
