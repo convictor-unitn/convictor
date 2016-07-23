@@ -12,14 +12,15 @@
       <!-- My Restaurants list-->
       <div class="stretched column">
         <div class="ui segment">
-          <div class="text"> <h2> I miei ristoranti: </h2> </div>
+          <div class="text" style="float: left"> <h2> I miei ristoranti: </h2> </div>
 
           </br>
-
-          <a class="text" href="#"> <h3> Ristorante 1 <h3> </a>
-          <a class="text" href="#"> <h3> Ristorante 2 <h3> </a>
-          <a class="text" href="#"> <h3> Ristorante 3 <h3> </a>
-          <a class="text" href="#"> <h3> Ristorante 4 <h3> </a>
+		  <c:forEach var="restaurant" items="${user.restaurants}">
+		  <div>		
+		    <a style="float: left" class="ui text" href="${pageContext.request.contextPath}/restaurants/show?id=${restaurant.id}" > <h3> ${restaurant.name} <h3> </a>
+			<a style="float: right" href="${pageContext.request.contextPath}/restaurants/edit" class="ui basic black right floated tiny button">Modifica</a> </br>
+		 </div>
+		  </c:forEach>
 
         </div>
       </div>

@@ -14,6 +14,7 @@ import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.PutObjectResult;
+import it.unitn.disi.webprog2016.convictor.app.beans.Administrator;
 import it.unitn.disi.webprog2016.convictor.app.beans.Cusine;
 import it.unitn.disi.webprog2016.convictor.app.beans.OpeningTime;
 import it.unitn.disi.webprog2016.convictor.app.beans.PriceSlot;
@@ -40,9 +41,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import it.unitn.disi.webprog2016.convictor.app.beans.Photo;
+import it.unitn.disi.webprog2016.convictor.app.beans.RestaurantOwner;
 import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.PhotoDAO;
-import java.io.ByteArrayOutputStream;
-import java.io.OutputStream;
+import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.UserDAO;
 import java.util.Iterator;
 import java.util.UUID;
 import org.apache.commons.fileupload.FileItem;
@@ -50,8 +51,6 @@ import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.FilenameUtils;
-import net.glxn.qrgen.QRCode;
-import net.glxn.qrgen.image.ImageType;
 
 /**
  * In this controller there add all restaurant management pages
@@ -199,7 +198,7 @@ public class RestaurantsController extends AbstractController {
         
         // Set the search string as page attribute
         request.setAttribute("queryString", query);
-        
+		
         return "/restaurants/index";
 	}
     
@@ -225,7 +224,16 @@ public class RestaurantsController extends AbstractController {
             return "";
         }
         
-        int reviewPage = 0;        
+        // Retrive the restaurant from the database given its id 
+        RestaurantDAO restaurantDAO = (RestaurantDAO) request.getServletContext().getAttribute("restaurantdao");
+        ReviewDAO reviewDAO = (ReviewDAO) request.getServletContext().getAttribute("reviewdao");
+        CusinesRestaurantDAO cusinesRestaurantDAO = (CusinesRestaurantDAO) request.getServletContext().getAttribute("cusinesrestaurantdao");
+        OpeningTimesDAO openingTimeDAO = (OpeningTimesDAO) request.getServletContext().getAttribute("openingtimesdao");
+		PhotoDAO photoDAO = (PhotoDAO) request.getServletContext().getAttribute("photodao");
+		UserDAO userDAO = (UserDAO) request.getServletContext().getAttribute("userdao");
+		User currentUser = (User) request.getSession().getAttribute("user");
+		
+		int reviewPage = 0;        
         if (request.getParameter("reviewPage") != null) {
             try {
                 reviewPage = Integer.parseInt(request.getParameter("reviewPage"));
@@ -235,17 +243,8 @@ public class RestaurantsController extends AbstractController {
                 reviewPage = 0;
             }
         }
-        
 
-        // Retrive the restaurant from the database given its id 
-        RestaurantDAO restaurantDAO = (RestaurantDAO) request.getServletContext().getAttribute("restaurantdao");
-        ReviewDAO reviewDAO = (ReviewDAO) request.getServletContext().getAttribute("reviewdao");
-        CusinesRestaurantDAO cusinesRestaurantDAO = (CusinesRestaurantDAO) request.getServletContext().getAttribute("cusinesrestaurantdao");
-        OpeningTimesDAO openingTimeDAO = (OpeningTimesDAO) request.getServletContext().getAttribute("openingtimesdao");
-        
-
-		PhotoDAO photoDAO = (PhotoDAO) request.getServletContext().getAttribute("photodao");
-        try {            
+        try {
             Restaurant tmp = restaurantDAO.getRestaurantById(id);
             if (tmp != null) {
                 tmp.setCusine(cusinesRestaurantDAO.getCusinesByRestaurantId(id));
@@ -300,6 +299,15 @@ public class RestaurantsController extends AbstractController {
 		
         // Get all cusines available to make them available inside the JSP
         CusineDAO cusineDAO = (CusineDAO) request.getServletContext().getAttribute("cusinedao");
+		UserDAO userDAO = (UserDAO) request.getServletContext().getAttribute("userdao");
+		User currentUser = (User) request.getSession().getAttribute("user");
+		
+		// Authorizations
+		if( !(currentUser instanceof Administrator)) {
+			response.sendError(401);
+			return "";
+		}
+		
 		try {
 			List<Cusine> allCusines = cusineDAO.getAllCusines();
 			request.setAttribute("allCusines", allCusines);
@@ -347,6 +355,15 @@ public class RestaurantsController extends AbstractController {
 		
         Restaurant tmp = new Restaurant();
 		CusineDAO cusineDAO = (CusineDAO) request.getServletContext().getAttribute("cusinedao");
+		UserDAO userDAO = (UserDAO) request.getServletContext().getAttribute("userdao");
+		User currentUser = (User) request.getSession().getAttribute("user");
+		
+		// Authorizations
+		if( !(currentUser instanceof Administrator)) {
+			response.sendError(401);
+			return "";
+		}
+		
 		List<Cusine> allCusines=null;
 		try {
 			allCusines = cusineDAO.getAllCusines();
@@ -495,9 +512,40 @@ public class RestaurantsController extends AbstractController {
         RestaurantDAO restaurantDAO = (RestaurantDAO) request.getServletContext().getAttribute("restaurantdao");
         CusinesRestaurantDAO cusinesRestaurantDAO = (CusinesRestaurantDAO) request.getServletContext().getAttribute("cusinesrestaurantdao");
         OpeningTimesDAO openingTimeDAO = (OpeningTimesDAO) request.getServletContext().getAttribute("openingtimesdao");
-        
+        UserDAO userDAO = (UserDAO) request.getServletContext().getAttribute("userdao");
+		User currentUser = (User) request.getSession().getAttribute("user");
+		
         int id = Integer.parseInt(request.getParameter("id"));
         
+		// Authorizations
+		boolean authorized = false;
+		
+		try {
+			if( currentUser instanceof Administrator ) {
+				authorized = true;
+			} else if( currentUser instanceof RestaurantOwner) {
+				boolean found = false;
+				RestaurantOwner restaurantOwner = (RestaurantOwner) currentUser;
+				restaurantOwner.setRestaurants(restaurantDAO.getRestaurantByUserId(currentUser.getId()));
+				for(Restaurant r : restaurantOwner.getRestaurants()) {
+					if(r.getId() == id) {
+						found = true;
+					}
+				}
+				
+				if(found) {
+					authorized = true;
+				}
+			}
+		} catch (SQLException ex) {
+			Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		
+		if(!authorized) {
+			response.sendError(401);
+			return "";
+		}
+		
 		//Retrieve cusines list from database to fill restaurant edit form - GR
 		CusineDAO cusineDAO = (CusineDAO) request.getServletContext().getAttribute("cusinedao");
 		List<Cusine> allCusines=null;
@@ -553,11 +601,44 @@ public class RestaurantsController extends AbstractController {
      * @throws ServletException
      */
     public String update(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+		CusineDAO cusineDAO = (CusineDAO) request.getServletContext().getAttribute("cusinedao");
+		PriceSlotDAO priceSlotDAO = (PriceSlotDAO) request.getServletContext().getAttribute("priceslotdao");
+		RestaurantDAO restaurantDAO = (RestaurantDAO) request.getServletContext().getAttribute("restaurantdao");
 		
+		User currentUser = (User) request.getSession().getAttribute("user");
         int id = Integer.parseInt(request.getParameter("id")); 
         
+		// Authorizations
+		boolean authorized = false;
+		
+		try {
+			if( currentUser instanceof Administrator ) {
+				authorized = true;
+			} else if( currentUser instanceof RestaurantOwner) {
+				boolean found = false;
+				RestaurantOwner restaurantOwner = (RestaurantOwner) currentUser;
+				restaurantOwner.setRestaurants(restaurantDAO.getRestaurantByUserId(currentUser.getId()));
+				for(Restaurant r : restaurantOwner.getRestaurants()) {
+					if(r.getId() == id) {
+						found = true;
+					}
+				}
+				
+				if(found) {
+					authorized = true;
+				}
+			}
+		} catch (SQLException ex) {
+			Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		
+		if(!authorized) {
+			response.sendError(401);
+			return "";
+		}
+		
         // Set all cusines 
-        CusineDAO cusineDAO = (CusineDAO) request.getServletContext().getAttribute("cusinedao");
+        
 		List<Cusine> allCusines=null;
 		try {
 			allCusines = cusineDAO.getAllCusines();
@@ -569,7 +650,7 @@ public class RestaurantsController extends AbstractController {
 		}
         
 		// Get all price slots available to make them available inside the JSP
-		PriceSlotDAO priceSlotDAO = (PriceSlotDAO) request.getServletContext().getAttribute("priceslotdao");
+		
 		try {
 			List<PriceSlot> allPriceSlot = priceSlotDAO.getAllPriceSlots();
 			request.setAttribute("allPriceSlot", allPriceSlot);
@@ -702,6 +783,13 @@ public class RestaurantsController extends AbstractController {
 		int restaurantId = 0;
 		
 		// Fine inizializzazione parametri
+		
+		// Authorizations
+		User currentUser = (User) request.getSession().getAttribute("user");
+		if(currentUser==null) {
+			response.sendError(401);
+			return "";
+		}
 		
 		// Set delle impostazioni della richiesta 
 		response.setHeader("Access-Control-Allow-Origin", "*");

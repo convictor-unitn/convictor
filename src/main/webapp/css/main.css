@@ -18,3 +18,14 @@ body {
 #map {
   min-height: 500px;
 }
+
+/*Stacktable JQuery Library Parameters and Media Query*/
+.stacktable { width: 100%; }
+.st-head-row { font-weight: bold; font-size: 1.8em; padding-top: 1em; }
+.stacktable.large-only { display: table; }
+.stacktable.small-only { display: none; }
+
+@media (max-width: 800px) {
+  .stacktable.large-only { display: none; }
+  .stacktable.small-only { display: table; }
+}

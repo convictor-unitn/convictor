@@ -4,7 +4,7 @@
     Author     : umberto
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8" isErrorPage="true" session="false" %>
+<%@page contentType="text/html" pageEncoding="UTF-8" isErrorPage="true" %>
 
 
 <%@taglib prefix="l" tagdir="/WEB-INF/tags/layouts/" %>
