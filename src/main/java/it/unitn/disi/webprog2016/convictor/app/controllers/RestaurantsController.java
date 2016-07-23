@@ -43,8 +43,6 @@ import it.unitn.disi.webprog2016.convictor.app.beans.Photo;
 import it.unitn.disi.webprog2016.convictor.app.beans.RestaurantOwner;
 import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.PhotoDAO;
 import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.UserDAO;
-import java.io.ByteArrayOutputStream;
-import java.io.OutputStream;
 import java.util.Iterator;
 import java.util.UUID;
 import org.apache.commons.fileupload.FileItem;
@@ -52,9 +50,6 @@ import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.FilenameUtils;
-import net.glxn.qrgen.QRCode;
-import net.glxn.qrgen.image.ImageType;
-import org.apache.coyote.Adapter;
 
 /**
  * In this controller there add all restaurant management pages
@@ -787,6 +782,13 @@ public class RestaurantsController extends AbstractController {
 		int restaurantId = 0;
 		
 		// Fine inizializzazione parametri
+		
+		// Authorizations
+		User currentUser = (User) request.getSession().getAttribute("user");
+		if(currentUser==null) {
+			response.sendError(401);
+			return "";
+		}
 		
 		// Set delle impostazioni della richiesta 
 		response.setHeader("Access-Control-Allow-Origin", "*");
