@@ -9,7 +9,7 @@
 <%@taglib prefix="l" tagdir="/WEB-INF/tags/layouts/" %>
 
 <l:main>
-	<jsp:attribute name="title">Upload Status</jsp:attribute>
+	<jsp:attribute name="title">Upload | Convictor</jsp:attribute>
 	<jsp:attribute name="bodyBackground">#eaeaea</jsp:attribute>	
 	<jsp:attribute name="body">
 		<c:choose>

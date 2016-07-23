@@ -10,7 +10,7 @@
 
 <l:main>
 	
-	<jsp:attribute name="title">Recupero Password</jsp:attribute>
+	<jsp:attribute name="title">Recupero password | Convictor</jsp:attribute>
 	<jsp:attribute name="bodyBackground">#eaeaea</jsp:attribute>
 	<jsp:attribute name="body">
 

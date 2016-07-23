@@ -14,7 +14,7 @@
 
 <l:main>
 	<jsp:attribute name="bodyBackground">#eaeaea</jsp:attribute>
-	<jsp:attribute name="title">Nuovo Ristorante</jsp:attribute>
+	<jsp:attribute name="title">Aggiungi Ristorante | Convictor</jsp:attribute>
 	
 	<jsp:attribute name="body">
             <div class="ui container">

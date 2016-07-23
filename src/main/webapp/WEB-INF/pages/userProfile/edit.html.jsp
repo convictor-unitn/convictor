@@ -17,7 +17,7 @@
 <c:set var="bean" scope="request" value="${sessionScope.user}" />
 <l:main>
 	
-	<jsp:attribute name="title">Reimposta Profilo Utente</jsp:attribute>
+	<jsp:attribute name="title">Reimposta Profilo Utente | Convictor</jsp:attribute>
 	<jsp:attribute name="bodyBackground">#eaeaea</jsp:attribute>
 	<jsp:attribute name="body">
             <div class="ui middle aligned center aligned grid">

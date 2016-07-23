@@ -11,7 +11,7 @@
 <%-- The list of normal or fragment attributes can be specified here: --%>
 <%@attribute name="errorCode" required="true" %>
 <%@attribute name="message" required="true" %>
-
+<%@attribute name="title"%>
 <c:set var="context" value="${pageContext.request.contextPath}" />
 
 
