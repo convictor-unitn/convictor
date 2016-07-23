@@ -22,6 +22,16 @@ public class Cusine extends AbstractBean {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	public String getIdString() {
+		String tmp = "-1";
+		try {
+			tmp = Integer.toString(this.getId());
+		} catch (Exception ex) {
+			
+		}
+		return tmp;
+	}
 
 	@Override
 	public int hashCode() {
