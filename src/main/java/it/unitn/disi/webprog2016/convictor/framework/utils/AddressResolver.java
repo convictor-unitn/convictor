@@ -25,7 +25,7 @@ public class AddressResolver {
 	private ArrayList<String> city;
 	private ArrayList<String> street;
 	private ArrayList<String> state;
-	private ArrayList<String> address;
+	private String address;
 	private double latitude;
 	private double longitude;
 	
@@ -38,25 +38,36 @@ public class AddressResolver {
 		this.street = new ArrayList<String>();
 		this.city = new ArrayList<String>();
 		this.state = new ArrayList<String>();
-		this.address = new ArrayList<String>();
+		
 	}
 
 	
 	private void composeAddress () {
 		String comma = ",";
 		String plus = "+";
-//		this.address=this.zipcode+comma;
-//		for (int i = 0; i < street.length; i++) {
-//			this.address.
-//		}
-//		this.address+=comma;
-//		for (int i = 0; i < city.length; i++) {
-//			this.address+=city[i];
-//		}
-//		this.address+=comma;
-//		for (int i = 0; i < state.length; i++) {
-//			this.address+=state[i];
-//		}
+		
+		this.address = this.zipcode+plus;
+		
+		for (int i = 0; i < street.size(); i++) {
+			this.address += street.get(i);
+			// Prevent to add another '+' next to the last word
+			if (i < street.size() -1 )
+				this.address+=plus;
+		}
+		
+		this.address+=comma;
+		
+		for (int i = 0; i < city.size(); i++) {
+			this.address+=city.get(i);
+			if (i < city.size() -1 )
+				this.address+=plus;
+		}
+		this.address+=comma;
+		for (int i = 0; i < state.size(); i++) {
+			this.address+=state.get(i);
+			if (i < state.size() -1 )
+				this.address+=plus;
+		}
 	}
 	
 	public void resolveAddress() throws IOException {
@@ -65,7 +76,8 @@ public class AddressResolver {
 
 		String recv;
 		String recvbuff = null;
-		URL jsonpage = new URL("https://maps.googleapis.com/maps/api/geocode/json?+"+this.address+"&key="+this.API_KEY);
+		URL jsonpage = new URL("https://maps.googleapis.com/maps/api/geocode/json?"+this.address+"&key="+this.API_KEY);
+		System.out.println(jsonpage);
 		URLConnection urlcon = jsonpage.openConnection();
 		try (BufferedReader buffread = new BufferedReader(new InputStreamReader(urlcon.getInputStream()))) {
 			while ((recv = buffread.readLine()) != null)
@@ -90,7 +102,7 @@ public class AddressResolver {
 	 * @param zipcode the zipcode to set
 	 */
 	public void setZipcode(int zipcode) {
-//		this.zipcode = zipcode;
+		this.zipcode = Integer.toString(zipcode);
 	}
 
 	/**
@@ -98,10 +110,11 @@ public class AddressResolver {
 	 */
 	public void setCity(String city) {
 		
-		StringTokenizer st = new StringTokenizer(city," ",true);
+		String[] tmp; 
+		tmp = city.split(" ");
 		
-		for (int i = 0; i < st.countTokens(); i++) {
-//			this.city[i] = (String)st.nextElement();
+		for (int i = 0; i < tmp.length; i++) {
+			this.city.add(i, tmp[i]);
 		}
 	}
 
@@ -109,9 +122,13 @@ public class AddressResolver {
 	 * @param street the street to set
 	 */
 	public void setStreet(String street) {
-		StringTokenizer st = new StringTokenizer(street," ",true);
-		for (int i = 0; i < st.countTokens(); i++) {
-//			this.street[i] = (String)st.nextElement();
+		String[] tmp; 
+		tmp = street.split(" ");
+		
+		
+		
+		for (int i = 0; i < tmp.length; i++) {
+			this.street.add(i, tmp[i]);
 		}
 	}
 
@@ -119,11 +136,30 @@ public class AddressResolver {
 	 * @param state the state to set
 	 */
 	public void setState(String state) {
-		StringTokenizer st = new StringTokenizer(state," ",true);
+		String[] tmp; 
+		tmp = state.split(" ");
 		
-		for (int i = 0; i < st.countTokens(); i++) {
-//			this.state[i] = (String)st.nextElement();
+		for (int i = 0; i < tmp.length; i++) {
+			this.state.add(i, tmp[i]);
 		}
 	}
+	
+	public static void main(String[] args) throws IOException {
+		
+		System.out.println();
+
+		
+		AddressResolver ad = new AddressResolver();
+		ad.setZipcode(36043);
+		ad.setStreet("via san michele");
+		ad.setCity("Malo");
+		ad.setState("IT");
+		ad.resolveAddress();
+		
+		System.out.print(ad.getLatitude()+" "+ad.getLongitude());
+		
+		
+	}
+	
 	
 }

@@ -243,14 +243,14 @@ public class RestaurantsController extends AbstractController {
         CusinesRestaurantDAO cusinesRestaurantDAO = (CusinesRestaurantDAO) request.getServletContext().getAttribute("cusinesrestaurantdao");
         OpeningTimesDAO openingTimeDAO = (OpeningTimesDAO) request.getServletContext().getAttribute("openingtimesdao");
         
-		AddressResolver ad = new AddressResolver();
-		ad.setZipcode(36043);
-		ad.setStreet("via san michele");
-		ad.setCity("Malo");
-		ad.setState("IT");
-		ad.resolveAddress();
-		
-		System.out.print(ad.getLatitude()+" "+ad.getLongitude());
+//		AddressResolver ad = new AddressResolver();
+//		ad.setZipcode(36043);
+//		ad.setStreet("via san michele");
+//		ad.setCity("Malo");
+//		ad.setState("IT");
+//		ad.resolveAddress();
+//		
+//		System.out.print(ad.getLatitude()+" "+ad.getLongitude());
 
 		PhotoDAO photoDAO = (PhotoDAO) request.getServletContext().getAttribute("photodao");
         try {            
