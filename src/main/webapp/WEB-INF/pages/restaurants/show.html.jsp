@@ -119,11 +119,10 @@
 			
 			
 			</br>
-			<div>
-				<p>
+			<div class="segment" style="text-align:center">
+		
 					${restaurant.description}
-				</p>
-			</div>
+					</div>
 			</br>
 			</br>
 
