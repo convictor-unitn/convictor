@@ -58,9 +58,10 @@
       <div class="ui simple dropdown item">
         I miei ristoranti <i class="dropdown icon"></i>
         <div class="menu">
-          <a class="item" href="#">notify 1</a>
-          <a class="item" href="#">notify 2</a>
-          <a class="item" href="${pageContext.request.contextPath}/userProfile/show">Lista</a>
+		  <c:forEach var="restaurant" items="${user.restaurants}">
+			<a class="item" href="${pageContext.request.contextPath}/restaurants/show?id=${restaurant.id}">${restaurant.name}</a>
+		  </c:forEach>
+			<a class="item" href="${pageContext.request.contextPath}/userProfile/show"><i><b>Modifica ristoranti</i></b></a>
         </div>
       </div>
       </c:if>
@@ -161,9 +162,10 @@
       <div class="item">
         <div class="text">I miei ristoranti</div>
         <div class="menu">
-          <a class="item" href="#">notify 1</a>
-          <a class="item" href="#">notify 2</a>
-          <a class="item" href="${pageContext.request.contextPath}/userProfile/show">Lista</a>
+          <c:forEach var="restaurant" items="${user.restaurants}">
+			<a class="item" href="${pageContext.request.contextPath}/restaurants/show?id=${restaurant.id}">${restaurant.name}</a>
+		  </c:forEach>
+			<a class="item" href="${pageContext.request.contextPath}/userProfile/show"><i><b>Modifica ristoranti</i></b></a>
         </div>
       </div>
       </c:if>
