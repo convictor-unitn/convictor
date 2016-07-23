@@ -83,5 +83,27 @@ public class ReviewDAOImpl extends DatabaseDAO implements ReviewDAO {
         }
         return restaurant_id;
     }
+
+	@Override
+	public List<Review> getRestaurantReviews(int restaurant_id) throws SQLException {
+		List<Review> reviews = new ArrayList<>();
+        String query = "SELECT reviews.id, restaurant_id, registered_user_id, rating, description, users.name, users.surname  from reviews inner join users on users.id = registered_user_id where reviews.restaurant_id = ?";
+        PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
+        try {
+            stm.setInt(1, restaurant_id);
+            ResultSet reviewSet = stm.executeQuery();
+            try {
+                while (reviewSet.next()) {                    
+                    Review tmp = new Review();
+                    reviews.add(tmp);
+                }
+            } finally {
+                reviewSet.close();
+            }
+        } finally {
+            stm.close();
+        }
+        return reviews;
+	}
     
 }

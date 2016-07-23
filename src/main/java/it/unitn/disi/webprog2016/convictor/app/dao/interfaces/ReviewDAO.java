@@ -16,6 +16,7 @@ import java.util.List;
 public interface ReviewDAO {
     
     List<Review> getRestaurantReviews(int restaurant_id, int offset) throws SQLException;
-    int insertReview(Review review) throws SQLException;
+    List<Review> getRestaurantReviews(int restaurant_id) throws SQLException;
+	int insertReview(Review review) throws SQLException;
     
 }
