@@ -8,6 +8,7 @@ package it.unitn.disi.webprog2016.convictor.app.controllers;
 import it.unitn.disi.webprog2016.convictor.framework.controllers.AbstractController;
 import it.unitn.disi.webprog2016.convictor.app.beans.*;
 import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.NoticeDAO;
+import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.RestaurantDAO;
 import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.UserDAO;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -34,6 +35,7 @@ public class UserProfileController extends AbstractController {
 	 */
 	public String show(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		User user = (User) request.getSession().getAttribute("user");
+		RestaurantDAO restaurantDAO = (RestaurantDAO) request.getServletContext().getAttribute("restaurantdao");
 		NoticeDAO noticeDAO = (NoticeDAO) request.getServletContext().getAttribute("noticedao");
 		if( user == null ) {
 			response.sendError(401);
@@ -64,6 +66,7 @@ public class UserProfileController extends AbstractController {
 			try {
 				List<Notice> notices = noticeDAO.getRestaurantOwnerNotices(user.getId(), noticePage);
 				user.setNotices(notices);
+				user.setRestaurants(restaurantDAO.getRestaurantByUserId(user.getId()));
 			} catch (SQLException ex) {
 				Logger.getLogger(UserProfileController.class.getName()).log(Level.SEVERE, null, ex);
 			}
