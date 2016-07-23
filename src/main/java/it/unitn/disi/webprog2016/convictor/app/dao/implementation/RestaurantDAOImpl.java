@@ -98,7 +98,7 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
     @Override
     public List<Restaurant> getRestaurantByUserId(int id) throws SQLException {
         List<Restaurant> restaurants = new ArrayList<>();
-        String query = "SELECT id, name, description, street, city, zip_code, province, full_address, website, slot_price, rating, main_photo_id, restaurant_owner_id, phone, email FROM restaurants WHERE restaurant_owner_id = ?";
+        String query = "SELECT id, name, description, street, city, zip_code, province, full_address, website, slot_price, rating, main_photo_id, restaurant_owner_id, phone, email, lat, lng FROM restaurants WHERE restaurant_owner_id = ?";
         PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
         try {
             stm.setInt(1, id);
@@ -121,6 +121,8 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
                     tmp.setRestaurantOwnerId(ownersSet.getInt("restaurant_owner_id"));
                     tmp.setEmail(ownersSet.getString("email"));
                     tmp.setPhone(ownersSet.getString("phone"));
+					tmp.setLat(ownersSet.getDouble("lat"));
+					tmp.setLng(ownersSet.getDouble("lng"));
                     restaurants.add(tmp);
                 }
             } finally {
@@ -159,6 +161,8 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
                     tmp.setRestaurantOwnerId(ownersSet.getInt("restaurant_owner_id"));
                     tmp.setEmail(ownersSet.getString("email"));
                     tmp.setPhone(ownersSet.getString("phone"));
+					tmp.setLat(ownersSet.getDouble("lat"));
+					tmp.setLng(ownersSet.getDouble("lng"));
                 }
             } finally {
                 ownersSet.close();
@@ -192,6 +196,8 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
                     tmp.setRestaurantOwnerId(restaurantSet.getInt("restaurant_owner_id"));
                     tmp.setEmail(restaurantSet.getString("email"));
                     tmp.setPhone(restaurantSet.getString("phone"));
+					tmp.setLat(restaurantSet.getDouble("lat"));
+					tmp.setLng(restaurantSet.getDouble("lng"));
                     listResult.add(tmp);
                 }
             } finally {
@@ -219,24 +225,9 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
         //PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(count);
         PreparedStatement stm2 = this.getDbManager().getConnection().prepareStatement(query);
         try {
-           /* // Obtain the number of record
-            stm.setString(1, fullTextPattern);
-            
             // The ILIKE has to be set like this because PreparedStatement
             // doesn't like %?% this pattern. Therefore, we must concatenate
             // % at the beginning and at the end of the fullTextPattern.
-            stm.setString(2, "%"+fullTextPattern+"%");
-            
-            ResultSet countSet = stm.executeQuery();
-            try {
-                while(countSet.next()) {
-                    counter = countSet.getInt("count");
-                }
-            } finally {
-                countSet.close();
-            }
-            
-            */
             
             // Obtain the restaurant paginated 
             stm2.setString(1, fullTextPattern);
@@ -344,6 +335,8 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
 				"restaurants.main_photo_id, " +
 				"restaurants.restaurant_owner_id, " +
 				"restaurants.email, " +
+				"restaurants.lat, "+
+				"restaurants.lng, "+
 				"restaurants.phone FROM restaurants INNER JOIN cusines_restaurants ON restaurants.id = restaurant_id WHERE tsv @@ tsquery(?) OR searchable ILIKE ? "+
                 params
                 +"ORDER BY restaurants.rating LIMIT ? OFFSET ? ";
@@ -404,6 +397,8 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
 				"restaurants.main_photo_id, " +
 				"restaurants.restaurant_owner_id, " +
 				"restaurants.email, " +
+				"restaurants.lat, "+
+				"restaurants.lng, "+
 				"restaurants.phone FROM restaurants INNER JOIN cusines_restaurants ON restaurants.id = restaurant_id WHERE tsv @@ tsquery(?) OR searchable ILIKE ? "+
                 params
                 +"ORDER BY restaurants.name LIMIT ? OFFSET ? ";
@@ -464,6 +459,8 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
 				"restaurants.main_photo_id, " +
 				"restaurants.restaurant_owner_id, " +
 				"restaurants.email, " +
+				"restaurants.lat, "+
+				"restaurants.lng, "+
 				"restaurants.phone FROM restaurants INNER JOIN cusines_restaurants ON restaurants.id = restaurant_id WHERE tsv @@ tsquery(?) OR searchable ILIKE ? "+
                 params
                 +"ORDER BY restaurants.slot_price DESC LIMIT ? OFFSET ? ";
@@ -481,6 +478,8 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
 				"restaurants.main_photo_id, " +
 				"restaurants.restaurant_owner_id, " +
 				"restaurants.email, " +
+				"restaurants.lat, "+
+				"restaurants.lng, "+	
 				"restaurants.phone FROM restaurants INNER JOIN cusines_restaurants ON restaurants.id = restaurant_id WHERE tsv @@ tsquery(?) OR searchable ILIKE ? "+
                 params
                 +"ORDER BY restaurants.slot_price ASC LIMIT ? OFFSET ? ";
