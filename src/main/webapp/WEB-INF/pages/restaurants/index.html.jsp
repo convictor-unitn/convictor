@@ -163,7 +163,7 @@
                           </div>
                           <div class="text"><!-- {rest.position} --> Posizione in classifica</div>
                           <div class="description">
-                                <c:forEach var="cusine" items="${rest.cusine}">${cusine.name}</c:forEach> 
+                                <c:forEach var="cusine" items="${rest.cusine}">${cusine.name} </c:forEach> 
                           </div>  
                         </div>            
                     </div>  

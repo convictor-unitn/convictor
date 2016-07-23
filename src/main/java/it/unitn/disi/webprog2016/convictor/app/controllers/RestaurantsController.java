@@ -85,8 +85,9 @@ public class RestaurantsController extends AbstractController {
      */
     public String index(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		
-		// Add review dao
+		// Add review dao and cusine restaurant
 		ReviewDAO reviewDAO = (ReviewDAO) request.getServletContext().getAttribute("reviewdao");
+		CusinesRestaurantDAO cusineRestaurantDAO = (CusinesRestaurantDAO) request.getServletContext().getAttribute("cusinesrestaurantdao");
 		
         // Retrive all cusines 
         CusineDAO cusineDAO = (CusineDAO) request.getServletContext().getAttribute("cusinedao");
@@ -172,6 +173,7 @@ public class RestaurantsController extends AbstractController {
             if (tmp != null) {
 				for(Restaurant r : tmp) {
 					r.setReviews(reviewDAO.getRestaurantReviews(r.getId()));
+					r.setCusine(cusineRestaurantDAO.getCusinesByRestaurantId(r.getId()));
 				}
                 request.setAttribute("results", tmp);
             } else {
