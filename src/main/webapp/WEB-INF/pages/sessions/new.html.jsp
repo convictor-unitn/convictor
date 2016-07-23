@@ -13,7 +13,7 @@
 
 <l:main>
 	
-	<jsp:attribute name="title">Accedi</jsp:attribute>
+	<jsp:attribute name="title">Accedi | Convictor</jsp:attribute>
 	<jsp:attribute name="bodyBackground">#eaeaea</jsp:attribute>
 	<jsp:attribute name="body">
         <div class="ui middle aligned center aligned grid">

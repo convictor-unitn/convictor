@@ -27,7 +27,7 @@
 
 <l:main>
 	<jsp:attribute name="bodyBackground"></jsp:attribute>
-	<jsp:attribute name="title">Lista risultati</jsp:attribute>
+	<jsp:attribute name="title"> Ricerca | Convictor</jsp:attribute>
 	
 	<jsp:attribute name="body">
             <div class="ui two column stackable grid container">

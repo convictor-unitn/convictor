@@ -27,7 +27,7 @@
 <c:set var="bean" value="${requestScope.restaurant}" scope="request" />
 
 <l:main>
-    <jsp:attribute name="title"> ${restaurant.name} </jsp:attribute>
+    <jsp:attribute name="title"> ${restaurant.name} | Convictor </jsp:attribute>
     <jsp:attribute name="bodyBackground"></jsp:attribute>
 	<jsp:attribute name="body">
     <div class="ui container">

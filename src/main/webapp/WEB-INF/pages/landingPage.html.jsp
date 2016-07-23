@@ -11,7 +11,7 @@
 
 <l:main>
 	<jsp:attribute name="bodyBackground">url("${pageContext.servletContext.contextPath}/images/background.jpg")</jsp:attribute>
-	<jsp:attribute name="title">Landing Page</jsp:attribute>	
+	<jsp:attribute name="title">Convictor</jsp:attribute>	
 	<jsp:attribute name="body">
            
 
