@@ -177,10 +177,10 @@
 					<div class="ui hidden divider"></div>
 						<div class="two fields">
 							<div class="field">            
-								<input type="text" name="open_at_afternoon_${optime.dayString}_hour" placeholder="Ora" value="${openAtHourAfternoon}">
+								<input type="text" name="open_at_${optime.dayString}_hour" placeholder="Ora" value="${openAtHour}">
 							</div>
 							<div class="field">
-								<input type="text" name="open_at_afternoon_${optime.dayString}_minute" placeholder="Minuti" value="${openAtMinuteAfternoon}">            
+								<input type="text" name="open_at_${optime.dayString}_minute" placeholder="Minuti" value="${openAtMinute}">            
 							</div>
 						</div>
 					</div>
@@ -191,10 +191,10 @@
 					<div class="two fields">
 
 						<div class="field">            
-							  <input type="text" name="close_at_afternoon_${optime.dayString}_hour" placeholder="Ora" value="${closeAtHourAfternoon}">
+							  <input type="text" name="close_at_${optime.dayString}_hour" placeholder="Ora" value="${closeAtHour}">
 						</div>
 						<div class="field">
-						   <input type="text" name="close_at_afternoon_${optime.dayString}_minute" placeholder="Minuti" value="${closeAtMinuteAfternoon}">            
+						   <input type="text" name="close_at_${optime.dayString}_minute" placeholder="Minuti" value="${closeAtMinute}">            
 						</div>
 					</div>	
 					</div>
@@ -213,10 +213,10 @@
 					<div class="ui hidden divider"></div>
 					<div class="two fields">
 						<div class="field">            
-							<input type="text" name="open_at_afternoon_${optime.dayString}_hour" placeholder="Ora" value="${openAtHourAfternoon}">
+							<input type="text" name="open_at_afternoon_${optime.dayString}_hour" placeholder="Ora" value="${openAtAfternoonHour}">
 						</div>
 						<div class="field">
-							<input type="text" name="open_at_afternoon_${optime.dayString}_minute" placeholder="Minuti" value="${openAtMinuteAfternoon}">            
+							<input type="text" name="open_at_afternoon_${optime.dayString}_minute" placeholder="Minuti" value="${openAtAfternoonMinute}">            
 						</div>
 					</div>
 					</div>
@@ -227,10 +227,10 @@
 					<div class="two fields">
 
 						<div class="field">            
-							  <input type="text" name="close_at_afternoon_${optime.dayString}_hour" placeholder="Ora" value="${closeAtHourAfternoon}">
+							  <input type="text" name="close_at_afternoon_${optime.dayString}_hour" placeholder="Ora" value="${closeAtAfternoonHour}">
 						</div>
 						<div class="field">
-						   <input type="text" name="close_at_afternoon_${optime.dayString}_minute" placeholder="Minuti" value="${closeAtMinuteAfternoon}">            
+						   <input type="text" name="close_at_afternoon_${optime.dayString}_minute" placeholder="Minuti" value="${closeAtAfternoonMinute}">            
 						</div>
 					</div>	
 					</div>
