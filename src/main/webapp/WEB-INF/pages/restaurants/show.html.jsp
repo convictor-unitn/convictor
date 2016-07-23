@@ -65,45 +65,44 @@
       <div class="ui center aligned middle aligned five column stackable grid">
         <div class="stretched column">
           <div class="row">
-            <div class="ui small statistic">
-              <div class="value" id="brown">
-                5
-              </div>
-              <div class="label" id="brown">
-                Posizione in Lombardia
-              </div>
-            </div>
-          </div>
-          <div class="ui statistic">
-              <div class="ui horizontal list">
-                <c:forEach var="i" begin="0" end="${restaurant.rating}" step="1">
-                    <c:if test="${i!=0}">
-                        <div class="item">
-                            <i class="star icon"> </i>
-                        </div>
-                    </c:if>
-                </c:forEach>
-                    <c:forEach begin="${restaurant.rating}" end="4" step="1">
-                        <div class="item">
-                            <i class="empty star icon"> </i>
-                        </div>
-                </c:forEach>
-              </div>
-              <div class="label" id="brown">
-                Valutazione media
-              </div>
-          </div>
+				<div class="ui small statistic">
+				  <div class="value" id="brown">
+					5
+				  </div>
+				  <div class="label" id="brown">
+					Posizione in Lombardia
+				  </div>
+				</div>
+			  </div>
+			  <div class="ui statistic">
+				  <div class="ui horizontal list">
+					<c:forEach var="i" begin="0" end="${restaurant.rating}" step="1">
+						<c:if test="${i!=0}">
+							<div class="item">
+								<i class="star icon"> </i>
+							</div>
+						</c:if>
+					</c:forEach>
+						<c:forEach begin="${restaurant.rating}" end="4" step="1">
+							<div class="item">
+								<i class="empty star icon"> </i>
+							</div>
+					</c:forEach>
+				  </div>
+				  <div class="label" id="brown">
+					Valutazione media
+				  </div>
+			  </div>
         </div>
         <div class="stretched column">
 			<img class="ui small centered image" src="${pageContext.servletContext.contextPath}/restaurants/qrcode?id=${restaurant.id}" />
         </div>
         <div class="stretched column">
-          <div class="ui list">
+          <div class="ui relaxed list">
             <div class="item">
               <div class="meta">
-                <span>${restaurant.street}</span>
-                <span>${restaurant.zipCode}</span>
-                <span>${restaurant.city}</span>
+				<span>${restaurant.street} <br></span>
+                <span>${restaurant.zipCode} ${restaurant.city}</span>
               </div>
             </div>
             <div class="item">
@@ -203,19 +202,19 @@
 										  ${openingTime.dayString}
 										</td>
 										<c:if test="${openingTime.dayoff != true}">
-									  <td>	 
+										<td class="st-val">	 
 										  ${openingTime.openAt} - 
 										  ${openingTime.closeAt} 
-									  </td>
+										</td>
 
 									  </c:if>
 									  <c:if test="${openingTime.dayoff == true}">
-										  <td>CHIUSO</td>
+										  <td class="st-val">CHIUSO</td>
 									  </c:if>
 										<c:if test="${openingTime.dayoff != true}">
-										  <td>
-										  ${openingTime.openAtAfternoon} - 
-										  ${openingTime.closeAtAfternoon}  
+										  <td class="st-val">
+											${openingTime.openAtAfternoon} - 
+											${openingTime.closeAtAfternoon}  
 										  </td>
 									  </c:if>
 									  <c:if test="${openingTime.dayoff == true}">
@@ -271,7 +270,7 @@
         <div class="ui tab active" data-tab="recensioni">
           <div class="ui grid">
             <div class="row">
-              <div class="column">
+              <div class="column center aligned">
                   <div class="ui buttons">
                     <div class="ui basic black button">
                         <c:if test="${actualPage-1 < 0}">
@@ -407,7 +406,7 @@
                                     <input type="text" name="cf" placeholder="Codice Fiscale">
                                    </div>
                                 <div class="field actions">
-                                    <div class="ui cancel basic black button">Close</div>
+                                    <div class="ui cancel basic black button">Chiudi</div>
                                     <input class="ui basic black button" type="submit"/>
                                 </div>
                             </form>

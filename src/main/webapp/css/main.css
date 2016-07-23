@@ -21,9 +21,10 @@ body {
 
 /*Stacktable JQuery Library Parameters and Media Query*/
 .stacktable { width: 100%; }
-.st-head-row { font-weight: bold; font-size: 1.8em; padding-top: 1em; }
+.st-head-row { font-weight: bold; font-size: 1.4em; padding-top: 1em; }
 .stacktable.large-only { display: table; }
 .stacktable.small-only { display: none; }
+.st-val { font-style: italic;}
 
 @media (max-width: 800px) {
   .stacktable.large-only { display: none; }
