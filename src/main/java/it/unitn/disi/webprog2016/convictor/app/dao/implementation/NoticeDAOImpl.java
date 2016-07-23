@@ -81,8 +81,8 @@ public class NoticeDAOImpl extends DatabaseDAO implements NoticeDAO {
     @Override
     public List<Notice> getRestaurantOwnerNotices(int id, int offset) throws SQLException {
         List<Notice> notices = new ArrayList<>();
-        String queryReviewNotices = "SELECT * FROM review_notices RE INNER JOIN reviews R ON RE.review_id = R.id INNER JOIN restaurant RES ON RES.id = R.restaurant_id INNER JOIN users U ON U.id = RES.restaurant_owner_id WHERE U.id=? LIMIT ? OFFSET ?";
-        String queryPhotoNotices = "SELECT * FROM photo_notices PN INNER JOIN photos P ON PN.photo_id = P.id INNER JOIN restaurant RES ON RES.id = P.restaurant_id INNER JOIN users U ON U.id = RES.restaurant_owner_id WHERE U.id=? LIMIT ? OFFSET ?";
+        String queryReviewNotices = "SELECT * FROM review_notices RE INNER JOIN reviews R ON RE.review_id = R.id INNER JOIN restaurants RES ON RES.id = R.restaurant_id INNER JOIN users U ON U.id = RES.restaurant_owner_id WHERE U.id=? LIMIT ? OFFSET ?";
+        String queryPhotoNotices = "SELECT * FROM photo_notices PN INNER JOIN photos P ON PN.photo_id = P.id INNER JOIN restaurants RES ON RES.id = P.restaurant_id INNER JOIN users U ON U.id = RES.restaurant_owner_id WHERE U.id=? LIMIT ? OFFSET ?";
         
         PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(queryReviewNotices);
         PreparedStatement stm2 = this.getDbManager().getConnection().prepareStatement(queryPhotoNotices);
@@ -95,7 +95,7 @@ public class NoticeDAOImpl extends DatabaseDAO implements NoticeDAO {
             stm2.setInt(2, MAX_RESULT);
             stm2.setInt(3, MAX_RESULT*offset);
             ResultSet reviewSet = stm.executeQuery();
-            ResultSet photoSet = stm.executeQuery();
+            ResultSet photoSet = stm2.executeQuery();
             try {
                 while(reviewSet.next()) {
                     ReviewNotice tmp = new ReviewNotice();
