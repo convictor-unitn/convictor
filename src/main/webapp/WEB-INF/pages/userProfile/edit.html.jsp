@@ -76,7 +76,7 @@
 								<partials:formerrors field="passwordConfirmation" />
                             </div>
                             <div class="ui text" align="right">
-                            <a href="invio_req_pass.html">Password dimenticata?</a>
+                            <a href="${pageContext.request.contextPath}/passwords/request_new">Password dimenticata?</a>
                         </div>
 
                         </br>
