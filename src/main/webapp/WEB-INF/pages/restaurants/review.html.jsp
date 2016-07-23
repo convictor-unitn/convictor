@@ -14,7 +14,7 @@
   <jsp:attribute name="title">Status Recensione</jsp:attribute>
     <jsp:attribute name="body">
       <c:choose>
-        <c:when test="${bean.valid}">
+        <c:when test="${bean.valid && requestScope.alreadyReviewed == null}">
           <div class="ui blue icon message">
             <i class="check circle icon"></i>
               <div class="content">
