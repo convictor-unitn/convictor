@@ -39,19 +39,40 @@
                             <label id="brown">Ordina per:</label>
                         <div class="field">
                         <div class="ui radio checkbox">
-                            <input name="sorting" value="nameSorting" type="radio">
+							<c:choose>
+								<c:when test="${ param.sorting == 'nameSorting' }">
+									<input name="sorting" value="nameSorting" type="radio" checked="checked">
+								</c:when>
+								<c:otherwise>
+									<input name="sorting" value="nameSorting" type="radio">
+								</c:otherwise>
+							</c:choose>
                             <label id="brown">nome</label>
                         </div>
                         </div>              
                         <div class="field">
                             <div class="ui radio checkbox">
-                                <input name="sorting" value="priceAscSorting" type="radio">
+								<c:choose>
+									<c:when test="${ param.sorting == 'priceAscSorting' }">
+										<input name="sorting" value="priceAscSorting" type="radio" checked="checked">
+									</c:when>
+									<c:otherwise>
+										<input name="sorting" value="priceAscSorting" type="radio">
+									</c:otherwise>
+								</c:choose>
                                 <label id="brown">prezzo (dal piu' basso al piu' alto)</label>
                             </div>
                         </div>
                         <div class="field">
                             <div class="ui radio checkbox">
-                                <input name="sorting" value="priceDescSorting" type="radio">
+								<c:choose>
+									<c:when test="${ param.sorting == 'priceDescSorting' }">
+										<input name="sorting" value="priceDescSorting" type="radio" checked="checked">
+									</c:when>
+									<c:otherwise>
+										<input name="sorting" value="priceDescSorting" type="radio">
+									</c:otherwise>
+								</c:choose>
                                 <label id="brown">prezzo (dal piu' alto al piu' basso)</label>
                             </div>
                         </div>
