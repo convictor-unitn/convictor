@@ -46,6 +46,8 @@ public class AddressResolver {
 		String comma = ",";
 		String plus = "+";
 		
+		String component = "&components=country:IT";
+		
 		this.address = this.zipcode+plus;
 		
 		for (int i = 0; i < street.size(); i++) {
@@ -68,6 +70,9 @@ public class AddressResolver {
 			if (i < state.size() -1 )
 				this.address+=plus;
 		}
+		
+		this.address+=component;
+		
 	}
 	
 	public void resolveAddress() throws IOException {
