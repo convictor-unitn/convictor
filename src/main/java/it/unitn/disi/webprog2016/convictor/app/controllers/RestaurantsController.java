@@ -261,9 +261,7 @@ public class RestaurantsController extends AbstractController {
                 response.sendError(404);
                 return "";
             }
-			
-			System.out.println("lat: " + tmp.getLat() + ", lng: " + tmp.getLng());
-            
+			            
             // Set the next pagination 
             if (tmp.getReviews().size() > 0) {
                 request.setAttribute("nextPagination", reviewPage+1);
@@ -412,9 +410,7 @@ public class RestaurantsController extends AbstractController {
 		} catch (AddressNotFoundException ex) {
 			System.err.println("ERRORE RISOLUZIONE INDIRIZZO");
 		}
-		
-		System.out.println(ad.getLatitude()+" "+ad.getLongitude());
-		
+				
 		tmp.setLat(ad.getLatitude());
 		tmp.setLng(ad.getLongitude());
 				
