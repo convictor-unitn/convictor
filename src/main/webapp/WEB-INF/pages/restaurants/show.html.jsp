@@ -382,6 +382,7 @@
               <div class="column">
                 <div class="ui center aligned grid">
                     <div class="column">
+						Questo ristorante è tuo? Clicca qui sotto, compila il form e ti contatteremo. </br></br>
                         <button class="ui basic black button ownership">Reclama Ristorante</button>
                         <div class="ui modal ownership_modal">
                             <div class="header center">
@@ -415,6 +416,7 @@
           <div class="ui tab" data-tab="addimage">
               <div class="ui center aligned grid">
                   <div class="column">
+					  Scatta una foto e condividila con tutti! </br></br>
                       <button class="ui basic black button add_image">Aggiungi Immagine</button>
                       <div class="ui modal add_image_modal">
                           <div class="header center">
