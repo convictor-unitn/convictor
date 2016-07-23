@@ -68,7 +68,7 @@
                                 </div>
 								<partials:formerrors field="password" />
                             </div>
-                            <div class="field <c:if test="${bean.valid == false and ! (bean.errors['password'] == null)}" >error</c:if>">
+                            <div class="field <c:if test="${bean.valid == false and ! (bean.errors['passwordConfirmation'] == null)}" >error</c:if>">
                                 <div class="ui left icon input">
                                     <i class="lock icon"></i>
                                     <input type="password" name="passwordConfirmation" placeholder="Conferma password">
@@ -76,7 +76,7 @@
 								<partials:formerrors field="passwordConfirmation" />
                             </div>
                             <div class="ui text" align="right">
-                            <a href="invio_req_pass.html">Password dimenticata?</a>
+                            <a href="${pageContext.request.contextPath}/passwords/request_new">Password dimenticata?</a>
                         </div>
 
                         </br>
