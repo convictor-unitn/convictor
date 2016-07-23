@@ -66,7 +66,8 @@ public class UserProfileController extends AbstractController {
 			try {
 				List<Notice> notices = noticeDAO.getRestaurantOwnerNotices(user.getId(), noticePage);
 				user.setNotices(notices);
-				user.setRestaurants(restaurantDAO.getRestaurantByUserId(user.getId()));
+				RestaurantOwner restaurantOwner = (RestaurantOwner) user;
+				restaurantOwner.setRestaurants(restaurantDAO.getRestaurantByUserId(user.getId()));
 			} catch (SQLException ex) {
 				Logger.getLogger(UserProfileController.class.getName()).log(Level.SEVERE, null, ex);
 			}
