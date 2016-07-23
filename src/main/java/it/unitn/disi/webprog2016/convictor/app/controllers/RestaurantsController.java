@@ -889,7 +889,27 @@ public class RestaurantsController extends AbstractController {
         
         // Get the user and popolate a Review bean
         User tmpUser = (User) request.getSession(false).getAttribute("user");
-        Review tmp = new Review();
+        
+		// Check if the user can insert a review
+		try {
+			List<Review> userReview = ((ReviewDAO) request.getServletContext().getAttribute("reviewdao")).getMostRecentReviewsByUserId(tmpUser.getId());
+			Review tmp = new Review();
+			for (Review r : userReview) {
+				if (String.valueOf(r.getRestaurantId()).equals(request.getParameter("idRestaurant"))) {
+					tmp.setRestaurantId(request.getParameter("idRestaurant"));
+					request.setAttribute("review", tmp);
+					request.setAttribute("alreadyReviewed", "error");
+					return "/restaurants/review";
+				}
+			}
+		} catch (Exception e) {
+			Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, e);
+            response.sendError(500);
+            return "";
+		}
+		
+		
+		Review tmp = new Review();
         tmp.setRestaurantId(request.getParameter("idRestaurant"));
         tmp.setRegisteredUserId(tmpUser.getId());
         tmp.setRating(request.getParameter("rating"));
@@ -899,7 +919,7 @@ public class RestaurantsController extends AbstractController {
         
         try {
           if (tmp.isValid()) {
-            
+			
             // Insert the review, the notice and update the restaurant rating
             ReviewNotice tmpNotice = new ReviewNotice();
             int reviewId = ((ReviewDAO)request.getServletContext().getAttribute("reviewdao")).insertReview(tmp);

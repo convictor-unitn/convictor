@@ -17,7 +17,7 @@ public class Review extends AbstractBean {
     private int restaurantId;
     private String description;
     private int rating;
-
+	
     /**
      * @return the registeredUserId
      */
