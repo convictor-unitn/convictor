@@ -10,7 +10,7 @@
 <%@taglib prefix="partials" tagdir="/WEB-INF/tags/partials/" %>
 
 
-<c:set var="bean" scope="request" value="${requestScope.user}" />
+<c:set var="bean" scope="request" value="${sessionScope.user}" />
 <partials:passwordForm />
 
 <l:main>
@@ -23,10 +23,13 @@
                 <h2 class="ui header">
                   <div id="s_text" class="content">
                     Reimpostazione password
+												<c:out value="${bean.valid}"/>
+
                   </div>
                 </h2>
-				  <form class="ui large form error" action="${url}">
-                  <div class="ui stacked segment">
+				  <form class="ui large form error" method="POST" action="${url}">
+                  <input type="hidden" name="reset_password_token" value="${requestScope.resetPasswordToken}" />
+					<div class="ui stacked segment">
                     <div class="field <c:if test="${bean.valid == false and !(bean.errors['password'] == null)}" >error</c:if>">
                       <div class="ui left icon input">
                         <i class="lock icon"></i>
@@ -37,7 +40,7 @@
                     <div class="field <c:if test="${bean.valid == false and !(bean.errors['password'] == null)}" >error</c:if>">
                       <div class="ui left icon input">
                         <i class="lock icon"></i>
-                        <input type="password" name="password" placeholder="Conferma password">
+                        <input type="password" name="passwordConfirmation" placeholder="Conferma password">
                       </div>
 					  <partials:formerrors field="password" />
                     </div>

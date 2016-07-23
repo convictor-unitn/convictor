@@ -11,5 +11,5 @@
     <c:set var="url" value="${pageContext.servletContext.contextPath}/passwords/create" />
 </c:if>
 <c:if test="${!empty bean.id && bean.id != 0}">
-    <c:set var="url" value="${pageContext.servletContext.contextPath}/passwords/getResetToken?id=${bean.mail}" />
+    <c:set var="url" value="${pageContext.servletContext.contextPath}/passwords/get_reset_token" />
 </c:if>

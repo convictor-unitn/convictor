@@ -9,7 +9,7 @@
 <%@taglib prefix="l" tagdir="/WEB-INF/tags/layouts/" %>
 <%@taglib prefix="partials" tagdir="/WEB-INF/tags/partials/" %>
 
-<c:set var="bean" scope="request" value="${requestScope.user}" />
+<c:set var="bean" scope="request" value="${sessionScope.user}" />
 <partials:passwordForm />
 
 <l:main>
@@ -20,12 +20,14 @@
             <div class="ui middle aligned center aligned grid">
               <div class="column myform">
                 <h2 class="ui header">
-                  <div id="s_text" class="content">
+                  <div id="s_text" class="content" id="brown">
                     Reimpostazione password
+												<c:out value="${bean.valid}"/>
+
                   </div>
                 </h2>
-                <form class="ui large form error" action="${url}">
-                  <div class="ui stacked segment">
+                <form class="ui large form error" method="POST" action="${url}">
+                  <div class="ui stacked segment" id="brown">
                     <div>Per reimpostare la password del tuo account ti sarà inviato all'indirizzo email che inserirai qui un link per effettuare l'operazione.</div>
                     </br>
                     <div class="field <c:if test="${bean.valid == false and !(bean.errors['email'] == null)}" >error</c:if>">
