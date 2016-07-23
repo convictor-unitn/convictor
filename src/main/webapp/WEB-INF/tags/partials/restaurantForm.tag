@@ -128,8 +128,9 @@
         <label>Descrizione</label>
         <div class="ui divider"></div>
         <div class="field">
-            <input class="ui textbox" type="text" name="description" rows="2" placeholder="Aggiungi breve descrizione" value="${restaurant.description}"/>
-        </div>
+			<!--<input type="text" name="description" placeholder="Aggiungi breve descrizione" value="${restaurant.description}"/>-->
+			<textarea rows="3" name="description" placeholder="Aggiungi breve descrizione">${restaurant.description}</textarea>
+		</div>
       </div>     
       
       <!-- Timing Infos -->	  	 
