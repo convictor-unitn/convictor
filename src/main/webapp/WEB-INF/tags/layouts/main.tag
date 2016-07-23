@@ -38,6 +38,7 @@
             <jsp:invoke fragment="body" />
             <script type="text/javascript" src="${context}/js/jquery-2.2.4.js"></script>
             <script type="text/javascript" src="${context}/js/semantic.js"></script>
+			<script type="text/javascript" src="https://files-stackablejs.netdna-ssl.com/stacktable.min.js"></script>
             <script type="text/javascript" src="${context}/js/topNavbar.js"></script>
             <script type="text/javascript" src="${context}/js/restaurant_profile.js"></script>
 	</body>
