@@ -116,6 +116,16 @@
           </div>
         </div>
       </div>
+			
+			
+			</br>
+			<div>
+				<p>
+					${restaurant.description}
+				</p>
+			</div>
+			</br>
+			</br>
 
 
       <!-- Restaurant Infos -->
