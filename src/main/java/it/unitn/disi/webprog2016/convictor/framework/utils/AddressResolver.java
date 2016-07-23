@@ -149,6 +149,7 @@ public class AddressResolver {
 		}
 	}
 	
+	// Run this file to test the results
 	public static void main(String[] args) throws IOException {
 		
 		System.out.println();
