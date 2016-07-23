@@ -406,7 +406,7 @@
                                     <input type="text" name="cf" placeholder="Codice Fiscale">
                                    </div>
                                 <div class="field actions">
-                                    <div class="ui cancel basic black button">Close</div>
+                                    <div class="ui cancel basic black button">Chiudi</div>
                                     <input class="ui basic black button" type="submit"/>
                                 </div>
                             </form>
