@@ -11,6 +11,8 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.Scanner;
+import org.json.*;
 		
 /**
  * Utility class to resolve a restaurant address into 
@@ -78,20 +80,32 @@ public class AddressResolver {
 	public void resolveAddress() throws IOException {
 		this.composeAddress();
 		System.out.println(this.address);
+				
+		// build a URL
+		String s = "https://maps.googleapis.com/maps/api/geocode/json?"+this.address+"&key="+this.API_KEY;
+		URL url = new URL(s);
 
-		String recv;
-		String recvbuff = null;
-		URL jsonpage = new URL("https://maps.googleapis.com/maps/api/geocode/json?"+this.address+"&key="+this.API_KEY);
-		System.out.println(jsonpage);
-		URLConnection urlcon = jsonpage.openConnection();
-		try (BufferedReader buffread = new BufferedReader(new InputStreamReader(urlcon.getInputStream()))) {
-			while ((recv = buffread.readLine()) != null)
-				recvbuff += recv;
-		} catch (Exception e){
-			
-		}
+		// read from the URL
+		Scanner scan = new Scanner(url.openStream());
+		String str = new String();
+		while (scan.hasNext())
+			str += scan.nextLine();
+		scan.close();
 
-		System.out.println(recvbuff);
+		// build a JSON object
+		JSONObject obj = new JSONObject(str);
+		if (! obj.getString("status").equals("OK"))
+			return;
+
+		// get the first result
+		JSONObject res = obj.getJSONArray("results").getJSONObject(0);
+		JSONObject loc = res.getJSONObject("geometry").getJSONObject("location");
+		
+		this.latitude = loc.getDouble("lat");
+		this.longitude = loc.getDouble("lng");
+		
+//		System.out.println("lat: " + loc.getDouble("lat") + ", lng: " + loc.getDouble("lng"));
+		
 
 	}
 	
@@ -150,22 +164,22 @@ public class AddressResolver {
 	}
 	
 	// Run this file to test the results
-//	public static void main(String[] args) throws IOException {
-//		
-//		System.out.println();
-//
-//		
-//		AddressResolver ad = new AddressResolver();
-//		ad.setZipcode(36043);
-//		ad.setStreet("via san michele");
-//		ad.setCity("Malo");
-//		ad.setState("IT");
-//		ad.resolveAddress();
-//		
-//		System.out.print(ad.getLatitude()+" "+ad.getLongitude());
-//		
-//		
-//	}
-//	
+	public static void main(String[] args) throws IOException {
+		
+		System.out.println();
+
+		
+		AddressResolver ad = new AddressResolver();
+		ad.setZipcode("36043");
+		ad.setStreet("via san michele");
+		ad.setCity("Malo");
+		ad.setState("IT");
+		ad.resolveAddress();
+		
+		System.out.print(ad.getLatitude()+" "+ad.getLongitude());
+		
+		
+	}
+	
 	
 }
