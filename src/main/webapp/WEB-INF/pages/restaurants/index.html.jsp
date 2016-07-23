@@ -85,7 +85,14 @@
                         <c:forEach var="cusine" items="${allCusines}">
                         <div class="field">
                             <div class="ui checkbox">
-                                <input name="${cusine.id}" type="checkbox">
+								<c:choose>	
+									<c:when test="${param[cusine.idString] == 'on'}">
+										<input name="${cusine.id}" type="checkbox" checked="checked">
+									</c:when>
+									<c:otherwise>
+										<input name="${cusine.id}" type="checkbox">
+									</c:otherwise>
+								</c:choose>
                                 <label id="brown">${cusine.name}</label>
                             </div>
                             </div> 
