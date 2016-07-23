@@ -69,6 +69,10 @@ public class RestaurantsController extends AbstractController {
     private static final String S3_BUCKET_NAME = "convictor";
 	private static final Logger LOGGER = Logger.getLogger(RestaurantsController.class.getName());
     
+	//Needed field to build correct restaurant address
+	private final String COUNTRY = "Italia";
+
+	
     public RestaurantsController() {
         super();
     }
@@ -377,6 +381,15 @@ public class RestaurantsController extends AbstractController {
         tmp.setWebsite(request.getParameter("website"));
 		tmp.setSlotPrice(request.getParameter("priceslotselected"));
         
+		//Calculate LATITUDE and LONGITUDE for restaurant
+		AddressResolver ad = new AddressResolver();
+		ad.setZipcode(tmp.getZipCode());
+		ad.setStreet(tmp.getStreet());
+		ad.setCity(tmp.getCity());
+		ad.setState(this.COUNTRY);
+		ad.resolveAddress();
+		
+		
         String[] cusines = request.getParameterValues("cusines");
         List<Cusine> list = new ArrayList<>();
         List<OpeningTime> listTime = new ArrayList<>();

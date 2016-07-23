@@ -11,11 +11,10 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
-import java.util.StringTokenizer;
-import java.util.logging.Logger;
-
+		
 /**
- *
+ * Utility class to resolve a restaurant address into 
+ * LATITUDE and LONGITUDE coordinates
  * @author Giovanni
  */
 public class AddressResolver {
@@ -29,8 +28,8 @@ public class AddressResolver {
 	private double latitude;
 	private double longitude;
 	
-	final int MAX_DIM = 10;
-	
+	private final int MAX_DIM = 10;
+	private final String COUNTRY = "IT";
 	
 	
 	public AddressResolver () {
@@ -47,7 +46,7 @@ public class AddressResolver {
 		String comma = ",";
 		String plus = "+";
 		
-		String component = "&components=country:IT";
+		String component = "&components=country:"+COUNTRY;
 		
 		this.address = this.zipcode+plus;
 		
@@ -107,8 +106,8 @@ public class AddressResolver {
 	/**
 	 * @param zipcode the zipcode to set
 	 */
-	public void setZipcode(int zipcode) {
-		this.zipcode = Integer.toString(zipcode);
+	public void setZipcode(String zipcode) {
+		this.zipcode = zipcode;
 	}
 
 	/**
@@ -151,22 +150,22 @@ public class AddressResolver {
 	}
 	
 	// Run this file to test the results
-	public static void main(String[] args) throws IOException {
-		
-		System.out.println();
-
-		
-		AddressResolver ad = new AddressResolver();
-		ad.setZipcode(36043);
-		ad.setStreet("via san michele");
-		ad.setCity("Malo");
-		ad.setState("IT");
-		ad.resolveAddress();
-		
-		System.out.print(ad.getLatitude()+" "+ad.getLongitude());
-		
-		
-	}
-	
+//	public static void main(String[] args) throws IOException {
+//		
+//		System.out.println();
+//
+//		
+//		AddressResolver ad = new AddressResolver();
+//		ad.setZipcode(36043);
+//		ad.setStreet("via san michele");
+//		ad.setCity("Malo");
+//		ad.setState("IT");
+//		ad.resolveAddress();
+//		
+//		System.out.print(ad.getLatitude()+" "+ad.getLongitude());
+//		
+//		
+//	}
+//	
 	
 }
