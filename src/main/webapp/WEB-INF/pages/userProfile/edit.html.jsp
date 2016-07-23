@@ -73,7 +73,7 @@
                                     <i class="lock icon"></i>
                                     <input type="password" name="passwordConfirmation" placeholder="Conferma password">
                                 </div>
-								<partials:formerrors field="password" />
+								<partials:formerrors field="passwordConfirmation" />
                             </div>
                             <div class="ui text" align="right">
                             <a href="invio_req_pass.html">Password dimenticata?</a>

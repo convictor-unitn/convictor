@@ -10,7 +10,7 @@
 <%@taglib prefix="partials" tagdir="/WEB-INF/tags/partials/" %>
 
 
-<c:set var="bean" scope="request" value="${sessionScope.user}" />
+<c:set var="bean" scope="request" value="${requestScope.user}" />
 
 <l:main>
 	
@@ -27,19 +27,27 @@
 				  <form class="ui large form error" method="POST" action="${pageContext.servletContext.contextPath}/passwords/create" />
                   <input type="hidden" name="reset_password_token" value="${requestScope.resetPasswordToken}" />
 					<div class="ui stacked segment">
-                    <div class="field <c:if test="${bean.valid == false and !(bean.errors['password'] == null)}" >error</c:if>">
+                    <div class="field <c:if test="${!(param.password == null)}" >error</c:if>">
                       <div class="ui left icon input">
                         <i class="lock icon"></i>
                         <input type="password" name="password" placeholder="Nuova password">
                       </div>
-					  <partials:formerrors field="password" />
+						<c:if test="${!(param.password == null)}" >
+						<div class="ui error message">
+							La password deve avere almeno 6 caratteri e deve includere almeno una lettera maiuscola, una lettera minuscola, e un numero
+						</div>
+						</c:if>
                     </div>
-                    <div class="field <c:if test="${bean.valid == false and !(bean.errors['password'] == null)}" >error</c:if>">
+                    <div class="field <c:if test="${!(param.passwordConfirmation == null)}" >error</c:if>">
                       <div class="ui left icon input">
                         <i class="lock icon"></i>
                         <input type="password" name="passwordConfirmation" placeholder="Conferma password">
                       </div>
-					  <partials:formerrors field="password" />
+					  <c:if test="${!(param.passwordConfirmation == null)}" >
+						<div class="ui error message">
+							La conferma password non coincide. 
+						</div>
+						</c:if>
                     </div>
 						<input id="p_button" class="ui fluid large submit button" type="submit" value="Cambia passowrd" />
                     </br>
