@@ -406,10 +406,6 @@ public class Restaurant extends AbstractBean {
 		return lat;
 	}
 	
-	public String getLatString() {
-		return Double.toString(lat);
-	}
-
 	public void setLat(double lat) {
 		this.lat = lat;
 	}
@@ -427,10 +423,6 @@ public class Restaurant extends AbstractBean {
 		return lng;
 	}
 	
-	public String getLngString() {
-		return Double.toString(lng);
-	}
-
 	public void setLng(double lng) {
 		this.lng = lng;
 	}

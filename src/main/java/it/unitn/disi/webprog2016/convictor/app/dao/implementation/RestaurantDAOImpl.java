@@ -53,9 +53,8 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
             stm.setInt(9, restaurant.getSlotPrice());
             stm.setString(10, restaurant.getEmail());
             stm.setString(11, restaurant.getPhone());
-			// DA SISTEMARE
-			stm.setString(12, restaurant.getLatString());
-            stm.setString(13, restaurant.getLngString());
+			stm.setDouble(12, restaurant.getLat());
+            stm.setDouble(13, restaurant.getLng());
 
 			stm.executeUpdate();
 			ResultSet result;
