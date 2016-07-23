@@ -349,8 +349,8 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
         try {
             
             // Obtain the restaurant paginated 
-            stm.setString(1, pattern);
-            stm.setString(2, "%"+fullTextPattern+"%");
+            stm.setString(1, fullTextPattern);
+            stm.setString(2, "%"+pattern+"%");
             int counter = 1;
             for (String c : cusines) {
                 stm.setInt(2+counter, Integer.valueOf(c));
@@ -409,8 +409,8 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
         try {
             
             // Obtain the restaurant paginated 
-            stm.setString(1, pattern);
-            stm.setString(2, "%"+fullTextPattern+"%");
+            stm.setString(1, fullTextPattern);
+            stm.setString(2, "%"+pattern+"%");
             int counter = 1;
             for (String c : cusines) {
                 stm.setInt(2+counter, Integer.valueOf(c));
@@ -492,8 +492,8 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
         try {
             
             // Obtain the restaurant paginated 
-            stm.setString(1, pattern);
-            stm.setString(2, "%"+fullTextPattern+"%");
+            stm.setString(1, fullTextPattern);
+            stm.setString(2, "%"+pattern+"%");
             int counter = 1;
             for (String c : cusines) {
                 stm.setInt(2+counter, Integer.valueOf(c));

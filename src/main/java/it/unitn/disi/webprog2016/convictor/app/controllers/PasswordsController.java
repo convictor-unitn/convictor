@@ -119,6 +119,10 @@ public class PasswordsController extends AbstractController  {
 			User user = userDAO.getUserByResetToken(request.getParameter("reset_password_token"));
 			request.setAttribute("resetPasswordToken", request.getParameter("reset_password_token"));
 			
+			if(user==null) {
+				return "/passwords/requestNewPassword";
+			}
+			
 			DateTime nowPlus30Min = DateTime.now();
 			DateTime resetPasswordSentAt = new DateTime(user.getResetPasswordSentAt());
 			boolean validDate = nowPlus30Min.isBefore(user.getResetPasswordSentAt().plusMinutes(15));

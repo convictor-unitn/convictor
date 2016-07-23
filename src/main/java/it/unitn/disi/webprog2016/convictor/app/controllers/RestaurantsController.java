@@ -199,7 +199,7 @@ public class RestaurantsController extends AbstractController {
         
         // Set the search string as page attribute
         request.setAttribute("queryString", query);
-        
+		
         return "/restaurants/index";
 	}
     
