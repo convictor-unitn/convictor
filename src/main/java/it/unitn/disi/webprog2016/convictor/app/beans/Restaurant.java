@@ -410,7 +410,7 @@ public class Restaurant extends AbstractBean {
 	public double getLat() {
 		return lat;
 	}
-
+	
 	public void setLat(double lat) {
 		this.lat = lat;
 	}
@@ -427,7 +427,7 @@ public class Restaurant extends AbstractBean {
 	public double getLng() {
 		return lng;
 	}
-
+	
 	public void setLng(double lng) {
 		this.lng = lng;
 	}

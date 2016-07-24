@@ -11,6 +11,10 @@
 <%@taglib prefix="p" tagdir="/WEB-INF/tags/partials//" %>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
+<%-- API KEY for maps script --%>
+<c:set var="API_KEY" value="AIzaSyBbiud33G2KsodO5JvP-5HQzoSTuWiI0a8" />;
+"
+
 <%-- These JSTL tag are used to set correctly the pagination URL request --%>
 <c:set var="nextPagination" scope="request" value="${requestScope.nextPagination}" />
 <c:set var="requestURL" scope="request" value="${requestScope['javax.servlet.forward.query_string']}" />
@@ -37,6 +41,7 @@
         <div class="column">
           <div class="ui header large">
             ${restaurant.name}
+			${bean.lat} ${bean.lng}
           </div>
         </div>
       </div>
@@ -256,7 +261,7 @@
           <div class="column">
             <div class="ui four item tabular menu">
               <a class="item active" data-tab="recensioni" id="brown">Recensioni</a>
-              <a class="item " data-tab="mappa" id="brown">Mappa</a>
+              <a class="item "data-tab="mappa" id="brown">Mappa</a>
               <a class="item" data-tab="reclama" id="brown">Reclama</a>
               <a class="item" data-tab="addimage" id="brown">Carica Immagine</a>
             </div>
@@ -526,7 +531,7 @@
       </div>
     </div>
     <!-- End Reviews/Map TABS -->
-
+	
         <script type="text/javascript">
             // Image slider control functions
 
@@ -558,11 +563,12 @@
             }   
         </script>
         <script type="text/javascript">
+			var centerPos = ""
             function initMap() {
-                var myLatLng = {lat: -25.363, lng: 131.044};
-
+                var myLatLng = new google.maps.LatLng(${bean.lat},${bean.lng});
+				centerPos = myLatLng;
                 var map = new google.maps.Map(document.getElementById('map'), {
-                  zoom: 4,
+                  zoom: 16,
                   center: myLatLng
                 });
 
@@ -571,8 +577,18 @@
                   map: map,
                   title: 'Hello World!'
                 });
-
-            }
+				
+				
+				$(document).ready(function() {
+					$(window).resize(function() {
+						google.maps.event.trigger(map, 'resize');
+					});
+					google.maps.event.trigger(map, 'resize');
+					map.setCenter(myLatLng);
+				});
+            };
+			
+				
 
         </script>
         <script type="text/javascript">
@@ -582,7 +598,7 @@
             document.getElementById("ratingFormHidden").setAttribute('value', val);
           }
         </script>
-        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBbiud33G2KsodO5JvP-5HQzoSTuWiI0a8&callback=initMap" type="text/javascript"></script>
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=${API_KEY}&callback=initMap" type="text/javascript"></script>
 
 	</jsp:attribute>
                 
