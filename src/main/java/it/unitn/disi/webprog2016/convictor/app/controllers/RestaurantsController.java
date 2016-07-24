@@ -17,6 +17,7 @@ import com.amazonaws.services.s3.model.PutObjectResult;
 import it.unitn.disi.webprog2016.convictor.app.beans.Administrator;
 import it.unitn.disi.webprog2016.convictor.app.beans.Cusine;
 import it.unitn.disi.webprog2016.convictor.app.beans.OpeningTime;
+import it.unitn.disi.webprog2016.convictor.app.beans.OwnershipNotice;
 import it.unitn.disi.webprog2016.convictor.app.beans.PriceSlot;
 import it.unitn.disi.webprog2016.convictor.app.beans.Restaurant;
 import it.unitn.disi.webprog2016.convictor.app.beans.Review;
@@ -245,6 +246,10 @@ public class RestaurantsController extends AbstractController {
 		PhotoDAO photoDAO = (PhotoDAO) request.getServletContext().getAttribute("photodao");
 		UserDAO userDAO = (UserDAO) request.getServletContext().getAttribute("userdao");
 		User currentUser = (User) request.getSession().getAttribute("user");
+		OwnershipNotice ownershipNotice = new OwnershipNotice();
+		ownershipNotice.setRestaurantId(id);
+		ownershipNotice.setRegisteredUserId(currentUser.getId());
+		request.setAttribute("ownershipNotice", ownershipNotice);
 		
 		int reviewPage = 0;        
         if (request.getParameter("reviewPage") != null) {
