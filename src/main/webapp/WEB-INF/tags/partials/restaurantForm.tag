@@ -174,7 +174,7 @@
 		</c:choose>
 			<div class="field">
                 <div class="ui top attached large label">
-                    ${optime.dayString} ${optime.day}
+                    ${optime.dayString}
                 </div>
             </div>		
 		<div class="two fields">
@@ -277,5 +277,5 @@
 
       <input id="p_button" class="ui fluid large submit button" type="submit"></input>
     </br>
-    <div class="ui fluid submit button">Annull)a</div>
+    <a class="ui fluid submit button" href="javascript:history.back()">Annulla</a>
   </form>

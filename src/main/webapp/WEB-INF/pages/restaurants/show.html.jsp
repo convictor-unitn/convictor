@@ -12,8 +12,7 @@
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <%-- API KEY for maps script --%>
-<c:set var="API_KEY" value="AIzaSyBbiud33G2KsodO5JvP-5HQzoSTuWiI0a8" />;
-"
+<c:set var="API_KEY" value="AIzaSyBbiud33G2KsodO5JvP-5HQzoSTuWiI0a8" />
 
 <%-- These JSTL tag are used to set correctly the pagination URL request --%>
 <c:set var="nextPagination" scope="request" value="${requestScope.nextPagination}" />
@@ -41,7 +40,6 @@
         <div class="column">
           <div class="ui header large">
             ${restaurant.name}
-			${bean.lat} ${bean.lng}
           </div>
         </div>
       </div>
@@ -53,8 +51,8 @@
 			</c:forEach>
             
             <div class="w3-center w3-section w3-large w3-text-white w3-display-bottomleft" style="width:100%;" id="trasp">
-              <div class="w3-left w3-padding-left w3-hover-text-blue w3-text-blue" onclick="plusDivs(-1)" style="background-color:rgba(255,255,255,0.8);">&#10094;</div>
-              <div class="w3-right w3-padding-right w3-hover-text-blue w3-text-blue" onclick="plusDivs(1)" style="background-color:rgba(255,255,255,0.8);">&#10095;</div>
+              <div class="w3-left w3-padding-left w3-hover-text-blue w3-text-white ui circular label" onclick="plusDivs(-1)" style="background-color:#21b8ff;">&#10094;</div>
+              <div class="w3-right w3-padding-right w3-hover-text-blue w3-text-white ui circular label" onclick="plusDivs(1)" style="background-color:#21b8ff;">&#10095;</div>
 			  <c:set var="photoCounter" value="1" scope="page" />
 			  <c:forEach var="photo" items="${bean.photos}">
 				<span class="w3-badge demo w3-border w3-blue w3-hover-blue" onclick="currentDiv(${photoCounter})"></span>
@@ -170,7 +168,7 @@
 				  <div class="ui divider"></div>
 				  <div class="column">
 					<div class="ui list">
-					  ${restaurant.slotPrice}
+					  ${requestScope.slotPriceRestaurant}
 					</div>
 				  </div>
 				</div>

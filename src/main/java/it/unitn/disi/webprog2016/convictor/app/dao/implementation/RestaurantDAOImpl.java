@@ -223,7 +223,7 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
         // stm.setString is called. PreparedStatement should add single quote 
         // automatically.
         //String count ="SELECT COUNT(*) FROM restaurants WHERE tsv @@ tsquery(?) OR searchable ILIKE ?";
-        String query ="SELECT * FROM restaurants WHERE tsv @@ tsquery(?) OR searchable ILIKE ? ORDER BY rating LIMIT ? OFFSET ?";
+        String query ="SELECT * FROM restaurants WHERE tsv @@ tsquery(?) OR searchable ILIKE ? ORDER BY rating DESC LIMIT ? OFFSET ?";
         
         //PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(count);
         PreparedStatement stm2 = this.getDbManager().getConnection().prepareStatement(query);
@@ -342,7 +342,7 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
 				"restaurants.lng, "+
 				"restaurants.phone FROM restaurants INNER JOIN cusines_restaurants ON restaurants.id = restaurant_id WHERE tsv @@ tsquery(?) OR searchable ILIKE ? "+
                 params
-                +"ORDER BY restaurants.rating LIMIT ? OFFSET ? ";
+                +"ORDER BY restaurants.rating DESC LIMIT ? OFFSET ? ";
         
         PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
         try {
