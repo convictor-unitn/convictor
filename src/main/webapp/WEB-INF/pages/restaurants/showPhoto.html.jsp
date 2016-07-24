@@ -22,10 +22,20 @@
 						</div>
 					  </div>
                     </div>
+						<c:choose>
+							<c:when test="${sessionScope.user.getClass().name == 'it.unitn.disi.webprog2016.convictor.app.beans.Administrator'}" >
+								<a href="${pageContext.servletContext.contextPath}/restaurants/show?id=${photo.restaurantId}">
+									Rimuovi foto
+								</a>
+							</c:when>
+							<c:otherwise>
+								<a href="${pageContext.servletContext.contextPath}/restaurants/show?id=${photo.restaurantId}">
+									Segnala fotografia
+								</a>
+							</c:otherwise>
+						</c:choose>
 						<div class="button black">
-							<a href="${pageContext.servletContext.contextPath}/restaurants/show?id=${photo.restaurantId}">
-								Segnala fotografia
-							</a>
+							
 						</div>
 						<div class="button black">
 							<a href="${pageContext.servletContext.contextPath}/restaurants/show?id=${photo.restaurantId}">
