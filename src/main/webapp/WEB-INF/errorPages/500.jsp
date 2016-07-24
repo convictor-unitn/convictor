@@ -9,7 +9,7 @@
 <%@taglib prefix="l" tagdir="/WEB-INF/tags/layouts/" %>
 
 <l:error>
-    
+    <jsp:attribute name="title">500 | Convictor</jsp:attribute>
     <jsp:attribute name="errorCode">500</jsp:attribute>
     <jsp:attribute name="message"> Si e' verificato un errore interno al sistema.</jsp:attribute>
     

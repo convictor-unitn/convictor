@@ -10,7 +10,8 @@
 <%@taglib prefix="l" tagdir="/WEB-INF/tags/layouts/" %>
 
 <l:error>
-    
+  
+	<jsp:attribute name="title">404 | Convictor</jsp:attribute>
     <jsp:attribute name="errorCode">404</jsp:attribute>
     <jsp:attribute name="message">Non e' stato possibile recuperare la risorsa.</jsp:attribute>
 

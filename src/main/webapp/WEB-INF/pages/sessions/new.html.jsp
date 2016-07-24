@@ -13,7 +13,7 @@
 
 <l:main>
 	
-	<jsp:attribute name="title">Accedi</jsp:attribute>
+	<jsp:attribute name="title">Accedi | Convictor</jsp:attribute>
 	<jsp:attribute name="bodyBackground">#eaeaea</jsp:attribute>
 	<jsp:attribute name="body">
         <div class="ui middle aligned center aligned grid">
@@ -51,7 +51,7 @@
             </form>
             </br>
             <div class="text">
-              Non hai ancora un account? <a href="form_registrazione.html">Registrati</a>
+              Non hai ancora un account? <a href="${pageContext.servletContext.contextPath}/sign_up">Registrati</a>
             </div>
           </div>
         </div>
