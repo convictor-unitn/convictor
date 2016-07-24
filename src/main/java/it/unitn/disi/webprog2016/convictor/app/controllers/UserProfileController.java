@@ -8,6 +8,7 @@ package it.unitn.disi.webprog2016.convictor.app.controllers;
 import it.unitn.disi.webprog2016.convictor.framework.controllers.AbstractController;
 import it.unitn.disi.webprog2016.convictor.app.beans.*;
 import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.NoticeDAO;
+import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.RestaurantDAO;
 import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.UserDAO;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -34,6 +35,7 @@ public class UserProfileController extends AbstractController {
 	 */
 	public String show(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		User user = (User) request.getSession().getAttribute("user");
+		RestaurantDAO restaurantDAO = (RestaurantDAO) request.getServletContext().getAttribute("restaurantdao");
 		NoticeDAO noticeDAO = (NoticeDAO) request.getServletContext().getAttribute("noticedao");
 		if( user == null ) {
 			response.sendError(401);
@@ -64,6 +66,8 @@ public class UserProfileController extends AbstractController {
 			try {
 				List<Notice> notices = noticeDAO.getRestaurantOwnerNotices(user.getId(), noticePage);
 				user.setNotices(notices);
+				RestaurantOwner restaurantOwner = (RestaurantOwner) user;
+				restaurantOwner.setRestaurants(restaurantDAO.getRestaurantByUserId(user.getId()));
 			} catch (SQLException ex) {
 				Logger.getLogger(UserProfileController.class.getName()).log(Level.SEVERE, null, ex);
 			}
@@ -151,7 +155,7 @@ public class UserProfileController extends AbstractController {
 			user.setSurname(surname);
 			user.setEmail(email);
 			
-			if(password.equals("")) {
+			if(oldPassword.equals("")) {
 				user.validate();
 				user.getErrors().remove("password");
 				user.getErrors().remove("passwordConfirmation");
@@ -163,6 +167,7 @@ public class UserProfileController extends AbstractController {
 					if (testEmail != null) {
 						if (!oldEmail.equals(user.getEmail())) {
 							user.setError("email", "La mail inserita è già presente");
+							request.setAttribute("user", user);
 							return "/userProfile/edit";
 						}
 					}
@@ -175,6 +180,7 @@ public class UserProfileController extends AbstractController {
 				}
 				else
 				{
+					request.setAttribute("user", user);
 					return "/userProfile/edit";
 				}
 				
@@ -185,6 +191,8 @@ public class UserProfileController extends AbstractController {
 				user.setPassword(password);
 				user.setPasswordConfirmation(passwordConfirmation);
 				
+				user.validate();
+				
 				if(user.isValid()) {
 					
 					// Check if the user has inserted an existing email
@@ -192,6 +200,7 @@ public class UserProfileController extends AbstractController {
 					if (testEmail != null) {
 						if (!oldEmail.equals(user.getEmail())) {
 							user.setError("email", "La mail inserita è già presente");
+							request.setAttribute("user", user);
 							return "/userProfile/edit";
 						}
 					}
@@ -205,6 +214,7 @@ public class UserProfileController extends AbstractController {
 				}
 				else
 				{
+					request.setAttribute("user", user);
 					return "/userProfile/edit";
 				}
 				
