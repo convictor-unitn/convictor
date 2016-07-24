@@ -155,7 +155,7 @@ public class UserProfileController extends AbstractController {
 			user.setSurname(surname);
 			user.setEmail(email);
 			
-			if(password.equals("")) {
+			if(oldPassword.equals("")) {
 				user.validate();
 				user.getErrors().remove("password");
 				user.getErrors().remove("passwordConfirmation");
