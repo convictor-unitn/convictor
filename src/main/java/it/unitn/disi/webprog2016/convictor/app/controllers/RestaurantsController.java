@@ -647,6 +647,7 @@ public class RestaurantsController extends AbstractController {
             return "";
 		}
         
+
 		// Get all price slots available to make them available inside the JSP
 		
 		try {
@@ -654,7 +655,9 @@ public class RestaurantsController extends AbstractController {
 			request.setAttribute("allPriceSlot", allPriceSlot);
 		} catch (SQLException ex) {
 			Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, ex);
+
 		}
+
 		
         Restaurant tmp = new Restaurant();
 		tmp.setId(id);
