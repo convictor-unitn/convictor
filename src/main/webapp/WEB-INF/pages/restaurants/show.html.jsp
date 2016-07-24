@@ -302,9 +302,13 @@
                   <c:forEach var="review" items="${restaurant.reviews}">
                       <div class="comment">
                       <div class="content">
-                          <a class="author" id="brown"">${review.registeredUserName}</a>
+                          <a class="author" id="brown">${review.registeredUserName}</a>
                           <div class="metadata">
-                              <div class="date" id="brown"">2 days ago</div>
+                              <div class="date" id="brown">
+									<fmt:formatDate
+									pattern="dd-MM-yyyy HH:mm"
+									value="${review.createdAt}"/>
+							  </div>
                               <div class="rating">
                                   <div class="ui horizontal list">
                                       <c:forEach var="i" begin="0" end="${review.rating}" step="1">
@@ -387,32 +391,45 @@
             <div class="ui center aligned grid">
               <div class="column">
                 <div class="ui center aligned grid">
-                    <div class="column">
-						Questo ristorante è tuo? Clicca qui sotto, compila il form e ti contatteremo. </br></br>
-                        <button class="ui basic black button ownership">Reclama Ristorante</button>
-                        <div class="ui modal ownership_modal">
-                            <div class="header center">
-                                 Richiesta Reclamo
-                            </div>
-                            <div class="content">
-                            <form class="ui form">
-                                <div class="field">
-                                  <input type="text" name="nomeazienda" placeholder="Nome Azienda">
-                                 </div>
-                                 <div class="field">
-                                   <input type="text" name="piva" placeholder="Partita Iva">
-                                  </div>
-                                  <div class="field">
-                                    <input type="text" name="cf" placeholder="Codice Fiscale">
-                                   </div>
-                                <div class="field actions">
-                                    <div class="ui cancel basic black button">Chiudi</div>
-                                    <input class="ui basic black button" type="submit"/>
-                                </div>
-                            </form>
-                            </div>
-                        </div>
-                    </div>
+
+					<c:choose>    
+                      <c:when test="${!empty sessionScope.user}">
+						<div class="column">
+							Questo ristorante è tuo? Clicca qui sotto, compila il form e ti contatteremo. </br></br>
+							<button class="ui basic black button ownership">Reclama Ristorante</button>
+							<div class="ui modal ownership_modal">
+								<div class="header center">
+									 Richiesta Reclamo
+								</div>
+								<div class="content">
+								<form class="ui form">
+									<div class="field">
+									  <input type="text" name="nomeazienda" placeholder="Nome Azienda">
+									 </div>
+									 <div class="field">
+									   <input type="text" name="piva" placeholder="Partita Iva">
+									  </div>
+									  <div class="field">
+										<input type="text" name="cf" placeholder="Codice Fiscale">
+									   </div>
+									<div class="field actions">
+										<div class="ui cancel basic black button">Chiudi</div>
+										<input class="ui black button" type="submit" value="Reclama" />
+									</div>
+								</form>
+								</div>
+							</div>
+						</div>
+					  </c:when>
+                      <c:otherwise>
+						  <div class='column'>
+							  Questo ristorante è tuo? </br>
+							  <a href="${pageContext.servletContext.contextPath}/sign_in">Accedi</a>
+							per reclamare questo ristorante!
+						  </div>
+					  </c:otherwise>
+                    </c:choose>
+
                 </div>
               </div>
             </div>
@@ -421,28 +438,39 @@
           <!-- Add Image Tab -->
           <div class="ui tab" data-tab="addimage">
               <div class="ui center aligned grid">
-                  <div class="column">
-					  Scatta una foto e condividila con tutti! </br></br>
-                      <button class="ui basic black button add_image">Aggiungi Immagine</button>
-                      <div class="ui modal add_image_modal">
-                          <div class="header center">
-                               Aggiungi Nuova Immagine
-                          </div>
-                          <div class="content">
-							  <form class="ui form" action="${pageContext.servletContext.contextPath}/restaurants/uploadPhoto" method="POST" enctype="multipart/form-data" action="">
-								  <input type="hidden" value="${bean.id}" name="id" />
-								  <div class="field">
-									  <input id="fileupload" type="file" name="files" />
-								  </div>
-								  <div class="field actions">
-									  <div class="ui cancel basic black button">Close</div>
-									  <input class="ui black button" type="submit" value="Upload"/>
-								  </div>
-							  </form>
-                          </div>
-								  
-                      </div>
-                  </div>
+				  <c:choose>    
+                    <c:when test="${!empty sessionScope.user}">
+						<div class="column">
+							Scatta una foto e condividila con tutti! </br></br>
+							<button class="ui basic black button add_image">Aggiungi Immagine</button>
+							<div class="ui modal add_image_modal">
+								<div class="header center">
+									 Aggiungi Nuova Immagine
+								</div>
+								<div class="content">
+									<form class="ui form" action="${pageContext.servletContext.contextPath}/restaurants/uploadPhoto" method="POST" enctype="multipart/form-data" action="">
+										<input type="hidden" value="${bean.id}" name="id" />
+										<div class="field">
+											<input id="fileupload" type="file" name="files" />
+										</div>
+										<div class="field actions">
+											<div class="ui cancel basic black button">Chiudi</div>
+											<input class="ui black button" type="submit" value="Carica"/>
+										</div>
+									</form>
+								</div>
+
+							</div>
+						</div>
+					</c:when>
+                      <c:otherwise>
+                        <div class="column">
+                        Hai scattato una foto a questo ristorante e vuoi condividerla con tutti?  
+						</br><a href="${pageContext.servletContext.contextPath}/sign_in">Accedi</a>
+                          per caricare una foto!
+                        </div>
+                      </c:otherwise>
+				  </c:choose>
               </div>
           </div>
           <!-- End Add Image Tab -->

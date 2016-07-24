@@ -13,8 +13,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -32,7 +37,7 @@ public class ReviewDAOImpl extends DatabaseDAO implements ReviewDAO {
     public List<Review> getRestaurantReviews(int restaurant_id, int offset) throws SQLException {
         
         List<Review> reviews = new ArrayList<>();
-        String query = "SELECT reviews.id, restaurant_id, registered_user_id, rating, description, users.name, users.surname  from reviews inner join users on users.id = registered_user_id where reviews.restaurant_id = ? LIMIT ? OFFSET ?";
+        String query = "SELECT reviews.id, reviews.created_at, restaurant_id, registered_user_id, rating, description, users.name, users.surname  from reviews inner join users on users.id = registered_user_id where reviews.restaurant_id = ? ORDER BY reviews.created_at DESC LIMIT ? OFFSET ?";
         PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
         try {
             stm.setInt(1, restaurant_id);
@@ -51,6 +56,8 @@ public class ReviewDAOImpl extends DatabaseDAO implements ReviewDAO {
                     );
                     tmp.setRating(reviewSet.getString("rating"));
                     tmp.setDescription(reviewSet.getString("description"));
+					Date tmpDate = new Date(reviewSet.getTimestamp("created_at").getTime());
+					tmp.setCreatedAt(tmpDate);
                     reviews.add(tmp);
                 }
             } finally {
@@ -83,5 +90,37 @@ public class ReviewDAOImpl extends DatabaseDAO implements ReviewDAO {
         }
         return restaurant_id;
     }
+
+	@Override
+	public List<Review> getMostRecentReviewsByUserId(int user_id) throws SQLException {
+		List<Review> reviews = new ArrayList<>();
+        String query = "SELECT id, restaurant_id, registered_user_id FROM reviews WHERE registered_user_id = ? AND created_at > ?";
+        PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
+        try {
+			
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(new Date());
+			cal.add(Calendar.HOUR_OF_DAY, -24);
+			Date tmpDate = cal.getTime();
+			
+            stm.setInt(1, user_id);
+            stm.setTimestamp(2, new Timestamp(tmpDate.getTime()));
+            ResultSet reviewSet = stm.executeQuery();
+            try {
+                while (reviewSet.next()) {                    
+                    Review tmp = new Review();
+                    tmp.setId(reviewSet.getInt("id"));
+                    tmp.setRestaurantId(reviewSet.getString("restaurant_id"));
+                    tmp.setRegisteredUserId(reviewSet.getString("registered_user_id"));
+                    reviews.add(tmp);
+                }
+            } finally {
+                reviewSet.close();
+            }
+        } finally {
+            stm.close();
+        }
+        return reviews;
+	}
     
 }
