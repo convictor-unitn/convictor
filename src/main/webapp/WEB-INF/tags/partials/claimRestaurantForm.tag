@@ -21,17 +21,22 @@
 		  
 		  <input type="hidden" name="registeredUserId" value="${ownershipNotice.registeredUserId}" />
 		  
-		  <div class="field">
-			<input type="text" name="companyName" placeholder="Nome Azienda" value="${ownershipNotice.companyName}" />
+		  <div class="field <c:if test="${ownershipNotice.valid == false and !( ownershipNotice.errors['name'] == null)}" >error</c:if>">
+            <input type="text" name="companyName" placeholder="Nome Azienda" value="${ownershipNotice.companyName}" />
+			<partials:formerrors field="name"/>			
 		  </div>
-		  <div class="field">
+			
+		  <div class="field <c:if test="${ownershipNotice.valid == false and !( ownershipNotice.errors['name'] == null)}" >error</c:if>">
 			<input type="text" name="vatNumber" placeholder="Partita Iva" value="${ownershipNotice.vatNumber}" />
+			<partials:formerrors field="name"/>
 		  </div>
-		  <div class="field">
+		  <div class="field <c:if test="${ownershipNotice.valid == false and !( ownershipNotice.errors['name'] == null)}" >error</c:if>">
 			<input type="text" name="taxCode" placeholder="Codice Fiscale" value="${ownershipNotice.taxCode}" />
+			<partials:formerrors field="name"/>
 		  </div>
-		  <div class="field">
+		  <div class="field <c:if test="${ownershipNotice.valid == false and !( ownershipNotice.errors['name'] == null)}" >error</c:if>">
 			<input type="text" name="contactPhone" placeholder="Contatto telefonico" value="${ownershipNotice.contactPhone}" />
+			<partials:formerrors field="name"/>
 		  </div>
 		  <div class="field actions">
 			<div class="ui cancel basic black right floated button">Chiudi</div>
