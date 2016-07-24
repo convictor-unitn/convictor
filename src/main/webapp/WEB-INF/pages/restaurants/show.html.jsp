@@ -11,6 +11,10 @@
 <%@taglib prefix="p" tagdir="/WEB-INF/tags/partials//" %>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
+<%-- API KEY for maps script --%>
+<c:set var="API_KEY" value="AIzaSyBbiud33G2KsodO5JvP-5HQzoSTuWiI0a8" />;
+"
+
 <%-- These JSTL tag are used to set correctly the pagination URL request --%>
 <c:set var="nextPagination" scope="request" value="${requestScope.nextPagination}" />
 <c:set var="requestURL" scope="request" value="${requestScope['javax.servlet.forward.query_string']}" />
@@ -27,7 +31,7 @@
 <c:set var="bean" value="${requestScope.restaurant}" scope="request" />
 
 <l:main>
-    <jsp:attribute name="title"> ${restaurant.name} </jsp:attribute>
+    <jsp:attribute name="title"> ${restaurant.name} | Convictor </jsp:attribute>
     <jsp:attribute name="bodyBackground"></jsp:attribute>
 	<jsp:attribute name="body">
     <div class="ui container">
@@ -37,6 +41,7 @@
         <div class="column">
           <div class="ui header large">
             ${restaurant.name}
+			${bean.lat} ${bean.lng}
           </div>
         </div>
       </div>
@@ -65,12 +70,13 @@
       <div class="ui center aligned middle aligned five column stackable grid">
         <div class="stretched column">
           <div class="row">
+
             <div class="ui small statistic">
               <div class="value" id="brown">
                 5
               </div>
               <div class="label" id="brown">
-                Posizione in Lombardia
+                Posizione in classifica
               </div>
             </div>
           </div>
@@ -93,17 +99,17 @@
                 Valutazione media
               </div>
           </div>
+
         </div>
         <div class="stretched column">
 			<img class="ui small centered image" src="${pageContext.servletContext.contextPath}/restaurants/qrcode?id=${restaurant.id}" />
         </div>
         <div class="stretched column">
-          <div class="ui list">
+          <div class="ui relaxed list">
             <div class="item">
               <div class="meta">
-                <span>${restaurant.street}</span>
-                <span>${restaurant.zipCode}</span>
-                <span>${restaurant.city}</span>
+				<span>${restaurant.street} <br></span>
+                <span>${restaurant.zipCode} ${restaurant.city}</span>
               </div>
             </div>
             <div class="item">
@@ -203,19 +209,19 @@
 										  ${openingTime.dayString}
 										</td>
 										<c:if test="${openingTime.dayoff != true}">
-									  <td>	 
+										<td class="st-val">	 
 										  ${openingTime.openAt} - 
 										  ${openingTime.closeAt} 
-									  </td>
+										</td>
 
 									  </c:if>
 									  <c:if test="${openingTime.dayoff == true}">
-										  <td>CHIUSO</td>
+										  <td class="st-val">CHIUSO</td>
 									  </c:if>
 										<c:if test="${openingTime.dayoff != true}">
-										  <td>
-										  ${openingTime.openAtAfternoon} - 
-										  ${openingTime.closeAtAfternoon}  
+										  <td class="st-val">
+											${openingTime.openAtAfternoon} - 
+											${openingTime.closeAtAfternoon}  
 										  </td>
 									  </c:if>
 									  <c:if test="${openingTime.dayoff == true}">
@@ -255,7 +261,7 @@
           <div class="column">
             <div class="ui four item tabular menu">
               <a class="item active" data-tab="recensioni" id="brown">Recensioni</a>
-              <a class="item " data-tab="mappa" id="brown">Mappa</a>
+              <a class="item "data-tab="mappa" id="brown">Mappa</a>
               <a class="item" data-tab="reclama" id="brown">Reclama</a>
               <a class="item" data-tab="addimage" id="brown">Carica Immagine</a>
             </div>
@@ -271,7 +277,7 @@
         <div class="ui tab active" data-tab="recensioni">
           <div class="ui grid">
             <div class="row">
-              <div class="column">
+              <div class="center aligned column">
                   <div class="ui buttons">
                     <div class="ui basic black button">
                         <c:if test="${actualPage-1 < 0}">
@@ -296,8 +302,8 @@
                   </div>
               </div>  
             </div>   
-            <div class="row">
-              <div class="column">
+            <div class="row tablet computer only">
+              <div class="column" style="margin-left:250px">
                   <div class="ui comments">
                 <!-- Reviews List -->
                   <c:forEach var="review" items="${restaurant.reviews}">
@@ -340,6 +346,52 @@
   
                 <!-- End Reviews List -->
             </div>
+							
+			<div class="row mobile only">
+              <div class="column">
+                  <div class="ui comments">
+                <!-- Reviews List -->
+                  <c:forEach var="review" items="${restaurant.reviews}">
+                      <div class="comment">
+                      <div class="content">
+                          <a class="author" id="brown">${review.registeredUserName}</a>
+                          <div class="metadata">
+                              <div class="date" id="brown">
+									<fmt:formatDate
+									pattern="dd-MM-yyyy HH:mm"
+									value="${review.createdAt}"/>
+							  </div>
+                              <div class="rating">
+                                  <div class="ui horizontal list">
+                                      <c:forEach var="i" begin="0" end="${review.rating}" step="1">
+                                      <c:if test="${i!=0}">
+                                         <div class="item">
+                                              <i class="star icon"> </i>
+                                          </div>
+                                      </c:if>
+                                  </c:forEach>
+                                  <c:forEach begin="${review.rating}" end="4" step="1">
+                                      <div class="item">
+                                          <i class="empty star icon"> </i>
+                                      </div>
+                                  </c:forEach>
+                                  </div>                                    
+                              </div>
+                          </div>
+                      <div class="text" id="brown">
+                        ${review.description}
+                      </div>
+                      
+                    </div>
+                      </div>                      
+                  </c:forEach>
+                  </div>
+                  
+              </div>
+  
+                <!-- End Reviews List -->
+            </div>				
+							
               <!-- Add a review textbox -->
               <%--<p:formerrors /> --%>
               <div class="sixteen wide column">
@@ -392,6 +444,7 @@
             <div class="ui center aligned grid">
               <div class="column">
                 <div class="ui center aligned grid">
+
 					<c:choose>    
                       <c:when test="${!empty sessionScope.user}">
 						<div class="column">
@@ -415,6 +468,7 @@
 						  </div>
 					  </c:otherwise>
                     </c:choose>
+
                 </div>
               </div>
             </div>
@@ -463,7 +517,7 @@
       </div>
     </div>
     <!-- End Reviews/Map TABS -->
-
+	
         <script type="text/javascript">
             // Image slider control functions
 
@@ -495,11 +549,12 @@
             }   
         </script>
         <script type="text/javascript">
+			var centerPos = ""
             function initMap() {
-                var myLatLng = {lat: -25.363, lng: 131.044};
-
+                var myLatLng = new google.maps.LatLng(${bean.lat},${bean.lng});
+				centerPos = myLatLng;
                 var map = new google.maps.Map(document.getElementById('map'), {
-                  zoom: 4,
+                  zoom: 16,
                   center: myLatLng
                 });
 
@@ -508,8 +563,18 @@
                   map: map,
                   title: 'Hello World!'
                 });
-
-            }
+				
+				
+				$(document).ready(function() {
+					$(window).resize(function() {
+						google.maps.event.trigger(map, 'resize');
+					});
+					google.maps.event.trigger(map, 'resize');
+					map.setCenter(myLatLng);
+				});
+            };
+			
+				
 
         </script>
         <script type="text/javascript">
@@ -519,7 +584,7 @@
             document.getElementById("ratingFormHidden").setAttribute('value', val);
           }
         </script>
-        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBbiud33G2KsodO5JvP-5HQzoSTuWiI0a8&callback=initMap" type="text/javascript"></script>
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=${API_KEY}&callback=initMap" type="text/javascript"></script>
 
 	</jsp:attribute>
                 

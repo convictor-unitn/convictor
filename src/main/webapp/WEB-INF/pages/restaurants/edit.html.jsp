@@ -15,7 +15,7 @@
 
 <l:main>
 	<jsp:attribute name="bodyBackground">#eaeaea</jsp:attribute>
-	<jsp:attribute name="title">Modifica Ristorante</jsp:attribute>
+	<jsp:attribute name="title">Modifica Ristorante | Convictor</jsp:attribute>
 	
 	<jsp:attribute name="body">
             <div class="ui container">
@@ -27,7 +27,6 @@
                         Modifica Ristorante
                       </div>
                     </h2>
-                      <partials:formerrors />
                       
                       <partials:restaurantForm />
                   </div>

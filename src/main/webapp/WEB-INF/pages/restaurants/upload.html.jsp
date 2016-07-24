@@ -9,8 +9,7 @@
 <%@taglib prefix="l" tagdir="/WEB-INF/tags/layouts/" %>
 
 <l:main>
-	<jsp:attribute name="title">Upload Status</jsp:attribute>
-	<jsp:attribute name="bodyBackground">#eaeaea</jsp:attribute>	
+	<jsp:attribute name="title">Upload | Convictor</jsp:attribute>
 	<jsp:attribute name="body">
 		<c:choose>
 			<c:when test="${requestScope.uploadStatus eq 'success'}">
@@ -27,7 +26,7 @@
 			
 			<c:when test="${requestScope.uploadStatus eq 'failure'}">
 				<div class="ui negative icon message">
-					<i class="Frown icon"></i>
+					<i class="frown icon"></i>
 					<div class="content">
 						<div class="header">
 						  Oh Oh, c'è stato un errore!

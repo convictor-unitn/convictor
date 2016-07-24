@@ -31,7 +31,7 @@
 
 <l:main>
 	
-	<jsp:attribute name="title">Accedi</jsp:attribute>
+	<jsp:attribute name="title"> ${bean.name} ${bean.surname}| Convictor </jsp:attribute>
 	<jsp:attribute name="bodyBackground"></jsp:attribute>
 	<jsp:attribute name="body">
             <div class="ui container">

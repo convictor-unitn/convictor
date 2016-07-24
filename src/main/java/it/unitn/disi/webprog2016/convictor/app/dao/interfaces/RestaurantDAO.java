@@ -25,10 +25,12 @@ public interface RestaurantDAO {
     List<Restaurant> getRestauranyByStringOrderByPrice(String pattern, int offset, int type) throws SQLException;
     List<Restaurant> getRestauranyByStringOrderByPrice(String pattern, int offset, int type, List<String> cusines) throws SQLException;
     
-    Restaurant getRestaurantById(int id ) throws SQLException;
-    int insertRestaurant(Restaurant restaurant) throws SQLException;
+	List<Restaurant> getRestaurantByUserId(int id) throws SQLException;
+	Restaurant getRestaurantById(int id ) throws SQLException;
+	
+	int insertRestaurant(Restaurant restaurant) throws SQLException;
     int updateRestaurant(Restaurant restaurant, int id) throws SQLException;
-    List<Restaurant> getRestaurantByUserId(int id) throws SQLException;
+    
 	
     void computeRating(int restaurant_id) throws SQLException;
     

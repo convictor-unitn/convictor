@@ -322,7 +322,12 @@ public class Restaurant extends AbstractBean {
         if (this.getProvince().equals("")) {
             status = false;
             this.setError("province", "La provincia inserita non è valida");
-        } 
+        }
+		
+		if (this.getWebsite().equals("")) {
+            status = false;
+            this.setError("website", "Il sito web inserito non è valido");
+        }
         
         if (this.getSlotPrice() == 0) {
             status = false;
@@ -405,7 +410,7 @@ public class Restaurant extends AbstractBean {
 	public double getLat() {
 		return lat;
 	}
-
+	
 	public void setLat(double lat) {
 		this.lat = lat;
 	}
@@ -422,7 +427,7 @@ public class Restaurant extends AbstractBean {
 	public double getLng() {
 		return lng;
 	}
-
+	
 	public void setLng(double lng) {
 		this.lng = lng;
 	}
