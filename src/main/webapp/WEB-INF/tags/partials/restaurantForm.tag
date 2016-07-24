@@ -277,5 +277,5 @@
 
       <input id="p_button" class="ui fluid large submit button" type="submit"></input>
     </br>
-    <div class="ui fluid submit button">Annull)a</div>
+    <div class="ui fluid submit button" href="javascript:history.back()">Annulla</div>
   </form>
