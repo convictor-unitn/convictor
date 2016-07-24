@@ -136,7 +136,7 @@
             <div class="thirteen wide column">
 
                 <div id="results" class="ui three stackable cards">
-                    <c:forEach var="rest" items="${results}">
+                    <c:forEach var="rest" items="${results}" varStatus="status">
                         <c:set var="main_p_index" value="${rest.mainPhotoId}"/>
                       <div class="ui card">
                           <div class="image">
@@ -161,10 +161,14 @@
                           <div class="meta">
                             <span class="date">${fn:length(rest.reviews)} recensioni</span>                
                           </div>
-                          <div class="text"><!-- {rest.position} --> Posizione in classifica</div>
-                          <div class="description">
-                                <c:forEach var="cusine" items="${rest.cusine}">${cusine.name}</c:forEach> 
-                          </div>  
+                          <div class="text"> Posizione in classifica ${status.index+1}</div>
+                          <div class="ui small labels">
+							 <c:forEach var="cusine" items="${rest.cusine}">
+							  <div class="ui label">
+								${cusine.name}
+							  </div> 
+							 </c:forEach> 							  
+						  </div>    
                         </div>            
                     </div>  
                     </c:forEach>               

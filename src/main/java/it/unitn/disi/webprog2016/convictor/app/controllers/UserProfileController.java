@@ -155,7 +155,7 @@ public class UserProfileController extends AbstractController {
 			user.setSurname(surname);
 			user.setEmail(email);
 			
-			if(password.equals("")) {
+			if(oldPassword.equals("")) {
 				user.validate();
 				user.getErrors().remove("password");
 				user.getErrors().remove("passwordConfirmation");
@@ -167,6 +167,7 @@ public class UserProfileController extends AbstractController {
 					if (testEmail != null) {
 						if (!oldEmail.equals(user.getEmail())) {
 							user.setError("email", "La mail inserita è già presente");
+							request.setAttribute("user", user);
 							return "/userProfile/edit";
 						}
 					}
@@ -179,6 +180,7 @@ public class UserProfileController extends AbstractController {
 				}
 				else
 				{
+					request.setAttribute("user", user);
 					return "/userProfile/edit";
 				}
 				
@@ -189,6 +191,8 @@ public class UserProfileController extends AbstractController {
 				user.setPassword(password);
 				user.setPasswordConfirmation(passwordConfirmation);
 				
+				user.validate();
+				
 				if(user.isValid()) {
 					
 					// Check if the user has inserted an existing email
@@ -196,6 +200,7 @@ public class UserProfileController extends AbstractController {
 					if (testEmail != null) {
 						if (!oldEmail.equals(user.getEmail())) {
 							user.setError("email", "La mail inserita è già presente");
+							request.setAttribute("user", user);
 							return "/userProfile/edit";
 						}
 					}
@@ -209,6 +214,7 @@ public class UserProfileController extends AbstractController {
 				}
 				else
 				{
+					request.setAttribute("user", user);
 					return "/userProfile/edit";
 				}
 				

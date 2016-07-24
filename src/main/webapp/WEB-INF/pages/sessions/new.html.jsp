@@ -7,7 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="l" tagdir="/WEB-INF/tags/layouts/" %>
-<%@taglib prefix="p" tagdir="/WEB-INF/tags/partials/" %>
+<%@taglib prefix="partials" tagdir="/WEB-INF/tags/partials/" %>
 
 <c:set var="bean" value="${requestScope.user}" scope="request" />
 
@@ -23,18 +23,18 @@
                 Accedi
               </div>
             </h2>
-              
-              <p:formerrors />
-              
-              <form method="POST" class="ui large form" action="${pageContext.servletContext.contextPath}/sessions/create">
+                            
+              <form method="POST" class="ui large form error" action="${pageContext.servletContext.contextPath}/sessions/create">
               <div class="ui stacked segment">
-                <div class="field">
+				  <partials:formerrors field="loginError"/>
+                
+                <div class="field <c:if test="${bean.valid == false and not (bean.errors['loginError'] == null)}" >error</c:if>">
                   <div class="ui left icon input">
                     <i class="user icon"></i>
                     <input type="text" name="email" placeholder="Email" value="${bean.email}" />
                   </div>
                 </div>
-                <div class="field">
+                <div class="field <c:if test="${bean.valid == false and not (bean.errors['loginError'] == null)}" >error</c:if>">
                   <div class="ui left icon input">
                     <i class="lock icon"></i>
                     <input type="password" name="password" placeholder="Password" />
