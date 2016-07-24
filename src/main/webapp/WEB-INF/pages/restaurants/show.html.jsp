@@ -41,7 +41,6 @@
         <div class="column">
           <div class="ui header large">
             ${restaurant.name}
-			${bean.lat} ${bean.lng}
           </div>
         </div>
       </div>
@@ -170,7 +169,7 @@
 				  <div class="ui divider"></div>
 				  <div class="column">
 					<div class="ui list">
-					  ${restaurant.slotPrice}
+					  ${requestScope.slotPriceRestaurant}
 					</div>
 				  </div>
 				</div>

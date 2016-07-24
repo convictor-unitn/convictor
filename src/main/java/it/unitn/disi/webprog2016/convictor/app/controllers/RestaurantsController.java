@@ -237,6 +237,9 @@ public class RestaurantsController extends AbstractController {
             response.sendError(404);
             return "";
         }
+		
+		//Retrieve priceSlot list from database to fill restaurant edit form - GR
+		PriceSlotDAO priceSlotDAO = (PriceSlotDAO) request.getServletContext().getAttribute("priceslotdao");
         
         // Retrive the restaurant from the database given its id 
         RestaurantDAO restaurantDAO = (RestaurantDAO) request.getServletContext().getAttribute("restaurantdao");
@@ -246,10 +249,13 @@ public class RestaurantsController extends AbstractController {
 		PhotoDAO photoDAO = (PhotoDAO) request.getServletContext().getAttribute("photodao");
 		UserDAO userDAO = (UserDAO) request.getServletContext().getAttribute("userdao");
 		User currentUser = (User) request.getSession().getAttribute("user");
-		OwnershipNotice ownershipNotice = new OwnershipNotice();
-		ownershipNotice.setRestaurantId(id);
-		ownershipNotice.setRegisteredUserId(currentUser.getId());
-		request.setAttribute("ownershipNotice", ownershipNotice);
+		
+		if (currentUser != null) {
+			OwnershipNotice ownershipNotice = new OwnershipNotice();
+			ownershipNotice.setRestaurantId(id);
+			ownershipNotice.setRegisteredUserId(currentUser.getId());
+			request.setAttribute("ownershipNotice", ownershipNotice);
+		}
 		
 		int reviewPage = 0;        
         if (request.getParameter("reviewPage") != null) {
@@ -293,6 +299,13 @@ public class RestaurantsController extends AbstractController {
                 request.setAttribute("nextPagination", reviewPage);
             }
             
+			// Set the price slot name
+			for (PriceSlot p : priceSlotDAO.getAllPriceSlots()) {
+				if (p.getSlot() == tmp.getSlotPrice()) {
+					request.setAttribute("slotPriceRestaurant", p.getName());
+				}
+			}
+			
             return "/restaurants/show";
             
         } catch (SQLException ex) {
