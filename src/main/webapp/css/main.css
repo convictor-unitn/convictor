@@ -1,3 +1,32 @@
 body {
-	color: black;
+    padding-top: 50px;
+}
+
+.w3-left, .w3-right, .w3-badge {
+  cursor:pointer
+}
+.w3-badge {
+  height:13px;
+  width:13px;
+  padding:0
+}
+
+#tabs {
+  min-height: 500px;
+}
+
+#map {
+  min-height: 500px;
+}
+
+/*Stacktable JQuery Library Parameters and Media Query*/
+.stacktable { width: 100%; }
+.st-head-row { font-weight: bold; font-size: 1.4em; padding-top: 1em; }
+.stacktable.large-only { display: table; }
+.stacktable.small-only { display: none; }
+.st-val { font-style: italic;}
+
+@media (max-width: 800px) {
+  .stacktable.large-only { display: none; }
+  .stacktable.small-only { display: table; }
 }

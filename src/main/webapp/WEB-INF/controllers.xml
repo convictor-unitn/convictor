@@ -10,4 +10,10 @@
 -->
 <controllers>
     <controller>StaticPages</controller>
+    <controller>Restaurants</controller>
+    <controller>Sessions</controller>
+    <controller>Registrations</controller>
+    <controller>Passwords</controller>
+    <controller>UserProfile</controller>
+    <controller>Notices</controller>
 </controllers>

@@ -4,14 +4,13 @@
     Author     : umberto
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8" isErrorPage="true" session="false" %>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
-        <h1>500 Internal Server Error</h1>
-    </body>
-</html>
+<%@page contentType="text/html" pageEncoding="UTF-8" isErrorPage="true" %>
+
+<%@taglib prefix="l" tagdir="/WEB-INF/tags/layouts/" %>
+
+<l:error>
+    <jsp:attribute name="title">500 | Convictor</jsp:attribute>
+    <jsp:attribute name="errorCode">500</jsp:attribute>
+    <jsp:attribute name="message"> Si e' verificato un errore interno al sistema.</jsp:attribute>
+    
+</l:error>

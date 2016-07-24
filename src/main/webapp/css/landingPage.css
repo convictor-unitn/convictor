@@ -1,0 +1,29 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 22-giu-2016, 13.03.52
+    Author     : Federica
+*/
+
+
+
+.masthead .ui.menu .ui.button {
+  margin-left: 0.5em;
+}
+
+.masthead h1.ui.header {
+  margin-top: 1em;
+  margin-bottom: 0em;
+  font-size: 7em;
+  font-weight: normal;
+}
+
+@media only screen and (max-width: 700px){
+  .masthead h1.ui.header {
+  margin-top: -0.7em;
+  font-size: 3em;
+  }
+}

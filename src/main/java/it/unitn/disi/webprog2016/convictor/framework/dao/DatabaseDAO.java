@@ -18,4 +18,9 @@ public abstract class DatabaseDAO implements Serializable{
 	public DatabaseDAO(DatabaseConnectionManager c) {
 		this.dbManager = c;
 	}
+
+    public DatabaseConnectionManager getDbManager() {
+        return dbManager;
+    }
+    
 }
