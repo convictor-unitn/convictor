@@ -78,7 +78,7 @@ public class PhotoNotice extends AbstractBean implements Notice {
 	@Override
 	public String getDescription() {
 		String userName = registeredUser.getName() + " " + registeredUser.getSurname();
-        String photoMessage ="<a href=\"/restaurant/show?id="+ photo.getRestaurantId() + "\">foto</a>";
+        String photoMessage ="<a href=\"/convictor/restaurant/showPhoto?id="+ photo.getId() + "\">foto</a>";
         String message = userName + " ha inserito una nuova " + photoMessage + "!";
         return message;
 	}
