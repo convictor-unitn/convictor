@@ -132,15 +132,15 @@
             </div>
             
             
-
+								
             <div class="thirteen wide column">
 
                 <div id="results" class="ui three stackable cards">
                     <c:forEach var="rest" items="${results}" varStatus="status">
-                        <c:set var="main_p_index" value="${rest.mainPhotoId}"/>
+                        <c:set var="main_p_index" value="${0}"/>
                       <div class="ui card">
                           <div class="image">
-                            <img src="${rest.photos[main_p_index]}">
+                            <img src="${rest.photos[0].url}">
                           </div>
                         <div class="content">
                           <a class="header" id="brown" href="restaurants/show?id=${rest.id}">${rest.name}</a>
