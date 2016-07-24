@@ -90,4 +90,12 @@ public class NoticesController extends AbstractController {
 		}
 	}
 	
+	public String reportPhoto(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException { 
+		return "/notices/reportPhoto";
+	}
+	
+	public String approveReportPhoto(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException { 
+		return "/notices/approveReportPhoto";
+	}
+	
 }
