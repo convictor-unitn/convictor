@@ -5,6 +5,7 @@
 --%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@tag description="restaurant owner notifications list partial" pageEncoding="UTF-8"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <div class="ui container">
 
@@ -64,40 +65,25 @@
               </div>  
           </div>        
             <div class="column">
-              <div class="ui segment feed">
-                <div class="event">
-                  <div class="content">
-                    <div class="date">
-                      Ieri
-                    </div>
-                    <div class="summary">
-                      <a>Utente</a> ha recensito <a>Ristorante</a>
-                    </div>
-                    <div class="extra">
-                      <div class="ui right floated buttons">
-                        <button class="ui basic black button">Visualizza</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="ui segment feed">
-                <div class="event">
-                  <div class="content">
-                    <div class="date">
-                      Ieri
-                    </div>
-                    <div class="summary">
-                      <a>Utente</a> ha aggiunto una foto a <a>Ristorante</a>
-                    </div>
-                    <div class="extra">
-                      <div class="ui right floated buttons">
-                        <button class="ui basic black button">Visualizza</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+				<c:forEach var="notice" items="${user.notices}">
+					<div class="ui segment feed">
+					<div class="event">
+					  <div class="content">
+						<div class="date">
+							<fmt:formatDate pattern="dd-MM-yyyy HH:mm" value="${notice.createdAt}"/>
+						</div>
+						<div class="summary">
+						  ${notice.description}
+						</div>
+						<!--<div class="extra">
+						  <div class="ui right floated buttons">
+							<button class="ui basic black button">Visualizza</button>
+						  </div>
+						</div>-->
+					  </div>
+					</div>
+				  </div>
+				</c:forEach>
             </div>
         </div>
       </div>

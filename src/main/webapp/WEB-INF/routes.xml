@@ -107,12 +107,25 @@
         <action>addReview</action>
         <format>html</format>            
     </route>
-    
+	<route>
+        <method>GET</method>
+        <url>/restaurants/showReview</url>
+        <controller>Restaurants</controller>
+        <action>showReview</action>
+        <format>html</format>            
+    </route>
 	<route>
         <method>POST</method>
         <url>/restaurants/uploadPhoto</url>
         <controller>Restaurants</controller>
         <action>uploadPhoto</action>
+        <format>html</format>            
+    </route>
+	<route>
+        <method>GET</method>
+        <url>/restaurants/showPhoto</url>
+        <controller>Restaurants</controller>
+        <action>showPhoto</action>
         <format>html</format>            
     </route>
 	
