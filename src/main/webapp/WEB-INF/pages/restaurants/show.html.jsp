@@ -413,8 +413,8 @@
 										<input type="text" name="cf" placeholder="Codice Fiscale">
 									   </div>
 									<div class="field actions">
-										<div class="ui cancel basic black button">Close</div>
-										<input class="ui basic black button" type="submit"/>
+										<div class="ui cancel basic black button">Chiudi</div>
+										<input class="ui basic black button" type="submit" value="Reclama" />
 									</div>
 								</form>
 								</div>
@@ -425,7 +425,7 @@
 						  <div class='column'>
 							  Questo ristorante è tuo? </br>
 							  <a href="${pageContext.servletContext.contextPath}/sign_in">Accedi</a>
-							per recensire questo ristorante!
+							per reclamare questo ristorante!
 						  </div>
 					  </c:otherwise>
                     </c:choose>
@@ -453,8 +453,8 @@
 											<input id="fileupload" type="file" name="files" />
 										</div>
 										<div class="field actions">
-											<div class="ui cancel basic black button">Close</div>
-											<input class="ui black button" type="submit" value="Upload"/>
+											<div class="ui cancel basic black button">Chiudi</div>
+											<input class="ui black button" type="submit" value="Carica"/>
 										</div>
 									</form>
 								</div>
