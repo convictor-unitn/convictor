@@ -73,7 +73,7 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
     @Override
     public int updateRestaurant(Restaurant restaurant, int id) throws SQLException {
          
-        String query = "UPDATE restaurants  SET name=?, description=?, street=?, city=?, zip_code=?, province=?, full_address=?, website=?, slot_price=? , phone=?, email=? WHERE id=?";
+        String query = "UPDATE restaurants  SET name=?, description=?, street=?, city=?, zip_code=?, province=?, full_address=?, website=?, slot_price=? , phone=?, email=?, lat=?, lng=? WHERE id=?";
         PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
         try {
             stm.setString(1, restaurant.getName());
@@ -87,7 +87,10 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
             stm.setInt(9, restaurant.getSlotPrice());
             stm.setString(10, restaurant.getPhone());
             stm.setString(11, restaurant.getEmail());
-            stm.setInt(12, id);
+			stm.setDouble(12, restaurant.getLat());
+            stm.setDouble(13, restaurant.getLng());
+			stm.setInt(14, id);
+
             stm.executeUpdate();
         } finally {
             stm.close();

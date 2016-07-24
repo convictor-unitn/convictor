@@ -41,6 +41,7 @@ public class AddressResolver {
 		this.street = new ArrayList<String>();
 		this.city = new ArrayList<String>();
 		this.state = new ArrayList<String>();
+		this.address = "address=";
 		
 	}
 
@@ -51,7 +52,7 @@ public class AddressResolver {
 		
 		String component = "&components=country:"+COUNTRY;
 		
-		this.address = this.zipcode+plus;
+		this.address += this.zipcode+plus;
 		
 		for (int i = 0; i < street.size(); i++) {
 			this.address += street.get(i);
@@ -85,6 +86,8 @@ public class AddressResolver {
 		// build a URL
 		String s = "https://maps.googleapis.com/maps/api/geocode/json?"+this.address+"&key="+this.API_KEY;
 		URL url = new URL(s);
+		
+		System.out.println(url);
 
 		// read from the URL
 		Scanner scan = new Scanner(url.openStream());
