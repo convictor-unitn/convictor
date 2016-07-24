@@ -402,21 +402,7 @@
 									 Richiesta Reclamo
 								</div>
 								<div class="content">
-								<form class="ui form">
-									<div class="field">
-									  <input type="text" name="nomeazienda" placeholder="Nome Azienda">
-									 </div>
-									 <div class="field">
-									   <input type="text" name="piva" placeholder="Partita Iva">
-									  </div>
-									  <div class="field">
-										<input type="text" name="cf" placeholder="Codice Fiscale">
-									   </div>
-									<div class="field actions">
-										<div class="ui cancel basic black button">Chiudi</div>
-										<input class="ui black button" type="submit" value="Reclama" />
-									</div>
-								</form>
+									<p:claimRestaurantForm ownershipNotice="${ownershipNotice}" />
 								</div>
 							</div>
 						</div>
