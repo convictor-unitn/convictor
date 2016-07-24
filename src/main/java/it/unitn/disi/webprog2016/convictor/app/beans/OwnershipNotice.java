@@ -16,6 +16,7 @@ public class OwnershipNotice extends AbstractBean implements Notice, Approvable 
     private int restaurantId;
 	private boolean approved;
 	private User registeredUser;
+	private Restaurant restaurant;
 	private String companyName;
 	private String vatNumber;
 	private String taxCode;
@@ -180,5 +181,15 @@ public class OwnershipNotice extends AbstractBean implements Notice, Approvable 
 	public void setContactPhone(String contactPhone) {
 		this.contactPhone = contactPhone;
 	}
+
+	public Restaurant getRestaurant() {
+		return restaurant;
+	}
+
+	public void setRestaurant(Restaurant restaurant) {
+		this.restaurant = restaurant;
+	}
+	
+	
 	
 }

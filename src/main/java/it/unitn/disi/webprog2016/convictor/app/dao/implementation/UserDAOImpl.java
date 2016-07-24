@@ -264,5 +264,52 @@ public class UserDAOImpl extends DatabaseDAO implements UserDAO{
 		
 		return user;
 	}
+
+	@Override
+	public void promoteUserToRestaurantOwner(User user) throws Exception {
+		
+		String query = "INSERT INTO restaurant_owners (user_id) VALUES(?)";
+		PreparedStatement stmt = this.getDbManager().getConnection().prepareStatement(query);
+		try {
+			stmt.setInt(1, user.getId());
+			stmt.execute();
+		}
+		finally {
+			stmt.close();
+		}
+		
+	}
+
+	@Override
+	public RestaurantOwner getRestaurantOwnerById(int id) throws Exception {
+		RestaurantOwner restaurantOwner = null;
+        String query = "SELECT users.id AS userid, email, name, surname, admin, reset_password_token, reset_password_sent_at, password FROM users INNER JOIN restaurant_owners ON users.id=restaurant_owners.user_id WHERE users.id = ?";
+        PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
+        try {
+			stm.setInt(1, id);
+            ResultSet usersSet = stm.executeQuery();
+            try {
+                while(usersSet.next()) {
+                    restaurantOwner = new RestaurantOwner();
+                    restaurantOwner.setId(usersSet.getInt("userid"));
+                    restaurantOwner.setEmail(usersSet.getString("email"));
+					restaurantOwner.setName(usersSet.getString("name"));
+                    restaurantOwner.setSurname(usersSet.getString("surname"));
+                    restaurantOwner.setAdmin(usersSet.getString("admin"));
+					restaurantOwner.setResetPasswordToken(usersSet.getString("reset_password_token"));
+					if(usersSet.getString("reset_password_sent_at")!=null) {
+						restaurantOwner.setResetPasswordSentAt(DateTime.parse(usersSet.getString("reset_password_sent_at"), DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss.SSSSSS")));
+					}
+					restaurantOwner.setPassword(usersSet.getString("password"));
+				}
+            } finally {
+                usersSet.close();
+            }
+        } finally {
+            stm.close();
+        }
+        return restaurantOwner;
+		
+	}
     
 }
