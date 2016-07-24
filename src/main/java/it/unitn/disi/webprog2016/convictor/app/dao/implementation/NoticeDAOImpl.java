@@ -217,21 +217,21 @@ public class NoticeDAOImpl extends DatabaseDAO implements NoticeDAO {
 
     @Override
     public void insertOwnershipNotice(OwnershipNotice notice) throws SQLException {
-        
-        // Check if valid
-        if (!notice.validate()) return;
-        
-        String query = "INSERT INTO ownership_notices VALUES(?, ?, ?, ?, ?);";
-        PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
-        try {
-            stm.setInt(2, notice.getRegisteredUserId());
-            stm.setInt(3, notice.getRestaurantId());
-            stm.setBoolean(4, false);
-            stm.executeQuery();
-        } finally {
-            stm.close();
-        }
-    }
+		String query = "INSERT INTO ownership_notices (registered_user_id, restaurant_id, approved, company_name, vat_number, tax_code, contact_phone) VALUES(?, ?, ?, ?, ?, ?, ?);";
+		PreparedStatement stmt = this.getDbManager().getConnection().prepareStatement(query);
+		try {
+			stmt.setInt(1, notice.getRegisteredUserId());
+			stmt.setInt(2, notice.getRestaurantId());
+			stmt.setBoolean(3, false);
+			stmt.setString(4, notice.getCompanyName());
+			stmt.setString(5, notice.getVatNumber());
+			stmt.setString(6, notice.getTaxCode());
+			stmt.setString(7, notice.getContactPhone());
+			stmt.execute();
+		} finally {
+			stmt.close();
+		}
+	}
 
     @Override
     public void approvePhotoRemovalNotice(boolean approved, int id) throws SQLException {

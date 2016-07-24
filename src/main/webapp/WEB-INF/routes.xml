@@ -60,6 +60,13 @@
         <action>show</action>
         <format>html</format>            
     </route>
+	<route>
+        <method>POST</method>
+        <url>/restaurants/claim</url>
+        <controller>Notices</controller>
+        <action>claimRestaurantOwnership</action>
+        <format>html</format>            
+    </route>
     
     <!--Protected access only admin-->
     <route>
