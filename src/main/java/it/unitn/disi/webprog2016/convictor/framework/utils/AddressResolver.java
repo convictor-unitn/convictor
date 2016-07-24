@@ -39,8 +39,8 @@ public class AddressResolver {
 	
 	public AddressResolver () {
 //		this.API_KEY = "AIzaSyBbiud33G2KsodO5JvP-5HQzoSTuWiI0a8";
-//		this.API_KEY = "AIzaSyCMJtaVznqkvqvaR1GFfLXkZHyzd4zfbXk";
-		this.API_KEY = "AIzaSyBZShaVnIoAK99WcYgwHLANUMpBlZF3ywI";
+		this.API_KEY = "AIzaSyCMJtaVznqkvqvaR1GFfLXkZHyzd4zfbXk";
+//		this.API_KEY = "AIzaSyBZShaVnIoAK99WcYgwHLANUMpBlZF3ywI";
 		this.street = new ArrayList<>();
 		this.city = new ArrayList<>();
 		this.state = new ArrayList<>();
@@ -92,11 +92,8 @@ public class AddressResolver {
 		
 		System.out.println(url);
 		
-		Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("my.proxy.example.com", 3128));
-		URLConnection proxyUrl = url.openConnection(proxy);
-		
-		
-		URLConnection urlConnection = url.openConnection();
+		Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("my.proxy.example.com", 3128));		
+		URLConnection urlConnection = url.openConnection(proxy);
 
 		// read from the URL
 	

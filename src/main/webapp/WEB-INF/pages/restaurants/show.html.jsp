@@ -11,6 +11,10 @@
 <%@taglib prefix="p" tagdir="/WEB-INF/tags/partials//" %>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
+<%-- API KEY for maps script --%>
+<c:set var="API_KEY" value="AIzaSyCMJtaVznqkvqvaR1GFfLXkZHyzd4zfbXk" />;
+"
+
 <%-- These JSTL tag are used to set correctly the pagination URL request --%>
 <c:set var="nextPagination" scope="request" value="${requestScope.nextPagination}" />
 <c:set var="requestURL" scope="request" value="${requestScope['javax.servlet.forward.query_string']}" />
@@ -534,7 +538,7 @@
             document.getElementById("ratingFormHidden").setAttribute('value', val);
           }
         </script>
-        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZShaVnIoAK99WcYgwHLANUMpBlZF3ywI&callback=initMap" type="text/javascript"></script>
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=${API_KEY}&callback=initMap" type="text/javascript"></script>
 
 	</jsp:attribute>
                 
