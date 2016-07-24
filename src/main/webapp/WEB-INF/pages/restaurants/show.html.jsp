@@ -12,7 +12,7 @@
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <%-- API KEY for maps script --%>
-<c:set var="API_KEY" value="AIzaSyBZShaVnIoAK99WcYgwHLANUMpBlZF3ywI" />;
+<c:set var="API_KEY" value="AIzaSyBbiud33G2KsodO5JvP-5HQzoSTuWiI0a8" />;
 "
 
 <%-- These JSTL tag are used to set correctly the pagination URL request --%>
@@ -260,7 +260,7 @@
           <div class="column">
             <div class="ui four item tabular menu">
               <a class="item active" data-tab="recensioni" id="brown">Recensioni</a>
-              <a class="item " data-tab="mappa" id="brown">Mappa</a>
+              <a class="item "data-tab="mappa" id="brown">Mappa</a>
               <a class="item" data-tab="reclama" id="brown">Reclama</a>
               <a class="item" data-tab="addimage" id="brown">Carica Immagine</a>
             </div>
@@ -482,7 +482,7 @@
       </div>
     </div>
     <!-- End Reviews/Map TABS -->
-
+	
         <script type="text/javascript">
             // Image slider control functions
 
@@ -514,11 +514,12 @@
             }   
         </script>
         <script type="text/javascript">
+			var centerPos = ""
             function initMap() {
-                var myLatLng = {lat: ${bean.lat}, lng: ${bean.lng}};
-
+                var myLatLng = new google.maps.LatLng(${bean.lat},${bean.lng});
+				centerPos = myLatLng;
                 var map = new google.maps.Map(document.getElementById('map'), {
-                  zoom: 4,
+                  zoom: 16,
                   center: myLatLng
                 });
 
@@ -527,8 +528,18 @@
                   map: map,
                   title: 'Hello World!'
                 });
-
-            }
+				
+				
+				$(document).ready(function() {
+					$(window).resize(function() {
+						google.maps.event.trigger(map, 'resize');
+					});
+					google.maps.event.trigger(map, 'resize');
+					map.setCenter(myLatLng);
+				});
+            };
+			
+				
 
         </script>
         <script type="text/javascript">
