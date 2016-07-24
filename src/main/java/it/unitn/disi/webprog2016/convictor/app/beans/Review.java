@@ -124,17 +124,7 @@ public class Review extends AbstractBean {
 
     public void setRegisteredUserName(String registeredUserName) {
         this.registeredUserName = registeredUserName;
-    }
-
-	public void setCreatedAt(Date createdAt) {
-		this.createdAt = createdAt;
-	}
-	
-	@Override
-	public Date getCreatedAt() {
-		return this.createdAt;
-	}
-	
+    }	
 
     @Override
     public boolean validate() {
