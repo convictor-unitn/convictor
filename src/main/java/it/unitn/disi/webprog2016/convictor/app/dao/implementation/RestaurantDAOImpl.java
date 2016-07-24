@@ -7,6 +7,7 @@ package it.unitn.disi.webprog2016.convictor.app.dao.implementation;
 
 import it.unitn.disi.webprog2016.convictor.app.beans.Photo;
 import it.unitn.disi.webprog2016.convictor.app.beans.Restaurant;
+import it.unitn.disi.webprog2016.convictor.app.beans.RestaurantOwner;
 import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.PhotoDAO;
 import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.RestaurantDAO;
 import it.unitn.disi.webprog2016.convictor.framework.dao.DatabaseDAO;
@@ -556,7 +557,20 @@ public class RestaurantDAOImpl extends DatabaseDAO implements RestaurantDAO {
       stm.close();
     }
   }
-    
-	
-	
+
+	@Override
+	public void assignRestaurant(Restaurant restaurant, RestaurantOwner restaurantOwner) throws Exception {
+		String query = "UPDATE restaurants SET company_name = ?, vat_number = ?, tax_code = ?, restaurant_owner_id = ? WHERE id = ?";
+		PreparedStatement stmt = this.getDbManager().getConnection().prepareStatement(query);
+		try {
+			stmt.setString(1, restaurant.getCompanyName());
+			stmt.setString(2, restaurant.getVatNumber());
+			stmt.setString(3, restaurant.getTaxCode());
+			stmt.setInt(4, restaurantOwner.getId());
+			stmt.setInt(5, restaurant.getId());
+			stmt.executeUpdate();
+		} finally {
+			stmt.close();
+		}
+	}
 }
