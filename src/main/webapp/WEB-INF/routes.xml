@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+claim<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE routes [
 <!ELEMENT route (url, method, controller, action, format)>
 <!ELEMENT url (#PCDATA)>
@@ -79,6 +79,12 @@
         <url>/restaurants/approveReport</url>
         <controller>Notices</controller>
         <action>approveReportPhoto</action>
+		<format>html</format>
+	</route>
+	<route>
+        <url>/restaurants/approveClaim</url>
+        <controller>Notices</controller>
+        <action>approveClaimRestaurantOwnership</action>
         <format>html</format>            
     </route>
     

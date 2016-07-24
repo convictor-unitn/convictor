@@ -89,7 +89,6 @@ public class NoticesController extends AbstractController {
 			return "";
 		}
 	}
-	
 	public String reportPhoto(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException { 
 		return "/notices/reportPhoto";
 	}
@@ -98,4 +97,16 @@ public class NoticesController extends AbstractController {
 		return "/notices/approveReportPhoto";
 	}
 	
+	/**
+	 * Only admin accessible
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws ServletException
+	 * @throws IOException 
+	 */
+	public String approveClaimRestaurantOwnership(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException { 
+		
+		return "/notices/approveClaimRestaurantOwnership";
+	}
 }
