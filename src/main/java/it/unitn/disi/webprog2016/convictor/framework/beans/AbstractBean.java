@@ -56,6 +56,16 @@ public abstract class AbstractBean implements Serializable {
 	public Date getUpdatedAt() {
 		return updatedAt;
 	}
+
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public void setUpdatedAt(Date updatedAt) {
+		this.updatedAt = updatedAt;
+	}
+	
+	
     
     public abstract boolean validate();
 	

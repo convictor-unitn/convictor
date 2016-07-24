@@ -14,7 +14,7 @@
   <jsp:attribute name="title">Status Recensione</jsp:attribute>
     <jsp:attribute name="body">
       <c:choose>
-        <c:when test="${bean.valid}">
+        <c:when test="${bean.valid && requestScope.alreadyReviewed == null}">
           <div class="ui blue icon message">
             <i class="check circle icon"></i>
               <div class="content">
@@ -25,6 +25,17 @@
               <a href="${pageContext.servletContext.contextPath}/restaurants/show?id=${bean.restaurantId}" class="ui blue submit button">Indietro</a>
           </div>
         </c:when>
+		<c:when test="${requestScope.alreadyReviewed != null}">
+		<div class="ui error icon message">
+            <i class="remove circle icon"></i>
+              <div class="content">
+                <div class="header">
+                  Hai già recensito questo ristorante oggi! Per poter inserire una nuova recensione dovrai aspettare 24 ore!
+				</div>
+              </div>
+              <a href="${pageContext.servletContext.contextPath}/restaurants/show?id=${bean.restaurantId}" class="ui blue submit button">Indietro</a>
+          </div>	
+		</c:when>
         <c:otherwise>
           <p:formerrors/>
           <div class="sixteen wide column">
