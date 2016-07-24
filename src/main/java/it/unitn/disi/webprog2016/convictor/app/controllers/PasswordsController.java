@@ -122,12 +122,13 @@ public class PasswordsController extends AbstractController  {
 			request.setAttribute("resetPasswordToken", request.getParameter("reset_password_token"));
 			
 			if(user==null) {
+				request.setAttribute("resetPasswordToken", "expired");				
 				return "/passwords/requestNewPassword";
 			}
 			
 			DateTime nowPlus30Min = DateTime.now();
 			DateTime resetPasswordSentAt = new DateTime(user.getResetPasswordSentAt());
-			boolean validDate = nowPlus30Min.isBefore(user.getResetPasswordSentAt().plusMinutes(15));
+			boolean validDate = nowPlus30Min.isBefore(user.getResetPasswordSentAt().plusMinutes(1));
 			//boolean validDate = nowPlus30Min.toInstant().getMillis() <= (user.getResetPasswordSentAt().getTime()+1800000);
 			
 			System.err.println(nowPlus30Min.toString() + "   "+ resetPasswordSentAt.toString());
@@ -155,7 +156,7 @@ public class PasswordsController extends AbstractController  {
 					return ""; 
 				}
 			} else {
-				request.setAttribute("resetPasswordToken", null);
+				request.setAttribute("resetPasswordToken", "expired");				
 				return "/passwords/requestNewPassword"; 
 			}
 			
