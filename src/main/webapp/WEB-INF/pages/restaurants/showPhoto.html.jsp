@@ -24,7 +24,7 @@
                     </div>
 						<c:choose>
 							<c:when test="${sessionScope.user.getClass().name == 'it.unitn.disi.webprog2016.convictor.app.beans.Administrator'}" >
-								<form method="POST" action="${pageContext.servletContext.contextPath}/restaurants/report">
+								<form method="POST" action="${pageContext.servletContext.contextPath}/restaurants/approveReport">
 									<input type="hidden" name="photoId" value="${photo.id}">
 									<input type="hidden" name="noticeId" value="${requestScope.noticeId}">
 									<input type="submit" class="button blue" name="approve" value="Approva">

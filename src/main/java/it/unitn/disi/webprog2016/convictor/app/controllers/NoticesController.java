@@ -102,6 +102,7 @@ public class NoticesController extends AbstractController {
 		try {
 			id = Integer.parseInt(request.getParameter("photoId"));
 		} catch (Exception ex) {
+			Logger.getLogger(NoticesController.class.getName()).log(Level.SEVERE, null, ex);
 			response.sendError(500);
 			return "";
 		}
@@ -113,6 +114,7 @@ public class NoticesController extends AbstractController {
 		try {
 			noticeDAO.insertPhotoRemovalNotice(tmp);
 		} catch (Exception ex) {
+			Logger.getLogger(NoticesController.class.getName()).log(Level.SEVERE, null, ex);
 			response.sendError(500);
 			return "";
 		} 

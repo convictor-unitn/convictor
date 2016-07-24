@@ -1065,7 +1065,9 @@ public class RestaurantsController extends AbstractController {
 		// Try catch to avoid parsing errors
         try {
             id = Integer.parseInt(request.getParameter("id"));
-			noticeId = Integer.parseInt(request.getParameter("noticeId"));
+			if (request.getParameter("noticeId") != null) {
+				noticeId = Integer.parseInt(request.getParameter("noticeId"));
+			}
         } catch (Exception ex) {
             Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, ex);
             response.sendError(404);

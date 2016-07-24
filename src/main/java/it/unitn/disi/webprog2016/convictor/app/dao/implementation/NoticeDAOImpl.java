@@ -186,7 +186,7 @@ public class NoticeDAOImpl extends DatabaseDAO implements NoticeDAO {
     @Override
     public void insertPhotoRemovalNotice(PhotoRemovalNotice notice) throws SQLException {
         
-        String query = "INSERT INTO photo_removal_notices (registered_user_id, photo_id) VALUES(?, ?)";
+        String query = "INSERT INTO photo_remove_notices (registered_user_id, photo_id) VALUES(?, ?)";
         PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
         try {
             stm.setInt(1, notice.getRegisteredUserId());
