@@ -17,6 +17,7 @@ import com.amazonaws.services.s3.model.PutObjectResult;
 import it.unitn.disi.webprog2016.convictor.app.beans.Administrator;
 import it.unitn.disi.webprog2016.convictor.app.beans.Cusine;
 import it.unitn.disi.webprog2016.convictor.app.beans.OpeningTime;
+import it.unitn.disi.webprog2016.convictor.app.beans.OwnershipNotice;
 import it.unitn.disi.webprog2016.convictor.app.beans.PriceSlot;
 import it.unitn.disi.webprog2016.convictor.app.beans.Restaurant;
 import it.unitn.disi.webprog2016.convictor.app.beans.Review;
@@ -30,6 +31,7 @@ import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.PriceSlotDAO;
 import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.RestaurantDAO;
 import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.ReviewDAO;
 import it.unitn.disi.webprog2016.convictor.framework.controllers.AbstractController;
+import it.unitn.disi.webprog2016.convictor.framework.utils.AddressResolver;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -43,6 +45,7 @@ import it.unitn.disi.webprog2016.convictor.app.beans.Photo;
 import it.unitn.disi.webprog2016.convictor.app.beans.RestaurantOwner;
 import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.PhotoDAO;
 import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.UserDAO;
+import it.unitn.disi.webprog2016.convictor.framework.utils.AddressNotFoundException;
 import java.util.Iterator;
 import java.util.UUID;
 import org.apache.commons.fileupload.FileItem;
@@ -67,6 +70,10 @@ public class RestaurantsController extends AbstractController {
     private static final String S3_BUCKET_NAME = "convictor";
 	private static final Logger LOGGER = Logger.getLogger(RestaurantsController.class.getName());
     
+	//Needed field to build correct restaurant address
+	private final String COUNTRY = "Italia";
+
+	
     public RestaurantsController() {
         super();
     }
@@ -220,7 +227,7 @@ public class RestaurantsController extends AbstractController {
      * @throws ServletException
      */
     public String show(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        
+        			
         // Try catch to avoid parsing errors
         int id;
         try {
@@ -239,6 +246,10 @@ public class RestaurantsController extends AbstractController {
 		PhotoDAO photoDAO = (PhotoDAO) request.getServletContext().getAttribute("photodao");
 		UserDAO userDAO = (UserDAO) request.getServletContext().getAttribute("userdao");
 		User currentUser = (User) request.getSession().getAttribute("user");
+		OwnershipNotice ownershipNotice = new OwnershipNotice();
+		ownershipNotice.setRestaurantId(id);
+		ownershipNotice.setRegisteredUserId(currentUser.getId());
+		request.setAttribute("ownershipNotice", ownershipNotice);
 		
 		int reviewPage = 0;        
         if (request.getParameter("reviewPage") != null) {
@@ -250,9 +261,8 @@ public class RestaurantsController extends AbstractController {
                 reviewPage = 0;
             }
         }
-		
+
         try {
-            
             Restaurant tmp = restaurantDAO.getRestaurantById(id);
             if (tmp != null) {
                 tmp.setCusine(cusinesRestaurantDAO.getCusinesByRestaurantId(id));
@@ -264,7 +274,7 @@ public class RestaurantsController extends AbstractController {
                 response.sendError(404);
                 return "";
             }
-            
+			            
             // Set the next pagination 
             if (tmp.getReviews().size() > 0) {
                 request.setAttribute("nextPagination", reviewPage+1);
@@ -401,6 +411,21 @@ public class RestaurantsController extends AbstractController {
         tmp.setWebsite(request.getParameter("website"));
 		tmp.setSlotPrice(request.getParameter("priceslotselected"));
         
+		//Calculate LATITUDE and LONGITUDE for restaurant
+		AddressResolver ad = new AddressResolver();
+		ad.setZipcode(tmp.getZipCode());
+		ad.setStreet(tmp.getStreet());
+		ad.setCity(tmp.getCity());
+		ad.setState(this.COUNTRY);
+		try {
+			ad.resolveAddress();
+		} catch (AddressNotFoundException ex) {
+			System.err.println("ERRORE RISOLUZIONE INDIRIZZO");
+		}
+				
+		tmp.setLat(ad.getLatitude());
+		tmp.setLng(ad.getLongitude());
+				
         String[] cusines = request.getParameterValues("cusines");
         List<Cusine> list = new ArrayList<>();
         List<OpeningTime> listTime = new ArrayList<>();
@@ -416,6 +441,7 @@ public class RestaurantsController extends AbstractController {
 				}               
             }
         } catch (Exception e) {
+
             // If somebody doesn't insert cusines, List<Cusine> will
             // be inserted empty. The validate procedure will discover
             // the error. 
@@ -647,7 +673,7 @@ public class RestaurantsController extends AbstractController {
         
 		List<Cusine> allCusines=null;
 		try {
-			allCusines = cusineDAO.getAllCusines();
+			allCusines = cusineDAO.getAllCusines();	
 			request.setAttribute("allCusines", allCusines);
 		} catch (SQLException ex) {
 			Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, ex);
@@ -680,6 +706,21 @@ public class RestaurantsController extends AbstractController {
         tmp.setWebsite(request.getParameter("website"));
 		tmp.setSlotPrice(request.getParameter("priceslotselected"));
         
+		//Calculate LATITUDE and LONGITUDE for restaurant
+		AddressResolver ad = new AddressResolver();
+		ad.setZipcode(tmp.getZipCode());
+		ad.setStreet(tmp.getStreet());
+		ad.setCity(tmp.getCity());
+		ad.setState(this.COUNTRY);
+		try {
+			ad.resolveAddress();
+		} catch (AddressNotFoundException ex) {
+			System.err.println("ERRORE RISOLUZIONE INDIRIZZO");
+		}
+		
+		tmp.setLat(ad.getLatitude());
+		tmp.setLng(ad.getLongitude());
+		
         String[] cusines = request.getParameterValues("cusines");
         List<Cusine> list = new ArrayList<>();
         List<OpeningTime> listTime = new ArrayList<>();
