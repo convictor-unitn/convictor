@@ -11,7 +11,7 @@
 <c:set var="bean" value="${requestScope.review}" scope="request" />
 
 <l:main>
-  <jsp:attribute name="title">Status Recensione</jsp:attribute>
+  <jsp:attribute name="title">Recensione | Convictor</jsp:attribute>
     <jsp:attribute name="body">
       <c:choose>
         <c:when test="${bean.valid && requestScope.alreadyReviewed == null}">

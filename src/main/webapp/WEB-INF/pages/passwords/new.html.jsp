@@ -14,7 +14,7 @@
 
 <l:main>
 	
-	<jsp:attribute name="title">Reimposta Password</jsp:attribute>
+	<jsp:attribute name="title">Reimposta password | Convictor</jsp:attribute>
 	<jsp:attribute name="bodyBackground">#eaeaea</jsp:attribute>
 	<jsp:attribute name="body">
             <div class="ui middle aligned center aligned grid">

@@ -10,7 +10,7 @@
 
 <l:main>
 	
-	<jsp:attribute name="title">Reimposta Password</jsp:attribute>
+	<jsp:attribute name="title">Recupero password | Convictor</jsp:attribute>
 	<jsp:attribute name="body">
 		
 		<c:choose>
