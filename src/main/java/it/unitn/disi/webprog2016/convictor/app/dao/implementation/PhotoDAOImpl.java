@@ -93,5 +93,10 @@ public class PhotoDAOImpl extends DatabaseDAO implements PhotoDAO {
 		}
 		return photo;
 	}
+
+	@Override
+	public void deletePhotoById(int id_photo) throws SQLException {
+		String query= "DELETE FROM photos WHERE id=?";
+	}
 	
 }

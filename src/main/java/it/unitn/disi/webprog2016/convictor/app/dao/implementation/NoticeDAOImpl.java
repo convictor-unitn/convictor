@@ -43,10 +43,10 @@ public class NoticeDAOImpl extends DatabaseDAO implements NoticeDAO {
         PhotoDAOImpl photoDAO = new PhotoDAOImpl(this.getDbManager());
 		
 		PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(
-                "SELECT * FROM ownership_notices LIMIT ? OFFSET ?"
+                "SELECT * FROM ownership_notices WHERE approved IS NULL LIMIT ? OFFSET ?"
             );
         PreparedStatement stm2 = this.getDbManager().getConnection().prepareStatement(
-                "SELECT * FROM photo_remove_notices LIMIT ? OFFSET ?"
+                "SELECT * FROM photo_remove_notices WHERE approved IS NULL LIMIT ? OFFSET ?"
             );
         try {
             stm.setInt(1, MAX_RESULT);
@@ -186,15 +186,11 @@ public class NoticeDAOImpl extends DatabaseDAO implements NoticeDAO {
     @Override
     public void insertPhotoRemovalNotice(PhotoRemovalNotice notice) throws SQLException {
         
-        // Check if valid
-        if (!notice.validate()) return;
-        
-        String query = "INSERT INTO photo_removal_notices (registered_user_id, photo_id, approved) VALUES(?, ?, ?)";
+        String query = "INSERT INTO photo_remove_notices (registered_user_id, photo_id) VALUES(?, ?)";
         PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
         try {
             stm.setInt(1, notice.getRegisteredUserId());
             stm.setInt(2, notice.getPhotoId());
-            stm.setBoolean(3, false);
             stm.executeUpdate();
         } finally {
             stm.close();
@@ -238,12 +234,12 @@ public class NoticeDAOImpl extends DatabaseDAO implements NoticeDAO {
         // Check if valid
         if (id <= 0) return;
         
-        String query = "UPDATE photo_removal_notice SET approved = ? WHERE id = ? ";
+        String query = "UPDATE photo_remove_notices SET approved = ? WHERE id = ? ";
         PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
         try {
-            stm.setBoolean(0, approved);
-            stm.setInt(1, id);
-            stm.executeQuery();
+            stm.setBoolean(1, approved);
+            stm.setInt(2, id);
+            stm.executeUpdate();
         } finally {
             stm.close();
         }
