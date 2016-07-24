@@ -275,7 +275,6 @@ public class RestaurantsController extends AbstractController {
                 request.setAttribute("nextPagination", reviewPage);
             }
             
-            
             return "/restaurants/show";
             
         } catch (SQLException ex) {

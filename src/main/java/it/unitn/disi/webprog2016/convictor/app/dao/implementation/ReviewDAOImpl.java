@@ -18,6 +18,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -35,7 +37,7 @@ public class ReviewDAOImpl extends DatabaseDAO implements ReviewDAO {
     public List<Review> getRestaurantReviews(int restaurant_id, int offset) throws SQLException {
         
         List<Review> reviews = new ArrayList<>();
-        String query = "SELECT reviews.id, restaurant_id, registered_user_id, rating, description, users.name, users.surname  from reviews inner join users on users.id = registered_user_id where reviews.restaurant_id = ? ORDER BY reviews.created_at DESC LIMIT ? OFFSET ?";
+        String query = "SELECT reviews.id, reviews.created_at, restaurant_id, registered_user_id, rating, description, users.name, users.surname  from reviews inner join users on users.id = registered_user_id where reviews.restaurant_id = ? ORDER BY reviews.created_at DESC LIMIT ? OFFSET ?";
         PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
         try {
             stm.setInt(1, restaurant_id);
@@ -54,6 +56,8 @@ public class ReviewDAOImpl extends DatabaseDAO implements ReviewDAO {
                     );
                     tmp.setRating(reviewSet.getString("rating"));
                     tmp.setDescription(reviewSet.getString("description"));
+					Date tmpDate = new Date(reviewSet.getTimestamp("created_at").getTime());
+					tmp.setCreatedAt(tmpDate);
                     reviews.add(tmp);
                 }
             } finally {

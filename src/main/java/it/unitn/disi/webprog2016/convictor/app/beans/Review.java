@@ -5,6 +5,7 @@
  */
 package it.unitn.disi.webprog2016.convictor.app.beans;
 import it.unitn.disi.webprog2016.convictor.framework.beans.AbstractBean;
+import java.util.Date;
 
 /**
  * Review bean class. 
@@ -17,7 +18,8 @@ public class Review extends AbstractBean {
     private int restaurantId;
     private String description;
     private int rating;
-	
+	private Date createdAt;
+
     /**
      * @return the registeredUserId
      */
@@ -123,6 +125,16 @@ public class Review extends AbstractBean {
     public void setRegisteredUserName(String registeredUserName) {
         this.registeredUserName = registeredUserName;
     }
+
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
+	}
+	
+	@Override
+	public Date getCreatedAt() {
+		return this.createdAt;
+	}
+	
 
     @Override
     public boolean validate() {
