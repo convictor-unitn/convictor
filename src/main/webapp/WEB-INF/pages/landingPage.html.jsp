@@ -37,10 +37,10 @@
                     <div class="ui computer tablet only row">
                      <div class="ui container">
 
-                         <form class="ui very padded black basic segment" style="color: #4f3e3e;" method="GET" action="${pageContext.request.contextPath}/restaurants" >   
+                         <form class="ui very padded black basic segment" style="color: #4f3e3e;" method="GET" action="${pageContext.request.contextPath}/restaurants" autocomplete="on">   
                         <div class="ui mysegment">
                           <div class="ui medium fluid action input">
-                            <input placeholder="Cerca.." type="text" name="query" style="color: #4f3e3e;">
+                            <input id="autocomplete" placeholder="Cerca.." type="text" name="query" style="color: #4f3e3e;">
 
                             <button class="ui black submit button" type=submit>Cerca</button>
                           </div>
