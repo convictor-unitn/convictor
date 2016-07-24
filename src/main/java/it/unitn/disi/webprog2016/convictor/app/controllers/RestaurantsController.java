@@ -1051,7 +1051,9 @@ public class RestaurantsController extends AbstractController {
 	public String showPhoto(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 	
 		PhotoDAO photoDAO = (PhotoDAO) request.getServletContext().getAttribute("photodao");
+		
 		int id = 0;
+		int noticeId = 0;
 		
 		// Check if there is a logged user
         User tmpUser = (User) request.getSession(false).getAttribute("user");
@@ -1063,6 +1065,7 @@ public class RestaurantsController extends AbstractController {
 		// Try catch to avoid parsing errors
         try {
             id = Integer.parseInt(request.getParameter("id"));
+			noticeId = Integer.parseInt(request.getParameter("noticeId"));
         } catch (Exception ex) {
             Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, ex);
             response.sendError(404);
@@ -1078,6 +1081,7 @@ public class RestaurantsController extends AbstractController {
             return "";
 		}
 		
+		request.setAttribute("noticeId", noticeId);
 		request.setAttribute("photo", photo);
 		
 		return "restaurants/showPhoto";

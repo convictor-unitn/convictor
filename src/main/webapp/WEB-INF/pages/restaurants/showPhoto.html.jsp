@@ -24,9 +24,12 @@
                     </div>
 						<c:choose>
 							<c:when test="${sessionScope.user.getClass().name == 'it.unitn.disi.webprog2016.convictor.app.beans.Administrator'}" >
-								<a href="${pageContext.servletContext.contextPath}/restaurants/show?id=${photo.restaurantId}">
-									Rimuovi foto
-								</a>
+								<form method="POST" action="${pageContext.servletContext.contextPath}/restaurants/report">
+									<input type="hidden" name="photoId" value="${photo.id}">
+									<input type="hidden" name="noticeId" value="${requestScope.noticeId}">
+									<input type="submit" class="button blue" name="approve" value="Approva">
+									<input type="submit" class="button blue" name="reject" value="Rifiuta">
+								</form>
 							</c:when>
 							<c:otherwise>
 								<form method="POST" action="${pageContext.servletContext.contextPath}/restaurants/report">

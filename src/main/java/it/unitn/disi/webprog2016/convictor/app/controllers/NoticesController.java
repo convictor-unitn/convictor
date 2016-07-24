@@ -123,6 +123,39 @@ public class NoticesController extends AbstractController {
 	}
 	
 	public String approveReportPhoto(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException { 
+		
+		NoticeDAO noticeDAO = (NoticeDAO) request.getServletContext().getAttribute("noticedao");
+		PhotoDAO photoDAO = (PhotoDAO) request.getServletContext().getAttribute("photodao");
+		User user = (User) request.getSession(false).getAttribute("user");
+		
+		// Check and set the photo id
+		int id=0;
+		int noticeId=0;
+		try {
+			id = Integer.parseInt(request.getParameter("photoId"));
+			noticeId = Integer.parseInt(request.getParameter("noticeId"));
+		} catch (Exception ex) {
+			response.sendError(500);
+			return "";
+		}
+		
+		// Check what the administrator decided
+		boolean status = false;
+		if (request.getParameter("approve") != null) {
+			status = true;
+		}
+		
+		try {
+			noticeDAO.approvePhotoRemovalNotice(status, noticeId);
+			photoDAO.deletePhotoById(id);
+		} catch (Exception e) {
+			Logger.getLogger(NoticesController.class.getName()).log(Level.SEVERE, null, e);
+			response.sendError(500);
+			return "";
+		}
+		
+		request.setAttribute("status", status);
+		
 		return "/notices/approveReportPhoto";
 	}
 	
