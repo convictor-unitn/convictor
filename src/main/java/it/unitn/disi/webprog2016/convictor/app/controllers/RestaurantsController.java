@@ -94,6 +94,8 @@ public class RestaurantsController extends AbstractController {
 		// Add review dao and cusine restaurant
 		ReviewDAO reviewDAO = (ReviewDAO) request.getServletContext().getAttribute("reviewdao");
 		CusinesRestaurantDAO cusineRestaurantDAO = (CusinesRestaurantDAO) request.getServletContext().getAttribute("cusinesrestaurantdao");
+		PhotoDAO photoDAO = (PhotoDAO) request.getServletContext().getAttribute("photodao");
+
 		
         // Retrive all cusines 
         CusineDAO cusineDAO = (CusineDAO) request.getServletContext().getAttribute("cusinedao");
@@ -180,6 +182,7 @@ public class RestaurantsController extends AbstractController {
 				for(Restaurant r : tmp) {
 					r.setReviews(reviewDAO.getRestaurantReviews(r.getId()));
 					r.setCusine(cusineRestaurantDAO.getCusinesByRestaurantId(r.getId()));
+					r.setPhotos(photoDAO.getRestaurantPhotos(r.getId()));
 				}
                 request.setAttribute("results", tmp);
             } else {
