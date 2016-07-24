@@ -17,6 +17,7 @@ public interface ReviewDAO {
     
     List<Review> getRestaurantReviews(int restaurant_id, int offset) throws SQLException;
 	Review getReviewById(int restaurant_id) throws SQLException;
+	List<Review> getMostRecentReviewsByUserId(int user_id) throws SQLException;
     int insertReview(Review review) throws SQLException;
     
 }

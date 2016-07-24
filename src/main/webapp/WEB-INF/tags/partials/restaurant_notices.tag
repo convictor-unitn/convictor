@@ -18,7 +18,7 @@
 		  <c:forEach var="restaurant" items="${user.restaurants}">
 		  <div>		
 		    <a style="float: left" class="ui text" href="${pageContext.request.contextPath}/restaurants/show?id=${restaurant.id}" > <h3> ${restaurant.name} <h3> </a>
-			<a style="float: right" href="${pageContext.request.contextPath}/restaurants/edit" class="ui basic black right floated tiny button">Modifica</a> </br>
+			<a style="float: right" href="${pageContext.request.contextPath}/restaurants/edit?id=${restaurant.id}" class="ui basic black right floated tiny button">Modifica</a> </br>
 		 </div>
 		  </c:forEach>
 
