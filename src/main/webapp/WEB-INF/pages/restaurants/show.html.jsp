@@ -12,8 +12,7 @@
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <%-- API KEY for maps script --%>
-<c:set var="API_KEY" value="AIzaSyBbiud33G2KsodO5JvP-5HQzoSTuWiI0a8" />;
-"
+<c:set var="API_KEY" value="AIzaSyBbiud33G2KsodO5JvP-5HQzoSTuWiI0a8" />
 
 <%-- These JSTL tag are used to set correctly the pagination URL request --%>
 <c:set var="nextPagination" scope="request" value="${requestScope.nextPagination}" />
