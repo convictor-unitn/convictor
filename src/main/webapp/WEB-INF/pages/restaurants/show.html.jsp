@@ -303,9 +303,13 @@
                   <c:forEach var="review" items="${restaurant.reviews}">
                       <div class="comment">
                       <div class="content">
-                          <a class="author" id="brown"">${review.registeredUserName}</a>
+                          <a class="author" id="brown">${review.registeredUserName}</a>
                           <div class="metadata">
-                              <div class="date" id="brown"">2 days ago</div>
+                              <div class="date" id="brown">
+									<fmt:formatDate
+									pattern="dd-MM-yyyy HH:mm"
+									value="${review.createdAt}"/>
+							  </div>
                               <div class="rating">
                                   <div class="ui horizontal list">
                                       <c:forEach var="i" begin="0" end="${review.rating}" step="1">
