@@ -70,7 +70,7 @@
 					<div class="event">
 					  <div class="content">
 						<div class="date">
-							<fmt:formatDate pattern="dd-MM-yyyy HH:mm" value="${notice.review.createdAt}"/>
+							<fmt:formatDate pattern="dd-MM-yyyy HH:mm" value="${notice.createdAt}"/>
 						</div>
 						<div class="summary">
 						  ${notice.description}

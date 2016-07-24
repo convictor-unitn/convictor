@@ -20,6 +20,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -60,6 +61,7 @@ public class NoticeDAOImpl extends DatabaseDAO implements NoticeDAO {
                 while(ownershipSet.next()) {
                     OwnershipNotice tmp = new OwnershipNotice();
                     tmp.setId(ownershipSet.getString("id"));
+					tmp.setCreatedAt(new Date(ownershipSet.getTimestamp("created_at").getTime()));
                     tmp.setRegisteredUserId(ownershipSet.getString("registered_user_id"));
                     tmp.setRestaurantId(ownershipSet.getString("restaurant_id"));
 					
@@ -72,6 +74,7 @@ public class NoticeDAOImpl extends DatabaseDAO implements NoticeDAO {
                 while (removalSet.next()) {
                     PhotoRemovalNotice tmp = new PhotoRemovalNotice();
                     tmp.setId(removalSet.getInt("id"));
+					tmp.setCreatedAt(new Date(removalSet.getTimestamp("created_at").getTime()));
                     tmp.setRegisteredUserId(removalSet.getInt("registered_user_id"));
                     tmp.setPhotoId(removalSet.getInt("photo_id"));
                     tmp.setApproved(removalSet.getBoolean("approved"));
@@ -123,6 +126,7 @@ public class NoticeDAOImpl extends DatabaseDAO implements NoticeDAO {
                 while(reviewSet.next()) {
                     ReviewNotice tmp = new ReviewNotice();
                     tmp.setId(reviewSet.getString("id"));
+					tmp.setCreatedAt(new Date(reviewSet.getTimestamp("created_at").getTime()));
                     tmp.setRegisteredUserId(reviewSet.getString("registered_user_id"));
                     tmp.setReviewId(reviewSet.getString("review_id"));
 					
@@ -137,6 +141,7 @@ public class NoticeDAOImpl extends DatabaseDAO implements NoticeDAO {
                 while(photoSet.next()) {
                     PhotoNotice tmp = new PhotoNotice();
                     tmp.setId(photoSet.getString("id"));
+					tmp.setCreatedAt(new Date(photoSet.getTimestamp("created_at").getTime()));
                     tmp.setPhotoId(photoSet.getString("photo_id"));
                     tmp.setRegisteredUserId(photoSet.getString("registered_user_id"));
 					

@@ -39,24 +39,25 @@
               </div>  
           </div>        
             <div class="column">
-              <div class="ui segment feed">
-                <div class="event">
-                  <div class="content">
-                    <div class="date">
-                      Ieri
-                    </div>
-                    <div class="summary">
-                      <a>Utente</a> ha reclamato <a>Ristorante</a>
-                    </div>
-                    <div class="extra">
-                      <div class="ui right floated buttons">
-                        <button class="ui basic black button">Conferma</button>
-                        <button class="ui basic black button">Declina</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+             <c:forEach var="notice" items="${user.notices}">
+					<div class="ui segment feed">
+					<div class="event">
+					  <div class="content">
+						<div class="date">
+							<fmt:formatDate pattern="dd-MM-yyyy HH:mm" value="${notice.createdAt}"/>
+						</div>
+						<div class="summary">
+						  ${notice.description}
+						</div>
+						<!--<div class="extra">
+						  <div class="ui right floated buttons">
+							<button class="ui basic black button">Visualizza</button>
+						  </div>
+						</div>-->
+					  </div>
+					</div>
+				  </div>
+				</c:forEach>
             </div>
         </div>
     </div>
