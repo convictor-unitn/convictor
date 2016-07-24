@@ -13,6 +13,11 @@ $(document).ready(function(){
   //Hides all reply forms in reviews
   $('.comments .reply.form').hide();
 
+  $('a[data-tab=mappa]').on("click", function() {
+	  initMap();
+	 google.maps.event.trigger(map, 'resize'); 
+  });
+
   //Manages to show/hide reviews
   $('.actions .reply').click(function(){
     $(this).parent().next().toggle();
