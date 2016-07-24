@@ -155,7 +155,7 @@ public class PasswordsController extends AbstractController  {
 					return ""; 
 				}
 			} else {
-				user.setError("expiredToken", "Il token di recupero password non è piu' valido!");
+				request.setAttribute("resetPasswordToken", null);
 				return "/passwords/requestNewPassword"; 
 			}
 			
