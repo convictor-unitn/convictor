@@ -172,12 +172,12 @@ public class NoticeDAOImpl extends DatabaseDAO implements NoticeDAO {
         // Check if valid
         if (!notice.validate()) return;
         
-        String query = "INSERT INTO photo_notices VALUES(?, ?, ?, ?);";
+        String query = "INSERT INTO photo_notices (registered_user_id, photo_id) VALUES(?, ?)";
         PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
         try {
-            stm.setInt(2, notice.getRegisteredUserId());
-            stm.setInt(3, notice.getPhotoId());
-            stm.executeQuery();
+            stm.setInt(1, notice.getRegisteredUserId());
+            stm.setInt(2, notice.getPhotoId());
+			stm.executeUpdate();
         } finally {
             stm.close();
         }
@@ -189,13 +189,13 @@ public class NoticeDAOImpl extends DatabaseDAO implements NoticeDAO {
         // Check if valid
         if (!notice.validate()) return;
         
-        String query = "INSERT INTO photo_removal_notices VALUES(?, ?, ?, ?, ?);";
+        String query = "INSERT INTO photo_removal_notices (registered_user_id, photo_id, approved) VALUES(?, ?, ?)";
         PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
         try {
-            stm.setInt(2, notice.getRegisteredUserId());
-            stm.setInt(3, notice.getPhotoId());
-            stm.setBoolean(4, false);
-            stm.executeQuery();
+            stm.setInt(1, notice.getRegisteredUserId());
+            stm.setInt(2, notice.getPhotoId());
+            stm.setBoolean(3, false);
+            stm.executeUpdate();
         } finally {
             stm.close();
         }
