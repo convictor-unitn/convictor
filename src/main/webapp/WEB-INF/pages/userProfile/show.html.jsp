@@ -60,7 +60,11 @@
             
             <!--admin-->           
             <c:if test="${user.getClass().name == 'it.unitn.disi.webprog2016.convictor.app.beans.Administrator'}" >
-               <partials:admin_notices />
+			    <div class="ui container">
+					<a href="${pageContext.request.contextPath}/restaurants/new" class="ui black fluid button">Clicca qui per aggiungere un nuovo ristorante</a>
+				</div>
+				<div class="ui divider"></div>
+                <partials:admin_notices />
             </c:if>
 
 	</jsp:attribute>        
