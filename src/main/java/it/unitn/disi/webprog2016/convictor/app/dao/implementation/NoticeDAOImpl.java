@@ -235,12 +235,12 @@ public class NoticeDAOImpl extends DatabaseDAO implements NoticeDAO {
         // Check if valid
         if (id <= 0) return;
         
-        String query = "UPDATE photo_removal_notice SET approved = ? WHERE id = ? ";
+        String query = "UPDATE photo_remove_notices SET approved = ? WHERE id = ? ";
         PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
         try {
-            stm.setBoolean(0, approved);
-            stm.setInt(1, id);
-            stm.executeQuery();
+            stm.setBoolean(1, approved);
+            stm.setInt(2, id);
+            stm.executeUpdate();
         } finally {
             stm.close();
         }
