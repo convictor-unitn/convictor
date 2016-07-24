@@ -8,13 +8,18 @@ package it.unitn.disi.webprog2016.convictor.framework.utils;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.Authenticator;
 import java.net.InetSocketAddress;
 import java.net.MalformedURLException;
+import java.net.PasswordAuthentication;
 import java.net.Proxy;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Scanner;
+import org.apache.http.HttpHost;
+import org.apache.http.client.HttpClient;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.*;
 		
 /**
@@ -85,11 +90,20 @@ public class AddressResolver {
 	public void resolveAddress() throws AddressNotFoundException, MalformedURLException, IOException {
 		this.composeAddress();
 		System.out.println(this.address);
-				
+		
+		Authenticator authenticator = new Authenticator() {
+			@Override
+			public PasswordAuthentication getPasswordAuthentication() {
+				return (new PasswordAuthentication("quotaguard6226",
+						"0dd05b2d2c88".toCharArray()));
+			}
+		};
+		Authenticator.setDefault(authenticator);
+		
 		// build a URL
 		String s = "https://maps.googleapis.com/maps/api/geocode/json?"+this.address+"&key="+this.API_KEY;
 		URL url = new URL(s);
-		
+
 		System.out.println(url);
 		Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("eu-west-static-01.quotaguard.com", 9293));		
 		URLConnection urlConnection = url.openConnection(proxy);
