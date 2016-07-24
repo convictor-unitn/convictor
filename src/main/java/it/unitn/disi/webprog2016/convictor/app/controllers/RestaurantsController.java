@@ -41,6 +41,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import it.unitn.disi.webprog2016.convictor.app.beans.Photo;
 import it.unitn.disi.webprog2016.convictor.app.beans.RestaurantOwner;
+import it.unitn.disi.webprog2016.convictor.app.dao.implementation.ReviewDAOImpl;
 import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.PhotoDAO;
 import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.UserDAO;
 import java.util.Iterator;
@@ -951,6 +952,44 @@ public class RestaurantsController extends AbstractController {
 	
 	public String qrcode(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		return "";	
+	}
+	
+	/**
+	 * Action to show a single review
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 * @throws ServletException 
+	 */
+	public String showReview(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+		
+		ReviewDAO reviewDAO = (ReviewDAO) request.getServletContext().getAttribute("reviewdao");
+		int id = 0;
+		
+		// Try catch to avoid parsing errors
+        try {
+            id = Integer.parseInt(request.getParameter("id"));
+        } catch (Exception ex) {
+            Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, ex);
+            response.sendError(404);
+            return "";
+        }
+		
+		// Obtain the review
+		Review review;
+		try {
+			review = reviewDAO.getReviewById(id);
+		} catch (Exception ex) {
+			Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, ex);
+            response.sendError(500);
+            return "";
+		}
+		
+		request.setAttribute("review", review);
+		
+		return "restaurants/showReview";
+		 
 	}
 	
 }
