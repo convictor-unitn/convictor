@@ -5,6 +5,7 @@
 --%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@tag description="restaurant owner notifications list partial" pageEncoding="UTF-8"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <div class="ui container">
 
@@ -69,7 +70,7 @@
 					<div class="event">
 					  <div class="content">
 						<div class="date">
-						  Ieri
+							<fmt:formatDate pattern="dd-MM-yyyy HH:mm" value="${notice.review.createdAt}"/>
 						</div>
 						<div class="summary">
 						  ${notice.description}

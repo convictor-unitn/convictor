@@ -48,6 +48,7 @@ public class ReviewDAOImpl extends DatabaseDAO implements ReviewDAO {
                 while (reviewSet.next()) {                    
                     Review tmp = new Review();
                     tmp.setId(reviewSet.getInt("id"));
+					tmp.setCreatedAt(new Date(reviewSet.getTimestamp("created_at").getTime()));
                     tmp.setRestaurantId(reviewSet.getString("restaurant_id"));
                     tmp.setRegisteredUserId(reviewSet.getString("registered_user_id"));
                     tmp.setRegisteredUserName(
@@ -94,7 +95,7 @@ public class ReviewDAOImpl extends DatabaseDAO implements ReviewDAO {
 	@Override
 	public Review getReviewById(int id) throws SQLException {
 		Review tmp = new Review();
-        String query = "SELECT reviews.id, restaurant_id, registered_user_id, users.name, users.surname, rating, description FROM reviews INNER JOIN users ON registered_user_id = users.id WHERE reviews.id = ?";
+        String query = "SELECT reviews.id, reviews.created_at, restaurant_id, registered_user_id, users.name, users.surname, rating, description FROM reviews INNER JOIN users ON registered_user_id = users.id WHERE reviews.id = ?";
         PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
         try {
             stm.setInt(1, id);
@@ -102,6 +103,7 @@ public class ReviewDAOImpl extends DatabaseDAO implements ReviewDAO {
             try {
                 while (reviewSet.next()) {                    
                     tmp.setId(reviewSet.getInt("id"));
+					tmp.setCreatedAt(new Date(reviewSet.getTimestamp("created_at").getTime()));
                     tmp.setRestaurantId(reviewSet.getString("restaurant_id"));
                     tmp.setRegisteredUserId(reviewSet.getString("registered_user_id"));
                     tmp.setRegisteredUserName(
@@ -120,6 +122,7 @@ public class ReviewDAOImpl extends DatabaseDAO implements ReviewDAO {
 		return tmp;
 	}
 
+	@Override
 	public List<Review> getMostRecentReviewsByUserId(int user_id) throws SQLException {
 		List<Review> reviews = new ArrayList<>();
         String query = "SELECT id, restaurant_id, registered_user_id FROM reviews WHERE registered_user_id = ? AND created_at > ?";
