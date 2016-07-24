@@ -75,11 +75,11 @@
 						<div class="summary">
 						  ${notice.description}
 						</div>
-						<div class="extra">
+						<!--<div class="extra">
 						  <div class="ui right floated buttons">
 							<button class="ui basic black button">Visualizza</button>
 						  </div>
-						</div>
+						</div>-->
 					  </div>
 					</div>
 				  </div>
