@@ -967,6 +967,13 @@ public class RestaurantsController extends AbstractController {
 		ReviewDAO reviewDAO = (ReviewDAO) request.getServletContext().getAttribute("reviewdao");
 		int id = 0;
 		
+		// Check if there is a logged user
+        User tmpUser = (User) request.getSession(false).getAttribute("user");
+		if (tmpUser == null) {
+            response.sendError(401);
+            return "";
+		}
+		
 		// Try catch to avoid parsing errors
         try {
             id = Integer.parseInt(request.getParameter("id"));
@@ -992,10 +999,25 @@ public class RestaurantsController extends AbstractController {
 		 
 	}
 	
+	/**
+	 * Action to show a single photo. 
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 * @throws ServletException 
+	 */
 	public String showPhoto(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 	
 		PhotoDAO photoDAO = (PhotoDAO) request.getServletContext().getAttribute("photodao");
 		int id = 0;
+		
+		// Check if there is a logged user
+        User tmpUser = (User) request.getSession(false).getAttribute("user");
+		if (tmpUser == null) {
+            response.sendError(401);
+            return "";
+		}
 		
 		// Try catch to avoid parsing errors
         try {
