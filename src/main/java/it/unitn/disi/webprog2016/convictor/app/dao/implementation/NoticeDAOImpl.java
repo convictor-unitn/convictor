@@ -7,6 +7,7 @@ package it.unitn.disi.webprog2016.convictor.app.dao.implementation;
 
 import it.unitn.disi.webprog2016.convictor.app.beans.Notice;
 import it.unitn.disi.webprog2016.convictor.app.beans.OwnershipNotice;
+import it.unitn.disi.webprog2016.convictor.app.beans.Photo;
 import it.unitn.disi.webprog2016.convictor.app.beans.PhotoNotice;
 import it.unitn.disi.webprog2016.convictor.app.beans.PhotoRemovalNotice;
 import it.unitn.disi.webprog2016.convictor.app.beans.Review;
@@ -36,7 +37,11 @@ public class NoticeDAOImpl extends DatabaseDAO implements NoticeDAO {
     @Override
     public List<Notice> getAdministratorNotices(int id, int offset) throws SQLException {
         List<Notice> notices = new ArrayList<>();
-        PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(
+		
+		UserDAOImpl userDAO = new UserDAOImpl(this.getDbManager());
+        PhotoDAOImpl photoDAO = new PhotoDAOImpl(this.getDbManager());
+		
+		PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(
                 "SELECT * FROM ownership_notices LIMIT ? OFFSET ?"
             );
         PreparedStatement stm2 = this.getDbManager().getConnection().prepareStatement(
@@ -57,6 +62,10 @@ public class NoticeDAOImpl extends DatabaseDAO implements NoticeDAO {
                     tmp.setId(ownershipSet.getString("id"));
                     tmp.setRegisteredUserId(ownershipSet.getString("registered_user_id"));
                     tmp.setRestaurantId(ownershipSet.getString("restaurant_id"));
+					
+					User tmpUser = userDAO.getUserById(tmp.getRegisteredUserId());
+					tmp.setRegisteredUser(tmpUser);
+					
                     notices.add(tmp);
                 }
                 
@@ -66,6 +75,13 @@ public class NoticeDAOImpl extends DatabaseDAO implements NoticeDAO {
                     tmp.setRegisteredUserId(removalSet.getInt("registered_user_id"));
                     tmp.setPhotoId(removalSet.getInt("photo_id"));
                     tmp.setApproved(removalSet.getBoolean("approved"));
+					
+					User tmpUser = userDAO.getUserById(tmp.getRegisteredUserId());
+					tmp.setRegisteredUser(tmpUser);
+					
+					Photo tmpPhoto = photoDAO.getPhotoById(tmp.getPhotoId());
+					tmp.setPhoto(tmpPhoto);
+					
                     notices.add(tmp);
                 }
                 
@@ -77,6 +93,7 @@ public class NoticeDAOImpl extends DatabaseDAO implements NoticeDAO {
             stm.close();
             stm2.close();
         }
+		
         return notices;
     }
 
@@ -91,6 +108,7 @@ public class NoticeDAOImpl extends DatabaseDAO implements NoticeDAO {
         
 		UserDAOImpl userDAO = new UserDAOImpl(this.getDbManager());
 		ReviewDAOImpl reviewDAO = new ReviewDAOImpl(this.getDbManager());
+		PhotoDAOImpl photoDAO = new PhotoDAOImpl(this.getDbManager());
 		
         try {
             stm.setInt(1, id);
@@ -124,6 +142,9 @@ public class NoticeDAOImpl extends DatabaseDAO implements NoticeDAO {
 					
 					User tmpUser = userDAO.getUserById(tmp.getRegisteredUserId());
 					tmp.setRegisteredUser(tmpUser);
+					
+					Photo tmpPhoto = photoDAO.getPhotoById(tmp.getPhotoId());
+					tmp.setPhoto(tmpPhoto);
 					
                     notices.add(tmp);
                 }
