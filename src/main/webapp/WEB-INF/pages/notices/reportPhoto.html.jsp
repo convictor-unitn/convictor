@@ -22,7 +22,7 @@
 						La richiesta di rimozione foto è stata inviata con successo.
 					</div>
 				</div>
-			<a href="#" onclick="window.location.href = document.referrer" class="ui blue submit button">Indietro</a>
+			<a href="${pageContext.servletContext.contextPath}/userProfile/show" class="ui blue submit button">Indietro</a>
 		</div>
 	</jsp:attribute>
 </l:main>
