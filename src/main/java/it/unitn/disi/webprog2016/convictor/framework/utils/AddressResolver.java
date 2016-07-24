@@ -8,7 +8,9 @@ package it.unitn.disi.webprog2016.convictor.framework.utils;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.InetSocketAddress;
 import java.net.MalformedURLException;
+import java.net.Proxy;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
@@ -89,13 +91,28 @@ public class AddressResolver {
 		URL url = new URL(s);
 		
 		System.out.println(url);
+		
+		Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("my.proxy.example.com", 3128));
+		URLConnection proxyUrl = url.openConnection(proxy);
+		
+		
+		URLConnection urlConnection = url.openConnection();
 
 		// read from the URL
-		Scanner scan = new Scanner(url.openStream());
+	
+		BufferedReader in = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+		String inputLine;
 		String str = new String();
-		while (scan.hasNext())
-			str += scan.nextLine();
-		scan.close();
+		
+		while ((inputLine = in.readLine()) != null) {
+			   str+=inputLine;
+		}
+		
+//		Scanner scan = new Scanner(url.openStream());
+//		String str = new String();
+//		while (scan.hasNext())
+//			str += scan.nextLine();
+//		scan.close();
 
 		// build a JSON object
 		JSONObject obj = new JSONObject(str);
