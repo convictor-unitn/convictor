@@ -91,8 +91,7 @@ public class AddressResolver {
 		URL url = new URL(s);
 		
 		System.out.println(url);
-		
-		Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("my.proxy.example.com", 3128));		
+		Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("eu-west-static-01.quotaguard.com", 9293));		
 		URLConnection urlConnection = url.openConnection(proxy);
 
 		// read from the URL
