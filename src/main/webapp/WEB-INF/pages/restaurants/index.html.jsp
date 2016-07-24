@@ -123,10 +123,7 @@
                             <a href="?${requestURLFilters}&page=${requestScope.nextPagination}"> 
                                 <i class="right arrow icon"></i>
                             </a>
-                        </div>
-                        <div class="ui basic label">
-                            2,048
-                        </div>            
+                        </div>         
             </div>   
                             
             </div>

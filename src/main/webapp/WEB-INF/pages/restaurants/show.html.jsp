@@ -44,7 +44,7 @@
         </div>
       </div>
       <!-- Restaurant Image -->
-      <div class="ui stackable two column centered grid">
+      <div class="ui stackable two column centered grid" style="max-height: 450px; ">
         <div class="column">
 			<c:forEach var="photo" items="${bean.photos}">
 				<img class="ui centered image mySlides" src="${photo.url}">
@@ -295,9 +295,7 @@
                             <i class="right arrow icon"></i>
                         </a>                      
                   </div>
-                      <div class="ui basic label">
-                        2,048
-                  </div>
+
               </div>  
             </div>   
             <div class="row tablet computer only">
