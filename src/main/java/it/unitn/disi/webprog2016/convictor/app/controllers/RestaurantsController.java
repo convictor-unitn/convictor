@@ -955,7 +955,7 @@ public class RestaurantsController extends AbstractController {
 	}
 	
 	/**
-	 * Action to show a single review
+	 * Action to show a single review.
 	 * @param request
 	 * @param response
 	 * @return

@@ -50,7 +50,12 @@
                     </div>
 						<div class="button black">
 							<a href="${pageContext.servletContext.contextPath}/restaurants/show?id=${review.restaurantId}">
-								Indietro
+								Vai alla pagina del ristorante
+							</a>
+						</div>
+						<div class="button black">
+							<a href="${pageContext.servletContext.contextPath}/userProfile/show">
+								Torna al profilo
 							</a>
 						</div>
                 </div>
