@@ -14,7 +14,7 @@
     <jsp:attribute name="body">
 		<div class="row">
               <div class="column">
-                  <div class="ui comments">
+                  <div class="ui comments mycomments">
 					<!-- Reviews List -->
                       <div class="comment">
 						<div class="content">
@@ -41,12 +41,24 @@
 						<div class="button black">
 							
 						</div>
-						<div class="button black">
+						<div class="ui black two buttons">
+							<div class="button ">
+							<a href="${pageContext.servletContext.contextPath}/restaurants/show?id=${photo.restaurantId}">
+								Vai alla pagina del ristorante
+							</a>
+							</div>
+							<div class="button">
+								<a href="${pageContext.servletContext.contextPath}/userProfile/show">
+									Torna al profilo
+								</a>
+							</div>
+						</div>
+						<div class="button ">
 							<a href="${pageContext.servletContext.contextPath}/restaurants/show?id=${photo.restaurantId}">
 								Vai alla pagina del ristorante
 							</a>
 						</div>
-						<div class="button black">
+						<div class="button">
 							<a href="${pageContext.servletContext.contextPath}/userProfile/show">
 								Torna al profilo
 							</a>

@@ -106,3 +106,7 @@ ui.card {
 .ui.selection.dropdown {
 	 min-width: 12em;
 }
+
+.ui.comments.mycomments {
+	max-width: 100%;
+}
