@@ -213,16 +213,15 @@ public class NoticeDAOImpl extends DatabaseDAO implements NoticeDAO {
 
     @Override
     public void insertOwnershipNotice(OwnershipNotice notice) throws SQLException {
-		String query = "INSERT INTO ownership_notices (registered_user_id, restaurant_id, approved, company_name, vat_number, tax_code, contact_phone) VALUES(?, ?, ?, ?, ?, ?, ?);";
+		String query = "INSERT INTO ownership_notices (registered_user_id, restaurant_id, company_name, vat_number, tax_code, contact_phone) VALUES(?, ?, ?, ?, ?, ?);";
 		PreparedStatement stmt = this.getDbManager().getConnection().prepareStatement(query);
 		try {
 			stmt.setInt(1, notice.getRegisteredUserId());
 			stmt.setInt(2, notice.getRestaurantId());
-			stmt.setBoolean(3, false);
-			stmt.setString(4, notice.getCompanyName());
-			stmt.setString(5, notice.getVatNumber());
-			stmt.setString(6, notice.getTaxCode());
-			stmt.setString(7, notice.getContactPhone());
+			stmt.setString(3, notice.getCompanyName());
+			stmt.setString(4, notice.getVatNumber());
+			stmt.setString(5, notice.getTaxCode());
+			stmt.setString(6, notice.getContactPhone());
 			stmt.execute();
 		} finally {
 			stmt.close();
@@ -248,19 +247,47 @@ public class NoticeDAOImpl extends DatabaseDAO implements NoticeDAO {
 
     @Override
     public void approveOwershipNotice(boolean approved, int id) throws SQLException {
-        
-        // Check if valid
-        if (id <= 0) return;
-        
-        String query = "UPDATE ownership_notice SET approved = ? WHERE id = ? ";
-        PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
-        try {
-            stm.setBoolean(0, approved);
-            stm.setInt(1, id);
-            stm.executeQuery();
-        } finally {
-            stm.close();
-        }
+		String query = "UPDATE ownership_notices SET approved = ? WHERE id = ? ";
+		PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
+		try {
+			stm.setBoolean(1, approved);
+			stm.setInt(2, id);
+			stm.executeUpdate();
+		} finally {
+			stm.close();
+		}
     }
+
+	@Override
+	public OwnershipNotice getOwnershipNoticeById(int id) throws Exception {
+		OwnershipNotice notice = new OwnershipNotice();
+		String query = "SELECT id, registered_user_id, restaurant_id, approved, company_name, vat_number, tax_code, contact_phone "
+						+ "FROM ownership_notices "
+						+ "WHERE id = ?";
+		
+		PreparedStatement stmt = this.getDbManager().getConnection().prepareStatement(query);
+		try {
+			stmt.setInt(1, id);
+			ResultSet result = stmt.executeQuery();
+			try {
+				while (result.next()) {
+					notice.setId(result.getInt("id"));
+					notice.setRegisteredUserId(result.getInt("registered_user_id"));
+					notice.setRestaurantId(result.getInt("restaurant_id"));
+					notice.setApproved(result.getBoolean("approved"));
+					notice.setCompanyName(result.getString("company_name"));
+					notice.setVatNumber(result.getString("vat_number"));
+					notice.setTaxCode(result.getString("tax_Code"));
+					notice.setContactPhone(result.getString("contact_phone"));
+				}
+			} finally {
+				result.close();
+			}
+		} finally {
+			stmt.close();
+		}
+		
+		return notice;
+	}
     
 }

@@ -30,11 +30,14 @@ public class Restaurant extends AbstractBean {
 	private List<Cusine> cusine;
 	private List<Review> reviews;
     private List<OpeningTime> openingTimes;
-	private List<Notice> notices;
 	private List<Photo> photos;
 	private RestaurantOwner owner;
 	private double lat;
 	private double lng;
+	private String vatNumber;
+	private String taxCode;
+	private String companyName;
+	private String contactPhone;
     
     
     /**
@@ -440,7 +443,45 @@ public class Restaurant extends AbstractBean {
 			this.setError("lng", "Longitudine non valida. Deve essere un numero");
 		}
 	}
-    
-    
-    
+
+	public RestaurantOwner getOwner() {
+		return owner;
+	}
+
+	public void setOwner(RestaurantOwner owner) {
+		this.owner = owner;
+	}
+
+	public String getVatNumber() {
+		return vatNumber;
+	}
+
+	public void setVatNumber(String vatNumber) {
+		this.vatNumber = vatNumber;
+	}
+
+	public String getTaxCode() {
+		return taxCode;
+	}
+
+	public void setTaxCode(String taxCode) {
+		this.taxCode = taxCode;
+	}
+
+	public String getContactPhone() {
+		return contactPhone;
+	}
+
+	public void setContactPhone(String contactPhone) {
+		this.contactPhone = contactPhone;
+	}
+
+	public String getCompanyName() {
+		return companyName;
+	}
+
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
+	}
+	
 }

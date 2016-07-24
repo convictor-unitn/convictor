@@ -5,6 +5,7 @@
  */
 package it.unitn.disi.webprog2016.convictor.app.dao.interfaces;
 
+import it.unitn.disi.webprog2016.convictor.app.beans.RestaurantOwner;
 import it.unitn.disi.webprog2016.convictor.app.beans.User;
 import java.sql.SQLException;
 import java.util.List;
@@ -26,5 +27,9 @@ public interface UserDAO {
 	
     User authenticate(String email, String password) throws SQLException;
     User getResetPasswordToken(String email) throws SQLException;
+	
+	void promoteUserToRestaurantOwner(User user) throws Exception;
+	
+	RestaurantOwner getRestaurantOwnerById(int id) throws Exception; 
 	
 } 
