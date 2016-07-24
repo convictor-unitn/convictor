@@ -128,7 +128,7 @@ public class PasswordsController extends AbstractController  {
 			
 			DateTime nowPlus30Min = DateTime.now();
 			DateTime resetPasswordSentAt = new DateTime(user.getResetPasswordSentAt());
-			boolean validDate = nowPlus30Min.isBefore(user.getResetPasswordSentAt().plusMinutes(1));
+			boolean validDate = nowPlus30Min.isBefore(user.getResetPasswordSentAt().plusMinutes(15));
 			//boolean validDate = nowPlus30Min.toInstant().getMillis() <= (user.getResetPasswordSentAt().getTime()+1800000);
 			
 			System.err.println(nowPlus30Min.toString() + "   "+ resetPasswordSentAt.toString());
