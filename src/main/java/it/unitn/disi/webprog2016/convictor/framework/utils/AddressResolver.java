@@ -166,23 +166,23 @@ public class AddressResolver {
 		}
 	}
 	
-	// Run this file to test the results
-	public static void main(String[] args) throws IOException, AddressNotFoundException {
-		
-		System.out.println();
-
-		
-		AddressResolver ad = new AddressResolver();
-		ad.setZipcode("36043");
-		ad.setStreet("via san michele");
-		ad.setCity("Malo");
-		ad.setState("IT");
-		ad.resolveAddress();
-		
-		System.out.print(ad.getLatitude()+" "+ad.getLongitude());
-		
-		
-	}
+	// DEBUGGING: Run this file to test the results
+//	public static void main(String[] args) throws IOException, AddressNotFoundException {
+//		
+//		System.out.println();
+//
+//		
+//		AddressResolver ad = new AddressResolver();
+//		ad.setZipcode("36043");
+//		ad.setStreet("via san michele");
+//		ad.setCity("Malo");
+//		ad.setState("IT");
+//		ad.resolveAddress();
+//		
+//		System.out.print(ad.getLatitude()+" "+ad.getLongitude());
+//		
+//		
+//	}
 	
 	
 }

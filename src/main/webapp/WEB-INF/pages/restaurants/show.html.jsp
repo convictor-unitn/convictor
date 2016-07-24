@@ -534,7 +534,7 @@
             document.getElementById("ratingFormHidden").setAttribute('value', val);
           }
         </script>
-        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBbiud33G2KsodO5JvP-5HQzoSTuWiI0a8&callback=initMap" type="text/javascript"></script>
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCMJtaVznqkvqvaR1GFfLXkZHyzd4zfbXk&callback=initMap" type="text/javascript"></script>
 
 	</jsp:attribute>
                 
