@@ -174,7 +174,7 @@
 		</c:choose>
 			<div class="field">
                 <div class="ui top attached large label">
-                    ${optime.dayString} ${optime.day}
+                    ${optime.dayString}
                 </div>
             </div>		
 		<div class="two fields">
