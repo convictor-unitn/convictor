@@ -25,7 +25,8 @@
                 </h2>
                 <form class="ui large form error" method="POST" action="${pageContext.servletContext.contextPath}/passwords/get_reset_token" />
                   <div class="ui stacked segment" id="brown">
-                    <div>Per reimpostare la password del tuo account ti sarà inviato all'indirizzo email che inserirai qui un link per effettuare l'operazione.</div>
+					<partials:formerrors field="expiredToken" />
+					<div>Per reimpostare la password del tuo account ti sarà inviato all'indirizzo email che inserirai qui un link per effettuare l'operazione.</div>
                     </br>
                     <div class="field <c:if test="${bean.valid == false and !(bean.errors['email'] == null)}" >error</c:if>">
                       <div class="ui left icon input">
