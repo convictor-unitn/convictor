@@ -6,7 +6,10 @@
 package it.unitn.disi.webprog2016.convictor.app.controllers;
 
 import it.unitn.disi.webprog2016.convictor.app.beans.OwnershipNotice;
+import it.unitn.disi.webprog2016.convictor.app.beans.PhotoRemovalNotice;
+import it.unitn.disi.webprog2016.convictor.app.beans.User;
 import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.NoticeDAO;
+import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.PhotoDAO;
 import it.unitn.disi.webprog2016.convictor.framework.controllers.AbstractController;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -90,6 +93,32 @@ public class NoticesController extends AbstractController {
 		}
 	}
 	public String reportPhoto(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException { 
+		
+		NoticeDAO noticeDAO = (NoticeDAO) request.getServletContext().getAttribute("noticedao");
+		User user = (User) request.getSession(false).getAttribute("user");
+		
+		// Check and set the photo id
+		int id=0;
+		try {
+			id = Integer.parseInt(request.getParameter("photoId"));
+		} catch (Exception ex) {
+			response.sendError(500);
+			return "";
+		}
+		
+		// Insert the notice
+		PhotoRemovalNotice tmp = new PhotoRemovalNotice();			
+		tmp.setPhotoId(id);
+		tmp.setRegisteredUserId(user.getId());
+		try {
+			noticeDAO.insertPhotoRemovalNotice(tmp);
+		} catch (Exception ex) {
+			response.sendError(500);
+			return "";
+		} 
+		
+		// Set the object
+		request.setAttribute("notice", tmp);
 		return "/notices/reportPhoto";
 	}
 	

@@ -29,9 +29,10 @@
 								</a>
 							</c:when>
 							<c:otherwise>
-								<a href="${pageContext.servletContext.contextPath}/restaurants/show?id=${photo.restaurantId}">
-									Segnala fotografia
-								</a>
+								<form method="POST" action="${pageContext.servletContext.contextPath}/restaurants/report">
+									<input type="hidden" name="photoId" value="${photo.id}">
+									<input type="submit" class="button blue" value="Segnala foto">
+								</form>
 							</c:otherwise>
 						</c:choose>
 						<div class="button black">
