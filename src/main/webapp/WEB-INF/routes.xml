@@ -67,6 +67,20 @@
         <action>claimRestaurantOwnership</action>
         <format>html</format>            
     </route>
+	<route>
+        <method>POST</method>
+        <url>/restaurants/report</url>
+        <controller>Notices</controller>
+        <action>reportPhoto</action>
+        <format>html</format>            
+    </route>
+	<route>
+        <method>POST</method>
+        <url>/restaurants/approveReport</url>
+        <controller>Notices</controller>
+        <action>approveReportPhoto</action>
+        <format>html</format>            
+    </route>
     
     <!--Protected access only admin-->
     <route>
