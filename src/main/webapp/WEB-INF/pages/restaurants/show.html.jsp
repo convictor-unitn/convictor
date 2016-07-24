@@ -270,7 +270,7 @@
         <div class="ui tab active" data-tab="recensioni">
           <div class="ui grid">
             <div class="row">
-              <div class="column center aligned">
+              <div class="center aligned column">
                   <div class="ui buttons">
                     <div class="ui basic black button">
                         <c:if test="${actualPage-1 < 0}">
@@ -295,8 +295,8 @@
                   </div>
               </div>  
             </div>   
-            <div class="row">
-              <div class="column">
+            <div class="row tablet computer only">
+              <div class="column" style="margin-left:250px">
                   <div class="ui comments">
                 <!-- Reviews List -->
                   <c:forEach var="review" items="${restaurant.reviews}">
@@ -339,6 +339,52 @@
   
                 <!-- End Reviews List -->
             </div>
+							
+			<div class="row mobile only">
+              <div class="column">
+                  <div class="ui comments">
+                <!-- Reviews List -->
+                  <c:forEach var="review" items="${restaurant.reviews}">
+                      <div class="comment">
+                      <div class="content">
+                          <a class="author" id="brown">${review.registeredUserName}</a>
+                          <div class="metadata">
+                              <div class="date" id="brown">
+									<fmt:formatDate
+									pattern="dd-MM-yyyy HH:mm"
+									value="${review.createdAt}"/>
+							  </div>
+                              <div class="rating">
+                                  <div class="ui horizontal list">
+                                      <c:forEach var="i" begin="0" end="${review.rating}" step="1">
+                                      <c:if test="${i!=0}">
+                                         <div class="item">
+                                              <i class="star icon"> </i>
+                                          </div>
+                                      </c:if>
+                                  </c:forEach>
+                                  <c:forEach begin="${review.rating}" end="4" step="1">
+                                      <div class="item">
+                                          <i class="empty star icon"> </i>
+                                      </div>
+                                  </c:forEach>
+                                  </div>                                    
+                              </div>
+                          </div>
+                      <div class="text" id="brown">
+                        ${review.description}
+                      </div>
+                      
+                    </div>
+                      </div>                      
+                  </c:forEach>
+                  </div>
+                  
+              </div>
+  
+                <!-- End Reviews List -->
+            </div>				
+							
               <!-- Add a review textbox -->
               <%--<p:formerrors /> --%>
               <div class="sixteen wide column">
