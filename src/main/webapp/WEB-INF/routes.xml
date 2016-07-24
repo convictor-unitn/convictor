@@ -114,6 +114,13 @@
         <action>uploadPhoto</action>
         <format>html</format>            
     </route>
+	<route>
+        <method>GET</method>
+        <url>/restaurants/showPhoto</url>
+        <controller>Restaurants</controller>
+        <action>showPhoto</action>
+        <format>html</format>            
+    </route>
 	
     <!-- Session routes -->
     <route>

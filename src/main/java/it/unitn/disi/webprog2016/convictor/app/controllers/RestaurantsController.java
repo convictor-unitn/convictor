@@ -992,4 +992,32 @@ public class RestaurantsController extends AbstractController {
 		 
 	}
 	
+	public String showPhoto(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+	
+		PhotoDAO photoDAO = (PhotoDAO) request.getServletContext().getAttribute("photodao");
+		int id = 0;
+		
+		// Try catch to avoid parsing errors
+        try {
+            id = Integer.parseInt(request.getParameter("id"));
+        } catch (Exception ex) {
+            Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, ex);
+            response.sendError(404);
+            return "";
+        }
+		
+		Photo photo;
+		try {
+			photo = photoDAO.getPhotoById(id);
+		} catch (Exception ex) {
+			Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, ex);
+            response.sendError(500);
+            return "";
+		}
+		
+		request.setAttribute("photo", photo);
+		
+		return "restaurants/showPhoto";
+	}
+	
 }
