@@ -71,7 +71,7 @@
                 5
               </div>
               <div class="label" id="brown">
-                Posizione in Lombardia
+                Posizione in classifica
               </div>
             </div>
           </div>

@@ -1,29 +1,17 @@
 <%-- 
     Document   : formerrors
-    Created on : 25-giu-2016, 17.55.30
+    Created on : 21-lug-2016, 16.55.46
     Author     : Giovanni
 --%>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@tag description="put the tag description here" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%-- The list of normal or fragment attributes can be specified here: --%>
 
-<c:set var="bean" value="${requestScope.bean}" />
+<%@attribute name="field" required="true" description="error name to display"%>
 
-<c:if test="${bean.valid == false }">
-    <div class="row">
-        <div class="sixteen wide column">
-            <div class="ui error message">
-                <div class="header">Ci sono degli errori</div>
-                <div class="ui list">
-                   
-                    <c:forEach var="error" items="${bean.errors}" >
-                        <div class="item">
-                            ${error['value']}
-                        </div>
-                    </c:forEach>
-                </div>    
-            </div>
-        </div>
-    </div>    
-</c:if>  
-
+<c:if test="${bean.valid == false and !(bean.errors[field] == null)}" >
+	<div class="ui error message">
+		${bean.errors[field]}
+	</div>
+</c:if>

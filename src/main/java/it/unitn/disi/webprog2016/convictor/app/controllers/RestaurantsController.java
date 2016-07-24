@@ -90,6 +90,10 @@ public class RestaurantsController extends AbstractController {
      */
     public String index(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		
+		// Add review dao and cusine restaurant
+		ReviewDAO reviewDAO = (ReviewDAO) request.getServletContext().getAttribute("reviewdao");
+		CusinesRestaurantDAO cusineRestaurantDAO = (CusinesRestaurantDAO) request.getServletContext().getAttribute("cusinesrestaurantdao");
+		
         // Retrive all cusines 
         CusineDAO cusineDAO = (CusineDAO) request.getServletContext().getAttribute("cusinedao");
 		List<Cusine> allCusines;
@@ -172,6 +176,10 @@ public class RestaurantsController extends AbstractController {
                 }
             
             if (tmp != null) {
+				for(Restaurant r : tmp) {
+					r.setReviews(reviewDAO.getRestaurantReviews(r.getId()));
+					r.setCusine(cusineRestaurantDAO.getCusinesByRestaurantId(r.getId()));
+				}
                 request.setAttribute("results", tmp);
             } else {
                 request.setAttribute("results", new ArrayList<>());
@@ -668,6 +676,7 @@ public class RestaurantsController extends AbstractController {
             return "";
 		}
         
+
 		// Get all price slots available to make them available inside the JSP
 		
 		try {
@@ -675,7 +684,9 @@ public class RestaurantsController extends AbstractController {
 			request.setAttribute("allPriceSlot", allPriceSlot);
 		} catch (SQLException ex) {
 			Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, ex);
+
 		}
+
 		
         Restaurant tmp = new Restaurant();
 		tmp.setId(id);
