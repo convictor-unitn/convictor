@@ -100,6 +100,8 @@ public class PasswordsController extends AbstractController  {
      * @throws IOException
      */
     public String new_(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		User user = (User) request.getSession().getAttribute("user");
+		request.setAttribute("user", user);
 		request.setAttribute("resetPasswordToken", request.getParameter("reset_password_token"));
 		return "/passwords/new";
 	}
@@ -142,7 +144,14 @@ public class PasswordsController extends AbstractController  {
 					response.sendRedirect(request.getContextPath()+"/");
 					return "";
 				} else {
-					response.sendRedirect(request.getContextPath()+"/passwords/new?reset_password_token="+user.getResetPasswordToken());
+					String errors = ""; boolean status = true;
+					for (String e : user.getErrors().keySet()) {
+						if (status == true) {errors += "&";}
+						errors += e+"=on";
+						status = true;
+					}
+					
+					response.sendRedirect(request.getContextPath()+"/passwords/new?reset_password_token="+user.getResetPasswordToken()+errors);
 					return ""; 
 				}
 			} else {

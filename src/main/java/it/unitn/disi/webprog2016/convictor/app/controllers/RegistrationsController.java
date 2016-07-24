@@ -43,8 +43,8 @@ public class RegistrationsController extends AbstractController{
 		user.setPassword(request.getParameter("passwordNew"));
 		user.setPasswordConfirmation(request.getParameter("passwordConfirmation")); 
 		user.setPrivacy(request.getParameter("privacy"));
-		
-		if(!user.getPrivacy().equals("checked")) {
+				
+		if(!user.getPrivacy().equals("on")) {
 			user.setError("privacy", "Devi accettare le condizioni generali di utilizzo del servizio");
 		}
 		
