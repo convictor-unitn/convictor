@@ -43,10 +43,10 @@ public class NoticeDAOImpl extends DatabaseDAO implements NoticeDAO {
         PhotoDAOImpl photoDAO = new PhotoDAOImpl(this.getDbManager());
 		
 		PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(
-                "SELECT * FROM ownership_notices LIMIT ? OFFSET ?"
+                "SELECT * FROM ownership_notices WHERE approved IS NULL LIMIT ? OFFSET ?"
             );
         PreparedStatement stm2 = this.getDbManager().getConnection().prepareStatement(
-                "SELECT * FROM photo_remove_notices LIMIT ? OFFSET ?"
+                "SELECT * FROM photo_remove_notices WHERE approved IS NULL LIMIT ? OFFSET ?"
             );
         try {
             stm.setInt(1, MAX_RESULT);
