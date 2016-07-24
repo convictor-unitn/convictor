@@ -9,7 +9,9 @@ import it.unitn.disi.webprog2016.convictor.app.beans.Notice;
 import it.unitn.disi.webprog2016.convictor.app.beans.OwnershipNotice;
 import it.unitn.disi.webprog2016.convictor.app.beans.PhotoNotice;
 import it.unitn.disi.webprog2016.convictor.app.beans.PhotoRemovalNotice;
+import it.unitn.disi.webprog2016.convictor.app.beans.Review;
 import it.unitn.disi.webprog2016.convictor.app.beans.ReviewNotice;
+import it.unitn.disi.webprog2016.convictor.app.beans.User;
 import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.NoticeDAO;
 import it.unitn.disi.webprog2016.convictor.framework.dao.DatabaseDAO;
 import it.unitn.disi.webprog2016.convictor.framework.utils.DatabaseConnectionManager;
@@ -87,6 +89,9 @@ public class NoticeDAOImpl extends DatabaseDAO implements NoticeDAO {
         PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(queryReviewNotices);
         PreparedStatement stm2 = this.getDbManager().getConnection().prepareStatement(queryPhotoNotices);
         
+		UserDAOImpl userDAO = new UserDAOImpl(this.getDbManager());
+		ReviewDAOImpl reviewDAO = new ReviewDAOImpl(this.getDbManager());
+		
         try {
             stm.setInt(1, id);
             stm.setInt(2, MAX_RESULT);
@@ -102,6 +107,13 @@ public class NoticeDAOImpl extends DatabaseDAO implements NoticeDAO {
                     tmp.setId(reviewSet.getString("id"));
                     tmp.setRegisteredUserId(reviewSet.getString("registered_user_id"));
                     tmp.setReviewId(reviewSet.getString("review_id"));
+					
+					User tmpUser = userDAO.getUserById(tmp.getRegisteredUserId());
+					tmp.setRegisteredUser(tmpUser);
+					
+					Review tmpReview = reviewDAO.getReviewById(tmp.getReviewId());
+					tmp.setReview(tmpReview);
+					
                     notices.add(tmp);
                 }
                 while(photoSet.next()) {
@@ -109,6 +121,10 @@ public class NoticeDAOImpl extends DatabaseDAO implements NoticeDAO {
                     tmp.setId(photoSet.getString("id"));
                     tmp.setPhotoId(photoSet.getString("photo_id"));
                     tmp.setRegisteredUserId(photoSet.getString("registered_user_id"));
+					
+					User tmpUser = userDAO.getUserById(tmp.getRegisteredUserId());
+					tmp.setRegisteredUser(tmpUser);
+					
                     notices.add(tmp);
                 }
             } finally {
@@ -120,7 +136,7 @@ public class NoticeDAOImpl extends DatabaseDAO implements NoticeDAO {
             stm.close();
             stm2.close();
         }
-        
+		
         return notices;
     }
 
