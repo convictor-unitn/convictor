@@ -414,7 +414,7 @@
 									   </div>
 									<div class="field actions">
 										<div class="ui cancel basic black button">Chiudi</div>
-										<input class="ui basic black button" type="submit" value="Reclama" />
+										<input class="ui black button" type="submit" value="Reclama" />
 									</div>
 								</form>
 								</div>
