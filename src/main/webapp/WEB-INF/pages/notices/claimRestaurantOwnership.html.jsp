@@ -29,7 +29,7 @@
 			</c:when>
 			
 			<c:when test="${ bean.valid eq false }">
-				<p:claimRestaurantForm ownershipNotice="${bean}" />
+				<p:claimRestaurantForm bean="${bean}" />
 			</c:when>
 		</c:choose>
 	</jsp:attribute>

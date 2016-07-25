@@ -6,9 +6,10 @@
 
 <%@tag import="it.unitn.disi.webprog2016.convictor.app.beans.OwnershipNotice"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="p" tagdir="/WEB-INF/tags/partials//" %>
 <%@tag description="put the tag description here" pageEncoding="UTF-8"%>
 
-<%@attribute name="ownershipNotice" type="OwnershipNotice" %>
+<%@attribute name="bean" type="OwnershipNotice" %>
 
 	<form action="${pageContext.servletContext.contextPath}/restaurants/claim" class="ui form" method="POST">
 		
@@ -17,26 +18,42 @@
 		  <label><h2 id="brown">Informazioni Personali</h2></label>
           <div class="ui divider"></div>
 		  
-		  <input type="hidden" name="restaurantId" value="${ownershipNotice.restaurantId}" />
+		  <input type="hidden" name="restaurantId" value="${bean.restaurantId}" />
 		  
-		  <input type="hidden" name="registeredUserId" value="${ownershipNotice.registeredUserId}" />
+		  <input type="hidden" name="registeredUserId" value="${bean.registeredUserId}" />
 		  
-		  <div class="field <c:if test="${ownershipNotice.valid == false and !( ownershipNotice.errors['name'] == null)}" >error</c:if>">
-            <input type="text" name="companyName" placeholder="Nome Azienda" value="${ownershipNotice.companyName}" />
-			<partials:formerrors field="name"/>			
+		  <div class="field <c:if test="${bean.valid == false and !(bean.errors['company_name'] == null)}" >error</c:if>">
+            <input type="text" name="companyName" placeholder="Nome Azienda" value="${bean.companyName}" />
+			<c:if test="${bean.valid == false and !(bean.errors['company_name'] == null)}" >
+				<div class="ui error message" style="display: block;">
+					${bean.errors['company_name']}
+				</div>
+			</c:if>			
 		  </div>
 			
-		  <div class="field <c:if test="${ownershipNotice.valid == false and !( ownershipNotice.errors['name'] == null)}" >error</c:if>">
-			<input type="text" name="vatNumber" placeholder="Partita Iva" value="${ownershipNotice.vatNumber}" />
-			<partials:formerrors field="name"/>
+		  <div class="field <c:if test="${bean.valid == false and !( bean.errors['vat_number'] == null)}" >error</c:if>">
+			<input type="text" name="vatNumber" placeholder="Partita Iva" value="${bean.vatNumber}" />
+			<c:if test="${bean.valid == false and !( bean.errors['vat_number'] == null)}" >
+				<div class="ui error message" style="display: block;">
+					${bean.errors['vat_number']}
+				</div>
+			</c:if>	
 		  </div>
-		  <div class="field <c:if test="${ownershipNotice.valid == false and !( ownershipNotice.errors['name'] == null)}" >error</c:if>">
-			<input type="text" name="taxCode" placeholder="Codice Fiscale" value="${ownershipNotice.taxCode}" />
-			<partials:formerrors field="name"/>
+		  <div class="field <c:if test="${bean.valid == false and !( bean.errors['tax_code'] == null)}" >error</c:if>">
+			<input type="text" name="taxCode" placeholder="Codice Fiscale" value="${bean.taxCode}" />
+			<c:if test="${bean.valid == false and !(bean.errors['tax_code'] == null)}" >
+				<div class="ui error message" style="display: block;">
+					${bean.errors['tax_code']}
+				</div>
+			</c:if>	
 		  </div>
-		  <div class="field <c:if test="${ownershipNotice.valid == false and !( ownershipNotice.errors['name'] == null)}" >error</c:if>">
-			<input type="text" name="contactPhone" placeholder="Contatto telefonico" value="${ownershipNotice.contactPhone}" />
-			<partials:formerrors field="name"/>
+		  <div class="field <c:if test="${bean.valid == false and !( bean.errors['contact_phone'] == null)}" >error</c:if>">
+			<input type="text" name="contactPhone" placeholder="Contatto telefonico" value="${bean.contactPhone}" />
+			<c:if test="${bean.valid == false and !(bean.errors['contact_phone'] == null)}" >
+				<div class="ui error message" style="display: block;">
+					${bean.errors['contact_phone']}
+				</div>
+			</c:if>	
 		  </div>
 		  <div class="field actions">
 			<div class="ui cancel basic black right floated button">Chiudi</div>

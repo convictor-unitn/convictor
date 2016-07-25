@@ -233,12 +233,21 @@ public class NoticesController extends AbstractController {
 				notice.setError("restaurant", "Questo ristorante è già stato assegnato");
 			}
 			
+			// Check if the user is already a restaurant owner
+			boolean alreadyOwner = false;
+			if(userDAO.getRestaurantOwnerById(notice.getRegisteredUserId()) != null) {
+				alreadyOwner = true;
+			}
+			
 			if(notice.isValid()) {
 				noticeDAO.approveOwershipNotice(noticeApproved, noticeId);
-				userDAO.promoteUserToRestaurantOwner(userDAO.getUserById(notice.getRegisteredUserId()));
-				restaurantOwner = userDAO.getRestaurantOwnerById(notice.getRegisteredUserId());
-				System.err.println(restaurantOwner.getId()+"Ristoratore");
-				restaurantDAO.assignRestaurant(restaurant, restaurantOwner);
+				if (noticeApproved) {
+					if (!alreadyOwner) {
+						userDAO.promoteUserToRestaurantOwner(userDAO.getUserById(notice.getRegisteredUserId()));
+					}
+					restaurantOwner = userDAO.getRestaurantOwnerById(notice.getRegisteredUserId());
+					restaurantDAO.assignRestaurant(restaurant, restaurantOwner);
+				}
 				notice = noticeDAO.getOwnershipNoticeById(noticeId);
 			}
 			request.setAttribute("ownershipNotice", notice);
@@ -248,6 +257,6 @@ public class NoticesController extends AbstractController {
 			Logger.getLogger(NoticesController.class.getName()).log(Level.SEVERE, null, ex);
 		}
 		
-		return "/notices/showClaimRestaurantOwnership";
+		return "/notices/approveClaimRestaurantOwnership";
 	}
 }

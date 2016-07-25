@@ -201,10 +201,16 @@ public class RestaurantsController extends AbstractController {
                 // to show.
                 int pageIndex = request.getQueryString().indexOf("&page=");
                 String queryString = request.getQueryString().substring(0, pageIndex);
-                request.setAttribute("nextPagination", page-1);
-                response.sendRedirect(request.getContextPath()+"/restaurants?"
-                        + queryString +"&page="
-                        + String.valueOf(page-1));
+				if (page > 0) {
+					request.setAttribute("nextPagination", page-1);
+					response.sendRedirect(request.getContextPath()+"/restaurants?"
+							+ queryString +"&page="
+							+ String.valueOf(page-1));
+				} else {
+					request.setAttribute("nextPagination", 0);
+					response.sendRedirect(request.getContextPath()+"/restaurants?"
+							+ queryString);
+				}
                 return "";
             } else {
                 request.setAttribute("nextPagination", page);
@@ -296,10 +302,16 @@ public class RestaurantsController extends AbstractController {
                 // to show.
                 int pageIndex = request.getQueryString().indexOf("&reviewPage=");
                 String queryString = request.getQueryString().substring(0, pageIndex);
-                request.setAttribute("nextPagination", reviewPage-1);
-                response.sendRedirect(request.getContextPath()+"/restaurants/show?"
+				if (reviewPage > 0) {
+					request.setAttribute("nextPagination", reviewPage-1);
+					response.sendRedirect(request.getContextPath()+"/restaurants/show?"
                         + queryString +"&reviewPage="
                         + String.valueOf(reviewPage-1));
+				} else {
+					request.setAttribute("nextPagination", 0);
+					response.sendRedirect(request.getContextPath()+"/restaurants/show?"
+                        + queryString);
+				}
                 return "";
             } else {
                 request.setAttribute("nextPagination", reviewPage);
