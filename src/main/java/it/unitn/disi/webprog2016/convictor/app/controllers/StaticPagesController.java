@@ -39,35 +39,6 @@ public class StaticPagesController extends AbstractController {
 	 */
 	public String landingPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		OpeningTimesDAO openingDAO = (OpeningTimesDAO) request.getServletContext().getAttribute("openingtimesdao");
-		
-		for (int i = 0; i < 50; i++) {
-			int[] days = new int[7];
-			for (int j=0; j<7; j++)  {days[j] = 0;}
-			try {
-				List<OpeningTime> tmp = openingDAO.getResaurantOpeningTimes(i+1);
-				for ( OpeningTime t : tmp) {
-					days[t.getDay()-1] = 1;
-				}
-				
-				for (int j=0; j<7; j++) {
-					if (days[j] == 0) {
-						OpeningTime o = new OpeningTime();
-						o.setDay(j+1);
-						o.setDayoff(true);
-						o.setOpenAt(new Date());
-						o.setCloseAt(new Date());
-						o.setOpenAtAfternoon(new Date());
-						o.setCloseAtAfternoon(new Date());
-						tmp.add(o);
-					}
-				}
-				openingDAO.updateRestaurantOpeningTimes(i, tmp);
-				
-			} catch (Exception ex) {
-			
-			}
-		}
 		return "/landingPage";
 	}
 
