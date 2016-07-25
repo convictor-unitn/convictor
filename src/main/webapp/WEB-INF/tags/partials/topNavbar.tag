@@ -53,13 +53,13 @@
           <c:forEach var="notice" items="${user.notices}">
 			  <c:choose>
 				  <c:when test="${notice.getClass().name == 'it.unitn.disi.webprog2016.convictor.app.beans.ReviewNotice'}">
-					 <a class="item" href="${pageContext.request.contextPath}/restaurants/showReview?id=${notice.review.id}">
+					 <a class="item" href="${pageContext.request.contextPath}/${notice.description}">
 						 <fmt:formatDate pattern="dd/MM/yyyy HH:mm" value="${notice.createdAt}"/>
 						 E' stata aggiunta una nuova recensione!
 					 </a>  
 				  </c:when>
 				  <c:when test="${notice.getClass().name == 'it.unitn.disi.webprog2016.convictor.app.beans.PhotoNotice'}">
-					 <a class="item" href="${pageContext.request.contextPath}/restaurants/showPhoto?id=${notice.photo.id}&noticeId=${notice.id}">
+					 <a class="item" href="${pageContext.request.contextPath}/${notice.description}">
 						 <fmt:formatDate pattern="dd/MM/yyyy HH:mm" value="${notice.createdAt}"/>
 						 E' stata aggiunta una nuova foto!
 					 </a>  

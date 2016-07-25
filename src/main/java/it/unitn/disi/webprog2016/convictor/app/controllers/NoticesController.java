@@ -229,7 +229,7 @@ public class NoticesController extends AbstractController {
 			notice = noticeDAO.getOwnershipNoticeById(noticeId);
 			restaurant = restaurantDAO.getRestaurantById(notice.getRestaurantId());
 			
-			if(restaurant.getRestaurantOwnerId() > 0) {
+			if(restaurant.getRestaurantOwnerId() > 0 && noticeApproved != false) {
 				notice.setError("restaurant", "Questo ristorante è già stato assegnato");
 			}
 			

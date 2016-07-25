@@ -103,8 +103,8 @@
                     <input class="ui fluid black button" type="submit" value="Filtra">
                 </form>
 					</br>
-                 <div class="column">
-            <div class="ui buttons">
+                <div class="column">
+					<div class="ui buttons">
                             <div class="ui basic black button">
                                 <c:if test="${actualPage-1 < 0}">
                                     <a href="?${requestURLFilters}&page=0"> 
@@ -124,7 +124,7 @@
                                 <i class="right arrow icon"></i>
                             </a>
                         </div>         
-            </div>   
+				</div>   
                             
             </div>
             
@@ -133,6 +133,16 @@
             <div class="thirteen wide column">
 
                 <div id="results" class="ui three stackable cards">
+					<c:if test="${fn:length(results) == 0}">
+						<div class="ui red icon message">
+							<i class="remove circle icon"></i>
+							  <div class="content">
+								<div class="header">
+								  Non sono stati trovati ristoranti corrispondenti con la tua ricerca.
+								</div>
+							  </div>
+						  </div>
+					</c:if>
                     <c:forEach var="rest" items="${results}" varStatus="status">
                         <c:set var="main_p_index" value="${0}"/>
                       <div class="ui card">
