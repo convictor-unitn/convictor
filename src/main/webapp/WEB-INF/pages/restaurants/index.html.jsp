@@ -134,8 +134,8 @@
 
                 <div id="results" class="ui three stackable cards">
 					<c:if test="${fn:length(results) == 0}">
-						<div class="ui red icon message">
-							<i class="remove circle icon"></i>
+						<div class="ui yellow icon message">
+							<i class="help circle icon"></i>
 							  <div class="content">
 								<div class="header">
 								  Non sono stati trovati ristoranti corrispondenti con la tua ricerca.
