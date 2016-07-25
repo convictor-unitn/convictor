@@ -289,5 +289,32 @@ public class NoticeDAOImpl extends DatabaseDAO implements NoticeDAO {
 		
 		return notice;
 	}
+
+	@Override
+	public PhotoRemovalNotice getPhotoRemovalNoticeByPhotoId(int photo_id) throws Exception {
+		PhotoRemovalNotice notice = new PhotoRemovalNotice();
+		notice.setId(-1);
+		String query = "SELECT id, registered_user_id, photo_id, approved FROM photo_remove_notices WHERE photo_id = ?";
+		
+		PreparedStatement stmt = this.getDbManager().getConnection().prepareStatement(query);
+		try {
+			stmt.setInt(1, photo_id);
+			ResultSet result = stmt.executeQuery();
+			try {
+				while (result.next()) {
+					notice.setId(result.getInt("id"));
+					notice.setRegisteredUserId(result.getInt("registered_user_id"));
+					notice.setPhotoId(result.getInt("photo_id"));
+					notice.setApproved(result.getBoolean("approved"));
+				}
+			} finally {
+				result.close();
+			}
+		} finally {
+			stmt.close();
+		}
+		
+		return notice;
+	}
     
 }

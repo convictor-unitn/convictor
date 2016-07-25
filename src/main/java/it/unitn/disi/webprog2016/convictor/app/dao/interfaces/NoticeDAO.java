@@ -20,6 +20,7 @@ import java.util.List;
 public interface NoticeDAO {
     
 	OwnershipNotice getOwnershipNoticeById(int id) throws Exception;
+	PhotoRemovalNotice getPhotoRemovalNoticeByPhotoId(int photo_id) throws Exception;
 	
     List<Notice> getAdministratorNotices(int id, int offset) throws Exception;
     List<Notice> getRestaurantOwnerNotices(int id, int offset) throws Exception;

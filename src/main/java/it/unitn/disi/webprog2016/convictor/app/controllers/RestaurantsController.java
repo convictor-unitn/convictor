@@ -16,6 +16,7 @@ import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.PutObjectResult;
 import it.unitn.disi.webprog2016.convictor.app.beans.Administrator;
 import it.unitn.disi.webprog2016.convictor.app.beans.Cusine;
+import it.unitn.disi.webprog2016.convictor.app.beans.Notice;
 import it.unitn.disi.webprog2016.convictor.app.beans.OpeningTime;
 import it.unitn.disi.webprog2016.convictor.app.beans.OwnershipNotice;
 import it.unitn.disi.webprog2016.convictor.app.beans.PriceSlot;
@@ -42,6 +43,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import it.unitn.disi.webprog2016.convictor.app.beans.Photo;
+import it.unitn.disi.webprog2016.convictor.app.beans.PhotoRemovalNotice;
 import it.unitn.disi.webprog2016.convictor.app.beans.RestaurantOwner;
 import it.unitn.disi.webprog2016.convictor.app.dao.implementation.ReviewDAOImpl;
 import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.PhotoDAO;
@@ -1068,6 +1070,7 @@ public class RestaurantsController extends AbstractController {
 	
 		PhotoDAO photoDAO = (PhotoDAO) request.getServletContext().getAttribute("photodao");
 		RestaurantDAO restaurantDAO = (RestaurantDAO) request.getServletContext().getAttribute("restaurantdao");
+		NoticeDAO noticeDAO = (NoticeDAO) request.getServletContext().getAttribute("noticedao");
 		
 		int id = 0;
 		int noticeId = 0;
@@ -1118,6 +1121,19 @@ public class RestaurantsController extends AbstractController {
 				!status) {
 			response.sendError(401);
 			return "";
+		}
+		
+		// Check if the user has already requested the photo removal
+		PhotoRemovalNotice tmp;
+		try {
+			tmp = noticeDAO.getPhotoRemovalNoticeByPhotoId(photo.getId());
+			if (tmp.getId() != -1) {
+				request.setAttribute("alreadyReport", true);
+			}
+		} catch (Exception ex) {
+			Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, ex);
+            response.sendError(500);
+            return "";
 		}
 		
 		request.setAttribute("noticeId", noticeId);

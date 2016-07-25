@@ -35,7 +35,9 @@
 							<c:otherwise>
 								<form method="POST" action="${pageContext.servletContext.contextPath}/restaurants/report">
 									<input type="hidden" name="photoId" value="${photo.id}">
-									<input type="submit" class="ui basic button blue" value="Segnala foto">
+									<c:if test="${empty requestScope.alreadyReport && requestScope.alreadyReport != true}">
+										<input type="submit" class="ui basic button blue" value="Segnala foto">
+									</c:if>
 								</form>
 							</c:otherwise>
 						</c:choose>
