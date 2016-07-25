@@ -11,7 +11,7 @@
 
 <%@attribute name="bean" type="OwnershipNotice" %>
 
-	<form action="${pageContext.servletContext.contextPath}/restaurants/claim" class="ui form" method="POST">
+	<form action="${pageContext.servletContext.contextPath}/restaurants/claim" class="ui form error" method="POST">
 		
 	  <div class="ui middle aligned center aligned grid">
         <div class="column" style="max-width: 1000px;">
@@ -25,7 +25,7 @@
 		  <div class="field <c:if test="${bean.valid == false and !(bean.errors['company_name'] == null)}" >error</c:if>">
             <input type="text" name="companyName" placeholder="Nome Azienda" value="${bean.companyName}" />
 			<c:if test="${bean.valid == false and !(bean.errors['company_name'] == null)}" >
-				<div class="ui error message" style="display: block;">
+				<div class="ui error message" >
 					${bean.errors['company_name']}
 				</div>
 			</c:if>			
@@ -34,7 +34,7 @@
 		  <div class="field <c:if test="${bean.valid == false and !( bean.errors['vat_number'] == null)}" >error</c:if>">
 			<input type="text" name="vatNumber" placeholder="Partita Iva" value="${bean.vatNumber}" />
 			<c:if test="${bean.valid == false and !( bean.errors['vat_number'] == null)}" >
-				<div class="ui error message" style="display: block;">
+				<div class="ui error message" >
 					${bean.errors['vat_number']}
 				</div>
 			</c:if>	
@@ -42,7 +42,7 @@
 		  <div class="field <c:if test="${bean.valid == false and !( bean.errors['tax_code'] == null)}" >error</c:if>">
 			<input type="text" name="taxCode" placeholder="Codice Fiscale" value="${bean.taxCode}" />
 			<c:if test="${bean.valid == false and !(bean.errors['tax_code'] == null)}" >
-				<div class="ui error message" style="display: block;">
+				<div class="ui error message" >
 					${bean.errors['tax_code']}
 				</div>
 			</c:if>	
@@ -50,7 +50,7 @@
 		  <div class="field <c:if test="${bean.valid == false and !( bean.errors['contact_phone'] == null)}" >error</c:if>">
 			<input type="text" name="contactPhone" placeholder="Contatto telefonico" value="${bean.contactPhone}" />
 			<c:if test="${bean.valid == false and !(bean.errors['contact_phone'] == null)}" >
-				<div class="ui error message" style="display: block;">
+				<div class="ui error message" >
 					${bean.errors['contact_phone']}
 				</div>
 			</c:if>	
