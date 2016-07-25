@@ -56,7 +56,7 @@
 			</c:if>	
 		  </div>
 		  <div class="field actions">
-			<div class="ui cancel basic black right floated button">Chiudi</div>
+			<a href="${pageContext.servletContext.contextPath}/restaurants/show?id=${bean.restaurantId}" class="ui cancel basic black right floated button">Chiudi</a>
 			<input class="ui black right floated  button" type="submit" value="Reclama" />
 		  </div>
 		</div>
