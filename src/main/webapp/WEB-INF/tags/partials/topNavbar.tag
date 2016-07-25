@@ -84,11 +84,25 @@
       <!-- Administrator User -->
       <c:if test="${loggedUser.getClass().name == 'it.unitn.disi.webprog2016.convictor.app.beans.Administrator'}" >
         <div class="ui simple dropdown right item">
-            Notifications <i class="dropdown icon"></i>
+            Notifiche <i class="dropdown icon"></i>
             <div class="menu">
-              <a class="item" href="#">notify 1</a>
-              <a class="item" href="#">notify 2</a>
-              <a class="item" href="${pageContext.request.contextPath}/userProfile/show">Open</a> 
+               <c:forEach var="notice" items="${user.notices}">
+					<c:choose>
+						<c:when test="${notice.getClass().name == 'it.unitn.disi.webprog2016.convictor.app.beans.OwnershipNotice'}">
+						   <a class="item" href="${pageContext.request.contextPath}/restaurants/show?id=${notice.restaurantId}">
+							   <fmt:formatDate pattern="dd/MM/yyyy HH:mm" value="${notice.createdAt}"/>
+							   E' stato reclamato un ristorante!
+						   </a>  
+						</c:when>
+						<c:when test="${notice.getClass().name == 'it.unitn.disi.webprog2016.convictor.app.beans.PhotoRemovalNotice'}">
+						   <a class="item" href="${pageContext.request.contextPath}/restaurants/showPhoto?id=${notice.photo.id}&noticeId=${notice.id}">
+							   <fmt:formatDate pattern="dd/MM/yyyy HH:mm" value="${notice.createdAt}"/>
+							   E' stata richiesta la rimozione di una foto!
+						   </a>  
+						</c:when>
+					</c:choose>
+				</c:forEach>
+              <a class="item" href="${pageContext.request.contextPath}/userProfile/show">Vedi tutte</a> 
             </div>
         </div>
       </c:if>
