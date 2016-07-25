@@ -123,10 +123,10 @@
                             <a href="?${requestURLFilters}&page=${requestScope.nextPagination}"> 
                                 <i class="right arrow icon"></i>
                             </a>
-                        </div>
+                        </div><!--
                         <div class="ui basic label">
                             2,048
-                        </div>            
+                        </div>    -->        
             </div>   
                             
             </div>
@@ -136,6 +136,16 @@
             <div class="thirteen wide column">
 
                 <div id="results" class="ui three stackable cards">
+					<c:if test="${fn:length(results) == 0}">
+						<div class="ui red icon message">
+							<i class="remove circle icon"></i>
+							  <div class="content">
+								<div class="header">
+								  Non sono stati trovati ristoranti corrispondenti con la tua ricerca.
+								</div>
+							  </div>
+						  </div>
+					</c:if>
                     <c:forEach var="rest" items="${results}" varStatus="status">
                         <c:set var="main_p_index" value="${0}"/>
                       <div class="ui card">
