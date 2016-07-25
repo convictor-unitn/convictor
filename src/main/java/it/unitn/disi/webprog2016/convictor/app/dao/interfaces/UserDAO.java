@@ -17,7 +17,7 @@ import java.util.List;
 public interface UserDAO {
     
     List<User> getAllUser() throws SQLException;
-    User getUserById(int id) throws SQLException;
+    User getUserById(int id) throws Exception;
 	User getUserByEmail(String email) throws SQLException;
 	User getUserByResetToken(String resetToken) throws SQLException;
 	

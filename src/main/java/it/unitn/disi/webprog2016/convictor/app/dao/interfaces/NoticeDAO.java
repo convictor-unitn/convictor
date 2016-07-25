@@ -21,8 +21,8 @@ public interface NoticeDAO {
     
 	OwnershipNotice getOwnershipNoticeById(int id) throws Exception;
 	
-    List<Notice> getAdministratorNotices(int id, int offset) throws SQLException;
-    List<Notice> getRestaurantOwnerNotices(int id, int offset) throws SQLException;
+    List<Notice> getAdministratorNotices(int id, int offset) throws Exception;
+    List<Notice> getRestaurantOwnerNotices(int id, int offset) throws Exception;
     
     void insertPhotoNotice(PhotoNotice notice) throws SQLException;
     void insertPhotoRemovalNotice(PhotoRemovalNotice notice)throws SQLException;

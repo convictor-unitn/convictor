@@ -36,7 +36,7 @@ public class NoticeDAOImpl extends DatabaseDAO implements NoticeDAO {
     }
 
     @Override
-    public List<Notice> getAdministratorNotices(int id, int offset) throws SQLException {
+    public List<Notice> getAdministratorNotices(int id, int offset) throws Exception {
         List<Notice> notices = new ArrayList<>();
 		
 		UserDAOImpl userDAO = new UserDAOImpl(this.getDbManager());
@@ -101,7 +101,7 @@ public class NoticeDAOImpl extends DatabaseDAO implements NoticeDAO {
     }
 
     @Override
-    public List<Notice> getRestaurantOwnerNotices(int id, int offset) throws SQLException {
+    public List<Notice> getRestaurantOwnerNotices(int id, int offset) throws Exception {
         List<Notice> notices = new ArrayList<>();
         String queryReviewNotices = "SELECT * FROM review_notices RE INNER JOIN reviews R ON RE.review_id = R.id INNER JOIN restaurants RES ON RES.id = R.restaurant_id INNER JOIN users U ON U.id = RES.restaurant_owner_id WHERE U.id=? LIMIT ? OFFSET ?";
         String queryPhotoNotices = "SELECT * FROM photo_notices PN INNER JOIN photos P ON PN.photo_id = P.id INNER JOIN restaurants RES ON RES.id = P.restaurant_id INNER JOIN users U ON U.id = RES.restaurant_owner_id WHERE U.id=? LIMIT ? OFFSET ?";
