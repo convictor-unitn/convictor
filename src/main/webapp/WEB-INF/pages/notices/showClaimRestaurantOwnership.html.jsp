@@ -15,20 +15,53 @@
 	<jsp:attribute name="title">Reclamo ristorante</jsp:attribute>
 	<jsp:attribute name="bodyBackground">#eaeaea</jsp:attribute>	
 	<jsp:attribute name="body">
-			<dl>
-				<dt>Ristorante</dt>
-				<dd>${bean.restaurant.name}</dd>
-				<dt>Utente richiedente</dt>
-				<dd>${bean.registeredUser.name} ${bean.registeredUser.surname}</dd>
-				<dt>Nome Azienda</dt>
-				<dd>${bean.companyName}</dd>
-				<dt>Codice fiscale</dt>
-				<dd>${bean.taxCode}</dd>
-				<dt>Contatto</dt>
-				<dd>${bean.contactPhone}</dd>
-			</dl>
-			<a href="${pageContext.servletContext.contextPath}/restaurants/approveClaim?noticeId=${bean.id}&noticeApproved=true" class="ui button black">Approva</a>
-			<a href="${pageContext.servletContext.contextPath}/restaurants/approveClaim?noticeId=${bean.id}&noticeApproved=false" class="ui button black">Rifiuta</a>
+		<div class="ui one centered column grid">
+			<div class="row">
+				<div class="thirteen wide column">
+					<div class="ui centered card">
+						  <div class="content">
+							  <div class="ui large header center aligned">${bean.restaurant.name}</div>
+							  <div class="ui center aligned list">
+								  <div class="item">
+									  <div class="ui sub header">Nome</div>
+									<div class="description">
+									  ${bean.registeredUser.name}
+									</div>
+								  </div>
+								  <div class="item">
+									  <div class="ui sub header">Cognome</div>
+									<div class="description">
+									  ${bean.registeredUser.surname}
+									</div>
+								  </div>
+								  <div class="item">
+									  <div class="ui sub header">Nome Azienda</div>
+									<div class="description">
+									  ${bean.companyName}
+									</div>
+								  </div>
+								  <div class="item">
+									  <div class="ui sub header">P Iva</div>
+									<div class="description">
+									  ${bean.taxCode}
+									</div>
+								  </div>
+								  <div class="item">
+									  <div class="ui sub header">Contatto</div>
+									<div class="content">
+									  ${bean.contactPhone}
+									</div>
+								  </div>
+								</div>
+						  </div>
+						  <div class="ui two bottom attached buttons">
+							<a href="${pageContext.servletContext.contextPath}/restaurants/approveClaim?noticeId=${bean.id}&noticeApproved=true" class="ui button black">Approva</a>
+							<a href="${pageContext.servletContext.contextPath}/restaurants/approveClaim?noticeId=${bean.id}&noticeApproved=false" class="ui button black">Rifiuta</a>
+						  </div>
+					</div>
+				</div>
+			</div>					  
+		</div>					  				
 		<c:choose>
 			<c:when test="${ bean.valid eq true && bean.approved == true }">
 				<div class="ui blue icon message">
