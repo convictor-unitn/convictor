@@ -57,7 +57,7 @@ public class UserProfileController extends AbstractController {
 			try {
 				List<Notice> notices = noticeDAO.getAdministratorNotices(user.getId(), noticePage);
 				user.setNotices(notices);
-			} catch (SQLException ex) {
+			} catch (Exception ex) {
 				Logger.getLogger(UserProfileController.class.getName()).log(Level.SEVERE, null, ex);
 			}
 		}
@@ -68,7 +68,7 @@ public class UserProfileController extends AbstractController {
 				user.setNotices(notices);
 				RestaurantOwner restaurantOwner = (RestaurantOwner) user;
 				restaurantOwner.setRestaurants(restaurantDAO.getRestaurantByUserId(user.getId()));
-			} catch (SQLException ex) {
+			} catch (Exception ex) {
 				Logger.getLogger(UserProfileController.class.getName()).log(Level.SEVERE, null, ex);
 			}
 		}
@@ -131,7 +131,9 @@ public class UserProfileController extends AbstractController {
 	 */
 	public String update(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		UserDAO userDAO = (UserDAO) request.getServletContext().getAttribute("userdao");
+		
 		User user;
+		
 		try {
 			// Get parameters from request
 			String name = request.getParameter("name");

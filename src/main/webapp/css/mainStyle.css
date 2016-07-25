@@ -106,3 +106,12 @@ ui.card {
 .ui.selection.dropdown {
 	 min-width: 12em;
 }
+
+.ui.comments.mycomments {
+	max-width: 100%;
+}
+
+#mappa {
+	
+	padding-bottom: 5em;
+}

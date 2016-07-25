@@ -19,8 +19,11 @@ import java.util.List;
  */
 public interface NoticeDAO {
     
-    List<Notice> getAdministratorNotices(int id, int offset) throws SQLException;
-    List<Notice> getRestaurantOwnerNotices(int id, int offset) throws SQLException;
+	OwnershipNotice getOwnershipNoticeById(int id) throws Exception;
+	PhotoRemovalNotice getPhotoRemovalNoticeByPhotoId(int photo_id) throws Exception;
+	
+    List<Notice> getAdministratorNotices(int id, int offset) throws Exception;
+    List<Notice> getRestaurantOwnerNotices(int id, int offset) throws Exception;
     
     void insertPhotoNotice(PhotoNotice notice) throws SQLException;
     void insertPhotoRemovalNotice(PhotoRemovalNotice notice)throws SQLException;
@@ -29,5 +32,5 @@ public interface NoticeDAO {
     
     void approvePhotoRemovalNotice(boolean approved, int id) throws SQLException;
     void approveOwershipNotice(boolean approved, int id) throws SQLException;
-    
+	
 }

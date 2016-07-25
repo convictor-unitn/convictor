@@ -96,9 +96,10 @@ public class PhotoRemovalNotice extends AbstractBean implements Notice, Approvab
 	@Override
 	public String getDescription() {
 		String userName = registeredUser.getName() + " " + registeredUser.getSurname();
-        String userProfile = "<a href=\"/userProfile/show?id="+ registeredUserId + "\">"+userName+"</a>";
-        String photoMessage ="<a href=\"/restaurant/show?id="+ photo.getRestaurantId() + "\">foto</a>";
-        String message = userProfile + " ha inserito la rimozione di " + photoMessage + "!";
+        String photoMessage ="<a href=\"/convictor/restaurants/showPhoto?id="+ photo.getId() 
+				+ "&noticeId="+this.getId()
+				+ "\">foto</a>";
+        String message = userName + " ha inserito la rimozione di " + photoMessage + "!";
         return message;
 	}
 

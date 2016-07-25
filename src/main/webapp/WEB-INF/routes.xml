@@ -67,6 +67,34 @@
         <action>claimRestaurantOwnership</action>
         <format>html</format>            
     </route>
+	<route>
+        <method>POST</method>
+        <url>/restaurants/report</url>
+        <controller>Notices</controller>
+        <action>reportPhoto</action>
+        <format>html</format>            
+    </route>
+	<route>
+        <method>POST</method>
+        <url>/restaurants/approveReport</url>
+        <controller>Notices</controller>
+        <action>approveReportPhoto</action>
+		<format>html</format>
+	</route>
+	<route>
+		<method>GET</method>
+        <url>/restaurants/showClaim</url>
+        <controller>Notices</controller>
+        <action>showClaimRestaurantOwnership</action>
+        <format>html</format>            
+    </route>
+	<route>
+		<method>GET</method>
+        <url>/restaurants/approveClaim</url>
+        <controller>Notices</controller>
+        <action>approveClaimRestaurantOwnership</action>
+        <format>html</format>            
+    </route>
     
     <!--Protected access only admin-->
     <route>
@@ -107,12 +135,25 @@
         <action>addReview</action>
         <format>html</format>            
     </route>
-    
+	<route>
+        <method>GET</method>
+        <url>/restaurants/showReview</url>
+        <controller>Restaurants</controller>
+        <action>showReview</action>
+        <format>html</format>            
+    </route>
 	<route>
         <method>POST</method>
         <url>/restaurants/uploadPhoto</url>
         <controller>Restaurants</controller>
         <action>uploadPhoto</action>
+        <format>html</format>            
+    </route>
+	<route>
+        <method>GET</method>
+        <url>/restaurants/showPhoto</url>
+        <controller>Restaurants</controller>
+        <action>showPhoto</action>
         <format>html</format>            
     </route>
 	

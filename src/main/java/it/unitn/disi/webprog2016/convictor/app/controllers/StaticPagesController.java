@@ -5,9 +5,13 @@
  */
 package it.unitn.disi.webprog2016.convictor.app.controllers;
 
+import it.unitn.disi.webprog2016.convictor.app.beans.OpeningTime;
+import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.OpeningTimesDAO;
 import it.unitn.disi.webprog2016.convictor.framework.controllers.AbstractController;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -34,6 +38,7 @@ public class StaticPagesController extends AbstractController {
 	 * @throws IOException 
 	 */
 	public String landingPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		return "/landingPage";
 	}
 

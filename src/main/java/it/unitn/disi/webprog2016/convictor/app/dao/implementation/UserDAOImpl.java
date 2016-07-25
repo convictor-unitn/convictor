@@ -17,6 +17,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 
@@ -45,7 +47,7 @@ public class UserDAOImpl extends DatabaseDAO implements UserDAO{
                     tmp.setEmail(usersSet.getString("email"));
                     tmp.setSurname(usersSet.getString("surname"));
                     tmp.setPassword(usersSet.getString("password"));
-                    tmp.setAdmin(usersSet.getString("admin"));
+                    tmp.setAdmin(usersSet.getBoolean("admin"));
                     users.add(tmp);
                 }
             } finally {
@@ -58,7 +60,7 @@ public class UserDAOImpl extends DatabaseDAO implements UserDAO{
     }
 
     @Override
-    public User getUserById(int id) throws SQLException {
+    public User getUserById(int id) throws Exception {
         User user = null;
         String query = "SELECT id, email, name, surname, admin, reset_password_token, reset_password_sent_at, password FROM users WHERE id = ?";
         PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
@@ -67,12 +69,21 @@ public class UserDAOImpl extends DatabaseDAO implements UserDAO{
             ResultSet usersSet = stm.executeQuery();
             try {
                 while(usersSet.next()) {
-                    user = new User();
+                    
+					// Casting to the correct user type
+					if (usersSet.getBoolean("admin")) {
+						user = new Administrator();
+					} else if (this.getRestaurantOwnerById(usersSet.getInt("id")) != null) {
+						user = new RestaurantOwner();
+					} else {
+						user = new User();
+					}
+					
                     user.setId(usersSet.getInt("id"));
                     user.setEmail(usersSet.getString("email"));
 					user.setName(usersSet.getString("name"));
                     user.setSurname(usersSet.getString("surname"));
-                    user.setAdmin(usersSet.getString("admin"));
+                    user.setAdmin(usersSet.getBoolean("admin"));
 					user.setResetPasswordToken(usersSet.getString("reset_password_token"));
 					if(usersSet.getString("reset_password_sent_at")!=null) {
 						user.setResetPasswordSentAt(DateTime.parse(usersSet.getString("reset_password_sent_at"), DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss.SSSSSS")));
@@ -85,7 +96,8 @@ public class UserDAOImpl extends DatabaseDAO implements UserDAO{
         } finally {
             stm.close();
         }
-        return user;
+
+		return user;
     }
 	
 	@Override
@@ -103,7 +115,7 @@ public class UserDAOImpl extends DatabaseDAO implements UserDAO{
                     user.setEmail(usersSet.getString("email"));
 					user.setName(usersSet.getString("name"));
                     user.setSurname(usersSet.getString("surname"));
-                    user.setAdmin(usersSet.getString("admin"));
+                    user.setAdmin(usersSet.getBoolean("admin"));
 					user.setResetPasswordToken(usersSet.getString("reset_password_token"));
 					if(usersSet.getString("reset_password_sent_at")!=null) {
 						user.setResetPasswordSentAt(DateTime.parse(usersSet.getString("reset_password_sent_at"), DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss.SSSSSS")));
@@ -133,7 +145,7 @@ public class UserDAOImpl extends DatabaseDAO implements UserDAO{
                     user.setEmail(usersSet.getString("email"));
 					user.setName(usersSet.getString("name"));
                     user.setSurname(usersSet.getString("surname"));
-                    user.setAdmin(usersSet.getString("admin"));
+                    user.setAdmin(usersSet.getBoolean("admin"));
 					user.setResetPasswordToken(usersSet.getString("reset_password_token"));
 					if(usersSet.getString("reset_password_sent_at")!=null) {
 						user.setResetPasswordSentAt(DateTime.parse(usersSet.getString("reset_password_sent_at"), DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss.SSSSSS")));
@@ -224,7 +236,7 @@ public class UserDAOImpl extends DatabaseDAO implements UserDAO{
                     user.setEmail(usersSet.getString("email"));
                     user.setSurname(usersSet.getString("surname"));
                     user.setPassword(usersSet.getString("password"));
-                    user.setAdmin(usersSet.getString("admin"));
+                    user.setAdmin(usersSet.getBoolean("admin"));
                 }
 				
 				if(user==null) {
@@ -263,6 +275,53 @@ public class UserDAOImpl extends DatabaseDAO implements UserDAO{
 		}
 		
 		return user;
+	}
+
+	@Override
+	public void promoteUserToRestaurantOwner(User user) throws Exception {
+		
+		String query = "INSERT INTO restaurant_owners (user_id) VALUES(?)";
+		PreparedStatement stmt = this.getDbManager().getConnection().prepareStatement(query);
+		try {
+			stmt.setInt(1, user.getId());
+			stmt.execute();
+		}
+		finally {
+			stmt.close();
+		}
+		
+	}
+
+	@Override
+	public RestaurantOwner getRestaurantOwnerById(int id) throws Exception {
+		RestaurantOwner restaurantOwner = null;
+        String query = "SELECT users.id AS userid, email, name, surname, admin, reset_password_token, reset_password_sent_at, password FROM users INNER JOIN restaurant_owners ON users.id=restaurant_owners.user_id WHERE users.id = ?";
+        PreparedStatement stm = this.getDbManager().getConnection().prepareStatement(query);
+        try {
+			stm.setInt(1, id);
+            ResultSet usersSet = stm.executeQuery();
+            try {
+                while(usersSet.next()) {
+                    restaurantOwner = new RestaurantOwner();
+                    restaurantOwner.setId(usersSet.getInt("userid"));
+                    restaurantOwner.setEmail(usersSet.getString("email"));
+					restaurantOwner.setName(usersSet.getString("name"));
+                    restaurantOwner.setSurname(usersSet.getString("surname"));
+                    restaurantOwner.setAdmin(usersSet.getBoolean("admin"));
+					restaurantOwner.setResetPasswordToken(usersSet.getString("reset_password_token"));
+					if(usersSet.getString("reset_password_sent_at")!=null) {
+						restaurantOwner.setResetPasswordSentAt(DateTime.parse(usersSet.getString("reset_password_sent_at"), DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss.SSSSSS")));
+					}
+					restaurantOwner.setPassword(usersSet.getString("password"));
+				}
+            } finally {
+                usersSet.close();
+            }
+        } finally {
+            stm.close();
+        }
+        return restaurantOwner;
+		
 	}
     
 }

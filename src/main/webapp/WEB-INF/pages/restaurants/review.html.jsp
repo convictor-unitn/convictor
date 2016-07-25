@@ -37,7 +37,7 @@
           </div>	
 		</c:when>
         <c:otherwise>
-			<p:formerrors field="description"/>
+          <p:formerrors field="description"/>
           <div class="sixteen wide column">
                 <div class="ui center aligned grid">
                   <div class="column">

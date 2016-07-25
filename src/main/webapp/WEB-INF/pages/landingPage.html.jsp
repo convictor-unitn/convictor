@@ -61,35 +61,6 @@
                     </div>
                 </div>
            </div>                
-                
-
-                       
-            <div class="ui list">
-                <div class="item">
-                <a href="${pageContext.request.contextPath}/passwords/request_new">Reimposta Password</a>
-                </div>
-                <div class="item">
-                <a href="#">Recupera Password</a>
-                </div>
-                <div class="item">
-                <a href="${pageContext.request.contextPath}/sign_in/edit?id=1">Reimposta Profilo</a>
-                </div>
-                <div class="item">
-                <a href="${pageContext.request.contextPath}/restaurants/show?id=1">Pagina ristorante</a>
-                </div>
-                <div class="item">
-                <a href="${pageContext.request.contextPath}/restaurants/edit?id=1">Modifica ristorante</a>
-                </div>
-                <div class="item">
-                <a href="${pageContext.request.contextPath}/restaurants/">Ricerca Ristoranti</a>
-                </div>
-                <div class="item">
-                <a href="${pageContext.request.contextPath}/restaurants/new">Nuovo ristorante</a>
-                </div>
-                <div class="item">
-                <a href="${pageContext.request.contextPath}/">Home</a>
-                </div>
-            </div>
 
 
 	</jsp:attribute>

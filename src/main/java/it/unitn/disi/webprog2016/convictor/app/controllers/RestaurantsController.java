@@ -16,6 +16,7 @@ import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.PutObjectResult;
 import it.unitn.disi.webprog2016.convictor.app.beans.Administrator;
 import it.unitn.disi.webprog2016.convictor.app.beans.Cusine;
+import it.unitn.disi.webprog2016.convictor.app.beans.Notice;
 import it.unitn.disi.webprog2016.convictor.app.beans.OpeningTime;
 import it.unitn.disi.webprog2016.convictor.app.beans.OwnershipNotice;
 import it.unitn.disi.webprog2016.convictor.app.beans.PriceSlot;
@@ -42,7 +43,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import it.unitn.disi.webprog2016.convictor.app.beans.Photo;
+import it.unitn.disi.webprog2016.convictor.app.beans.PhotoRemovalNotice;
 import it.unitn.disi.webprog2016.convictor.app.beans.RestaurantOwner;
+import it.unitn.disi.webprog2016.convictor.app.dao.implementation.ReviewDAOImpl;
 import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.PhotoDAO;
 import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.UserDAO;
 import it.unitn.disi.webprog2016.convictor.framework.utils.AddressNotFoundException;
@@ -1008,6 +1011,135 @@ public class RestaurantsController extends AbstractController {
 	
 	public String qrcode(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		return "";	
+	}
+	
+	/**
+	 * Action to show a single review.
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 * @throws ServletException 
+	 */
+	public String showReview(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+		
+		ReviewDAO reviewDAO = (ReviewDAO) request.getServletContext().getAttribute("reviewdao");
+		int id = 0;
+		
+		// Check if there is a logged user
+        User tmpUser = (User) request.getSession(false).getAttribute("user");
+		if (tmpUser == null) {
+            response.sendError(401);
+            return "";
+		}
+		
+		// Try catch to avoid parsing errors
+        try {
+            id = Integer.parseInt(request.getParameter("id"));
+        } catch (Exception ex) {
+            Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, ex);
+            response.sendError(404);
+            return "";
+        }
+		
+		// Obtain the review
+		Review review;
+		try {
+			review = reviewDAO.getReviewById(id);
+		} catch (Exception ex) {
+			Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, ex);
+            response.sendError(500);
+            return "";
+		}
+		
+		request.setAttribute("review", review);
+		
+		return "restaurants/showReview";
+		 
+	}
+	
+	/**
+	 * Action to show a single photo. 
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 * @throws ServletException 
+	 */
+	public String showPhoto(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+	
+		PhotoDAO photoDAO = (PhotoDAO) request.getServletContext().getAttribute("photodao");
+		RestaurantDAO restaurantDAO = (RestaurantDAO) request.getServletContext().getAttribute("restaurantdao");
+		NoticeDAO noticeDAO = (NoticeDAO) request.getServletContext().getAttribute("noticedao");
+		
+		int id = 0;
+		int noticeId = 0;
+		
+		// Check if there is a logged user
+        User tmpUser = (User) request.getSession(false).getAttribute("user");
+		if (tmpUser == null) {
+            response.sendError(401);
+            return "";
+		}
+		
+		// Try catch to avoid parsing errors
+        try {
+            id = Integer.parseInt(request.getParameter("id"));
+			if (request.getParameter("noticeId") != null) {
+				noticeId = Integer.parseInt(request.getParameter("noticeId"));
+			}
+        } catch (Exception ex) {
+            Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, ex);
+            response.sendError(404);
+            return "";
+        }
+		
+		Photo photo;
+		try {
+			photo = photoDAO.getPhotoById(id);
+		} catch (Exception ex) {
+			Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, ex);
+            response.sendError(500);
+            return "";
+		}
+		
+		// Check if the photo requested can be accessed by the user
+		User user = (User) request.getSession(false).getAttribute("user");
+		boolean status = false;
+		try {	
+			List<Restaurant> tmp = restaurantDAO.getRestaurantByUserId(user.getId());
+			for (Restaurant r : tmp) {
+				if (photo.getRestaurantId() == r.getId()) {status = true;}
+			}
+		} catch (Exception ex) {
+			Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, ex);
+            response.sendError(500);
+            return "";
+		}
+		
+		if (!(user instanceof Administrator) &&
+				!status) {
+			response.sendError(401);
+			return "";
+		}
+		
+		// Check if the user has already requested the photo removal
+		PhotoRemovalNotice tmp;
+		try {
+			tmp = noticeDAO.getPhotoRemovalNoticeByPhotoId(photo.getId());
+			if (tmp.getId() != -1) {
+				request.setAttribute("alreadyReport", true);
+			}
+		} catch (Exception ex) {
+			Logger.getLogger(RestaurantsController.class.getName()).log(Level.SEVERE, null, ex);
+            response.sendError(500);
+            return "";
+		}
+		
+		request.setAttribute("noticeId", noticeId);
+		request.setAttribute("photo", photo);
+		
+		return "restaurants/showPhoto";
 	}
 	
 }

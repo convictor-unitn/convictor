@@ -294,8 +294,11 @@
                         <a href="?${requestURLFilters}&reviewPage=${requestScope.nextPagination}"> 
                             <i class="right arrow icon"></i>
                         </a>                      
-                  </div>
 
+                  </div><!--
+                      <div class="ui basic label">
+                        2,048
+                  </div>-->
               </div>  
             </div>   
             <div class="row tablet computer only">

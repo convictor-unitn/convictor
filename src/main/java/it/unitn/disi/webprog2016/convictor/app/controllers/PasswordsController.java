@@ -122,6 +122,7 @@ public class PasswordsController extends AbstractController  {
 			request.setAttribute("resetPasswordToken", request.getParameter("reset_password_token"));
 			
 			if(user==null) {
+				request.setAttribute("resetPasswordToken", "expired");				
 				return "/passwords/requestNewPassword";
 			}
 			
@@ -155,6 +156,7 @@ public class PasswordsController extends AbstractController  {
 					return ""; 
 				}
 			} else {
+				request.setAttribute("resetPasswordToken", "expired");				
 				return "/passwords/requestNewPassword"; 
 			}
 			

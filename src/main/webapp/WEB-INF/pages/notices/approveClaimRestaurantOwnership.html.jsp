@@ -13,24 +13,16 @@
 
 <l:main>
 	<jsp:attribute name="title">Reclamo ristorante</jsp:attribute>
-		
+	<jsp:attribute name="bodyBackground">#eaeaea</jsp:attribute>	
 	<jsp:attribute name="body">
-		<c:choose>
-			<c:when test="${ bean.valid eq true }">
-				<div class="ui blue icon message">
-					<i class="check circle icon"></i>
-					<div class="content">
-						<div class="header">
-						La richiesta è stata inviata. Sarai contattato dall'amministratore.
-						</div>
-					</div>
-					<a href="#" onclick="window.location.href = document.referrer" class="ui blue submit button">Indietro</a>
+		<div class="ui blue icon message">
+			<i class="check circle icon"></i>
+			<div class="content">
+				<div class="header">
+					DA IMPLEMENTARE
 				</div>
-			</c:when>
-			
-			<c:when test="${ bean.valid eq false }">
-				<p:claimRestaurantForm ownershipNotice="${bean}" />
-			</c:when>
-		</c:choose>
+			</div>
+			<a href="#" onclick="window.location.href = document.referrer" class="ui blue submit button">Indietro</a>
+		</div>
 	</jsp:attribute>
 </l:main>
