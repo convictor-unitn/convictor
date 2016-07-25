@@ -43,6 +43,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import it.unitn.disi.webprog2016.convictor.app.beans.Photo;
+import it.unitn.disi.webprog2016.convictor.app.beans.PhotoNotice;
 import it.unitn.disi.webprog2016.convictor.app.beans.PhotoRemovalNotice;
 import it.unitn.disi.webprog2016.convictor.app.beans.RestaurantOwner;
 import it.unitn.disi.webprog2016.convictor.app.dao.implementation.ReviewDAOImpl;
@@ -861,6 +862,7 @@ public class RestaurantsController extends AbstractController {
         }
 		
 		PhotoDAO photoDAO = (PhotoDAO) request.getServletContext().getAttribute("photodao");
+		NoticeDAO noticeDAO = (NoticeDAO) request.getServletContext().getAttribute("noticedao");
 		int restaurantId = 0;
 		
 		// Fine inizializzazione parametri
@@ -932,6 +934,13 @@ public class RestaurantsController extends AbstractController {
 					photo.setRestaurantId(restaurantId);
 					photo.setUrl(url);
 					photoDAO.insertPhoto(photo);
+					
+					// Insert photo notice
+					PhotoNotice notice = new PhotoNotice();
+					notice.setPhotoId(photoDAO.getPhotoByUrl(url).getId());
+					notice.setRegisteredUserId(currentUser.getId());
+					noticeDAO.insertPhotoNotice(notice);
+					
 					request.setAttribute("uploadStatus", "success");
 					LOGGER.log(Level.INFO, "{0}:Upload done", uuidValue);
 					
