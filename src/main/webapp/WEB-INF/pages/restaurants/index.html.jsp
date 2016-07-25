@@ -103,8 +103,8 @@
                     <input class="ui fluid black button" type="submit" value="Filtra">
                 </form>
 					</br>
-                 <div class="column">
-            <div class="ui buttons">
+                <div class="column">
+					<div class="ui buttons">
                             <div class="ui basic black button">
                                 <c:if test="${actualPage-1 < 0}">
                                     <a href="?${requestURLFilters}&page=0"> 
@@ -123,11 +123,8 @@
                             <a href="?${requestURLFilters}&page=${requestScope.nextPagination}"> 
                                 <i class="right arrow icon"></i>
                             </a>
-                        </div><!--
-                        <div class="ui basic label">
-                            2,048
-                        </div>    -->        
-            </div>   
+                        </div>         
+				</div>   
                             
             </div>
             
