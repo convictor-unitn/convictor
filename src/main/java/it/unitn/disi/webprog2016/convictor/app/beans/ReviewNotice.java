@@ -77,10 +77,7 @@ public class ReviewNotice extends AbstractBean implements Notice {
      */
 	@Override
 	public String getDescription() {
-		String userName = registeredUser.getName() + " " + registeredUser.getSurname();
-        String reviewMessage ="<a href=\"/convictor/restaurants/showReview?id="+ review.getId() + "\"> recensione </a>";
-        String message = userName + " ha inserito una nuova " + reviewMessage + "!";
-        return message;
+		return "restaurants/showReview?id="+ review.getId();
 	}
 
 	@Override

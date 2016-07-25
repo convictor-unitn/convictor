@@ -72,7 +72,18 @@
 							<fmt:formatDate pattern="dd-MM-yyyy HH:mm" value="${notice.createdAt}"/>
 						</div>
 						<div class="summary">
-						  ${notice.description}
+							<c:choose>
+								<c:when test="${notice.getClass().name == 'it.unitn.disi.webprog2016.convictor.app.beans.ReviewNotice'}">
+								   <a class="item" href="${pageContext.request.contextPath}/${notice.description}">
+									   ${notice.registeredUser.name} ${notice.registeredUser.surname} ha aggiunto una nuova recensione.
+								   </a>  
+								</c:when>
+								<c:when test="${notice.getClass().name == 'it.unitn.disi.webprog2016.convictor.app.beans.PhotoNotice'}">
+								   <a class="item" href="${pageContext.request.contextPath}/${notice.description}">   
+									${notice.registeredUser.name} ${notice.registeredUser.surname} ha aggiunto una nuova foto.
+								   </a>  
+								</c:when>
+							</c:choose>
 						</div>
 						<!--<div class="extra">
 						  <div class="ui right floated buttons">
