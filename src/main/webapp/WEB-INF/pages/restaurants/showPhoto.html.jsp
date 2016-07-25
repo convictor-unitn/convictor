@@ -35,8 +35,11 @@
 							<c:otherwise>
 								<form method="POST" action="${pageContext.servletContext.contextPath}/restaurants/report">
 									<input type="hidden" name="photoId" value="${photo.id}">
-									<c:if test="${empty requestScope.alreadyReport && requestScope.alreadyReport != true}">
+									<c:if test="${empty requestScope.alreadyReport || requestScope.alreadyReport != true}">
 										<input type="submit" class="ui basic button blue" value="Segnala foto">
+									</c:if>
+									<c:if test="${!empty requestScope.alreadyReport && requestScope.alreadyReport == true}">
+										La foto è già stata segnalata all'amministratore.
 									</c:if>
 								</form>
 							</c:otherwise>
