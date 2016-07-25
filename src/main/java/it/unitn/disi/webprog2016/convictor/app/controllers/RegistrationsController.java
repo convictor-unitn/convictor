@@ -63,7 +63,8 @@ public class RegistrationsController extends AbstractController{
 				user.setAdmin(false);
 				userDAO.insertUser(user);
 				HttpSession session = request.getSession(true);
-				session.setAttribute("user", user);
+				User regenUser = userDAO.getUserByEmail(user.getEmail());
+				session.setAttribute("user", regenUser);
 				
 				EmailMessage msg = mailer.createEmailMessage(new ArrayList<String>() {{ this.add(user.getEmail()); }});
 

@@ -35,7 +35,7 @@
 							Il ristorante è stato assegnato.
 						</div>
 					</div>
-					<a href="#" onclick="window.location.href = document.referrer" class="ui blue submit button">Indietro</a>
+					<a href="${pageContext.servletContext.contextPath}/userProfile/show" class="ui blue submit button">Indietro</a>
 				</div>
 			</c:when>
 			<c:when test="${bean.approved == false}">
@@ -46,7 +46,7 @@
 							La richiesta di assegnazione è stata rifiutata!
 						</div>
 					</div>
-					<a href="#" onclick="window.location.href = document.referrer" class="ui blue submit button">Indietro</a>
+					<a href="${pageContext.servletContext.contextPath}/userProfile/show" class="ui blue submit button">Indietro</a>
 				</div>
 			</c:when>
 		</c:choose>

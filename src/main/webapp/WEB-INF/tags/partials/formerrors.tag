@@ -9,7 +9,6 @@
 <%-- The list of normal or fragment attributes can be specified here: --%>
 
 <%@attribute name="field" required="true" description="error name to display"%>
-${bean.valid}
 <c:if test="${bean.valid == false and !(bean.errors[field] == null)}" >
 	<div class="ui error message">
 		${bean.errors[field]}
