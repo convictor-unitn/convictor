@@ -47,7 +47,18 @@
 							<fmt:formatDate pattern="dd-MM-yyyy HH:mm" value="${notice.createdAt}"/>
 						</div>
 						<div class="summary">
-						  ${notice.description}
+						  <c:choose>
+								<c:when test="${notice.getClass().name == 'it.unitn.disi.webprog2016.convictor.app.beans.OwnershipNotice'}">
+									<a class="item" href="${pageContext.request.contextPath}/${notice.description}">
+									  ${notice.registeredUser.name} ${notice.registeredUser.surname} ha reclamato un ristorante.
+									</a>  
+								</c:when>
+								<c:when test="${notice.getClass().name == 'it.unitn.disi.webprog2016.convictor.app.beans.PhotoRemovalNotice'}">
+								   <a class="item" href="${pageContext.request.contextPath}/${notice.description}">
+									   ${notice.registeredUser.name} ${notice.registeredUser.surname} ha richiesto la rimozione di una foto.
+								   </a>  
+								</c:when>
+							</c:choose>
 						</div>
 						<!--<div class="extra">
 						  <div class="ui right floated buttons">

@@ -89,13 +89,13 @@
                <c:forEach var="notice" items="${user.notices}">
 					<c:choose>
 						<c:when test="${notice.getClass().name == 'it.unitn.disi.webprog2016.convictor.app.beans.OwnershipNotice'}">
-						   <a class="item" href="${pageContext.request.contextPath}/restaurants/show?id=${notice.restaurantId}">
+						   <a class="item" href="${pageContext.request.contextPath}/${notice.description}">
 							   <fmt:formatDate pattern="dd/MM/yyyy HH:mm" value="${notice.createdAt}"/>
 							   E' stato reclamato un ristorante!
 						   </a>  
 						</c:when>
 						<c:when test="${notice.getClass().name == 'it.unitn.disi.webprog2016.convictor.app.beans.PhotoRemovalNotice'}">
-						   <a class="item" href="${pageContext.request.contextPath}/restaurants/showPhoto?id=${notice.photo.id}&noticeId=${notice.id}">
+						   <a class="item" href="${pageContext.request.contextPath}/${notice.description}">
 							   <fmt:formatDate pattern="dd/MM/yyyy HH:mm" value="${notice.createdAt}"/>
 							   E' stata richiesta la rimozione di una foto!
 						   </a>  
