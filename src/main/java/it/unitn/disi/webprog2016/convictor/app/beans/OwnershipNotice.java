@@ -98,10 +98,7 @@ public class OwnershipNotice extends AbstractBean implements Notice, Approvable 
      */
 	@Override
 	public String getDescription() {
-		String userName = registeredUser.getName() + " " + registeredUser.getSurname();
-        String restaurantProfile ="<a href=\"/restaurants/show?id="+restaurantId + "\">"+restaurantId+"</a>";
-        String message = userName + " ha richiesto l'assegnazione del ristorante " + restaurantProfile;
-        return message;
+        return "restaurants/showClaim?noticeId="+this.getId();
     }
 
 	@Override
