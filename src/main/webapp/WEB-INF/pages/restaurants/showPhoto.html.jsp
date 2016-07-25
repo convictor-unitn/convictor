@@ -54,18 +54,6 @@
 									</a>
 								</div>
 							</div>
-							<div class="ui basic black two buttons">			
-								<div class="ui button ">
-									<a href="${pageContext.servletContext.contextPath}/restaurants/show?id=${photo.restaurantId}">
-										Vai alla pagina del ristorante
-									</a>
-								</div>
-								<div class="ui button">
-									<a href="${pageContext.servletContext.contextPath}/userProfile/show">
-										Torna al profilo
-									</a>
-								</div>
-					    </div>
 						</div>						
 						
 
