@@ -7,6 +7,7 @@
 <%@tag description="This tag contains the main layout for all pages except for error pages" pageEncoding="UTF-8"%>
 <%@taglib prefix="partials" tagdir="/WEB-INF/tags/partials/" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <%-- The list of normal or fragment attributes can be specified here: --%>
 <%@attribute name="title" required="true" %>
@@ -14,7 +15,6 @@
 <%@attribute name="bodyBackground" %>
 <c:set var="context" value="${pageContext.request.contextPath}" />
 <c:set var="user" value="${sessionScope.user}" />
-
 <!DOCTYPE html>
 <html>
 	<head>

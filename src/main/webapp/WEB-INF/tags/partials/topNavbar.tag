@@ -10,6 +10,7 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <c:set var="loggedUser" value="${sessionScope.user}" />
+<fmt:setTimeZone value="GMT+4" />
 
 <%-- The list of normal or fragment attributes can be specified here: --%>
 
