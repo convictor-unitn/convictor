@@ -13,7 +13,7 @@
 
 <l:main>
 	<jsp:attribute name="title">Reclamo ristorante</jsp:attribute>
-	<jsp:attribute name="bodyBackground">#eaeaea</jsp:attribute>	
+	
 	<jsp:attribute name="body">
 		<c:choose>
 			<c:when test="${ bean.valid eq false }">
@@ -24,7 +24,7 @@
 							${bean.errors['restaurant']}
 						</div>
 					</div>
-					<a href="#" onclick="window.location.href = document.referrer" class="ui blue submit button">Indietro</a>
+					<a href="#" onclick="window.location.href = document.referrer" class="ui red submit button">Indietro</a>
 				</div>
 			</c:when>
 			<c:when test="${bean.approved == true}">
