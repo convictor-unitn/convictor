@@ -30,7 +30,7 @@
 
 
 			<c:otherwise>
-				<div class="ui red icon message">
+				<div class="ui blue icon message">
 					<i class="check circle icon"></i>
 					<div class="content">
 						<div class="header">
