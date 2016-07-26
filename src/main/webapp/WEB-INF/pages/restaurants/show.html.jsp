@@ -68,17 +68,6 @@
       <!-- Rating Infos & Reviews Infos & QR Code & Personal Infos -->
       <div class="ui center aligned middle aligned five column stackable grid">
         <div class="stretched column">
-          <div class="row">
-
-            <div class="ui small statistic">
-              <div class="value" id="brown">
-                5
-              </div>
-              <div class="label" id="brown">
-                Posizione in classifica
-              </div>
-            </div>
-          </div>
           <div class="ui statistic">
               <div class="ui horizontal list">
                 <c:forEach var="i" begin="0" end="${restaurant.rating}" step="1">
