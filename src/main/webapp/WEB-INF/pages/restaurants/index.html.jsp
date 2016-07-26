@@ -174,7 +174,8 @@
                           <div class="meta">
                             <span class="date">${fn:length(rest.reviews)} recensioni</span>                
                           </div>
-                          <div class="text"> Posizione in classifica ${status.index+1}</div>
+                          <div class="text"> Posizione in classifica: ${status.index+1}</div>
+						  <br />
                           <div class="ui small labels">
 							 <c:forEach var="cusine" items="${rest.cusine}">
 							  <div class="ui label">
