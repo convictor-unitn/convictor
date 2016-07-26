@@ -151,7 +151,9 @@
                         <c:set var="main_p_index" value="${0}"/>
                       <div class="ui card">
                           <div class="image">
-                            <img src="${rest.photos[0].url}">
+							<a href="restaurants/show?id=${rest.id}" class="ui image"> 
+							  <img src="${rest.photos[0].url}" href="restaurants/show?id=${rest.id}">
+							</a>
                           </div>
                         <div class="content">
                           <a class="header" id="brown" href="restaurants/show?id=${rest.id}">${rest.name}</a>
