@@ -941,6 +941,9 @@ public class RestaurantsController extends AbstractController {
 					notice.setRegisteredUserId(currentUser.getId());
 					noticeDAO.insertPhotoNotice(notice);
 					
+					// Logger
+					LOGGER.log(Level.SEVERE, "{0}{1}", new Object[]{String.valueOf(notice.getPhotoId()), String.valueOf(notice.getRegisteredUserId())});
+					
 					request.setAttribute("uploadStatus", "success");
 					LOGGER.log(Level.INFO, "{0}:Upload done", uuidValue);
 					
