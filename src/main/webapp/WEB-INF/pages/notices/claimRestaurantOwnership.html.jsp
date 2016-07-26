@@ -7,6 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="l" tagdir="/WEB-INF/tags/layouts/" %>
+<%@taglib prefix="partials" tagdir="/WEB-INF/tags/partials/" %>
 
 <c:set var="bean" value="${requestScope.ownershipNotice}" />
 
