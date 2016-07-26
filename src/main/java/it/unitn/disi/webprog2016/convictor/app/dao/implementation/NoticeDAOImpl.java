@@ -316,5 +316,18 @@ public class NoticeDAOImpl extends DatabaseDAO implements NoticeDAO {
 		
 		return notice;
 	}
+
+	@Override
+	public void deletePhotoNotice(int id) throws Exception {
+		String query= "DELETE FROM photo_notices WHERE id=?";
+		PreparedStatement stmt = this.getDbManager().getConnection().prepareStatement(query);
+		try {
+			stmt.setInt(1, id);
+			stmt.executeUpdate();
+		}
+		finally {
+			stmt.close();
+		}
+	}
     
 }

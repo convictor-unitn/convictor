@@ -97,6 +97,14 @@ public class PhotoDAOImpl extends DatabaseDAO implements PhotoDAO {
 	@Override
 	public void deletePhotoById(int id_photo) throws SQLException {
 		String query= "DELETE FROM photos WHERE id=?";
+		PreparedStatement stmt = this.getDbManager().getConnection().prepareStatement(query);
+		try {
+			stmt.setInt(1, id_photo);
+			stmt.executeUpdate();
+		}
+		finally {
+			stmt.close();
+		}
 	}
 
 	@Override

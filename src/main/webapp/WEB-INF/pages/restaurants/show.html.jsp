@@ -33,6 +33,7 @@
     <jsp:attribute name="title"> ${restaurant.name} | Convictor </jsp:attribute>
     <jsp:attribute name="bodyBackground"></jsp:attribute>
 	<jsp:attribute name="body">
+	<fmt:setTimeZone value="GMT+4" />
     <div class="ui container">
 
       <!-- Restaurant's Name -->

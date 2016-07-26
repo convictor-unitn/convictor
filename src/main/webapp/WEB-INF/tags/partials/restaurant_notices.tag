@@ -6,7 +6,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@tag description="restaurant owner notifications list partial" pageEncoding="UTF-8"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
+<fmt:setTimeZone value="GMT+4" />
 <div class="ui container">
 
     <div class="ui stackable two column equal width center aligned grid">

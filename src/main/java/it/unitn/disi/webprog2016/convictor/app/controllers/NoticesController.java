@@ -5,6 +5,10 @@
  */
 package it.unitn.disi.webprog2016.convictor.app.controllers;
 
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import it.unitn.disi.webprog2016.convictor.app.beans.OwnershipNotice;
 import it.unitn.disi.webprog2016.convictor.app.beans.PhotoRemovalNotice;
 import it.unitn.disi.webprog2016.convictor.app.beans.User;
@@ -28,6 +32,10 @@ import javax.servlet.http.HttpServletResponse;
  * @author umberto
  */
 public class NoticesController extends AbstractController {
+	
+	private static final String AMAZON_ACCESS_KEY = "AKIAINLCB7W3V5KLNOHQ";
+    private static final String AMAZON_SECRET_KEY = "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";
+    private static final String S3_BUCKET_NAME = "convictor";
 	
 	public String setApproval(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
@@ -153,7 +161,19 @@ public class NoticesController extends AbstractController {
 		
 		try {
 			noticeDAO.approvePhotoRemovalNotice(status, noticeId);
-			photoDAO.deletePhotoById(id);
+			
+			if (status) {
+				
+				/*BasicAWSCredentials awsCredentials = new BasicAWSCredentials(AMAZON_ACCESS_KEY, AMAZON_SECRET_KEY);
+                AmazonS3 s3client = new AmazonS3Client(awsCredentials);
+				DeleteObjectRequest deleteRequest = new DeleteObjectRequest(S3_BUCKET_NAME, S3_BUCKET_NAME);
+				*/
+				//noticeDAO.deletePhotoNotice(noticeId);
+				//photoDAO.deletePhotoById(id);
+			}
+			
+			
+			
 		} catch (Exception e) {
 			Logger.getLogger(NoticesController.class.getName()).log(Level.SEVERE, null, e);
 			response.sendError(500);
