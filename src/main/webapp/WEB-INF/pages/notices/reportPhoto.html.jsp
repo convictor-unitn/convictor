@@ -13,7 +13,7 @@
 
 <l:main>
 	<jsp:attribute name="title">Segnala Fotografia</jsp:attribute>
-	<jsp:attribute name="bodyBackground">#eaeaea</jsp:attribute>	
+
 	<jsp:attribute name="body">
 		<div class="ui blue icon message">
 			<i class="check circle icon"></i>
