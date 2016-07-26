@@ -15,14 +15,40 @@
 	<jsp:attribute name="title">Reclamo ristorante</jsp:attribute>
 	<jsp:attribute name="bodyBackground">#eaeaea</jsp:attribute>	
 	<jsp:attribute name="body">
-		<div class="ui blue icon message">
-			<i class="check circle icon"></i>
-			<div class="content">
-				<div class="header">
-					DA IMPLEMENTARE
+		<c:choose>
+			<c:when test="${ bean.valid eq false }">
+				<div class="ui red icon message">
+					<i class="check circle icon"></i>
+					<div class="content">
+						<div class="header">
+							${bean.errors['restaurant']}
+						</div>
+					</div>
+					<a href="#" onclick="window.location.href = document.referrer" class="ui blue submit button">Indietro</a>
 				</div>
-			</div>
-			<a href="#" onclick="window.location.href = document.referrer" class="ui blue submit button">Indietro</a>
-		</div>
+			</c:when>
+			<c:when test="${bean.approved == true}">
+				<div class="ui blue icon message">
+					<i class="check circle icon"></i>
+					<div class="content">
+						<div class="header">
+							Il ristorante è stato assegnato.
+						</div>
+					</div>
+					<a href="${pageContext.servletContext.contextPath}/userProfile/show" class="ui blue submit button">Indietro</a>
+				</div>
+			</c:when>
+			<c:when test="${bean.approved == false}">
+				<div class="ui red icon message">
+					<i class="remove circle icon"></i>
+					<div class="content">
+						<div class="header">
+							La richiesta di assegnazione è stata rifiutata!
+						</div>
+					</div>
+					<a href="${pageContext.servletContext.contextPath}/userProfile/show" class="ui blue submit button">Indietro</a>
+				</div>
+			</c:when>
+		</c:choose>
 	</jsp:attribute>
 </l:main>

@@ -17,6 +17,7 @@ public interface PhotoDAO {
 	
 	List<Photo> getRestaurantPhotos(int restaurant_id) throws SQLException; 
 	Photo getPhotoById(int id) throws SQLException;
+	Photo getPhotoByUrl(String url) throws SQLException;
 	void insertPhoto(Photo photo) throws SQLException;
 	void deletePhotoById(int id_photo) throws SQLException;
 	

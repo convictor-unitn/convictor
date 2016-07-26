@@ -144,6 +144,11 @@ public class OwnershipNotice extends AbstractBean implements Notice, Approvable 
             status = false;
             this.setError("tax_code","Il codice fiscale non può essere vuoto");
         }
+		if (this.getContactPhone().equals("") || this.getContactPhone()== null ) {
+            status = false;
+            this.setError("contact_phone","Il contatto telefonico non può essere vuoto");
+        }
+		
         return status;
     }
 

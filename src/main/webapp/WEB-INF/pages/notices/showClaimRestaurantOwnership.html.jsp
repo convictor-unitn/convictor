@@ -62,30 +62,6 @@
 				</div>
 			</div>					  
 		</div>					  				
-		<c:choose>
-			<c:when test="${ bean.valid eq true && bean.approved == true }">
-				<div class="ui blue icon message">
-					<i class="check circle icon"></i>
-					<div class="content">
-						<div class="header">
-							Il ristorante è stato assegnato
-						</div>
-					</div>
-					<a href="#" onclick="window.location.href = document.referrer" class="ui blue submit button">Indietro</a>
-				</div>
-			</c:when>
-			
-			<c:when test="${ bean.valid eq false }">
-				<div class="ui red icon message">
-					<i class="check circle icon"></i>
-					<div class="content">
-						<div class="header">
-							${bean.errors['restaurant']}
-						</div>
-					</div>
-					<a href="#" onclick="window.location.href = document.referrer" class="ui blue submit button">Indietro</a>
-				</div>
-			</c:when>
-		</c:choose>
+		
 	</jsp:attribute>
 </l:main>

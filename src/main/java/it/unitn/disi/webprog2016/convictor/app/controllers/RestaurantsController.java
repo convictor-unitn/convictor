@@ -43,6 +43,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import it.unitn.disi.webprog2016.convictor.app.beans.Photo;
+import it.unitn.disi.webprog2016.convictor.app.beans.PhotoNotice;
 import it.unitn.disi.webprog2016.convictor.app.beans.PhotoRemovalNotice;
 import it.unitn.disi.webprog2016.convictor.app.beans.RestaurantOwner;
 import it.unitn.disi.webprog2016.convictor.app.dao.implementation.ReviewDAOImpl;
@@ -201,10 +202,16 @@ public class RestaurantsController extends AbstractController {
                 // to show.
                 int pageIndex = request.getQueryString().indexOf("&page=");
                 String queryString = request.getQueryString().substring(0, pageIndex);
-                request.setAttribute("nextPagination", page-1);
-                response.sendRedirect(request.getContextPath()+"/restaurants?"
-                        + queryString +"&page="
-                        + String.valueOf(page-1));
+				if (page > 0) {
+					request.setAttribute("nextPagination", page-1);
+					response.sendRedirect(request.getContextPath()+"/restaurants?"
+							+ queryString +"&page="
+							+ String.valueOf(page-1));
+				} else {
+					request.setAttribute("nextPagination", 0);
+					response.sendRedirect(request.getContextPath()+"/restaurants?"
+							+ queryString);
+				}
                 return "";
             } else {
                 request.setAttribute("nextPagination", page);
@@ -296,10 +303,16 @@ public class RestaurantsController extends AbstractController {
                 // to show.
                 int pageIndex = request.getQueryString().indexOf("&reviewPage=");
                 String queryString = request.getQueryString().substring(0, pageIndex);
-                request.setAttribute("nextPagination", reviewPage-1);
-                response.sendRedirect(request.getContextPath()+"/restaurants/show?"
+				if (reviewPage > 0) {
+					request.setAttribute("nextPagination", reviewPage-1);
+					response.sendRedirect(request.getContextPath()+"/restaurants/show?"
                         + queryString +"&reviewPage="
                         + String.valueOf(reviewPage-1));
+				} else {
+					request.setAttribute("nextPagination", 0);
+					response.sendRedirect(request.getContextPath()+"/restaurants/show?"
+                        + queryString);
+				}
                 return "";
             } else {
                 request.setAttribute("nextPagination", reviewPage);
@@ -849,6 +862,7 @@ public class RestaurantsController extends AbstractController {
         }
 		
 		PhotoDAO photoDAO = (PhotoDAO) request.getServletContext().getAttribute("photodao");
+		NoticeDAO noticeDAO = (NoticeDAO) request.getServletContext().getAttribute("noticedao");
 		int restaurantId = 0;
 		
 		// Fine inizializzazione parametri
@@ -920,6 +934,13 @@ public class RestaurantsController extends AbstractController {
 					photo.setRestaurantId(restaurantId);
 					photo.setUrl(url);
 					photoDAO.insertPhoto(photo);
+					
+					// Insert photo notice
+					PhotoNotice notice = new PhotoNotice();
+					notice.setPhotoId(photoDAO.getPhotoByUrl(url).getId());
+					notice.setRegisteredUserId(currentUser.getId());
+					noticeDAO.insertPhotoNotice(notice);
+					
 					request.setAttribute("uploadStatus", "success");
 					LOGGER.log(Level.INFO, "{0}:Upload done", uuidValue);
 					

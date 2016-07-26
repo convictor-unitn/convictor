@@ -12,6 +12,7 @@ import it.unitn.disi.webprog2016.convictor.app.beans.User;
 import it.unitn.disi.webprog2016.convictor.app.controllers.UserProfileController;
 import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.NoticeDAO;
 import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.RestaurantDAO;
+import it.unitn.disi.webprog2016.convictor.app.dao.interfaces.UserDAO;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
@@ -76,6 +77,7 @@ public class UserNoticesRestaurantsFilter implements Filter {
 		}
 		RestaurantDAO restaurantDAO = (RestaurantDAO) request.getServletContext().getAttribute("restaurantdao");
 		NoticeDAO noticeDAO = (NoticeDAO) request.getServletContext().getAttribute("noticedao");
+		UserDAO userDAO = (UserDAO) request.getServletContext().getAttribute("userdao");
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse res = (HttpServletResponse) response;
 		
@@ -91,26 +93,37 @@ public class UserNoticesRestaurantsFilter implements Filter {
         }
 		
 		User user = (User) req.getSession(true).getAttribute("user");
+		
 		if (user != null) {
-			if(user instanceof Administrator) {
+			
+			User newUser = new User();
+			try {
+				newUser = userDAO.getUserById(user.getId());
+			} catch (Exception e) {
+			}
+			
+			if(newUser instanceof Administrator) {
 				try {
-					List<Notice> notices = noticeDAO.getAdministratorNotices(user.getId(), noticePage);
-					user.setNotices(notices);
+					List<Notice> notices = noticeDAO.getAdministratorNotices(newUser.getId(), noticePage);
+					newUser.setNotices(notices);
 				} catch (Exception ex) {
 					Logger.getLogger(UserProfileController.class.getName()).log(Level.SEVERE, null, ex);
 				}
 			}
 
-			if(user instanceof RestaurantOwner) {
+			if(newUser instanceof RestaurantOwner) {
 				try {
-					List<Notice> notices = noticeDAO.getRestaurantOwnerNotices(user.getId(), noticePage);
-					user.setNotices(notices);
-					RestaurantOwner restaurantOwner = (RestaurantOwner) user;
-					restaurantOwner.setRestaurants(restaurantDAO.getRestaurantByUserId(user.getId()));
+					List<Notice> notices = noticeDAO.getRestaurantOwnerNotices(newUser.getId(), noticePage);
+					newUser.setNotices(notices);
+					RestaurantOwner restaurantOwner = (RestaurantOwner) newUser;
+					restaurantOwner.setRestaurants(restaurantDAO.getRestaurantByUserId(newUser.getId()));
 				} catch (Exception ex) {
 					Logger.getLogger(UserProfileController.class.getName()).log(Level.SEVERE, null, ex);
 				}
 			}
+			user = newUser;
+			req.getSession(true).removeAttribute("user");
+			req.getSession(true).setAttribute("user", user);
 		}
 		
 		request.setAttribute("user", user);

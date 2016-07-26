@@ -85,10 +85,16 @@ public class UserProfileController extends AbstractController {
                 // to show.
                 int pageIndex = request.getQueryString().indexOf("&noticePage=");
                 String queryString = request.getQueryString().substring(0, pageIndex);
-                request.setAttribute("nextPagination", noticePage-1);
-                response.sendRedirect(request.getContextPath()+"/userProfile/show?"
-                        + queryString +"&noticePage="
-                        + String.valueOf(noticePage-1));
+                if (noticePage > 0) {
+					request.setAttribute("nextPagination", noticePage-1);
+					response.sendRedirect(request.getContextPath()+"/userProfile/show?"
+							+ queryString +"&noticePage="
+							+ String.valueOf(noticePage-1));
+				} else {
+					request.setAttribute("nextPagination", 0);
+					response.sendRedirect(request.getContextPath()+"/userProfile/show"
+                        + queryString);
+				}
                 return "";
             } else {
                 request.setAttribute("nextPagination", noticePage);

@@ -454,7 +454,7 @@
 									 Richiesta Reclamo
 								</div>
 								<div class="content">
-									<p:claimRestaurantForm ownershipNotice="${ownershipNotice}" />
+									<p:claimRestaurantForm bean="${ownershipNotice}" />
 								</div>
 							</div>
 						</div>
