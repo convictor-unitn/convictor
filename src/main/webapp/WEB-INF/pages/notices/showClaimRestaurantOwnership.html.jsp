@@ -13,6 +13,7 @@
 
 <l:main>
 	<jsp:attribute name="title">Reclamo ristorante</jsp:attribute>
+	<jsp:attribute name="bodyBackground">#eaeaea</jsp:attribute>
 	
 	<jsp:attribute name="body">
 		<div class="ui one centered column grid">

@@ -29,6 +29,7 @@
       
       <!-- Notifications list-->      
       <div class="stretched column">
+		  <div class="ui segment">
           <div class="center text"> <h2> Notifiche </h2> </div>
         </br>
 
@@ -96,6 +97,7 @@
 				</c:forEach>
             </div>
         </div>
+		</div>
       </div>
       <!-- END Notifications list-->
 

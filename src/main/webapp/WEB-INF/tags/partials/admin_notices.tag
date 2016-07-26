@@ -8,6 +8,7 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setTimeZone value="GMT+4" />
     <div class="ui container">
+		<div class="ui segment">
         <div class="text"> <h2> Notifiche </h2> </div>
         </br>
 
@@ -72,3 +73,4 @@
             </div>
         </div>
     </div>
+	</div>
