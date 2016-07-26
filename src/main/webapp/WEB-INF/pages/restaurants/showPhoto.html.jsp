@@ -28,15 +28,15 @@
 								<form method="POST" action="${pageContext.servletContext.contextPath}/restaurants/approveReport">
 									<input type="hidden" name="photoId" value="${photo.id}">
 									<input type="hidden" name="noticeId" value="${requestScope.noticeId}">
-									<input type="submit" class="ui basic button blue" name="approve" value="Approva">
-									<input type="submit" class="ui basic button blue" name="reject" value="Rifiuta">
+									<input type="submit" class="ui basic button black" name="approve" value="Approva">
+									<input type="submit" class="ui basic button black" name="reject" value="Rifiuta">
 								</form>
 							</c:when>
 							<c:otherwise>
 								<form method="POST" action="${pageContext.servletContext.contextPath}/restaurants/report">
 									<input type="hidden" name="photoId" value="${photo.id}">
 									<c:if test="${empty requestScope.alreadyReport || requestScope.alreadyReport != true}">
-										<input type="submit" class="ui basic button blue" value="Segnala foto">
+										<input type="submit" class="ui basic button black" value="Segnala foto">
 									</c:if>
 									<c:if test="${!empty requestScope.alreadyReport && requestScope.alreadyReport == true}">
 										La foto è già stata segnalata all'amministratore.
