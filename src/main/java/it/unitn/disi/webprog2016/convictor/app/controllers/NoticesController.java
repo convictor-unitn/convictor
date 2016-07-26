@@ -169,7 +169,7 @@ public class NoticesController extends AbstractController {
 				DeleteObjectRequest deleteRequest = new DeleteObjectRequest(S3_BUCKET_NAME, S3_BUCKET_NAME);
 				*/
 				//noticeDAO.deletePhotoNotice(noticeId);
-				//photoDAO.deletePhotoById(id);
+				photoDAO.deletePhotoById(id);
 			}
 			
 			
