@@ -13,24 +13,34 @@
 
 <l:main>
 	<jsp:attribute name="title">Segnala Fotografia</jsp:attribute>
-	<jsp:attribute name="bodyBackground">#eaeaea</jsp:attribute>	
+	
 	<jsp:attribute name="body">
-		<div class="ui blue icon message">
-			<i class="check circle icon"></i>
-				<div class="content">
-					<div class="header">
-						<c:choose>
-							<c:when test="${requestScope.status == false}">
-								La richiesta di rimozione è stata rifiutata.
-							</c:when>
-							<c:otherwise>
-								La foto è stata eliminata con successo.
-							</c:otherwise>
-						</c:choose>
+		<c:choose>
+			<c:when test="${requestScope.status == false}">								
+				<div class="ui red icon message">
+					<i class="check frown icon"></i>
+					<div class="content">
+						<div class="header">
+						  La richiesta di rimozione è stata rifiutata.
+						</div>
 					</div>
+					<a href="${pageContext.servletContext.contextPath}/userProfile/show" class="ui red submit button">Indietro</a>
 				</div>
-			<a href="${pageContext.servletContext.contextPath}/userProfile/show" class="ui blue submit button">Indietro</a>
-		</div>
+			</c:when>
+
+
+			<c:otherwise>
+				<div class="ui blue icon message">
+					<i class="check circle icon"></i>
+					<div class="content">
+						<div class="header">
+						  La foto è stata eliminata con successo.
+						</div>
+					</div>
+					<a href="${pageContext.servletContext.contextPath}/userProfile/show" class="ui blue submit button">Indietro</a>
+				</div>							
+			</c:otherwise>
+		</c:choose>		
 	</jsp:attribute>
 </l:main>
 
